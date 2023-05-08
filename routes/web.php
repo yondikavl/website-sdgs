@@ -1,6 +1,15 @@
 <?php
 
+use App\Http\Middleware\SuperAdmin;
+use App\Http\Middleware\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\IndikatorController;
+use App\Http\Controllers\Admin\SubIndikatorController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +22,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // CMS SUPER ADMIN
+    Route::middleware([SuperAdmin::class])->name('super.')->prefix('super')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::resource('user', UserController::class);
+        Route::resource('indikator', IndikatorController::class);
+        Route::resource('subindikator', SubIndikatorController::class);
+    });
+
+    // CMS ADMIN
+    Route::middleware([Admin::class])->name('admin.')->prefix('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::resource('user', UserController::class);
+        Route::resource('indikator', IndikatorController::class);
+        Route::resource('subindikator', SubIndikatorController::class);
+    });
+});
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/verifikasi', function () {
+    return view('auth.verify');
 });
