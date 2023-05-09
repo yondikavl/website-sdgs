@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\SuperAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Client\TargetController;
+use App\Http\Controllers\Client\TujuanController;
+use App\Http\Controllers\Client\ProgramController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Admin\SubIndikatorController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,15 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 });
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/tujuan', function () {
-    return view('client.tujuan');
-});
-Route::get('/target', function () {
-    return view('client.target');
-});
-Route::get('/program', function () {
-    return view('client.program');
-});
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
+Route::get('target', [TargetController::class, 'index'])->name('target');
+Route::get('program', [ProgramController::class, 'index'])->name('program');

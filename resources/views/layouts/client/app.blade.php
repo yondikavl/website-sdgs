@@ -48,9 +48,11 @@
 </head>
 <body>
     <main>
-        <div style="padding-left: 233px; padding-right: 233px;">
+        <div style="padding-left: 225px; padding-right: 225px;">
             @include('layouts.client.navbar')
-            @yield('content')
+            <div class="p-5">
+                @yield('content')
+            </div>
             @include('layouts.client.footer')
         </div>
     </main>

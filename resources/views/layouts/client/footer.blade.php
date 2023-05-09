@@ -1,3 +1,4 @@
+<img src="{{ asset('assets/img/slider.png') }}" alt="">
 <footer style="background-color: #f7f7f7;">
   <div style="padding: 45px;">
     <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/logo-sdgs.png') }}" width="50" alt=""></a>
@@ -21,3 +22,4 @@
     </p>
   </div>
 </footer>
+<img src="{{ asset('assets/img/slider.png') }}" alt="">
