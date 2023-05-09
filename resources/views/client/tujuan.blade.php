@@ -1,7 +1,7 @@
 @extends('layouts.client.app')
 
-@section('title', 'Beranda')
+@section('title', 'Tujuan')
 
 @section('content')
-<h1>Ini Beranda</h1>
+
 @endsection

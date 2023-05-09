@@ -23,14 +23,14 @@ class UserController extends Controller
     {
         $request->validate(
             [
-                'nama_user' => 'required|max:255',
+                'nama' => 'required|max:255',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:8',
                 'roles_id' => 'required'
             ],
             [
-                'nama_user.required' => 'Nama User tidak boleh kosong',
-                'nama_user.max' => 'Nama User tidak boleh lebih dari 255 karakter',
+                'nama.required' => 'Nama User tidak boleh kosong',
+                'nama.max' => 'Nama User tidak boleh lebih dari 255 karakter',
                 'email.required' => 'Email tidak boleh kosong',
                 'email.email' => 'Email tidak valid',
                 'email.unique' => 'Email sudah terdaftar',
@@ -41,7 +41,7 @@ class UserController extends Controller
         );
 
         $user = User::create([
-            'nama_user' => $request->nama_user,
+            'nama' => $request->nama,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'roles_id' => $request->roles_id
@@ -88,34 +88,31 @@ class UserController extends Controller
     {
         $request->validate(
             [
-                'nama_user' => 'required|max:255',
+                'nama' => 'required|max:255',
                 'email' => 'required|email|unique:users,email,' . $id,
-                'password' => 'required|min:8',
                 'roles_id' => 'required'
             ],
             [
-                'nama_user.required' => 'Nama User tidak boleh kosong',
-                'nama_user.max' => 'Nama User tidak boleh lebih dari 255 karakter',
+                'nama.required' => 'Nama User tidak boleh kosong',
+                'nama.max' => 'Nama User tidak boleh lebih dari 255 karakter',
                 'email.required' => 'Email tidak boleh kosong',
                 'email.email' => 'Email tidak valid',
                 'email.unique' => 'Email sudah terdaftar',
-                'password.required' => 'Password tidak boleh kosong',
-                'password.min' => 'Password tidak boleh kurang dari 8 karakter',
                 'roles_id.required' => 'Role tidak boleh kosong'
             ]
         );
 
         if ($request->password == null) {
-            $user = User::where('id', $id)->firstOrFail();
+            $user = User::where('id', $id)->first();
             $user->update([
-                'nama_user' => $request->nama_user,
+                'nama' => $request->nama,
                 'email' => $request->email,
                 'roles_id' => $request->roles_id
             ]);
         } else {
-            $user = User::where('id', $id)->firstOrFail();
+            $user = User::where('id', $id)->first();
             $user->update([
-                'nama_user' => $request->nama_user,
+                'nama' => $request->nama,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'roles_id' => $request->roles_id

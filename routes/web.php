@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
     // CMS SUPER ADMIN
     Route::middleware([SuperAdmin::class])->name('super.')->prefix('super')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::resource('user', UserController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
@@ -38,15 +38,23 @@ Route::middleware(['auth'])->group(function () {
 
     // CMS ADMIN
     Route::middleware([Admin::class])->name('admin.')->prefix('admin')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::resource('user', UserController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
     });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 });
 
-Route::get('/', [HomeController::class, 'index']);
-
-Route::get('/verifikasi', function () {
-    return view('auth.verify');
+Route::get('/', function () {
+    return view('home');
+});
+Route::get('/tujuan', function () {
+    return view('client.tujuan');
+});
+Route::get('/target', function () {
+    return view('client.target');
+});
+Route::get('/program', function () {
+    return view('client.program');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Indikator;
 use App\Models\Subindikator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class SubindikatorController extends Controller
 
     public function create()
     {
-        return view('admin.subindikator.create');
+        $indikators = Indikator::all();
+        return view('admin.subindikator.create', compact('indikators'));
     }
 
     public function store(Request $request)
@@ -68,14 +70,16 @@ class SubindikatorController extends Controller
 
     public function show($id)
     {
+        $indikators = Indikator::all();
         $subindikator = SubIndikator::where('id', $id)->firstOrFail();
-        return view('admin.subindikator.show', compact('subindikator'));
+        return view('admin.subindikator.show', compact('subindikator', 'indikators'));
     }
 
     public function edit($id)
     {
+        $indikators = Indikator::all();
         $subindikator = SubIndikator::where('id', $id)->firstOrFail();
-        return view('admin.subindikator.edit', compact('subindikator'));
+        return view('admin.subindikator.edit', compact('subindikator', 'indikators'));
     }
 
     public function update(Request $request, $id)

@@ -31,10 +31,10 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{ asset('assets/img/logo.png') }}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-<div class="card card-success m-2" style="width: 500px;">
+  <div class="card card-success m-2" style="width: 500px;">
     <div class="card-header">
       <h3 class="card-title">{{ __('Login Admin') }}</h3>
     </div>
