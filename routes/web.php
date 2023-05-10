@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuanController;
+use App\Http\Controllers\Client\BerandaController;
 use App\Http\Controllers\Client\ProgramController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndikatorController;
@@ -29,6 +30,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // CMS SUPER ADMIN
@@ -46,10 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
     });
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/', [BerandaController::class, 'index'])->name('index');
 Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
 Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
