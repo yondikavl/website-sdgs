@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
+Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
 Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
