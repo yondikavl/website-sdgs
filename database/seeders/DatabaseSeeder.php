@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PilarSeeder::class,
             IndikatorSeeder::class,
             SubIndikatorSeeder::class,
+            AktivitasSeeder::class,
         ]);
     }
 }

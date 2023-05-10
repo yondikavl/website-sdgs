@@ -9,7 +9,7 @@
     <h2>{{$pilar->nama_pilar}}</h2>
     <p>{{$pilar->deskripsi_pilar}}</p>
 </div>
-<div>
+<div class="text-center">
     @foreach ($indikators->where('pilar_id', $pilar->id) as $indikator)
     <a href="/indikator/{{$indikator->id}}">
         <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="185" alt="">

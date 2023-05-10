@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\SubIndikator;
 use App\Models\Indikator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class TujuanController extends Controller
 
     public function show($id)
     {
-        $indikator = Indikator::where('id', $id)->firstOrFail();
-        return view('client.detail-indikator', compact('indikator'));
+        $indikator = Indikator::findOrFail($id);
+        $subindikators = SubIndikator::where('indikator_id', $id)->get();
+        return view('client.detail-indikator', compact('indikator', 'subindikators'));
     }
 }

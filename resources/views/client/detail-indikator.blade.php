@@ -9,4 +9,11 @@
     <h2>{{$indikator->nama_indikator}}</h2>
     <p>{{$indikator->deskripsi_indikator}}</p>
 </div>
+<div class="text-center">
+    @foreach ($subindikators->where('indikator_id', $indikator->id) as $subindikator)
+    <a href="/subindikator/{{$subindikator->id}}">
+        <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="185" alt="">
+    </a>
+    @endforeach
+</div>
 @endsection
