@@ -14,7 +14,9 @@ class DashboardController extends Controller
     {
         $indikators = Indikator::all();
         $subindikators = SubIndikator::all();
-        $users = User::all();
-        return view('admin.dashboard', compact('indikators', 'subindikators', 'users'));
+        $totaluser = cache()->remember('totaluser', 33600, function () {
+            return User::where('roles_id', 2)->count();
+        });
+        return view('admin.dashboard', compact('indikators', 'subindikators', 'totaluser'));
     }
 }

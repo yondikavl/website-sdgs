@@ -1,11 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Tambah Data Indikator')
+@section('title', 'Tambah Indikator')
 
 @section('content')
 <div class="card card-success m-2" style="width: 500px;">
     <div class="card-header">
-      <h3 class="card-title">{{ __('Tambah Data Indikator') }}</h3>
+      <h3 class="card-title">{{ __('Tambah Indikator') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
@@ -16,6 +16,19 @@
     @endif
         @csrf
       <div class="card-body">
+        <div class="form-group">
+          <label for="pilar_id">{{ __('ID Pilar') }}</label>
+          <select class="form-control col-form-label rounded-2" name="pilar_id" id="pilar_id" required>
+            @foreach ($pilars as $pilar)
+              <option value="{{$pilar->id}}">{{$pilar->id}}. {{$pilar->nama_pilar}}</option>
+            @endforeach
+          </select>  
+            @error('pilar_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="form-group">
           <label for="nama_indikator">{{ __('Nama Indikator') }}</label>
           <input type="nama_indikator" class="form-control @error('nama_indikator') is-invalid @enderror" id="nama_indikator" placeholder="Masukkan nama indikator" value="{{ old('nama_indikator') }}" name="nama_indikator" required autocomplete="nama_indikator" autofocus>

@@ -17,7 +17,8 @@ class IndikatorController extends Controller
 
     public function create()
     {
-        return view('admin.indikator.create');
+        $pilars = Pilar::all();
+        return view('admin.indikator.create', compact('pilars'));
     }
 
     public function store(Request $request)
@@ -67,16 +68,16 @@ class IndikatorController extends Controller
 
     public function show($id)
     {
-        $pilar = Pilar::where('id', $id)->firstOrFail();
+        $pilars = Pilar::all();
         $indikator = Indikator::where('id', $id)->firstOrFail();
-        return view('admin.indikator.show', compact('indikator'));
+        return view('admin.indikator.show', compact('indikator', 'pilars'));
     }
 
     public function edit($id)
     {
-        $pilar = Pilar::where('id', $id)->firstOrFail();
+        $pilars = Pilar::all();
         $indikator = Indikator::where('id', $id)->firstOrFail();
-        return view('admin.indikator.edit', compact('indikator'));
+        return view('admin.indikator.edit', compact('indikator', 'pilars'));
     }
 
     public function update(Request $request, $id)

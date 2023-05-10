@@ -1,11 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Tambah Data Sub-Indikator')
+@section('title', 'Tambah Sub-Indikator')
 
 @section('content')
 <div class="card card-success m-2" style="width: 500px;">
     <div class="card-header">
-      <h3 class="card-title">{{ __('Tambah Data Sub-Indikator') }}</h3>
+      <h3 class="card-title">{{ __('Tambah Sub-Indikator') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
@@ -20,7 +20,7 @@
           <label for="indikator_id">{{ __('ID Indikator') }}</label>
           <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
             @foreach ($indikators as $indikator)
-            <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
+              <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
             @endforeach
           </select>  
             @error('indikator_id')

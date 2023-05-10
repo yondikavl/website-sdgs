@@ -1,12 +1,12 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Kelola Pilar')
+@section('title', 'Kelola aktivitas')
 
 @section('content')
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ __('Tabel Data Pilar') }}</h3>
+                <h3 class="card-title">{{ __('Tabel Data Aktivitas') }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -14,33 +14,35 @@
                   <thead>
                   <tr>
                     <th>No</th>
+                    <th>ID Sub-Indikator</th>
                     <th>Ikon</th>
-                    <th>Nama Pilar</th>
+                    <th>Nama Aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pilars as $pilar)
+                    @foreach ($aktivitass as $aktivitas)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td><img src="{{ asset('assets/ikon/'.$pilar->ikon_pilar) }}" alt="" width="50"></td>
-                    <td>{{$pilar->nama_pilar}}</td>
-                    <td>{{$pilar->deskripsi_pilar}}</td>
+                    <td>{{$aktivitas->subindikator_id}}</td>
+                    <td><img src="{{ asset('assets/ikon/'.$aktivitas->ikon_aktivitas) }}" alt="" width="50"></td>
+                    <td>{{$aktivitas->nama_aktivitas}}</td>
+                    <td>{{$aktivitas->deskripsi_aktivitas}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
-                          <a href="{{ route('super.pilar.show',$pilar->id) }}" class="show-button">
+                          <a href="{{ route('super.aktivitas.show',$aktivitas->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('super.pilar.edit',$pilar->id) }}" class="edit-button">
+                          <a href="{{ route('super.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                           <!-- Button trigger modal -->
-                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$pilar->id}}">
+                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$aktivitas->id}}">
                             <i class="fa-solid fa-trash-can"></i>
                           </a>
                           <!-- Modal -->
-                          <div class="modal fade bd-example-modal-sm{{$pilar->id}}" tabindex="-1" role="dialog" aria-hidden="">
+                          <div class="modal fade bd-example-modal-sm{{$aktivitas->id}}" tabindex="-1" role="dialog" aria-hidden="">
                             <div class="modal-dialog ">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -50,7 +52,7 @@
                                     </div>
                                     <div class="modal-body">Apakah anda yakin ingin menghapus data?</div>
                                     <div class="modal-footer">
-                                        <form action="{{route('super.pilar.destroy', $pilar->id)}}" method="POST">
+                                        <form action="{{route('super.aktivitas.destroy', $aktivitas->id)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <input type="submit" class="btn btn-danger light" name="" id="" value="Hapus">
@@ -61,10 +63,10 @@
                             </div>
                           </div>
                           @elseif(auth()->user()->roles_id == 2)
-                          <a href="{{ route('admin.pilar.show',$pilar->id) }}" class="show-button">
+                          <a href="{{ route('admin.aktivitas.show',$aktivitas->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('admin.pilar.edit',$pilar->id) }}" class="edit-button">
+                          <a href="{{ route('admin.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                         @endif
@@ -75,7 +77,9 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
-                    <th>Nama Pilar</th>
+                    <th>ID Sub-Indikator</th>
+                    <th>Ikon</th>
+                    <th>Nama aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>
                   </tr>

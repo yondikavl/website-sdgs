@@ -43,6 +43,29 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-white">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Pilar
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/super/pilar/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Data Pilar</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/super/pilar/create/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Tambah Data pilar</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-copy"></i>
           <p>
             Indikator
@@ -83,6 +106,29 @@
             <a href="/super/subindikator/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
               <p><small>Tambah Data Sub-Indikator</small></p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
+          <i class="nav-icon fas fa-chart-line"></i>
+          <p>
+            Aktivitas
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/super/aktivitas/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Data Aktivitas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/super/aktivitas/create/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p><small>Tambah Data Aktivitas</small></p>
             </a>
           </li>
         </ul>
@@ -144,6 +190,23 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-white">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Pilar
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/admin/pilar/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Data Pilar</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-copy"></i>
           <p>
             Indikator
@@ -178,6 +241,29 @@
             <a href="/admin/subindikator/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
               <p><small>Tambah Data Sub-Indikator</small></p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
+          <i class="nav-icon fas fa-chart-line"></i>
+          <p>
+            Aktivitas
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/admin/aktivitas/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Data Aktivitas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/aktivitas/create/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p><small>Tambah Data Aktivitas</small></p>
             </a>
           </li>
         </ul>

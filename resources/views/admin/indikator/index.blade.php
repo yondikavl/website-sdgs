@@ -14,6 +14,7 @@
                   <thead>
                   <tr>
                     <th>No</th>
+                    <th>ID Pilar</th>
                     <th>Ikon</th>
                     <th>Nama Indikator</th>
                     <th>Deskripsi</th>
@@ -24,6 +25,7 @@
                     @foreach ($indikators as $indikator)
                   <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$indikator->pilar_id}}</td>
                     <td><img src="{{ asset('assets/ikon/'.$indikator->ikon_indikator) }}" alt="" width="50"></td>
                     <td>{{$indikator->nama_indikator}}</td>
                     <td>{{$indikator->deskripsi_indikator}}</td>
@@ -75,6 +77,8 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
+                    <th>ID Pilar</th>
+                    <th>Ikon</th>
                     <th>Nama Indikator</th>
                     <th>Deskripsi</th>
                     <th>More</th>

@@ -1,11 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Edit Data Sub-Indikator')
+@section('title', 'Edit Sub-Indikator')
 
 @section('content')
 <div class="card card-success m-2" style="width: 500px;">
     <div class="card-header">
-      <h3 class="card-title">{{ __('Edit Data Sub-Indikator') }}</h3>
+      <h3 class="card-title">{{ __('Edit Sub-Indikator') }}</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->

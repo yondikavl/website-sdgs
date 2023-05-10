@@ -15,6 +15,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Indikator</th>
+                    <th>Ikon</th>
                     <th>Nama Sub-Indikator</th>
                     <th>Deskripsi</th>
                     <th>More</th>
@@ -25,6 +26,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$subindikator->indikator_id}}</td>
+                    <td><img src="{{ asset('assets/ikon/'.$subindikator->ikon_subindikator) }}" alt="" width="50"></td>
                     <td>{{$subindikator->nama_sub}}</td>
                     <td>{{$subindikator->deskripsi_sub}}</td>
                     <td class="manage-row">
@@ -76,6 +78,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Indikator</th>
+                    <th>Ikon</th>
                     <th>Nama Sub-Indikator</th>
                     <th>Deskripsi</th>
                     <th>More</th>

@@ -46,8 +46,12 @@
             @enderror
         </div>
         <div class="">
-            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
-          </div>
+          @if (auth()->user()->roles_id == 1)
+            <a class="btn btn-success" href="/super/subindikator/">{{ __('Kembali') }}</a>
+          @elseif (auth()->user()->roles_id == 2)  
+            <a class="btn btn-success" href="/admin/subindikator/">{{ __('Kembali') }}</a>
+          @endif
+        </div>
       </div>
       <!-- /.card-body -->      
     </form>
