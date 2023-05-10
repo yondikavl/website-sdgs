@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Pilar;
 use App\Models\Indikator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,10 +24,12 @@ class IndikatorController extends Controller
     {
         $request->validate(
             [
+                'pilar_id' => 'required',
                 'nama_indikator' => 'required|max:255',
                 'deskripsi_indikator' => 'required'
             ],
             [
+                'pilar_id.required' => 'Pilar tidak boleh kosong',
                 'nama_indikator.required' => 'Nama Indikator tidak boleh kosong',
                 'nama_indikator.max' => 'Nama Indikator tidak boleh lebih dari 255 karakter',
                 'deskripsi_indikator.required' => 'Deskripsi Indikator tidak boleh kosong'
@@ -34,6 +37,7 @@ class IndikatorController extends Controller
         );
 
         $indikator = Indikator::create([
+            'pilar_id' => $request->pilar_id,
             'nama_indikator' => $request->nama_indikator,
             'deskripsi_indikator' => $request->deskripsi_indikator
         ]);
@@ -63,12 +67,14 @@ class IndikatorController extends Controller
 
     public function show($id)
     {
+        $pilar = Pilar::where('id', $id)->firstOrFail();
         $indikator = Indikator::where('id', $id)->firstOrFail();
         return view('admin.indikator.show', compact('indikator'));
     }
 
     public function edit($id)
     {
+        $pilar = Pilar::where('id', $id)->firstOrFail();
         $indikator = Indikator::where('id', $id)->firstOrFail();
         return view('admin.indikator.edit', compact('indikator'));
     }
@@ -77,10 +83,12 @@ class IndikatorController extends Controller
     {
         $request->validate(
             [
+                'pilar_id' => 'required',
                 'nama_indikator' => 'required|max:255',
                 'deskripsi_indikator' => 'required'
             ],
             [
+                'pilar_id.required' => 'Pilar tidak boleh kosong',
                 'nama_indikator.required' => 'Nama Indikator tidak boleh kosong',
                 'nama_indikator.max' => 'Nama Indikator tidak boleh lebih dari 255 karakter',
                 'deskripsi_indikator.required' => 'Deskripsi Indikator tidak boleh kosong'
@@ -88,6 +96,7 @@ class IndikatorController extends Controller
         );
 
         $indikator = Indikator::where('id', $id)->update([
+            'pilar_id' => $request->pilar_id,
             'nama_indikator' => $request->nama_indikator,
             'deskripsi_indikator' => $request->deskripsi_indikator
         ]);

@@ -51,5 +51,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
+Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
 Route::get('program', [ProgramController::class, 'index'])->name('program');
