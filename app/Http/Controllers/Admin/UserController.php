@@ -49,11 +49,11 @@ class UserController extends Controller
 
         $validasi = $request->validate(
             [
-                'foto_user' => 'image|mimes:png,jpg,jpeg|max:2048'
+                'foto_user' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
             ],
             [
                 'foto_user.image' => 'Foto User harus berupa gambar',
-                'foto_user.mimes' => 'Foto User harus berupa gambar dengan format png, jpg, jpeg',
+                'foto_user.mimes' => 'Foto User harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'foto_user.max' => 'Foto User tidak boleh lebih dari 2MB'
             ]
         );
@@ -121,11 +121,11 @@ class UserController extends Controller
 
         $validasi = $request->validate(
             [
-                'foto_user' => 'image|mimes:png,jpg,jpeg|max:2048'
+                'foto_user' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
             ],
             [
                 'foto_user.image' => 'Foto User harus berupa gambar',
-                'foto_user.mimes' => 'Foto User harus berupa gambar dengan format png, jpg, jpeg',
+                'foto_user.mimes' => 'Foto User harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'foto_user.max' => 'Foto User tidak boleh lebih dari 2MB'
             ]
         );

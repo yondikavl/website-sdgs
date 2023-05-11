@@ -17,6 +17,15 @@
         @csrf
       <div class="card-body">
         <div class="form-group">
+          <label for="ikon_pilar">{{ __('Ikon Pilar') }}</label>
+          <input type="file" class="form-control @error('ikon_pilar') is-invalid @enderror" id="ikon_pilar" placeholder="Masukkan ikon pilar" value="{{ old('ikon_pilar') }}" name="ikon_pilar" required autocomplete="ikon_pilar" autofocus>
+            @error('ikon_pilar')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
           <label for="nama_pilar">{{ __('Nama Pilar') }}</label>
           <input type="nama_pilar" class="form-control @error('nama_pilar') is-invalid @enderror" id="nama_pilar" placeholder="Masukkan nama pilar" value="{{ old('nama_pilar') }}" name="nama_pilar" required autocomplete="nama_pilar" autofocus>
             @error('nama_pilar')

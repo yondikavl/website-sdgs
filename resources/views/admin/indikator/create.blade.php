@@ -17,6 +17,15 @@
         @csrf
       <div class="card-body">
         <div class="form-group">
+          <label for="ikon_indikator">{{ __('Ikon Indikator') }}</label>
+          <input type="file" class="form-control @error('ikon_indikator') is-invalid @enderror" id="ikon_indikator" placeholder="Masukkan ikon indikator" value="{{ old('ikon_indikator') }}" name="ikon_indikator" required autocomplete="ikon_indikator" autofocus>
+            @error('ikon_indikator')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
           <label for="pilar_id">{{ __('ID Pilar') }}</label>
           <select class="form-control col-form-label rounded-2" name="pilar_id" id="pilar_id" required>
             @foreach ($pilars as $pilar)

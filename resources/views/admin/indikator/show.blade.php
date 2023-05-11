@@ -16,6 +16,27 @@
     @endif
         @csrf
       <div class="card-body">
+        <div class="text-center py-3 form-group">
+          <label for="ikon_indikator" style="cursor: pointer">
+            @if ($indikator->ikon_indikator == Null)
+                <i class="fa-solid fa-camera fa-2xl"></i>
+                <input type="file" class="visually-hidden" name="ikon_indikator" id="ikon_indikator" disabled>
+                @error('ikon_indikator')
+                    <span class="invalid-feedback text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            @else
+                <img src="{{ asset('assets/ikon') }}/{{ $indikator->ikon_indikator }}" style="width:200px !important; height:200px !important;" class="img-circle elevation-2" alt="">
+                <input type="file" class="visually-hidden" name="ikon_indikator" id="ikon_indikator" disabled>
+                @error('ikon_indikator')
+                    <span class="invalid-feedback text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            @endif
+          </label>
+        </div>
         <div class="form-group">
           <label for="pilar_id">{{ __('ID Pilar') }}</label>
           <select class="form-control col-form-label rounded-2" name="pilar_id" id="pilar_id" disabled>

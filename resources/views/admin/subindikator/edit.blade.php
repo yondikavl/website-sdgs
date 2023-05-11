@@ -16,6 +16,27 @@
     @endif
         @csrf
         @method('PUT')
+        <div class="text-center py-3 form-group">
+          <label for="ikon_sub" style="cursor: pointer">
+            @if ($sub->ikon_sub == Null)
+                <i class="fa-solid fa-camera fa-2xl"></i>
+                <input type="file" class="visually-hidden" name="ikon_sub" id="ikon_sub" enabled>
+                @error('ikon_sub')
+                    <span class="invalid-feedback text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            @else
+                <img src="{{ asset('assets/ikon') }}/{{ $sub->ikon_sub }}" style="width:200px !important; height:200px !important;" class="img-circle elevation-2" alt="">
+                <input type="file" class="visually-hidden" name="ikon_sub" id="ikon_sub" enabled>
+                @error('ikon_sub')
+                    <span class="invalid-feedback text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            @endif
+          </label>
+        </div>
       <div class="card-body">
         <div class="form-group">
           <label for="indikator_id">{{ __('ID Indikator Sekarang') }}</label>

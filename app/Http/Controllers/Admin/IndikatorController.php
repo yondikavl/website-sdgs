@@ -45,11 +45,11 @@ class IndikatorController extends Controller
 
         $validasi = $request->validate(
             [
-                'ikon_indikator' => 'image|mimes:png,jpg,jpeg|max:2048'
+                'ikon_indikator' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
             ],
             [
                 'ikon_indikator.image' => 'Ikon Indikator harus berupa gambar',
-                'ikon_indikator.mimes' => 'Ikon Indikator harus berupa gambar dengan format png, jpg, jpeg',
+                'ikon_indikator.mimes' => 'Ikon Indikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'ikon_indikator.max' => 'Ikon Indikator tidak boleh lebih dari 2MB'
             ]
         );
@@ -108,7 +108,7 @@ class IndikatorController extends Controller
             ],
             [
                 'ikon_indikator.image' => 'Ikon Indikator harus berupa gambar',
-                'ikon_indikator.mimes' => 'Ikon Indikator harus berupa gambar dengan format png, jpg, jpeg',
+                'ikon_indikator.mimes' => 'Ikon Indikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'ikon_indikator.max' => 'Ikon Indikator tidak boleh lebih dari 2MB'
             ]
         );

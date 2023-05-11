@@ -17,6 +17,27 @@
         @csrf
         @method('PUT')
         <div class="card-body">
+          <div class="text-center py-3 form-group">
+            <label for="ikon_aktivitas" style="cursor: pointer">
+              @if ($aktivitas->ikon_aktivitas == Null)
+                  <i class="fa-solid fa-camera fa-2xl"></i>
+                  <input type="file" class="visually-hidden" name="ikon_aktivitas" id="ikon_aktivitas" enabled>
+                  @error('ikon_aktivitas')
+                      <span class="invalid-feedback text-center" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              @else
+                  <img src="{{ asset('assets/ikon') }}/{{ $aktivitas->ikon_aktivitas }}" style="width:200px !important; height:200px !important;" class="img-circle elevation-2" alt="">
+                  <input type="file" class="visually-hidden" name="ikon_aktivitas" id="ikon_aktivitas" enabled>
+                  @error('ikon_aktivitas')
+                      <span class="invalid-feedback text-center" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              @endif
+            </label>
+          </div>
           <div class="form-group">
             <label for="subindikator_id">{{ __('ID Sub-Indikator Sekarang') }}</label>
             <select class="form-control col-form-label rounded-2" name="subindikator_id" id="subindikator_id" required>

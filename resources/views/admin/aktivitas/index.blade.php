@@ -15,7 +15,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Sub-Indikator</th>
-                    <th>Ikon</th>
+                    <th>Foto</th>
                     <th>Nama Aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>
@@ -78,7 +78,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Sub-Indikator</th>
-                    <th>Ikon</th>
+                    <th>Foto</th>
                     <th>Nama aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>

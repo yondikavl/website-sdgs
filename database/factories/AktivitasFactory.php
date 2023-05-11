@@ -18,7 +18,7 @@ class AktivitasFactory extends Factory
     {
         return [
             'subindikator_id' => $this->faker->numberBetween(1, 50),
-            'ikon_aktivitas' => $this->faker->word(),
+            'ikon_aktivitas' => 'default.png',
             'nama_aktivitas' => $this->faker->word(),
             'deskripsi_aktivitas' => $this->faker->text(),
         ];
