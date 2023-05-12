@@ -13,6 +13,6 @@ class AktivitasSeeder extends Seeder
      */
     public function run(): void
     {
-        Aktivitas::factory(50)->create();
+        Aktivitas::factory(100)->create();
     }
 }

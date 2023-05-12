@@ -10,9 +10,9 @@
     <!-- /.card-header -->
     <!-- form start -->
     @if (auth()->user()->roles_id == 1)
-    <form method="POST" action="{{ route('super.pilar.show', $pilar->id) }}">
+    <form method="POST" action="{{ route('super.pilar.show', $pilar->id) }}" enctype='multipart/form-data'>
     @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.pilar.show', $pilar->id) }}">
+    <form method="POST" action="{{ route('admin.pilar.show', $pilar->id) }}" enctype='multipart/form-data'>
     @endif
         @csrf
       <div class="card-body">

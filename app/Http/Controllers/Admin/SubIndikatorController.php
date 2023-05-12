@@ -48,7 +48,6 @@ class SubindikatorController extends Controller
                 'ikon_sub' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
             ],
             [
-                'ikon_sub.image' => 'Ikon subindikator harus berupa gambar',
                 'ikon_sub.mimes' => 'Ikon subindikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'ikon_sub.max' => 'Ikon subindikator tidak boleh lebih dari 2MB'
             ]
@@ -109,7 +108,6 @@ class SubindikatorController extends Controller
                 'ikon_sub' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
             ],
             [
-                'ikon_sub.image' => 'Ikon subindikator harus berupa gambar',
                 'ikon_sub.mimes' => 'Ikon subindikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
                 'ikon_sub.max' => 'Ikon subindikator tidak boleh lebih dari 2MB'
             ]

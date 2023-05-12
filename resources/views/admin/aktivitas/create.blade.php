@@ -10,15 +10,15 @@
     <!-- /.card-header -->
     <!-- form start -->
     @if (auth()->user()->roles_id == 1)
-    <form method="POST" action="{{ route('super.aktivitas.store') }}">
+    <form method="POST" action="{{ route('super.aktivitas.store') }}" enctype='multipart/form-data'>
     @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.aktivitas.store') }}">
+    <form method="POST" action="{{ route('admin.aktivitas.store') }}" enctype='multipart/form-data'>
     @endif
         @csrf
       <div class="card-body">
         <div class="form-group">
           <label for="ikon_aktivitas">{{ __('Ikon Aktivitas') }}</label>
-          <input type="file" class="form-control @error('ikon_aktivitas') is-invalid @enderror" id="ikon_aktivitas" name="ikon_aktivitas" required autocomplete="ikon_aktivitas" autofocus enabled>
+          <input type="file" class="form-control @error('ikon_aktivitas') is-invalid @enderror" id="ikon_aktivitas" name="ikon_aktivitas" required>
             @error('ikon_aktivitas')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

@@ -46,12 +46,11 @@ class AktivitasController extends Controller
 
         $validasi = $request->validate(
             [
-                'ikon_aktivitas' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
+                'ikon_aktivitas' => 'mimes:jpg,bmp,png,svg,jpeg|max:10240'
             ],
             [
-                'ikon_aktivitas.image' => 'Ikon aktivitas harus berupa gambar',
                 'ikon_aktivitas.mimes' => 'Ikon aktivitas harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_aktivitas.max' => 'Ikon aktivitas tidak boleh lebih dari 2MB'
+                'ikon_aktivitas.max' => 'Ikon aktivitas tidak boleh lebih dari 10MB'
             ]
         );
 
@@ -107,12 +106,11 @@ class AktivitasController extends Controller
 
         $validasi = $request->validate(
             [
-                'ikon_aktivitas' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
+                'ikon_aktivitas' => 'mimes:jpg,bmp,png,svg,jpeg|max:10240'
             ],
             [
-                'ikon_aktivitas.image' => 'Ikon aktivitas harus berupa gambar',
                 'ikon_aktivitas.mimes' => 'Ikon aktivitas harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_aktivitas.max' => 'Ikon aktivitas tidak boleh lebih dari 2MB'
+                'ikon_aktivitas.max' => 'Ikon aktivitas tidak boleh lebih dari 10MB'
             ]
         );
 
