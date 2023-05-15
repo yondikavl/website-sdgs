@@ -70,7 +70,7 @@
             @enderror
         </div>
   
-        <div class="">
+        <div class="mt-4">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>
       </div>

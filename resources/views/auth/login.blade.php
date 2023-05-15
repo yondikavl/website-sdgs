@@ -34,7 +34,7 @@
     <img class="animation__shake" src="{{ asset('assets/img/logo.png') }}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  <div class="card card-success m-2">
+  <div class="card card-success m-2" style="width: 500px;">
     <div class="card-header">
       <h3 class="card-title">{{ __('Login Admin') }}</h3>
     </div>
@@ -42,7 +42,7 @@
     <!-- form start -->
     <form method="POST" action="{{ route('login') }}">
         @csrf
-      <div class="card-body">
+      <div class="card-body" style="background-size: 200px; background-repeat: no-repeat; background-position-x: 50%; background-image: url('{{asset('assets/img/logo.png')}}'); ">
         <div class="form-group">
           <label for="email">{{ __('Alamat Email') }}</label>
           <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" name="email" required autocomplete="email" autofocus>

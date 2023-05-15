@@ -23,13 +23,39 @@
             <div class="carousel-inner">
                 @foreach ($pilars as $index => $pilar)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <a class="card bg-gradient-success w-100 text-white p-4" href="/pilar/{{$pilar->id}}">
-                        <div class="d-flex justify-content-center align-items-center mb-3">
-                            <img src="{{ asset('assets/ikon/'. $pilar->ikon_pilar) }}" width="50" alt="">
-                        </div>
-                        <h3 class="text-center">{{$pilar->nama_pilar}}</h3>
-                        <p class="text-center d-none d-md-block">{{$pilar->deskripsi_pilar}}</p>
-                    </a>
+                  @if ($pilar->id == 1)
+                  <a class="card bg-gradient-danger w-100 text-white p-4" href="/pilar/{{$pilar->id}}">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img src="{{ asset('assets/ikon/'. $pilar->ikon_pilar) }}" width="50" alt="">
+                    </div>
+                    <h3 class="text-center">{{$pilar->nama_pilar}}</h3>
+                    <p class="text-center d-none d-md-block">{{$pilar->deskripsi_pilar}}</p>
+                </a>
+                  @elseif ($pilar->id == 2)
+                  <a class="card bg-gradient-warning w-100 text-white p-4" href="/pilar/{{$pilar->id}}">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img src="{{ asset('assets/ikon/'. $pilar->ikon_pilar) }}" width="50" alt="">
+                    </div>
+                    <h3 class="text-center">{{$pilar->nama_pilar}}</h3>
+                    <p class="text-center d-none d-md-block">{{$pilar->deskripsi_pilar}}</p>
+                </a>
+                  @elseif ($pilar->id == 3)
+                  <a class="card bg-gradient-success w-100 text-white p-4" href="/pilar/{{$pilar->id}}">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img src="{{ asset('assets/ikon/'. $pilar->ikon_pilar) }}" width="50" alt="">
+                    </div>
+                    <h3 class="text-center">{{$pilar->nama_pilar}}</h3>
+                    <p class="text-center d-none d-md-block">{{$pilar->deskripsi_pilar}}</p>
+                </a>
+                  @elseif ($pilar->id == 4)
+                  <a class="card bg-gradient-primary w-100 text-white p-4" href="/pilar/{{$pilar->id}}">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img src="{{ asset('assets/ikon/'. $pilar->ikon_pilar) }}" width="50" alt="">
+                    </div>
+                    <h3 class="text-center">{{$pilar->nama_pilar}}</h3>
+                    <p class="text-center d-none d-md-block">{{$pilar->deskripsi_pilar}}</p>
+                </a>
+                  @endif
                 </div>
                 @endforeach
             </div>
