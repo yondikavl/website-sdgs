@@ -57,14 +57,19 @@
             @enderror
         </div>
         <div class="form-group">
-          <label for="persentase">{{ __('Persentase') }}</label>
-          <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" placeholder="Masukkan deskripsi aktivitas" name="persentase" required autocomplete="current-persentase">
-            @error('persentase')
+          <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
+          <div class="input-group" id="persentase">
+            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" placeholder="Masukkan persentase aktivitas" name="persentase" required autocomplete="current-persentase">
+            <div class="input-group-append" data-target="#persentase">
+            <div class="input-group-text"><i class="far fa-percent"></i></div>
+          </div>
+          @error('persentase')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
+  
         <div class="">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>

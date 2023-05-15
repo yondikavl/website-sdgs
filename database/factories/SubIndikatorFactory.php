@@ -18,7 +18,7 @@ class SubIndikatorFactory extends Factory
     {
         return [
             'indikator_id' => $this->faker->numberBetween(1, 17),
-            'ikon_sub' => 'default.png',
+            'ikon_sub' => 'default-sub.png',
             'nama_sub' => $this->faker->word(),
             'deskripsi_sub' => $this->faker->text(),
         ];
