@@ -15,6 +15,12 @@ class TargetController extends Controller
         return view('client.target', compact('subindikators'));
     }
 
+    public function index2()
+    {
+        $subindikators = SubIndikator::all();
+        return view('client.semua-target', compact('subindikators'));
+    }
+
     public function show($id)
     {
         $subindikator = SubIndikator::findOrFail($id);

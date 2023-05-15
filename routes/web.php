@@ -60,6 +60,8 @@ Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar
 Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
 Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
+Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
 Route::get('program', [ProgramController::class, 'index'])->name('program');
+Route::get('semua-program', [ProgramController::class, 'index2'])->name('semua-program');
 Route::get('aktivitas/{id}', [ProgramController::class, 'show'])->name('detail-aktivitas');

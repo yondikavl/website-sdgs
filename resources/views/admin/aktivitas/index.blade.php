@@ -27,7 +27,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$aktivitas->subindikator_id}}</td>
-                    <td><img src="{{ asset('assets/ikon/'.$aktivitas->ikon_aktivitas) }}" alt="" width="50"></td>
+                    <td><img src="{{ asset('assets/img/aktivitas/'.$aktivitas->ikon_aktivitas) }}" alt="" width="50"></td>
                     <td>{{$aktivitas->persentase}} %</td>
                     <td>{{$aktivitas->nama_aktivitas}}</td>
                     <td>{{$aktivitas->deskripsi_aktivitas}}</td>

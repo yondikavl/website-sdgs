@@ -62,7 +62,7 @@ class AktivitasController extends Controller
             $ikon_aktivitas = $validasi[('ikon_aktivitas')];
             $aktivitas->ikon_aktivitas = time() . '_' . $ikon_aktivitas->getClientOriginalName();
             $aktivitas->update();
-            $ikon_aktivitas->move('../public/assets/ikon/', time() . '_' . $ikon_aktivitas->getClientOriginalName());
+            $ikon_aktivitas->move('../public/assets/img/aktivitas/', time() . '_' . $ikon_aktivitas->getClientOriginalName());
         }
 
         if (auth()->user()->roles_id == 1) {
@@ -126,7 +126,7 @@ class AktivitasController extends Controller
             $aktivitas = Aktivitas::where('id', $id)->firstOrFail();
             $aktivitas->ikon_aktivitas = time() . '_' . $ikon_aktivitas->getClientOriginalName();
             $aktivitas->update();
-            $ikon_aktivitas->move('../public/assets/ikon/', time() . '_' . $ikon_aktivitas->getClientOriginalName());
+            $ikon_aktivitas->move('../public/assets/img/aktivitas/', time() . '_' . $ikon_aktivitas->getClientOriginalName());
         }
 
         if (auth()->user()->roles_id == 1) {

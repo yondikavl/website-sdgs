@@ -4,7 +4,7 @@
 
 @section('content')
 <div>
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
           <div class="col-lg-12 mx-auto">
             <h1 class="text-center">SDGs Kota Bandar Lampung</h1>
@@ -17,7 +17,6 @@
           </div>
         </div>
       </div>
-      
     <div class="w-100 mb-3">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">

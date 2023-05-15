@@ -12,7 +12,7 @@
 <div class="text-center">
     @foreach ($aktivitass->where('subindikator_id', $subindikator->id) as $aktivitas)
     <a href="/aktivitas/{{$aktivitas->id}}">
-        <img src="{{ asset('assets/ikon/'. $aktivitas->ikon_aktivitas) }}" width="185" alt="">
+        <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="185" alt="">
     </a>
     @endforeach
 </div>

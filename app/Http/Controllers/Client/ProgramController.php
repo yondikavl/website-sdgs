@@ -14,6 +14,12 @@ class ProgramController extends Controller
         return view('client.program', compact('aktivitass'));
     }
 
+    public function index2()
+    {
+        $aktivitass = Aktivitas::all();
+        return view('client.semua-program', compact('aktivitass'));
+    }
+
     public function show($id)
     {
         $aktivitas = Aktivitas::findOrFail($id);
