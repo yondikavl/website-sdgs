@@ -10,7 +10,8 @@ class ProgramController extends Controller
 {
     public function index()
     {
-        return view('client.program');
+        $aktivitass = Aktivitas::all();
+        return view('client.program', compact('aktivitass'));
     }
 
     public function show($id)
