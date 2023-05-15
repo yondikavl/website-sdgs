@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ikon_aktivitas')->nullable();
             $table->string('nama_aktivitas');
             $table->text('deskripsi_aktivitas');
+            $table->integer('persentase');
             $table->timestamps();
         });
     }

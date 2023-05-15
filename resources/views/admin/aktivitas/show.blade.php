@@ -3,7 +3,7 @@
 @section('title', 'Detail Aktivitas')
 
 @section('content')
-<div class="card card-success m-2" style="width: 500px;">
+<div class="card card-success m-2">
     <div class="card-header">
       <h3 class="card-title">{{ __('Detail Aktivitas') }}</h3>
     </div>
@@ -61,6 +61,15 @@
           <label for="deskripsi_aktivitas">{{ __('Deskripsi aktivitas') }}</label>
           <input type="deskripsi_aktivitas" class="form-control @error('deskripsi_aktivitas') is-invalid @enderror" id="deskripsi_aktivitas" value="{{$aktivitas->deskripsi_aktivitas}}" name="deskripsi_aktivitas" disabled>
             @error('deskripsi_aktivitas')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
+          <label for="persentase">{{ __('Deskripsi aktivitas') }}</label>
+          <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{$aktivitas->persentase}}" name="persentase" disabled>
+            @error('persentase')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

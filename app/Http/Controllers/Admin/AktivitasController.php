@@ -28,20 +28,24 @@ class AktivitasController extends Controller
             [
                 'subindikator_id' => 'required',
                 'nama_aktivitas' => 'required|max:255',
-                'deskripsi_aktivitas' => 'required'
+                'deskripsi_aktivitas' => 'required',
+                'persentase' => 'required|numeric'
             ],
             [
                 'subindikator_id.required' => 'subindikator tidak boleh kosong',
                 'nama_aktivitas.required' => 'Nama aktivitas tidak boleh kosong',
                 'nama_aktivitas.max' => 'Nama aktivitas tidak boleh lebih dari 255 karakter',
-                'deskripsi_aktivitas.required' => 'Deskripsi aktivitas tidak boleh kosong'
+                'deskripsi_aktivitas.required' => 'Deskripsi aktivitas tidak boleh kosong',
+                'persentase.required' => 'Persentase tidak boleh kosong',
+                'persentase.numeric' => 'Persentase harus berupa angka'
             ]
         );
 
         $aktivitas = Aktivitas::create([
             'subindikator_id' => $request->subindikator_id,
             'nama_aktivitas' => $request->nama_aktivitas,
-            'deskripsi_aktivitas' => $request->deskripsi_aktivitas
+            'deskripsi_aktivitas' => $request->deskripsi_aktivitas,
+            'persentase' => $request->persentase,
         ]);
 
         $validasi = $request->validate(
@@ -88,13 +92,16 @@ class AktivitasController extends Controller
             [
                 'subindikator_id' => 'required',
                 'nama_aktivitas' => 'required|max:255',
-                'deskripsi_aktivitas' => 'required'
+                'deskripsi_aktivitas' => 'required',
+                'persentase' => 'required|numeric'
             ],
             [
                 'subindikator_id.required' => 'subindikator tidak boleh kosong',
                 'nama_aktivitas.required' => 'Nama aktivitas tidak boleh kosong',
                 'nama_aktivitas.max' => 'Nama aktivitas tidak boleh lebih dari 255 karakter',
-                'deskripsi_aktivitas.required' => 'Deskripsi aktivitas tidak boleh kosong'
+                'deskripsi_aktivitas.required' => 'Deskripsi aktivitas tidak boleh kosong',
+                'persentase.required' => 'Persentase tidak boleh kosong',
+                'persentase.numeric' => 'Persentase harus berupa angka'
             ]
         );
 

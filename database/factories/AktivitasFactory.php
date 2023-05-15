@@ -21,6 +21,7 @@ class AktivitasFactory extends Factory
             'ikon_aktivitas' => 'default.png',
             'nama_aktivitas' => $this->faker->word(),
             'deskripsi_aktivitas' => $this->faker->text(),
+            'persentase' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

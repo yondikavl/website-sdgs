@@ -3,7 +3,7 @@
 @section('title', 'Edit Aktivitas')
 
 @section('content')
-<div class="card card-success m-2" style="width: 500px;">
+<div class="card card-success m-2">
     <div class="card-header">
       <h3 class="card-title">{{ __('Edit Aktivitas') }}</h3>
     </div>
@@ -62,6 +62,15 @@
             <label for="deskripsi_aktivitas">{{ __('Deskripsi Aktivitas') }}</label>
             <input type="deskripsi_aktivitas" class="form-control @error('deskripsi_aktivitas') is-invalid @enderror" id="deskripsi_aktivitas" value="{{$aktivitas->deskripsi_aktivitas}}" name="deskripsi_aktivitas" required autocomplete="current-deskripsi_aktivitas">
               @error('deskripsi_aktivitas')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+          </div>
+          <div class="form-group">
+            <label for="persentase">{{ __('Persentase') }}</label>
+            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{$aktivitas->persentase}}" name="persentase" required autocomplete="current-persentase">
+              @error('persentase')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>

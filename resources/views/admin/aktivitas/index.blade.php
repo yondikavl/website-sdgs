@@ -16,6 +16,7 @@
                     <th>No</th>
                     <th>ID Sub-Indikator</th>
                     <th>Foto</th>
+                    <th>Persentase</th>
                     <th>Nama Aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>
@@ -27,6 +28,7 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$aktivitas->subindikator_id}}</td>
                     <td><img src="{{ asset('assets/ikon/'.$aktivitas->ikon_aktivitas) }}" alt="" width="50"></td>
+                    <td>{{$aktivitas->persentase}} %</td>
                     <td>{{$aktivitas->nama_aktivitas}}</td>
                     <td>{{$aktivitas->deskripsi_aktivitas}}</td>
                     <td class="manage-row">
@@ -79,6 +81,7 @@
                     <th>No</th>
                     <th>ID Sub-Indikator</th>
                     <th>Foto</th>
+                    <th>Persentase</th>
                     <th>Nama aktivitas</th>
                     <th>Deskripsi</th>
                     <th>More</th>

@@ -3,7 +3,7 @@
 @section('title', 'Tambah User')
 
 @section('content')
-<div class="card card-success m-2" style="width: 500px;">
+<div class="card card-success m-2">
     <div class="card-header">
       <h3 class="card-title">{{ __('Tambah User') }}</h3>
     </div>

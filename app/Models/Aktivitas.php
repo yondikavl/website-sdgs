@@ -13,7 +13,8 @@ class Aktivitas extends Model
         'subindikator_id',
         'ikon_aktivitas',
         'nama_aktivitas',
-        'deskripsi_aktivitas'
+        'deskripsi_aktivitas',
+        'persentase',
     ];
 
     public function indikator()
