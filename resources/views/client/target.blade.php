@@ -16,10 +16,10 @@
                 <div class="col-md-3 mb-4">
                     <a href="/subindikator/{{$subindikator->id}}">
                         <div class="card bg-white">
-                            <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
-                                <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="70" alt="">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <img src="{{ asset('assets/ikon/default.png') }}" width="70" alt="">
                             </div>
-                            <h4 class="card-title text-center">{{$subindikator->nama_sub}}</h4>
+                            <h4 class="card-title text-center m-3">{{$subindikator->nama_sub}}</h4>
                         </div>
                     </a>
                 </div>
@@ -41,10 +41,10 @@
                             <div class="col-12 mb-4">
                                 <a href="/subindikator/{{$subindikator->id}}">
                                     <div class="card bg-white">
-                                        <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
-                                            <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="70" alt="">
+                                        <div class="card-body d-flex justify-content-center align-items-center">
+                                            <img src="{{ asset('assets/ikon/default.png') }}" width="70" alt="">
                                         </div>
-                                        <h4 class="card-title text-center">{{$subindikator->nama_sub}}</h4>
+                                        <h4 class="card-title text-center m-3">{{$subindikator->nama_sub}}</h4>
                                     </div>
                                 </a>
                             </div>
@@ -73,10 +73,10 @@
                 <div class="col-md-3 mb-4">
                     <a href="/subindikator/{{$subindikator->id}}">
                         <div class="card bg-white">
-                            <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
-                                <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="70" alt="">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <img src="{{ asset('assets/ikon/default.png') }}" width="70" alt="">
                             </div>
-                            <h4 class="card-title text-center">{{$subindikator->nama_sub}}</h4>
+                            <h4 class="card-title text-center m-3">{{$subindikator->nama_sub}}</h4>
                         </div>
                     </a>
                 </div>
@@ -98,10 +98,10 @@
                             <div class="col-12 mb-4">
                                 <a href="/subindikator/{{$subindikator->id}}">
                                     <div class="card bg-white">
-                                        <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
-                                            <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="70" alt="">
+                                        <div class="card-body d-flex justify-content-center align-items-center">
+                                            <img src="{{ asset('assets/ikon/default.png') }}" width="70" alt="">
                                         </div>
-                                        <h4 class="card-title text-center">{{$subindikator->nama_sub}}</h4>
+                                        <h4 class="card-title text-center m-3">{{$subindikator->nama_sub}}</h4>
                                     </div>
                                 </a>
                             </div>
