@@ -11,9 +11,7 @@ class SubIndikator extends Model
     protected $table = 'subindikator';
     protected $fillable = [
         'indikator_id',
-        'ikon_sub',
-        'nama_sub',
-        'deskripsi_sub'
+        'nama_sub'
     ];
 
     public function indikator()

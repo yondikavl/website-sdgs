@@ -79,7 +79,7 @@
   <aside class="main-sidebar elevation-4" style="background-color: #28a745;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{ asset('assets/favicon/apple-icon-180x180.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ asset('assets/favicon/apple-icon-180x180.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-normal small text-white">SDG's Bandar Lampung</span>
     </a>
 
@@ -95,7 +95,7 @@
           @endif
         </div>
         <div class="info">
-          <a href="#" class="d-block text-white">Admin</a>
+          <a href="#" class="d-block text-white">{{auth()->user()->nama}}</a>
         </div>
       </div>
 

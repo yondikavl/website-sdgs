@@ -97,7 +97,7 @@
           </a>
         </div>
       </div>
-      
+
       <div class="d-none d-md-block">
         <div class="text-center">
           @foreach ($indikators as $indikator)
@@ -108,7 +108,7 @@
           <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="165" alt="Logo SDGs">
         </div>
       </div>
-      
+
 </div>
 
 @endsection

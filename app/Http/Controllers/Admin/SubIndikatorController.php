@@ -26,39 +26,19 @@ class SubindikatorController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255',
-                'deskripsi_sub' => 'required'
+                'nama_sub' => 'required|max:255'
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong',
                 'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
-                'deskripsi_sub.required' => 'Deskripsi subindikator tidak boleh kosong'
+                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter'
             ]
         );
 
         $subindikator = SubIndikator::create([
             'indikator_id' => $request->indikator_id,
-            'nama_sub' => $request->nama_sub,
-            'deskripsi_sub' => $request->deskripsi_sub
+            'nama_sub' => $request->nama_sub
         ]);
-
-        $validasi = $request->validate(
-            [
-                'ikon_sub' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
-            ],
-            [
-                'ikon_sub.mimes' => 'Ikon subindikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_sub.max' => 'Ikon subindikator tidak boleh lebih dari 2MB'
-            ]
-        );
-
-        if ($request->hasFile('ikon_sub')) {
-            $ikon_sub = $validasi[('ikon_sub')];
-            $subindikator->ikon_sub = time() . '_' . $ikon_sub->getClientOriginalName();
-            $subindikator->update();
-            $ikon_sub->move('../public/assets/ikon/', time() . '_' . $ikon_sub->getClientOriginalName());
-        }
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/subindikator')->with('sukses', 'Berhasil Tambah Data!');
@@ -86,40 +66,19 @@ class SubindikatorController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255',
-                'deskripsi_sub' => 'required'
+                'nama_sub' => 'required|max:255'
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong',
                 'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
-                'deskripsi_sub.required' => 'Deskripsi subindikator tidak boleh kosong'
+                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter'
             ]
         );
 
         $subindikator = SubIndikator::where('id', $id)->update([
             'indikator_id' => $request->indikator_id,
-            'nama_sub' => $request->nama_sub,
-            'deskripsi_sub' => $request->deskripsi_sub
+            'nama_sub' => $request->nama_sub
         ]);
-
-        $validasi = $request->validate(
-            [
-                'ikon_sub' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
-            ],
-            [
-                'ikon_sub.mimes' => 'Ikon subindikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_sub.max' => 'Ikon subindikator tidak boleh lebih dari 2MB'
-            ]
-        );
-
-        if ($request->hasFile('ikon_sub')) {
-            $ikon_sub = $validasi[('ikon_sub')];
-            $subindikator = SubIndikator::where('id', $id)->firstOrFail();
-            $subindikator->ikon_sub = time() . '_' . $ikon_sub->getClientOriginalName();
-            $subindikator->update();
-            $ikon_sub->move('../public/assets/ikon/', time() . '_' . $ikon_sub->getClientOriginalName());
-        }
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/subindikator')->with('sukses', 'Berhasil Ubah Data!');

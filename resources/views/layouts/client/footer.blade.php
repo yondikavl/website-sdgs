@@ -13,7 +13,7 @@
           <a class="navbar-brand" href="/login"><img src="{{ asset('assets/img/logo-sdgs.png') }}" width="50" alt=""></a>
           <h1 style="margin-left: 15px;">SDGs Kota Bandar Lampung</h1>
       </div>
-          <div class="col-lg-10">
+          <div class="">
               <br>
               <div class="w-100">
                   <p class="font-weight-light">

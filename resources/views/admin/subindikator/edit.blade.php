@@ -16,33 +16,12 @@
     @endif
         @csrf
         @method('PUT')
-        <div class="text-center py-3 form-group">
-          <label for="ikon_sub" style="cursor: pointer">
-            @if ($sub->ikon_sub == Null)
-                <i class="fa-solid fa-camera fa-2xl"></i>
-                <input type="file" class="visually-hidden" name="ikon_sub" id="ikon_sub" enabled>
-                @error('ikon_sub')
-                    <span class="invalid-feedback text-center" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            @else
-                <img src="{{ asset('assets/ikon') }}/{{ $sub->ikon_sub }}" style="width:200px !important; height:200px !important;" class="img-circle elevation-2" alt="">
-                <input type="file" class="visually-hidden" name="ikon_sub" id="ikon_sub" enabled>
-                @error('ikon_sub')
-                    <span class="invalid-feedback text-center" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            @endif
-          </label>
-        </div>
       <div class="card-body">
         <div class="form-group">
           <label for="indikator_id">{{ __('ID Indikator Sekarang') }}</label>
           <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
             <option value="{{$subindikator->indikator_id}}">{{$subindikator->indikator_id}}</option>
-          </select>  
+          </select>
             @error('indikator_id')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -59,21 +38,12 @@
             @enderror
         </div>
         <div class="form-group">
-          <label for="deskripsi_sub">{{ __('Deskripsi Sub-Indikator') }}</label>
-          <input type="deskripsi_sub" class="form-control @error('deskripsi_sub') is-invalid @enderror" id="deskripsi_sub" value="{{$subindikator->deskripsi_sub}}" name="deskripsi_sub" required autocomplete="current-deskripsi_sub">
-            @error('deskripsi_sub')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
           <label for="indikator_id">{{ __('ID Indikator Baru (jika ingin diganti)') }}</label>
           <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
             @foreach ($indikators as $indikator)
             <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
             @endforeach
-          </select>  
+          </select>
             @error('indikator_id')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -84,7 +54,7 @@
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>
       </div>
-      <!-- /.card-body -->      
+      <!-- /.card-body -->
     </form>
   </div>
 @endsection

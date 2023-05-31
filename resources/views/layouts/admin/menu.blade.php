@@ -110,7 +110,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
@@ -132,7 +132,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
             @csrf
@@ -245,7 +245,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
@@ -267,7 +267,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
             @csrf

@@ -15,9 +15,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Indikator</th>
-                    <th>Ikon</th>
                     <th>Nama Sub-Indikator</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
@@ -26,9 +24,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$subindikator->indikator_id}}</td>
-                    <td><img src="{{ asset('assets/ikon/'.$subindikator->ikon_sub) }}" alt="" width="50"></td>
                     <td>{{$subindikator->nama_sub}}</td>
-                    <td>{{$subindikator->deskripsi_sub}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                           <a href="{{ route('super.subindikator.show',$subindikator->id) }}" class="show-button">
@@ -78,9 +74,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID Indikator</th>
-                    <th>Ikon</th>
                     <th>Nama Sub-Indikator</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </tfoot>

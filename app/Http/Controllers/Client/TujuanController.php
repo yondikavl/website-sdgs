@@ -17,8 +17,9 @@ class TujuanController extends Controller
 
     public function show($id)
     {
+        $indikators = Indikator::all();
         $indikator = Indikator::findOrFail($id);
         $subindikators = SubIndikator::where('indikator_id', $id)->get();
-        return view('client.detail-indikator', compact('indikator', 'subindikators'));
+        return view('client.detail-indikator', compact('indikators', 'indikator', 'subindikators'));
     }
 }
