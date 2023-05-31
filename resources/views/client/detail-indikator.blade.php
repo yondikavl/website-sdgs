@@ -3,6 +3,9 @@
 @section('title', 'Detail Indikator')
 
 @section('content')
+
+@include('layouts.client.sdgs')
+
 <div class="card text-center">
     <div class="card-body">
         <h1>Detail Indikator</h1>
@@ -43,7 +46,6 @@
               </div>
               <!-- /.card-body -->
             </div>
-
 @endsection
 
 @section('script')
