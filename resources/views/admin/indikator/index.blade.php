@@ -66,6 +66,10 @@
                           <a href="{{ route('admin.indikator.show',$indikator->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
+                          @elseif(auth()->user()->roles_id == 3)
+                          <a href="{{ route('opd.indikator.show',$indikator->id) }}" class="show-button">
+                            <i class="fa-solid fa-eye"></i>
+                          </a>
                         @endif
                         </td>
                   </tr>

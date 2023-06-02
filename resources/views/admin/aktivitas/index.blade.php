@@ -71,6 +71,13 @@
                           <a href="{{ route('admin.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
+                          @elseif(auth()->user()->roles_id == 3)
+                          <a href="{{ route('opd.aktivitas.show',$aktivitas->id) }}" class="show-button">
+                            <i class="fa-solid fa-eye"></i>
+                          </a>
+                          <a href="{{ route('opd.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
+                            <i class="fa-solid fa-marker"></i>
+                          </a>
                         @endif
                         </td>
                   </tr>

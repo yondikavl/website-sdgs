@@ -13,6 +13,8 @@
     <form method="POST" action="{{ route('super.aktivitas.store') }}" enctype='multipart/form-data'>
     @elseif (auth()->user()->roles_id == 2)
     <form method="POST" action="{{ route('admin.aktivitas.store') }}" enctype='multipart/form-data'>
+    @elseif (auth()->user()->roles_id == 3)
+    <form method="POST" action="{{ route('opd.aktivitas.store') }}" enctype='multipart/form-data'>
     @endif
         @csrf
       <div class="card-body">

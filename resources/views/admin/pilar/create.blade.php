@@ -11,8 +11,6 @@
     <!-- form start -->
     @if (auth()->user()->roles_id == 1)
     <form method="POST" action="{{ route('super.pilar.store') }}" enctype='multipart/form-data'>
-    @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.pilar.store') }}" enctype='multipart/form-data'>
     @endif
         @csrf
       <div class="card-body">

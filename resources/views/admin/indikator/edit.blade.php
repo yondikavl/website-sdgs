@@ -11,8 +11,6 @@
     <!-- form start -->
     @if (auth()->user()->roles_id == 1)
     <form method="POST" action="{{ route('super.indikator.update', $indikator->id) }}" enctype='multipart/form-data'>
-    @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.indikator.update', $indikator->id) }}" enctype='multipart/form-data'>
     @endif
         @csrf
         @method('PUT')

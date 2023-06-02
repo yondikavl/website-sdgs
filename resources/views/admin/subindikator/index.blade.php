@@ -65,6 +65,13 @@
                           <a href="{{ route('admin.subindikator.edit',$subindikator->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
+                          @elseif(auth()->user()->roles_id == 3)
+                          <a href="{{ route('opd.subindikator.show',$subindikator->id) }}" class="show-button">
+                            <i class="fa-solid fa-eye"></i>
+                          </a>
+                          <a href="{{ route('opd.subindikator.edit',$subindikator->id) }}" class="edit-button">
+                            <i class="fa-solid fa-marker"></i>
+                          </a>
                         @endif
                         </td>
                   </tr>

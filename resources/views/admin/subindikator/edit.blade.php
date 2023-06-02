@@ -10,9 +10,11 @@
     <!-- /.card-header -->
     <!-- form start -->
     @if (auth()->user()->roles_id == 1)
-    <form method="POST" action="{{ route('super.subindikator.update', $subindikator->id) }}">
+    <form method="POST" action="{{ route('super.subindikator.update', $subindikator->id) }}" enctype='multipart/form-data'>
     @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.subindikator.update', $subindikator->id) }}">
+    <form method="POST" action="{{ route('admin.subindikator.update', $subindikator->id) }}" enctype='multipart/form-data'>
+    @elseif (auth()->user()->roles_id == 3)
+    <form method="POST" action="{{ route('opd.subindikator.update', $subindikator->id) }}" enctype='multipart/form-data'>
     @endif
         @csrf
         @method('PUT')

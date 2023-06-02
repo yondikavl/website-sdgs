@@ -64,6 +64,10 @@
                           <a href="{{ route('admin.pilar.show',$pilar->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
+                          @elseif(auth()->user()->roles_id == 3)
+                          <a href="{{ route('opd.pilar.show',$pilar->id) }}" class="show-button">
+                            <i class="fa-solid fa-eye"></i>
+                          </a>
                         @endif
                         </td>
                   </tr>

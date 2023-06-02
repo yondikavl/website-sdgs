@@ -13,6 +13,8 @@
     <form method="POST" action="{{ route('super.subindikator.show', $subindikator->id) }}">
     @elseif (auth()->user()->roles_id == 2)
     <form method="POST" action="{{ route('admin.subindikator.show', $subindikator->id) }}">
+    @elseif (auth()->user()->roles_id == 3)
+    <form method="POST" action="{{ route('opd.subindikator.show', $subindikator->id) }}">
     @endif
         @csrf
       <div class="card-body">
