@@ -64,6 +64,9 @@
                           <a href="{{ route('admin.user.show',$user->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
+                          <a href="{{ route('admin.user.edit',$user->id) }}" class="edit-button">
+                            <i class="fa-solid fa-marker"></i>
+                          </a>
                         @endif
                         </td>
                   </tr>
