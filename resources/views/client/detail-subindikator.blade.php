@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-center">
     <h1>Detail Sub-Indikator</h1>
-    <img src="{{ asset('assets/ikon/'. $subindikator->ikon_sub) }}" width="180" alt="">
+    <img src="{{ asset('assets/ikon/default.png') }}" width="180" alt="">
     <h2>{{$subindikator->nama_sub}}</h2>
     <p>{{$subindikator->deskripsi_sub}}</p>
 </div>

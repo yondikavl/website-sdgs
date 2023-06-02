@@ -36,9 +36,21 @@
                   <tr>
                     <td>{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
-                    <td>100%</td>
-                    <td>50%</td>
-                    <td>Dinas</td>
+                    <td>
+                      @if ($loop->iteration % 2 == 0)
+                          30 orang
+                      @else
+                          90%
+                      @endif
+                    </td>
+                    <td>
+                      @if ($loop->iteration % 2 == 0)
+                          50 orang
+                      @else
+                          50%
+                      @endif
+                    </td>
+                    <td>Dinas {{$loop->iteration}}</td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -54,7 +66,7 @@
                 </table>
               </div>
               <!-- /.card-body -->
-            </div>
+        </div>
 @endsection
 
 @section('script')

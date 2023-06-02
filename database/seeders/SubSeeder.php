@@ -1203,7 +1203,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 17, 'kode_sub' => '17.19.1.(a)',  "nama_sub" => "Persentase K/L/D/I yang melaksanakan rekomendasi kegiatan statistik",
             ],
             [
-                'indikator_id' => 17, 'kode_sub' => '17.19.1.(b)',  "nama_sub" => "Persentase K/L/D/I yang menyampaikan metadat sektoral dan khusus sesuai standar",
+                'indikator_id' => 17, 'kode_sub' => '17.19.1.(b)',  "nama_sub" => "Persentase K/L/D/I yang menyampaikan metadata sektoral dan khusus sesuai standar",
             ],
             [
                 'indikator_id' => 17, 'kode_sub' => '17.19.2',  "nama_sub" => "Proporsi negara yang a) melaksanakan paling tidak satu Sensus Penduduk dan Perumahan dalam sepuluh tahun terakhir, dan b) mencapai 100 persen pencatatan kelahiran dan 80 persen pencatatan kematian",
