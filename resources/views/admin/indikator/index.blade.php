@@ -66,9 +66,6 @@
                           <a href="{{ route('admin.indikator.show',$indikator->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('admin.indikator.edit',$indikator->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
-                          </a>
                         @endif
                         </td>
                   </tr>

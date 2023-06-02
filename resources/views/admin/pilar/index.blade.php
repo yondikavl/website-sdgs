@@ -64,9 +64,6 @@
                           <a href="{{ route('admin.pilar.show',$pilar->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('admin.pilar.edit',$pilar->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
-                          </a>
                         @endif
                         </td>
                   </tr>
