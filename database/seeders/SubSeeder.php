@@ -69,7 +69,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 2, 'kode_sub' => '2.2.1',  "nama_sub" => "Prevalensi stunting (pendek dan sangat pendek) pada anak dibawah lima tahun/balita.",
             ],
             [
-                'indikator_id' => 2, 'kode_sub' => '2.2.2',  "nama_sub" => "'Prevalensi wasting (berat badan/tinggi badan) anak pada usia kurang dari 5 tahun, berdasarkan tipe.'",
+                'indikator_id' => 2, 'kode_sub' => '2.2.2',  "nama_sub" => "Prevalensi wasting (berat badan/tinggi badan) anak pada usia kurang dari 5 tahun, berdasarkan tipe.",
             ],
             [
                 'indikator_id' => 2, 'kode_sub' => '2.2.2.(a)',  "nama_sub" => "Kualitas konsumsi pangan yang diindikasikan oleh skor Pola Pangan Harapan (PPH).",
@@ -78,7 +78,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 2, 'kode_sub' => '2.2.3',  "nama_sub" => "Prevalensi anemia pada ibu hamil usia 15-49 tahun.",
             ],
             [
-                'indikator_id' => 2, 'kode_sub' => '2.3.1',  "nama_sub" => "'Volume produksi per tenaga kerja menurut kelas usaha tani tanaman/ peternakan/ perikanan/ kehutanan'",
+                'indikator_id' => 2, 'kode_sub' => '2.3.1',  "nama_sub" => "Volume produksi per tenaga kerja menurut kelas usaha tani tanaman/ peternakan/ perikanan/ kehutanan",
             ],
             [
                 'indikator_id' => 2, 'kode_sub' => '2.3.1.(a)',  "nama_sub" => "Nilai tambah pertanian per tenaga kerja menurut kelas usaha tani tanaman/ peternakan/ perikanan/ kehutanaan.",
@@ -138,7 +138,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 3, 'kode_sub' => '3.3.4',  "nama_sub" => "Insiden Hepatitis B per 100.000 penduduk.",
             ],
             [
-                'indikator_id' => 3, 'kode_sub' => '3.3.5',  "nama_sub" => "'Jumlah orang yang memerlukan intervensi terhadap penyakit tropis yang terabaikan (a) Filariasis dan (b) Kusta'",
+                'indikator_id' => 3, 'kode_sub' => '3.3.5',  "nama_sub" => "Jumlah orang yang memerlukan intervensi terhadap penyakit tropis yang terabaikan (a) Filariasis dan (b) Kusta",
             ],
             [
                 'indikator_id' => 3, 'kode_sub' => '3.3.5.(a)',  "nama_sub" => "Jumlah kabupaten/kota dengan eliminasi kusta.",
@@ -180,7 +180,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 3, 'kode_sub' => '3.7.1',  "nama_sub" => "Proporsi perempuan usia reproduksi (15-49 tahun) yang memiliki kebutuhan keluarga berencana terpenuhi menurut metode kontrasepsi modern.",
             ],
             [
-                'indikator_id' => 3, 'kode_sub' => '3.7.2',  "nama_sub" => "'Angka kelahiran remaja (umur 10-14 tahun : umur 15-19 tahun) per 1000 perempuan di kelompok umur yang sama.'",
+                'indikator_id' => 3, 'kode_sub' => '3.7.2',  "nama_sub" => "Angka kelahiran remaja (umur 10-14 tahun : umur 15-19 tahun) per 1000 perempuan di kelompok umur yang sama.",
             ],
             [
                 'indikator_id' => 3, 'kode_sub' => '3.7.2.(a)',  "nama_sub" => "Total Fertility Rate (TFR).",
@@ -228,7 +228,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 3, 'kode_sub' => '3.d.2',  "nama_sub" => "Persentase infeksi aliran darah akibat organisme antimikroba- resisten terpilih/tertentu.",
             ],
             [
-                'indikator_id' => 4, 'kode_sub' => '4.1.1',  "nama_sub" => "'Proporsi anak-anak dan remaja:(a) pada kelas 4, (b) tingkat akhir SD/kelas 6, (c) tingkat akhir SMP/kelas 9 yang mencapai standar kemampuan minimum dalam: (i) membaca, (ii) matematika.'",
+                'indikator_id' => 4, 'kode_sub' => '4.1.1',  "nama_sub" => "Proporsi anak-anak dan remaja:(a) pada kelas 4, (b) tingkat akhir SD/kelas 6, (c) tingkat akhir SMP/kelas 9 yang mencapai standar kemampuan minimum dalam: (i) membaca, (ii) matematika.",
             ],
             [
                 'indikator_id' => 4, 'kode_sub' => '4.1.1.(a)',  "nama_sub" => "Proporsi anak-anak dan remaja di: (1) kelas 5 (b) kelas 8, dan (c) usia 15 tahun yang mencapai setidaknya tingkat kemahiran minimum dalam: (membaca, (ii) matematika.",
@@ -267,7 +267,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 4, 'kode_sub' => '4.6.1.(a)',  "nama_sub" => "Persentase angka melek aksara penduduk umur ≥15 tahun.",
             ],
             [
-                'indikator_id' => 4, 'kode_sub' => '4.7.1',  "nama_sub" => "'Pengarusutamaan pada semua jenjang pendidikan, (i) pendidikan kewargaan dunia,(ii) pendidikan untuk pembangunan berkelanjutan termasuk kesetaraan gender dan hak asasi manusia pada (a) kebijakan pendidikan nasional, (b) kurikulum, (c) pendidikan guru, (d) penilaian siswa.'",
+                'indikator_id' => 4, 'kode_sub' => '4.7.1',  "nama_sub" => "Pengarusutamaan pada semua jenjang pendidikan, (i) pendidikan kewargaan dunia,(ii) pendidikan untuk pembangunan berkelanjutan termasuk kesetaraan gender dan hak asasi manusia pada (a) kebijakan pendidikan nasional, (b) kurikulum, (c) pendidikan guru, (d) penilaian siswa.",
             ],
             [
                 'indikator_id' => 4, 'kode_sub' => '4.a.1',  "nama_sub" => "Proporsi sekolah dengan akses ke: (a) listrik (b) internet untuk tujuan pengajaran, (c) komputer untuk tujuan pengajaran, (d) air minum layak, (e) fasilitas sanitasi dasar per jenis kelamin,(f) fasilitas cuci tangan (terdiri air, sanitasi, dan higienis bagi semua (WASH).",
@@ -309,7 +309,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 5, 'kode_sub' => '5.6.1*',  "nama_sub" => "Proporsi perempuan usia reproduksi 15-49 tahun yang membuat keputusan sendiri terkait hubungan seksual, penggunaan kontrasepsi, dan layanan kesehatan.",
             ],
             [
-                'indikator_id' => 5, 'kode_sub' => '5.6.2',  "nama_sub" => "'Regulasi yang menjamin akses yang setara bagi perempuan dan laki-laki untuk mendapatkan pelayanan, informasi dan pendidikan terkait kesehatan seksual dan reproduksi.'",
+                'indikator_id' => 5, 'kode_sub' => '5.6.2',  "nama_sub" => "Regulasi yang menjamin akses yang setara bagi perempuan dan laki-laki untuk mendapatkan pelayanan, informasi dan pendidikan terkait kesehatan seksual dan reproduksi.",
             ],
             [
                 'indikator_id' => 5, 'kode_sub' => '5.a.1',  "nama_sub" => "1) Proporsi penduduk pertanian yang memiliki hak atas tanah pertanian; (2) Proporsi perempuan penduduk pertanian sebagai pemilik atau yang memiliki hak atas tanah pertanian, menurut jenis kepemilikan.",
@@ -360,7 +360,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 6, 'kode_sub' => '6.5.1',  "nama_sub" => "Tingkat pelaksanaan pengelolaan sumber daya air secara terpadu (0-100).",
             ],
             [
-                'indikator_id' => 6, 'kode_sub' => '6.5.2',  "nama_sub" => "'Proporsi wilayah cekungan lintas batas dengan pengaturan kerja sama sumberdaya air yang operasional.'",
+                'indikator_id' => 6, 'kode_sub' => '6.5.2',  "nama_sub" => "Proporsi wilayah cekungan lintas batas dengan pengaturan kerja sama sumberdaya air yang operasional.",
             ],
             [
                 'indikator_id' => 6, 'kode_sub' => '6.6.1',  "nama_sub" => "Perubahan tingkat sumber daya air terkait ekosistem dari waktu ke waktu",
@@ -435,7 +435,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 8, 'kode_sub' => '8.6.1',  "nama_sub" => "Persentase usia muda (15-24) yang sedang tidak sekolah, bekerja atau mengikuti pelatihan (NEET).",
             ],
             [
-                'indikator_id' => 8, 'kode_sub' => '8.7.1',  "nama_sub" => "'Persentase dan jumlah anak usia 5-17 tahun, yang bekerja, dibedakan berdasarkan jenis kelamin dan kelompok umur (dibedakan berdasarkan bentuk-bentuk pekerjaan terburuk untuk anak).'",
+                'indikator_id' => 8, 'kode_sub' => '8.7.1',  "nama_sub" => "Persentase dan jumlah anak usia 5-17 tahun, yang bekerja, dibedakan berdasarkan jenis kelamin dan kelompok umur (dibedakan berdasarkan bentuk-bentuk pekerjaan terburuk untuk anak).",
             ],
             [
                 'indikator_id' => 8, 'kode_sub' => '8.7.1.(a)',  "nama_sub" => "Persentase dan jumlah anak usia 10-17 tahun, yang bekerja, dibedakan berdasarkan jenis kelamin dan kelompok umur",
@@ -723,7 +723,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 12, 'kode_sub' => '12.2.2',  "nama_sub" => "Konsumsi material domestik (domestic material consumption).",
             ],
             [
-                'indikator_id' => 12, 'kode_sub' => '12.3.1',  "nama_sub" => "'a) Indeks kehilangan makanan (Food loss index); dan (b) Indeks sampah makanan (Food waste index).'",
+                'indikator_id' => 12, 'kode_sub' => '12.3.1',  "nama_sub" => "a) Indeks kehilangan makanan (Food loss index); dan (b) Indeks sampah makanan (Food waste index).",
             ],
             [
                 'indikator_id' => 12, 'kode_sub' => '12.3.1.(a)',  "nama_sub" => "Persentase sisa makanan.",
@@ -819,7 +819,7 @@ class SubSeeder extends Seeder
                 'indikator_id' => 13, 'kode_sub' => '13.b.1',  "nama_sub" => "Jumlah negara-negara kurang berkembang dan negara berkembang kepulauan kecil dengan nationally determined contributions, strategi jangka panjang, rencana nasional adaptasi, dan strategi yang dilaporkan dalam adaptation communications dan national communications.",
             ],
             [
-                'indikator_id' => 14, 'kode_sub' => '14.1.1',  "nama_sub" => "'(a) Indeks eutrofikasi pesisir dan (b) kepadatan sampah plastik terapung.'",
+                'indikator_id' => 14, 'kode_sub' => '14.1.1',  "nama_sub" => "(a) Indeks eutrofikasi pesisir dan (b) kepadatan sampah plastik terapung.",
             ],
             [
                 'indikator_id' => 14, 'kode_sub' => '14.1.1.(a)',  "nama_sub" => "Presentase penurunan sampah terbuang ke laut.",
@@ -903,13 +903,13 @@ class SubSeeder extends Seeder
                 'indikator_id' => 15, 'kode_sub' => '15.8.1',  "nama_sub" => "Kerangka legislasi nasional yang relevan dan memadai dalam pencegahan atau pengendalian jenis asing invasive (JAI).",
             ],
             [
-                'indikator_id' => 15, 'kode_sub' => '15.9.1',  "nama_sub" => "'(a) Rencana pemanfaatan Keanekaragaman Hayati Aichi 2 dari Rencana Strategis; dan (b) integrasi keanekaragaman hayati ke dalam sistem akuntansi dan pelaporan nasional atau Sistem Akuntansi lingkungan-ekonomi'",
+                'indikator_id' => 15, 'kode_sub' => '15.9.1',  "nama_sub" => "(a) Rencana pemanfaatan Keanekaragaman Hayati Aichi 2 dari Rencana Strategis; dan (b) integrasi keanekaragaman hayati ke dalam sistem akuntansi dan pelaporan nasional atau Sistem Akuntansi lingkungan-ekonomi",
             ],
             [
                 'indikator_id' => 15, 'kode_sub' => '15.9.1.(a)',  "nama_sub" => "Rencana pemanfaatan keanekaragaman hayati Aichi 2 dari rencana strategis",
             ],
             [
-                'indikator_id' => 15, 'kode_sub' => '15.a.1',  "nama_sub" => "'(a) Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan dan (b) pendapatan yang dihasilkan dan pembiayaan dimobilisasi dari instrumen ekonomi terkait keanekaragaman hayati.'",
+                'indikator_id' => 15, 'kode_sub' => '15.a.1',  "nama_sub" => "(a) Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan dan (b) pendapatan yang dihasilkan dan pembiayaan dimobilisasi dari instrumen ekonomi terkait keanekaragaman hayati.",
             ],
             [
                 'indikator_id' => 15, 'kode_sub' => '15.a.1',  "nama_sub" => "Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan",
