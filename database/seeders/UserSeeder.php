@@ -15,10 +15,12 @@ class UserSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory()->create([
-            'nama' => 'Fitra Ilyasa',
-            'email' => 'fitrailyasa12@gmail.com',
-            'roles_id' => 1,
-        ]);
+        User::factory()->create(
+            [
+                'nama' => 'Super Admin',
+                'email' => 'super@admin.com',
+                'roles_id' => 1,
+            ]          
+        );
     }
 }

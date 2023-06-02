@@ -31,7 +31,7 @@
                   <tbody>
                     @foreach ($subindikators->where('indikator_id', $indikator->id) as $subindikator)
                   <tr>
-                    <td class="d-none d-md-block">{{$subindikator->indikator_id}}.{{$loop->iteration}}.</td>
+                    <td class="d-none d-md-block">{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
                   </tr>
                   @endforeach

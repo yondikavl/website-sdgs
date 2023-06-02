@@ -26,18 +26,22 @@ class SubindikatorController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255'
+                'nama_sub' => 'required|max:255',
+                'kode_sub' => 'required|max:255'
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong',
                 'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter'
+                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
+                'kode_sub.required' => 'Kode subindikator tidak boleh kosong',
+                'kode_sub.max' => 'Kode subindikator tidak boleh lebih dari 255 karakter'
             ]
         );
 
         $subindikator = SubIndikator::create([
             'indikator_id' => $request->indikator_id,
-            'nama_sub' => $request->nama_sub
+            'nama_sub' => $request->nama_sub,
+            'kode_sub' => $request->kode_sub
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -66,18 +70,22 @@ class SubindikatorController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255'
+                'nama_sub' => 'required|max:255',
+                'kode_sub' => 'required|max:255'
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong',
                 'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter'
+                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
+                'kode_sub.required' => 'Kode subindikator tidak boleh kosong',
+                'kode_sub.max' => 'Kode subindikator tidak boleh lebih dari 255 karakter'
             ]
         );
 
         $subindikator = SubIndikator::where('id', $id)->update([
             'indikator_id' => $request->indikator_id,
-            'nama_sub' => $request->nama_sub
+            'nama_sub' => $request->nama_sub,
+            'kode_sub' => $request->kode_sub
         ]);
 
         if (auth()->user()->roles_id == 1) {

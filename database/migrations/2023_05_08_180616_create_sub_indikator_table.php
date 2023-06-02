@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('indikator_id')->nullable();
             $table->foreign('indikator_id')->references('id')->on('indikator');
-            $table->string('nama_sub');
+            $table->string('kode_sub');
+            $table->text('nama_sub');
             $table->timestamps();
         });
     }

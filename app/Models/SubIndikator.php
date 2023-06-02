@@ -11,6 +11,7 @@ class SubIndikator extends Model
     protected $table = 'subindikator';
     protected $fillable = [
         'indikator_id',
+        'kode_sub',
         'nama_sub'
     ];
 

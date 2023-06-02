@@ -23,7 +23,7 @@
                     @foreach ($subindikators as $subindikator)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$subindikator->indikator_id}}</td>
+                    <td>{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)

@@ -29,6 +29,15 @@
             @enderror
         </div>
         <div class="form-group">
+          <label for="kode_sub">{{ __('Kode Sub-Indikator') }}</label>
+          <input type="kode_sub" class="form-control @error('kode_sub') is-invalid @enderror" id="kode_sub" value="{{$subindikator->kode_sub}}" name="kode_sub" required autocomplete="kode_sub" autofocus>
+            @error('kode_sub')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
           <label for="nama_sub">{{ __('Nama Sub-Indikator') }}</label>
           <input type="nama_sub" class="form-control @error('nama_sub') is-invalid @enderror" id="nama_sub" value="{{$subindikator->nama_sub}}" name="nama_sub" required autocomplete="nama_sub" autofocus>
             @error('nama_sub')
