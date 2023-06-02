@@ -19,7 +19,7 @@
                             <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
                                 <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="70" alt="">
                             </div>
-                            <h4 class="card-title text-center">{{$aktivitas->nama_aktivitas}}</h4>
+                            <h4 class="card-title text-center">{{ substr($aktivitas->nama_aktivitas, 0, 20) }}...</h4>
                         </div>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                                         <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
                                             <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="70" alt="">
                                         </div>
-                                        <h4 class="card-title text-center">{{$aktivitas->nama_aktivitas}}</h4>
+                                        <h4 class="card-title text-center">{{ substr($aktivitas->nama_aktivitas, 0, 20) }}...</h4>
                                     </div>
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
                                 <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="70" alt="">
                             </div>
-                            <h4 class="card-title text-center">{{$aktivitas->nama_aktivitas}}</h4>
+                            <h4 class="card-title text-center">{{ substr($aktivitas->nama_aktivitas, 0, 20) }}...</h4>
                         </div>
                     </a>
                 </div>
@@ -101,7 +101,7 @@
                                         <div class="card-body d-flex justify-content-center align-items-center mb-3" style="height: 100px">
                                             <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="70" alt="">
                                         </div>
-                                        <h4 class="card-title text-center">{{$aktivitas->nama_aktivitas}}</h4>
+                                        <h4 class="card-title text-center">{{ substr($aktivitas->nama_aktivitas, 0, 20) }}...</h4>
                                     </div>
                                 </a>
                             </div>

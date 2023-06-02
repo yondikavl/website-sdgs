@@ -31,7 +31,7 @@ $iteration = 0;
                     <div class="card-body d-flex justify-content-center align-items-center" style="height: 100px">
                         <img src="{{ asset('assets/ikon/default.png') }}" width="70" alt="">
                     </div>
-                    <h4 class="card-title text-center m-3">{{ $indikators }}.{{ $iteration }}. {{$subindikator->nama_sub}}</h4>
+                    <h4 class="card-title text-center m-3">{{ $indikators }}.{{ $iteration }}. {{ substr($subindikator->nama_sub, 0, 20) }}...</h4>
                 </div>
             </a>
         </div>

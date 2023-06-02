@@ -24,22 +24,31 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th class="d-none d-md-block">Indikator</th>
-                    <th>Target</th>
+                    <th>Kode</th>
+                    <th>Jenis Data</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>Perangkat Daerah</th>
                   </tr>
                   </thead>
                   <tbody>
                     @foreach ($subindikators->where('indikator_id', $indikator->id) as $subindikator)
                   <tr>
-                    <td class="d-none d-md-block">{{$subindikator->kode_sub}}</td>
+                    <td>{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
+                    <td>100%</td>
+                    <td>50%</td>
+                    <td>Dinas</td>
                   </tr>
                   @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th class="d-none d-md-block">Indikator</th>
-                    <th>Target</th>
+                    <th>Kode</th>
+                    <th>Jenis Data</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>Perangkat Daerah</th>
                   </tr>
                   </tfoot>
                 </table>
