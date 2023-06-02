@@ -11,14 +11,18 @@ class SubindikatorController extends Controller
 {
     public function index()
     {
-        $subindikators = SubIndikator::all();
-        return view('admin.subindikator.index', compact('subindikators'));
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+            $subindikators = SubIndikator::all();
+            return view('admin.subindikator.index', compact('subindikators'));
+        }
     }
 
     public function create()
     {
-        $indikators = Indikator::all();
-        return view('admin.subindikator.create', compact('indikators'));
+        if (auth()->user()->roles_id == 1) {
+            $indikators = Indikator::all();
+            return view('admin.subindikator.create', compact('indikators'));
+        }
     }
 
     public function store(Request $request)
