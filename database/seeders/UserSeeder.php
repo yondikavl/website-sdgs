@@ -15,12 +15,23 @@ class UserSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory()->create(
+        User::create(
             [
                 'nama' => 'Super Admin',
                 'email' => 'super@admin.com',
                 'roles_id' => 1,
-            ]          
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'created_at'=> now(),
+                'updated_at'=> now()
+            ],
+            [
+                'nama' => 'Bappeda',
+                'email' => 'admin@admin.com',
+                'roles_id' => 2,
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'created_at'=> now(),
+                'updated_at'=> now()
+            ]            
         );
     }
 }
