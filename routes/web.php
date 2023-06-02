@@ -1,20 +1,21 @@
 <?php
 
+use App\Http\Middleware\OPD;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\SuperAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Client\BerandaController;
-use App\Http\Controllers\Client\TujuanController;
-use App\Http\Controllers\Client\TargetController;
-use App\Http\Controllers\Client\ProgramController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PilarController;
+use App\Http\Controllers\Client\TargetController;
+use App\Http\Controllers\Client\TujuanController;
+use App\Http\Controllers\Client\BerandaController;
+use App\Http\Controllers\Client\ProgramController;
+use App\Http\Controllers\Admin\AktivitasController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Admin\SubIndikatorController;
-use App\Http\Controllers\Admin\AktivitasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pilar', PilarController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
-        Route::resource('aktivitas', AktivitasController::class);
     });
 
     // CMS ADMIN
@@ -51,7 +51,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pilar', PilarController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
-        Route::resource('aktivitas', AktivitasController::class);
+    });
+
+    // CMS OPD
+    Route::middleware([OPD::class])->name('opd.')->prefix('opd')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::resource('user', UserController::class);
+        Route::resource('pilar', PilarController::class);
+        Route::resource('indikator', IndikatorController::class);
+        Route::resource('subindikator', SubIndikatorController::class);
     });
 });
 

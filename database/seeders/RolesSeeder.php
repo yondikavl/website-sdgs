@@ -23,6 +23,10 @@ class RolesSeeder extends Seeder
                 'nama_roles' => 'Admin'
             ],
             [
+                'id' => 3,
+                'nama_roles' => 'OPD'
+            ],
+            [
                 'id' => 99,
                 'nama_roles' => 'Guest'
             ],

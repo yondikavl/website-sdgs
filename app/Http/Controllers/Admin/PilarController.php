@@ -10,7 +10,7 @@ class PilarController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $pilars = Pilar::all();
             return view('admin.pilar.index', compact('pilars'));
         }
@@ -66,7 +66,7 @@ class PilarController extends Controller
 
     public function show($id)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $pilar = Pilar::where('id', $id)->firstOrFail();
             return view('admin.pilar.show', compact('pilar'));
         }
@@ -74,7 +74,7 @@ class PilarController extends Controller
 
     public function edit($id)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $pilar = Pilar::where('id', $id)->firstOrFail();
             return view('admin.pilar.edit', compact('pilar'));
         }

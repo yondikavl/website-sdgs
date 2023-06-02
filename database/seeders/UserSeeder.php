@@ -31,7 +31,15 @@ class UserSeeder extends Seeder
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'created_at'=> now(),
                 'updated_at'=> now()
-            ]  
+            ],
+            [
+                'nama' => 'Dinas 1',
+                'email' => 'opd1@dinas.com',
+                'roles_id' => 3,
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'created_at'=> now(),
+                'updated_at'=> now()
+            ],
         ];
         User::query()->insert($user);
     }

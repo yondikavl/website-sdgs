@@ -11,7 +11,7 @@ class SubindikatorController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $subindikators = SubIndikator::all();
             return view('admin.subindikator.index', compact('subindikators'));
         }
@@ -19,10 +19,8 @@ class SubindikatorController extends Controller
 
     public function create()
     {
-        if (auth()->user()->roles_id == 1) {
-            $indikators = Indikator::all();
-            return view('admin.subindikator.create', compact('indikators'));
-        }
+        $indikators = Indikator::all();
+        return view('admin.subindikator.create', compact('indikators'));
     }
 
     public function store(Request $request)
@@ -52,6 +50,8 @@ class SubindikatorController extends Controller
             return redirect('super/subindikator')->with('sukses', 'Berhasil Tambah Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/subindikator')->with('sukses', 'Berhasil Tambah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/subindikator')->with('sukses', 'Berhasil Tambah Data!');
         }
     }
 
@@ -96,6 +96,8 @@ class SubindikatorController extends Controller
             return redirect('super/subindikator')->with('sukses', 'Berhasil Ubah Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/subindikator')->with('sukses', 'Berhasil Ubah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/subindikator')->with('sukses', 'Berhasil Ubah Data!');
         }
     }
 
@@ -108,6 +110,8 @@ class SubindikatorController extends Controller
             return redirect('super/subindikator')->with('sukses', 'Berhasil Hapus Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/subindikator')->with('sukses', 'Berhasil Hapus Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/subindikator')->with('sukses', 'Berhasil Hapus Data!');
         }
     }
 }

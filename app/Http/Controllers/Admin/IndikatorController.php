@@ -11,7 +11,7 @@ class IndikatorController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $indikators = Indikator::all();
             return view('admin.indikator.index', compact('indikators'));
         }
@@ -71,7 +71,7 @@ class IndikatorController extends Controller
 
     public function show($id)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
             $pilars = Pilar::all();
             $indikator = Indikator::where('id', $id)->firstOrFail();
             return view('admin.indikator.show', compact('indikator', 'pilars'));
