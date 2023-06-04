@@ -73,3 +73,7 @@ Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail
 Route::get('program', [ProgramController::class, 'index'])->name('program');
 Route::get('semua-program', [ProgramController::class, 'index2'])->name('semua-program');
 Route::get('aktivitas/{id}', [ProgramController::class, 'show'])->name('detail-aktivitas');
+
+// ajax
+// get all indikator
+Route::get('get-indikator', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
