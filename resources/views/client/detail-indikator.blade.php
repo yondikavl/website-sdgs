@@ -26,6 +26,7 @@
                   <tr>
                     <th>Kode</th>
                     <th>Jenis Data</th>
+                    <th>Satuan</th>
                     <th>2022</th>
                     <th>2023</th>
                     <th>Perangkat Daerah</th>
@@ -38,16 +39,23 @@
                     <td>{{$subindikator->nama_sub}}</td>
                     <td>
                       @if ($loop->iteration % 2 == 0)
-                          30 orang
+                          Orang
                       @else
-                          90%
+                          %
                       @endif
                     </td>
                     <td>
                       @if ($loop->iteration % 2 == 0)
-                          50 orang
+                          30
                       @else
-                          50%
+                          90
+                      @endif
+                    </td>
+                    <td>
+                      @if ($loop->iteration % 2 == 0)
+                          50
+                      @else
+                          40
                       @endif
                     </td>
                     <td>Dinas {{$loop->iteration}}</td>
@@ -58,6 +66,7 @@
                   <tr>
                     <th>Kode</th>
                     <th>Jenis Data</th>
+                    <th>Satuan</th>
                     <th>2022</th>
                     <th>2023</th>
                     <th>Perangkat Daerah</th>
