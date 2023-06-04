@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Indikator;
-use App\Models\Subindikator;
+use App\Models\SubIndikator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubIndikatorStoreRequest;
 use Illuminate\Http\Request;
 
 class SubindikatorController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $subindikators = SubIndikator::all();
-            return view('admin.subindikator.index', compact('subindikators'));
+        } else if(auth()->user()->roles_id == 3) {
+            $subindikators = SubIndikator::whereIn('indikator_id', auth()->user()->permissions)->get();
         }
+        return view('admin.subindikator.index', compact('subindikators'));
     }
 
     public function create()
@@ -23,23 +26,8 @@ class SubindikatorController extends Controller
         return view('admin.subindikator.create', compact('indikators'));
     }
 
-    public function store(Request $request)
+    public function store(SubIndikatorStoreRequest $request)
     {
-        $request->validate(
-            [
-                'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255',
-                'kode_sub' => 'required|max:255'
-            ],
-            [
-                'indikator_id.required' => 'Indikator tidak boleh kosong',
-                'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
-                'kode_sub.required' => 'Kode subindikator tidak boleh kosong',
-                'kode_sub.max' => 'Kode subindikator tidak boleh lebih dari 255 karakter'
-            ]
-        );
-
         $subindikator = SubIndikator::create([
             'indikator_id' => $request->indikator_id,
             'nama_sub' => $request->nama_sub,
@@ -69,23 +57,8 @@ class SubindikatorController extends Controller
         return view('admin.subindikator.edit', compact('subindikator', 'indikators'));
     }
 
-    public function update(Request $request, $id)
+    public function update(SubIndikatorStoreRequest $request, $id)
     {
-        $request->validate(
-            [
-                'indikator_id' => 'required',
-                'nama_sub' => 'required|max:255',
-                'kode_sub' => 'required|max:255'
-            ],
-            [
-                'indikator_id.required' => 'Indikator tidak boleh kosong',
-                'nama_sub.required' => 'Nama subindikator tidak boleh kosong',
-                'nama_sub.max' => 'Nama subindikator tidak boleh lebih dari 255 karakter',
-                'kode_sub.required' => 'Kode subindikator tidak boleh kosong',
-                'kode_sub.max' => 'Kode subindikator tidak boleh lebih dari 255 karakter'
-            ]
-        );
-
         $subindikator = SubIndikator::where('id', $id)->update([
             'indikator_id' => $request->indikator_id,
             'nama_sub' => $request->nama_sub,
@@ -113,5 +86,11 @@ class SubindikatorController extends Controller
         } else if (auth()->user()->roles_id == 3) {
             return redirect('opd/subindikator')->with('sukses', 'Berhasil Hapus Data!');
         }
+    }
+
+    public function getAllSubIndikator($id)
+    {
+        $subindikators = SubIndikator::where('indikator_id', $id)->get();
+        return response()->json($subindikators);
     }
 }
