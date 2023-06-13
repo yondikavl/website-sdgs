@@ -8,9 +8,8 @@
 
 <div class="card text-center">
     <div class="card-body">
-        <h1>Detail Indikator</h1>
-        <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="80" alt="">
-        <h2>{{$indikator->nama_indikator}}</h2>
+      <h2>{{$indikator->nama_indikator}}</h2>
+        <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="100" alt="">
         <p>{{$indikator->deskripsi_indikator}}</p>
     </div>
 </div>
@@ -82,7 +81,7 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": false, "autoWidth": true,
       "buttons": ["csv", "excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({

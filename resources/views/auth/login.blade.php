@@ -35,14 +35,15 @@
   </div>
 
   <div class="card card-success m-2" style="width: 500px;">
-    <div class="card-header">
-      <h3 class="card-title">{{ __('Login Admin') }}</h3>
+    <div class="card-header justify-content-between">
+      <div class="card-title col-6 pt-1">LOGIN ADMIN</div>
+      <div class="card-title col-6 text-right"><img src="{{asset('assets/img/logo.png')}}" alt="" style="width: 30px;"></div>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
     <form method="POST" action="{{ route('login') }}">
         @csrf
-      <div class="card-body" style="background-size: 200px; background-repeat: no-repeat; background-position-x: 50%; background-image: url('{{asset('assets/img/logo.png')}}'); ">
+      <div class="card-body">
         <div class="form-group">
           <label for="email">{{ __('Alamat Email') }}</label>
           <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" name="email" required autocomplete="email" autofocus>

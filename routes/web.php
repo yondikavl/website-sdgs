@@ -11,7 +11,6 @@ use App\Http\Controllers\Admin\PilarController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuanController;
 use App\Http\Controllers\Client\BerandaController;
-use App\Http\Controllers\Client\ProgramController;
 use App\Http\Controllers\Admin\AktivitasController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndikatorController;
@@ -70,9 +69,11 @@ Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-in
 Route::get('target', [TargetController::class, 'index'])->name('target');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
-Route::get('program', [ProgramController::class, 'index'])->name('program');
-Route::get('semua-program', [ProgramController::class, 'index2'])->name('semua-program');
 Route::get('aktivitas/{id}', [ProgramController::class, 'show'])->name('detail-aktivitas');
+
+Route::get('/kontak', function () {
+    return view('client.kontak');
+})->name('kontak');
 
 // ajax
 // get all indikator

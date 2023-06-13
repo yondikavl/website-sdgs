@@ -14,9 +14,9 @@
       <li class="nav-item">
         <a class="nav-link font-weight-bold" href="/target">TARGET</a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link font-weight-bold" href="/program">PROGRAM</a>
-      </li> --}}
+      <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/kontak">KONTAK</a>
+      </li>
     </ul>
     <a class="navbar-brand ml-auto" href="#"><img src="{{ asset('assets/img/logo-sdgs.png') }}" width="50" alt=""></a>
   </div>
