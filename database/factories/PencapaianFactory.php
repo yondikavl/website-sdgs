@@ -17,10 +17,10 @@ class PencapaianFactory extends Factory
     public function definition(): array
     {
         return [
+            'indikator_id' => $this->faker->numberBetween(1, 50),
             'subindikator_id' => $this->faker->numberBetween(1, 50),
-            'ikon_pencapaian' => 'default-pencapaian.png',
-            'nama_pencapaian' => $this->faker->word(),
-            'deskripsi_pencapaian' => $this->faker->text(),
+            'tahun' => $this->faker->text(10),
+            'tipe' => $this->faker->text(10),
             'persentase' => $this->faker->numberBetween(1, 100),
         ];
     }

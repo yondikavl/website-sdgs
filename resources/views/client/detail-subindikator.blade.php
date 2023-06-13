@@ -12,7 +12,7 @@
 <div class="text-center">
     @foreach ($pencapaians->where('subindikator_id', $subindikator->id) as $pencapaian)
     <a href="/pencapaian/{{$pencapaian->id}}">
-        <img src="{{ asset('assets/img/pencapaian/'. $pencapaian->ikon_pencapaian) }}" width="185" alt="">
+        <img src="{{ asset('assets/img/pencapaian/'. $pencapaian->indikator_id) }}" width="185" alt="">
     </a>
     @endforeach
 </div>

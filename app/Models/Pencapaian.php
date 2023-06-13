@@ -10,10 +10,10 @@ class Pencapaian extends Model
     use HasFactory;
     protected $table = 'pencapaian';
     protected $fillable = [
+        'indikator_id',
         'subindikator_id',
-        'ikon_pencapaian',
-        'nama_pencapaian',
-        'deskripsi_pencapaian',
+        'tahun',
+        'tipe',
         'persentase',
     ];
 

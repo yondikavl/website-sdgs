@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Indikator;
 use App\Models\SubIndikator;
 use App\Models\Pencapaian;
 use App\Http\Controllers\Controller;
@@ -17,53 +18,38 @@ class PencapaianController extends Controller
 
     public function create()
     {
-        $pencapaian = Pencapaian::all();
+        $indikators = Indikator::all();
         $subindikators = SubIndikator::all();
-        return view('admin.pencapaian.create', compact('subindikators', 'pencapaian'));
+        $pencapaian = Pencapaian::all();
+        return view('admin.pencapaian.create', compact('indikators', 'subindikators', 'pencapaian'));
     }
 
     public function store(Request $request)
     {
         $request->validate(
             [
+                'indikator_id' => 'required',
                 'subindikator_id' => 'required',
-                'nama_pencapaian' => 'required|max:255',
-                'deskripsi_pencapaian' => 'required',
-                'persentase' => 'required|numeric'
+                'tahun' => 'required',
+                'tipe' => 'required',
+                'persentase' => 'required',
             ],
             [
-                'subindikator_id.required' => 'subindikator tidak boleh kosong',
-                'nama_pencapaian.required' => 'Nama pencapaian tidak boleh kosong',
-                'nama_pencapaian.max' => 'Nama pencapaian tidak boleh lebih dari 255 karakter',
-                'deskripsi_pencapaian.required' => 'Deskripsi pencapaian tidak boleh kosong',
-                'persentase.required' => 'Persentase tidak boleh kosong',
-                'persentase.numeric' => 'Persentase harus berupa angka'
+                'indikator_id.required' => 'Indikator tidak boleh kosong!',
+                'subindikator_id.required' => 'Subindikator tidak boleh kosong!',
+                'tahun.required' => 'Tahun tidak boleh kosong!',
+                'tipe.required' => 'Tipe tidak boleh kosong!',
+                'persentase.required' => 'Persentase tidak boleh kosong!',
             ]
         );
 
         $pencapaian = Pencapaian::create([
+            'indikator_id' => $request->indikator_id,
             'subindikator_id' => $request->subindikator_id,
-            'nama_pencapaian' => $request->nama_pencapaian,
-            'deskripsi_pencapaian' => $request->deskripsi_pencapaian,
+            'tahun' => $request->tahun,
+            'tipe' => $request->tipe,
             'persentase' => $request->persentase,
         ]);
-
-        $validasi = $request->validate(
-            [
-                'ikon_pencapaian' => 'mimes:jpg,bmp,png,svg,jpeg|max:10240'
-            ],
-            [
-                'ikon_pencapaian.mimes' => 'Ikon pencapaian harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_pencapaian.max' => 'Ikon pencapaian tidak boleh lebih dari 10MB'
-            ]
-        );
-
-        if ($request->hasFile('ikon_pencapaian')) {
-            $ikon_pencapaian = $validasi[('ikon_pencapaian')];
-            $pencapaian->ikon_pencapaian = time() . '_' . $ikon_pencapaian->getClientOriginalName();
-            $pencapaian->update();
-            $ikon_pencapaian->move('../public/assets/img/pencapaian/', time() . '_' . $ikon_pencapaian->getClientOriginalName());
-        }
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
@@ -74,60 +60,46 @@ class PencapaianController extends Controller
 
     public function show($id)
     {
+        $indikators = Indikator::all();
         $subindikators = Subindikator::all();
         $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-        return view('admin.pencapaian.show', compact('pencapaian', 'subindikators'));
+        return view('admin.pencapaian.show', compact('pencapaian', 'subindikators', 'indikators'));
     }
 
     public function edit($id)
     {
+        $indikators = Indikator::all();
         $subindikators = Subindikator::all();
         $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-        return view('admin.pencapaian.edit', compact('pencapaian', 'subindikators'));
+        return view('admin.pencapaian.edit', compact('pencapaian', 'subindikators', 'indikators'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate(
             [
+                'indikator_id' => 'required',
                 'subindikator_id' => 'required',
-                'nama_pencapaian' => 'required|max:255',
-                'deskripsi_pencapaian' => 'required',
-                'persentase' => 'required|numeric'
+                'tahun' => 'required',
+                'tipe' => 'required',
+                'persentase' => 'required',
             ],
             [
-                'subindikator_id.required' => 'subindikator tidak boleh kosong',
-                'nama_pencapaian.required' => 'Nama pencapaian tidak boleh kosong',
-                'nama_pencapaian.max' => 'Nama pencapaian tidak boleh lebih dari 255 karakter',
-                'deskripsi_pencapaian.required' => 'Deskripsi pencapaian tidak boleh kosong',
-                'persentase.required' => 'Persentase tidak boleh kosong',
-                'persentase.numeric' => 'Persentase harus berupa angka'
+                'indikator_id.required' => 'Indikator harus diisi!',
+                'subindikator_id.required' => 'Subindikator harus diisi!',
+                'tahun.required' => 'Tahun harus diisi!',
+                'tipe.required' => 'Tipe harus diisi!',
+                'persentase.required' => 'Persentase harus diisi!',
             ]
         );
 
         $pencapaian = Pencapaian::where('id', $id)->update([
+            'indikator_id' => $request->indikator_id,
             'subindikator_id' => $request->subindikator_id,
-            'nama_pencapaian' => $request->nama_pencapaian,
-            'deskripsi_pencapaian' => $request->deskripsi_pencapaian
+            'tahun' => $request->tahun,
+            'tipe' => $request->tipe,
+            'persentase' => $request->persentase,
         ]);
-
-        $validasi = $request->validate(
-            [
-                'ikon_pencapaian' => 'mimes:jpg,bmp,png,svg,jpeg|max:10240'
-            ],
-            [
-                'ikon_pencapaian.mimes' => 'Ikon pencapaian harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-                'ikon_pencapaian.max' => 'Ikon pencapaian tidak boleh lebih dari 10MB'
-            ]
-        );
-
-        if ($request->hasFile('ikon_pencapaian')) {
-            $ikon_pencapaian = $validasi[('ikon_pencapaian')];
-            $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-            $pencapaian->ikon_pencapaian = time() . '_' . $ikon_pencapaian->getClientOriginalName();
-            $pencapaian->update();
-            $ikon_pencapaian->move('../public/assets/img/pencapaian/', time() . '_' . $ikon_pencapaian->getClientOriginalName());
-        }
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Ubah Data!');

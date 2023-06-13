@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pilar', PilarController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
+        Route::resource('pencapaian', PencapaianController::class);
     });
 
     // CMS ADMIN
@@ -50,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pilar', PilarController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
+        Route::resource('pencapaian', PencapaianController::class);
     });
 
     // CMS OPD
@@ -59,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pilar', PilarController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
+        Route::resource('pencapaian', PencapaianController::class);
     });
 });
 

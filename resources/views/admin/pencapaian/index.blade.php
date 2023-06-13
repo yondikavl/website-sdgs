@@ -14,11 +14,11 @@
                   <thead>
                   <tr>
                     <th>No</th>
+                    <th>ID Indikator</th>
                     <th>ID Sub-Indikator</th>
-                    <th>Foto</th>
+                    <th>Tahun</th>
+                    <th>Jenis Pencapaian</th>
                     <th>Persentase</th>
-                    <th>Nama pencapaian</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
@@ -26,11 +26,11 @@
                     @foreach ($pencapaians as $pencapaian)
                   <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$pencapaian->indikator_id}}</td>
                     <td>{{$pencapaian->subindikator_id}}</td>
-                    <td><img src="{{ asset('assets/img/pencapaian/'.$pencapaian->ikon_pencapaian) }}" alt="" width="50"></td>
-                    <td>{{$pencapaian->persentase}} %</td>
-                    <td>{{$pencapaian->nama_pencapaian}}</td>
-                    <td>{{$pencapaian->deskripsi_pencapaian}}</td>
+                    <td>{{$pencapaian->tahun}}</td>
+                    <td>{{$pencapaian->tipe}}</td>
+                    <td>{{$pencapaian->persentase}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                           <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
@@ -86,11 +86,11 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
+                    <th>ID Indikator</th>
                     <th>ID Sub-Indikator</th>
-                    <th>Foto</th>
+                    <th>Tahun</th>
+                    <th>Jenis Pencapaian</th>
                     <th>Persentase</th>
-                    <th>Nama pencapaian</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </tfoot>

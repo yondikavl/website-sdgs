@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('pencapaian', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('indikator_id')->nullable();
+            $table->foreign('indikator_id')->references('id')->on('indikator');
             $table->unsignedBigInteger('subindikator_id')->nullable();
             $table->foreign('subindikator_id')->references('id')->on('subindikator');
+            $table->text('tahun');
             $table->text('tipe');
-            $table->integer('penacapaian');
+            $table->integer('persentase');
             $table->timestamps();
         });
     }

@@ -19,9 +19,13 @@
         @csrf
       <div class="card-body">
         <div class="form-group">
-          <label for="ikon_pencapaian">{{ __('Ikon pencapaian') }}</label>
-          <input type="file" class="form-control @error('ikon_pencapaian') is-invalid @enderror" id="ikon_pencapaian" name="ikon_pencapaian" required>
-            @error('ikon_pencapaian')
+          <label for="indikator_id">{{ __('ID Indikator') }}</label>
+          <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
+            @foreach ($indikators as $indikator)
+              <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
+            @endforeach
+          </select>  
+            @error('indikator_id')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -30,7 +34,7 @@
         <div class="form-group">
           <label for="subindikator_id">{{ __('ID Sub-Indikator') }}</label>
           <select class="form-control col-form-label rounded-2" name="subindikator_id" id="subindikator_id" required>
-            @foreach ($subindikators as $subindikator)
+            @foreach ($subindikators->where('indikator_id',) as $subindikator)
               <option value="{{$subindikator->id}}">{{$subindikator->id}}. {{$subindikator->nama_sub}}</option>
             @endforeach
           </select>  
@@ -41,18 +45,21 @@
             @enderror
         </div>
         <div class="form-group">
-          <label for="nama_pencapaian">{{ __('Nama pencapaian') }}</label>
-          <input type="nama_pencapaian" class="form-control @error('nama_pencapaian') is-invalid @enderror" id="nama_pencapaian" placeholder="Masukkan nama pencapaian" value="{{ old('nama_pencapaian') }}" name="nama_pencapaian" required autocomplete="nama_pencapaian" autofocus>
-            @error('nama_pencapaian')
+          <label for="tahun">{{ __('Tahun') }}</label>
+          <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun" placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
+              @error('tahun')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
         <div class="form-group">
-          <label for="deskripsi_pencapaian">{{ __('Deskripsi pencapaian') }}</label>
-          <input type="deskripsi_pencapaian" class="form-control @error('deskripsi_pencapaian') is-invalid @enderror" id="deskripsi_pencapaian" placeholder="Masukkan deskripsi pencapaian" name="deskripsi_pencapaian" required autocomplete="current-deskripsi_pencapaian">
-            @error('deskripsi_pencapaian')
+          <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
+          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
+              <option value="%">Persen (%)</option>
+              <option value="orang">Orang</option>
+          </select>  
+            @error('tipe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -61,9 +68,7 @@
         <div class="form-group">
           <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
           <div class="input-group" id="persentase">
-            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" placeholder="Masukkan persentase pencapaian" name="persentase" required autocomplete="current-persentase">
-            <div class="input-group-append" data-target="#persentase">
-            <div class="input-group-text"><i class="far fa-percent"></i></div>
+            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase" required autocomplete="current-persentase">
           </div>
           @error('persentase')
                 <span class="invalid-feedback" role="alert">
