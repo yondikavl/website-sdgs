@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aktivitas', function (Blueprint $table) {
+        Schema::create('pencapaian', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subindikator_id')->nullable();
             $table->foreign('subindikator_id')->references('id')->on('subindikator');
-            $table->string('ikon_aktivitas')->nullable();
-            $table->string('nama_aktivitas');
-            $table->text('deskripsi_aktivitas');
-            $table->integer('persentase');
+            $table->text('tipe');
+            $table->integer('penacapaian');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aktivitas');
+        Schema::dropIfExists('pencapaian');
     }
 };

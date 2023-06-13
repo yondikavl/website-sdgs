@@ -114,21 +114,21 @@
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
-            Aktivitas
+            pencapaian
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/super/aktivitas/" class="nav-link text-white">
+            <a href="/super/pencapaian/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p>Data Aktivitas</p>
+              <p>Data pencapaian</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/super/aktivitas/create/" class="nav-link text-white">
+            <a href="/super/pencapaian/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p><small>Tambah Data Aktivitas</small></p>
+              <p><small>Tambah Data pencapaian</small></p>
             </a>
           </li>
         </ul>
@@ -249,21 +249,21 @@
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
-            Aktivitas
+            pencapaian
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/admin/aktivitas/" class="nav-link text-white">
+            <a href="/admin/pencapaian/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p>Data Aktivitas</p>
+              <p>Data pencapaian</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/admin/aktivitas/create/" class="nav-link text-white">
+            <a href="/admin/pencapaian/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p><small>Tambah Data Aktivitas</small></p>
+              <p><small>Tambah Data pencapaian</small></p>
             </a>
           </li>
         </ul>
@@ -361,21 +361,21 @@
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
-            Aktivitas
+            pencapaian
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="/opd/aktivitas/" class="nav-link text-white">
+            <a href="/opd/pencapaian/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p>Data Aktivitas</p>
+              <p>Data pencapaian</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/opd/aktivitas/create/" class="nav-link text-white">
+            <a href="/opd/pencapaian/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p><small>Tambah Data Aktivitas</small></p>
+              <p><small>Tambah Data pencapaian</small></p>
             </a>
           </li>
         </ul>

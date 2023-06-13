@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\Aktivitas;
+use App\Models\pencapaian;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,19 +10,19 @@ class ProgramController extends Controller
 {
     public function index()
     {
-        $aktivitass = Aktivitas::all();
-        return view('client.program', compact('aktivitass'));
+        $pencapaians = pencapaian::all();
+        return view('client.program', compact('pencapaians'));
     }
 
     public function index2()
     {
-        $aktivitass = Aktivitas::all();
-        return view('client.semua-program', compact('aktivitass'));
+        $pencapaians = pencapaian::all();
+        return view('client.semua-program', compact('pencapaians'));
     }
 
     public function show($id)
     {
-        $aktivitas = Aktivitas::findOrFail($id);
-        return view('client.detail-aktivitas', compact('aktivitas'));
+        $pencapaian = pencapaian::findOrFail($id);
+        return view('client.detail-pencapaian', compact('pencapaian'));
     }
 }

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Aktivitas extends Model
+class Pencapaian extends Model
 {
     use HasFactory;
-    protected $table = 'aktivitas';
+    protected $table = 'pencapaian';
     protected $fillable = [
         'subindikator_id',
-        'ikon_aktivitas',
-        'nama_aktivitas',
-        'deskripsi_aktivitas',
+        'ikon_pencapaian',
+        'nama_pencapaian',
+        'deskripsi_pencapaian',
         'persentase',
     ];
 

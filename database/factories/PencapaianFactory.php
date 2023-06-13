@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Aktivitas>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pencapaian>
  */
-class AktivitasFactory extends Factory
+class PencapaianFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,9 @@ class AktivitasFactory extends Factory
     {
         return [
             'subindikator_id' => $this->faker->numberBetween(1, 50),
-            'ikon_aktivitas' => 'default-aktivitas.png',
-            'nama_aktivitas' => $this->faker->word(),
-            'deskripsi_aktivitas' => $this->faker->text(),
+            'ikon_pencapaian' => 'default-pencapaian.png',
+            'nama_pencapaian' => $this->faker->word(),
+            'deskripsi_pencapaian' => $this->faker->text(),
             'persentase' => $this->faker->numberBetween(1, 100),
         ];
     }

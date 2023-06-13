@@ -1,12 +1,12 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Kelola aktivitas')
+@section('title', 'Kelola pencapaian')
 
 @section('content')
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ __('Tabel Data Aktivitas') }}</h3>
+                <h3 class="card-title">{{ __('Tabel Data pencapaian') }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -17,34 +17,34 @@
                     <th>ID Sub-Indikator</th>
                     <th>Foto</th>
                     <th>Persentase</th>
-                    <th>Nama Aktivitas</th>
+                    <th>Nama pencapaian</th>
                     <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($aktivitass as $aktivitas)
+                    @foreach ($pencapaians as $pencapaian)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$aktivitas->subindikator_id}}</td>
-                    <td><img src="{{ asset('assets/img/aktivitas/'.$aktivitas->ikon_aktivitas) }}" alt="" width="50"></td>
-                    <td>{{$aktivitas->persentase}} %</td>
-                    <td>{{$aktivitas->nama_aktivitas}}</td>
-                    <td>{{$aktivitas->deskripsi_aktivitas}}</td>
+                    <td>{{$pencapaian->subindikator_id}}</td>
+                    <td><img src="{{ asset('assets/img/pencapaian/'.$pencapaian->ikon_pencapaian) }}" alt="" width="50"></td>
+                    <td>{{$pencapaian->persentase}} %</td>
+                    <td>{{$pencapaian->nama_pencapaian}}</td>
+                    <td>{{$pencapaian->deskripsi_pencapaian}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
-                          <a href="{{ route('super.aktivitas.show',$aktivitas->id) }}" class="show-button">
+                          <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('super.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
+                          <a href="{{ route('super.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                           <!-- Button trigger modal -->
-                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$aktivitas->id}}">
+                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$pencapaian->id}}">
                             <i class="fa-solid fa-trash-can"></i>
                           </a>
                           <!-- Modal -->
-                          <div class="modal fade bd-example-modal-sm{{$aktivitas->id}}" tabindex="-1" role="dialog" aria-hidden="">
+                          <div class="modal fade bd-example-modal-sm{{$pencapaian->id}}" tabindex="-1" role="dialog" aria-hidden="">
                             <div class="modal-dialog ">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="modal-body">Apakah anda yakin ingin menghapus data?</div>
                                     <div class="modal-footer">
-                                        <form action="{{route('super.aktivitas.destroy', $aktivitas->id)}}" method="POST">
+                                        <form action="{{route('super.pencapaian.destroy', $pencapaian->id)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <input type="submit" class="btn btn-danger light" name="" id="" value="Hapus">
@@ -65,17 +65,17 @@
                             </div>
                           </div>
                           @elseif(auth()->user()->roles_id == 2)
-                          <a href="{{ route('admin.aktivitas.show',$aktivitas->id) }}" class="show-button">
+                          <a href="{{ route('admin.pencapaian.show',$pencapaian->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('admin.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
+                          <a href="{{ route('admin.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                           @elseif(auth()->user()->roles_id == 3)
-                          <a href="{{ route('opd.aktivitas.show',$aktivitas->id) }}" class="show-button">
+                          <a href="{{ route('opd.pencapaian.show',$pencapaian->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('opd.aktivitas.edit',$aktivitas->id) }}" class="edit-button">
+                          <a href="{{ route('opd.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                         @endif
@@ -89,7 +89,7 @@
                     <th>ID Sub-Indikator</th>
                     <th>Foto</th>
                     <th>Persentase</th>
-                    <th>Nama aktivitas</th>
+                    <th>Nama pencapaian</th>
                     <th>Deskripsi</th>
                     <th>More</th>
                   </tr>

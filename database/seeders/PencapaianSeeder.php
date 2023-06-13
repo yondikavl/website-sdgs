@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Aktivitas;
+use App\Models\pencapaian;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AktivitasSeeder extends Seeder
+class PencapaianSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Aktivitas::factory(100)->create();
+        pencapaian::factory(100)->create();
     }
 }

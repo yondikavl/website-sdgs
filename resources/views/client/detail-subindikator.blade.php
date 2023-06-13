@@ -10,9 +10,9 @@
     <p>{{$subindikator->deskripsi_sub}}</p>
 </div>
 <div class="text-center">
-    @foreach ($aktivitass->where('subindikator_id', $subindikator->id) as $aktivitas)
-    <a href="/aktivitas/{{$aktivitas->id}}">
-        <img src="{{ asset('assets/img/aktivitas/'. $aktivitas->ikon_aktivitas) }}" width="185" alt="">
+    @foreach ($pencapaians->where('subindikator_id', $subindikator->id) as $pencapaian)
+    <a href="/pencapaian/{{$pencapaian->id}}">
+        <img src="{{ asset('assets/img/pencapaian/'. $pencapaian->ikon_pencapaian) }}" width="185" alt="">
     </a>
     @endforeach
 </div>

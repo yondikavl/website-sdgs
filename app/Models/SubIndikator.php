@@ -20,8 +20,8 @@ class SubIndikator extends Model
         return $this->belongsTo(Indikator::class, 'indikator_id', 'id');
     }
 
-    public function aktivitas()
+    public function pencapaian()
     {
-        return $this->hasMany(Aktivitas::class);
+        return $this->hasMany(pencapaian::class);
     }
 }
