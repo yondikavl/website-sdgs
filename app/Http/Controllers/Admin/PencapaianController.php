@@ -33,6 +33,7 @@ class PencapaianController extends Controller
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
+                'sumber' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong!',
@@ -40,6 +41,7 @@ class PencapaianController extends Controller
                 'tahun.required' => 'Tahun tidak boleh kosong!',
                 'tipe.required' => 'Tipe tidak boleh kosong!',
                 'persentase.required' => 'Persentase tidak boleh kosong!',
+                'sumber.required' => 'Sumber tidak boleh kosong!',
             ]
         );
 
@@ -49,6 +51,7 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
+            'sumber' => $request->sumber,
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -83,6 +86,7 @@ class PencapaianController extends Controller
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
+                'sumber' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator harus diisi!',
@@ -90,6 +94,7 @@ class PencapaianController extends Controller
                 'tahun.required' => 'Tahun harus diisi!',
                 'tipe.required' => 'Tipe harus diisi!',
                 'persentase.required' => 'Persentase harus diisi!',
+                'sumber.required' => 'Sumber harus diisi!',
             ]
         );
 
@@ -99,6 +104,7 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
+            'sumber' => $request->sumber,
         ]);
 
         if (auth()->user()->roles_id == 1) {

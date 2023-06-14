@@ -22,6 +22,7 @@ class PencapaianFactory extends Factory
             'tahun' => $this->faker->text(10),
             'tipe' => $this->faker->text(10),
             'persentase' => $this->faker->numberBetween(1, 100),
+            'sumber' => $this->faker->text(10),
         ];
     }
 }

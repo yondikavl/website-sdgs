@@ -47,7 +47,7 @@
             </div>
             </div>
             <div class="d-flex col-12 flex-row">
-            <div class="form-group col-4">
+            <div class="form-group col-6">
               <label for="tahun">{{ __('Tahun') }}</label>
               <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun" value="{{$pencapaian->tahun}}" name="tahun" disabled autocomplete="tahun" autofocus>
                 @error('tahun')
@@ -56,7 +56,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-6">
               <label for="tipe">{{ __('Jenis') }}</label>
               <input type="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" value="{{$pencapaian->tipe}}" name="tipe" disabled autocomplete="tipe" autofocus>
                 @error('tipe')
@@ -65,18 +65,26 @@
                     </span>
                 @enderror
             </div>
-            <div class="form-group col-4">
-              <label for="persentase">{{ __('Persentase') }}</label>
-              <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{$pencapaian->persentase}}" name="persentase" disabled autocomplete="persentase" autofocus>
-              @error('persentase')
+          </div>
+          <div class="d-flex col-12 flex-row">
+          <div class="form-group col-6">
+            <label for="persentase">{{ __('Persentase') }}</label>
+            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{$pencapaian->persentase}}" name="persentase" disabled autocomplete="persentase" autofocus>
+            @error('persentase')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+            <div class="form-group col-6">
+              <label for="sumber">{{ __('Sumber Data') }}</label>
+              <input type="text" class="form-control @error('sumber') is-invalid @enderror" id="sumber" value="{{$pencapaian->sumber}}" name="sumber" disabled autocomplete="sumber" autofocus>
+              @error('sumber')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
             </div>
-            </div>
-            <div class="d-flex col-12 flex-row">
-            
             </div>
             <div class="d-flex col-12 flex-row">
             <div class="form-group col-6">

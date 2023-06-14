@@ -76,7 +76,16 @@
                 </span>
             @enderror
         </div>
-  
+          <div class="form-group">
+          <label for="sumber">{{ __('Sumber Data') }}</label>
+          <div class="input-group" id="sumber">
+            <input type="text" class="form-control @error('sumber') is-invalid @enderror" id="sumber" placeholder="Masukkan sumber data" name="sumber" required autocomplete="current-sumber">
+          </div>
+          @error('sumber')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         <div class="mt-4">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>

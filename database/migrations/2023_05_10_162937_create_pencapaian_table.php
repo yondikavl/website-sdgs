@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('tahun');
             $table->text('tipe');
             $table->integer('persentase');
+            $table->text('sumber');
             $table->timestamps();
         });
     }
