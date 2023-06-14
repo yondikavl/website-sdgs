@@ -15,7 +15,6 @@ class Pencapaian extends Model
         'tahun',
         'tipe',
         'persentase',
-        'sumber',
     ];
 
     public function indikator()

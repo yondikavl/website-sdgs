@@ -19,7 +19,6 @@
                     <th>Tahun</th>
                     <th>Jenis Pencapaian</th>
                     <th>Persentase</th>
-                    <th>Sumber Data</th>
                     <th>More</th>
                   </tr>
                   </thead>
@@ -32,7 +31,6 @@
                     <td>{{$pencapaian->tahun}}</td>
                     <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>
-                    <td>{{$pencapaian->sumber}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                           <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
@@ -93,7 +91,6 @@
                     <th>Tahun</th>
                     <th>Jenis Pencapaian</th>
                     <th>Persentase</th>
-                    <th>Sumber Data</th>
                     <th>More</th>
                   </tr>
                   </tfoot>

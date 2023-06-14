@@ -33,7 +33,6 @@ class PencapaianController extends Controller
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
-                'sumber' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong!',
@@ -41,7 +40,6 @@ class PencapaianController extends Controller
                 'tahun.required' => 'Tahun tidak boleh kosong!',
                 'tipe.required' => 'Tipe tidak boleh kosong!',
                 'persentase.required' => 'Persentase tidak boleh kosong!',
-                'sumber.required' => 'Sumber tidak boleh kosong!',
             ]
         );
 
@@ -51,7 +49,6 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
-            'sumber' => $request->sumber,
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -86,7 +83,6 @@ class PencapaianController extends Controller
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
-                'sumber' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator harus diisi!',
@@ -94,7 +90,6 @@ class PencapaianController extends Controller
                 'tahun.required' => 'Tahun harus diisi!',
                 'tipe.required' => 'Tipe harus diisi!',
                 'persentase.required' => 'Persentase harus diisi!',
-                'sumber.required' => 'Sumber harus diisi!',
             ]
         );
 
@@ -104,7 +99,6 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
-            'sumber' => $request->sumber,
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -124,18 +118,5 @@ class PencapaianController extends Controller
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/pencapaian')->with('sukses', 'Berhasil Hapus Data!');
         }
-    }
-
-    public function uploadData()
-    {
-        $request = request();
-        $pencapaians = Pencapaian::all();
-        if ($request->hasFile('fileExcel')) {
-            $fileExcel = $request->fileExcel;
-            $indikator->fileExcel = time() . '_' . $fileExcel->getClientOriginalName();
-            $indikator->update();
-            $fileExcel->move('../public/assets/excel/', time() . '_' . $fileExcel->getClientOriginalName());
-        }
-        return view('admin.pencapaian.upload', compact('pencapaians'));
     }
 }
