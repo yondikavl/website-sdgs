@@ -11,9 +11,10 @@ use App\Http\Controllers\Admin\PilarController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuanController;
 use App\Http\Controllers\Client\BerandaController;
-use App\Http\Controllers\Admin\PencapaianController;
+use App\Http\Controllers\Client\ProgramController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndikatorController;
+use App\Http\Controllers\Admin\PencapaianController;
 use App\Http\Controllers\Admin\SubIndikatorController;
 
 /*
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::get('uploadData', [PencapaianController::class, 'uploadData'])->name('uploadData');
     });
 
     // CMS ADMIN
@@ -52,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::get('uploadData', [PencapaianController::class, 'uploadData'])->name('uploadData');
     });
 
     // CMS OPD
@@ -62,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('indikator', IndikatorController::class);
         Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::get('uploadData', [PencapaianController::class, 'uploadData'])->name('uploadData');
     });
 });
 

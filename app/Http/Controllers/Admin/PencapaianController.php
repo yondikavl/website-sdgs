@@ -125,4 +125,17 @@ class PencapaianController extends Controller
             return redirect('admin/pencapaian')->with('sukses', 'Berhasil Hapus Data!');
         }
     }
+
+    public function uploadData()
+    {
+        $request = request();
+        $pencapaians = Pencapaian::all();
+        if ($request->hasFile('fileExcel')) {
+            $fileExcel = $request->fileExcel;
+            $indikator->fileExcel = time() . '_' . $fileExcel->getClientOriginalName();
+            $indikator->update();
+            $fileExcel->move('../public/assets/excel/', time() . '_' . $fileExcel->getClientOriginalName());
+        }
+        return view('admin.pencapaian.upload', compact('pencapaians'));
+    }
 }
