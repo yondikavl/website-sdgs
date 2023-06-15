@@ -15,10 +15,16 @@ class Pencapaian extends Model
         'tahun',
         'tipe',
         'persentase',
+        'sumber_data',
     ];
 
-    public function indikator()
+    // public function indikator()
+    // {
+    //     return $this->belongsTo(Indikator::class, 'subindikator_id', 'id');
+    // }
+
+    public function subindikator()
     {
-        return $this->belongsTo(Indikator::class, 'subindikator_id', 'id');
+        return $this->belongsTo(SubIndikator::class, 'subindikator_id', 'id');
     }
 }
