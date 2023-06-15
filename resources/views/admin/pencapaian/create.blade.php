@@ -3,85 +3,176 @@
 @section('title', 'Tambah pencapaian')
 
 @section('content')
-<div class="card card-success m-2">
-    <div class="card-header">
-      <h3 class="card-title">{{ __('Tambah pencapaian') }}</h3>
+    <div class="card card-success m-2">
+        <div class="card-header">
+            <h3 class="card-title">{{ __('Tambah pencapaian') }}</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="manual" data-toggle="pill" href="#custom-tabs-four-home" role="tab"
+                        aria-controls="custom-tabs-four-home" aria-selected="true">Manual</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="upload" data-toggle="pill" href="#custom-tabs-four-profile" role="tab"
+                        aria-controls="custom-tabs-four-profile" aria-selected="false">Upload</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="manual">
+                    <!-- form start -->
+
+                    <div class="card-body">
+                        @if (auth()->user()->roles_id == 1)
+                            <form method="POST" action="{{ route('super.pencapaian.store') }}"
+                                enctype='multipart/form-data'>
+                            @elseif (auth()->user()->roles_id == 2)
+                                <form method="POST" action="{{ route('admin.pencapaian.store') }}"
+                                    enctype='multipart/form-data'>
+                                @elseif (auth()->user()->roles_id == 3)
+                                    <form method="POST" action="{{ route('opd.pencapaian.store') }}"
+                                        enctype='multipart/form-data'>
+                        @endif
+                        @csrf
+                        <div class="form-group">
+                            <label for="indikator_id">{{ __('ID Indikator') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id"
+                                required>
+                                @foreach ($indikators as $indikator)
+                                    <option value="{{ $indikator->id }}">{{ $indikator->id }}.
+                                        {{ $indikator->nama_indikator }}</option>
+                                @endforeach
+                            </select>
+                            @error('indikator_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="subindikator_id">{{ __('ID Sub-Indikator') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="subindikator_id"
+                                id="subindikator_id" required>
+                                @foreach ($subindikators->where('indikator_id') as $subindikator)
+                                    <option value="{{ $subindikator->id }}">{{ $subindikator->id }}.
+                                        {{ $subindikator->nama_sub }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('subindikator_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tahun">{{ __('Tahun') }}</label>
+                            <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun"
+                                placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
+                            @error('tahun')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
+                                <option value="%">Persen (%)</option>
+                                <option value="orang">Orang</option>
+                            </select>
+                            @error('tipe')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
+                            <div class="input-group" id="persentase">
+                                <input type="number" class="form-control @error('persentase') is-invalid @enderror"
+                                    id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase"
+                                    required autocomplete="current-persentase">
+                            </div>
+                            @error('persentase')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="persentase">{{ __('Sumber Data') }}</label>
+                            <div class="input-group" >
+                                <input type="text" class="form-control @error('persentase') is-invalid @enderror"
+                                    placeholder="Masukkan sumber data" name="sumber_data"
+                                    required autocomplete="current-sumber_data">
+                            </div>
+                            @error('persentase')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="upload">
+                    <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
+                        aria-labelledby="manual">
+                        <!-- form start -->
+
+                        <div class="card-body">
+                            @if (auth()->user()->roles_id == 1)
+                                <form method="POST" action="{{ route('super.pencapaian.store') }}"
+                                    enctype='multipart/form-data'>
+                                @elseif (auth()->user()->roles_id == 2)
+                                    <form method="POST" action="{{ route('admin.pencapaian.store') }}"
+                                        enctype='multipart/form-data'>
+                                    @elseif (auth()->user()->roles_id == 3)
+                                        <form method="POST" action="{{ route('opd.pencapaian.store') }}"
+                                            enctype='multipart/form-data'>
+                            @endif
+                            @csrf
+                            <div class="form-group">
+                                <label for="File">{{ __('File') }}</label>
+                                <input type="file" class="form-control @error('File') is-invalid @enderror"
+                                    id="file" placeholder="Masukkan File" name="file" required
+                                    autocomplete="file" autofocus>
+                                @error('File')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="tahun">{{ __('Tahun') }}</label>
+                                <input type="tahun" class="form-control @error('tahun') is-invalid @enderror"
+                                    id="tahun" placeholder="2020" name="tahun" required autocomplete="tahun"
+                                    autofocus>
+                                @error('tahun')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.card-body -->
+                </form>
+            </div>
+        </div>
     </div>
-    <!-- /.card-header -->
-    <!-- form start -->
-    @if (auth()->user()->roles_id == 1)
-    <form method="POST" action="{{ route('super.pencapaian.store') }}" enctype='multipart/form-data'>
-    @elseif (auth()->user()->roles_id == 2)
-    <form method="POST" action="{{ route('admin.pencapaian.store') }}" enctype='multipart/form-data'>
-    @elseif (auth()->user()->roles_id == 3)
-    <form method="POST" action="{{ route('opd.pencapaian.store') }}" enctype='multipart/form-data'>
-    @endif
-        @csrf
-      <div class="card-body">
-        <div class="form-group">
-          <label for="indikator_id">{{ __('ID Indikator') }}</label>
-          <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
-            @foreach ($indikators as $indikator)
-              <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
-            @endforeach
-          </select>  
-            @error('indikator_id')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
-          <label for="subindikator_id">{{ __('ID Sub-Indikator') }}</label>
-          <select class="form-control col-form-label rounded-2" name="subindikator_id" id="subindikator_id" required>
-            @foreach ($subindikators->where('indikator_id',) as $subindikator)
-              <option value="{{$subindikator->id}}">{{$subindikator->id}}. {{$subindikator->nama_sub}}</option>
-            @endforeach
-          </select>  
-            @error('subindikator_id')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
-          <label for="tahun">{{ __('Tahun') }}</label>
-          <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun" placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
-              @error('tahun')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
-          <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
-          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
-              <option value="%">Persen (%)</option>
-              <option value="orang">Orang</option>
-          </select>  
-            @error('tipe')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
-          <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
-          <div class="input-group" id="persentase">
-            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase" required autocomplete="current-persentase">
-          </div>
-          @error('persentase')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-  
-        <div class="mt-4">
-            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
-          </div>
-      </div>
-      <!-- /.card-body -->      
-    </form>
-  </div>
 @endsection

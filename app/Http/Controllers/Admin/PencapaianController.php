@@ -6,13 +6,17 @@ use App\Models\Indikator;
 use App\Models\SubIndikator;
 use App\Models\Pencapaian;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class PencapaianController extends Controller
 {
     public function index()
     {
-        $pencapaians = Pencapaian::all();
+        // get pencapaian with subindikator and indikator
+        $pencapaians = Pencapaian::with('subindikator')->get();
+        // dd($pencapaians);
+        // $pencapaians = Pencapaian::all();
         return view('admin.pencapaian.index', compact('pencapaians'));
     }
 
@@ -26,6 +30,52 @@ class PencapaianController extends Controller
 
     public function store(Request $request)
     {
+        // check apakah user menginputkan file
+        if ($request->hasFile('file')) {
+            // extract excel or csv file to array data
+            $data = Excel::toArray([], $request->file('file'));
+            // dd($data);
+            // loop data
+            foreach ($data[0] as $key => $value) {
+
+                // check if data is not empty
+                if ($value[0] != null) {
+
+                    // check if data is not header
+                    if ($key != 0) {
+                        // get indikator id and subindikator id from database with kode subindikator
+                        $sub_indikator = SubIndikator::where('kode_sub', $value[0])->first();
+                        // dd($sub_indikator);
+                        // check if subindikator is exist
+                        if ($sub_indikator != null) {
+                            // dd($sub_indikator);
+                            // check if data is exist
+                            $pencapaian = Pencapaian::where('indikator_id', $sub_indikator->indikator_id)->where('subindikator_id', $sub_indikator->id)->where('tahun', $request->tahun)->first();
+                            // check if data is not exist
+                            if ($pencapaian == null) {
+
+                                // create data
+                                $pencapaian = Pencapaian::create([
+                                    'indikator_id' => $sub_indikator->indikator_id,
+                                    'subindikator_id' => $sub_indikator->id,
+                                    'tahun' => $request->tahun,
+                                    'tipe' => $value[2],
+                                    'persentase' => $value[3],
+                                    'sumber_data' => $value[4],
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
+            // redirect to index
+            if (auth()->user()->roles_id == 1) {
+                return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+            } else if (auth()->user()->roles_id == 2) {
+                return redirect('admin/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+            }
+        }
+
         $request->validate(
             [
                 'indikator_id' => 'required',
@@ -33,6 +83,7 @@ class PencapaianController extends Controller
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
+                'sumber_data' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong!',
@@ -40,6 +91,7 @@ class PencapaianController extends Controller
                 'tahun.required' => 'Tahun tidak boleh kosong!',
                 'tipe.required' => 'Tipe tidak boleh kosong!',
                 'persentase.required' => 'Persentase tidak boleh kosong!',
+                'sumber_data.required' => 'Sumber data tidak boleh kosong!',
             ]
         );
 
@@ -49,6 +101,7 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
+            'sumber_data' => $request->sumber_data,
         ]);
 
         if (auth()->user()->roles_id == 1) {

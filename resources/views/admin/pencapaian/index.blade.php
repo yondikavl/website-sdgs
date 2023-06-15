@@ -14,11 +14,12 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID Indikator</th>
-                    <th>ID Sub-Indikator</th>
+                    <th>Kode SubIndikator</th>
+                    <th>Nama SubIndikator</th>
                     <th>Tahun</th>
-                    <th>Jenis Pencapaian</th>
-                    <th>Persentase</th>
+                    <th>Satuan</th>
+                    <th>Nilai</th>
+                    <th>Sumber Data</th>
                     <th>More</th>
                   </tr>
                   </thead>
@@ -26,11 +27,12 @@
                     @foreach ($pencapaians as $pencapaian)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$pencapaian->indikator_id}}</td>
-                    <td>{{$pencapaian->subindikator_id}}</td>
+                    <td>{{$pencapaian->subindikator->kode_sub}}</td>
+                    <td>{{$pencapaian->subindikator->nama_sub}}</td>
                     <td>{{$pencapaian->tahun}}</td>
                     <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>
+                    <td>{{$pencapaian->sumber_data}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                           <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
