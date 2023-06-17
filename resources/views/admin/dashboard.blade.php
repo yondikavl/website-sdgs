@@ -8,7 +8,7 @@
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>17</h3>
+        <h3>{{$indikators}}</h3>
 
         <p>Data Indikator</p>
       </div>
@@ -23,7 +23,7 @@
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
-        <h3>50<sup style="font-size: 20px">%</sup></h3>
+        <h3>{{$subindikators}}</h3>
 
         <p>Data Sub-Indikator</p>
       </div>
@@ -38,7 +38,7 @@
     <!-- small box -->
     <div class="small-box bg-warning">
       <div class="inner">
-        <h3>{{$totaluser}}</h3>
+        <h3>{{$users}}</h3>
 
         <p>User</p>
       </div>

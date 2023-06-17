@@ -88,11 +88,12 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
-                    <th>ID Indikator</th>
-                    <th>ID Sub-Indikator</th>
+                    <th>Kode SubIndikator</th>
+                    <th>Nama SubIndikator</th>
                     <th>Tahun</th>
-                    <th>Jenis Pencapaian</th>
-                    <th>Persentase</th>
+                    <th>Satuan</th>
+                    <th>Nilai</th>
+                    <th>Sumber Data</th>
                     <th>More</th>
                   </tr>
                   </tfoot>

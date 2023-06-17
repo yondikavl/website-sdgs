@@ -2,6 +2,42 @@
 
 @section('title', 'Detail Indikator')
 
+@section('style')
+<style>
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+@endsection
+
 @section('content')
 
 @include('layouts.client.sdgs')
@@ -29,6 +65,7 @@
                     <th>2022</th>
                     <th>2023</th>
                     <th>Perangkat Daerah</th>
+                    <th>Grafik</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -58,6 +95,16 @@
                       @endif
                     </td>
                     <td>Dinas {{$loop->iteration}}</td>
+                    <td>
+                      <div class="btn btn-primary modal-btn">Detail</div>
+                      <div id="myModal" class="modal">
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <h3>Kode Sub-Indikator</h3>
+                          <canvas id="grafik"></canvas>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -69,15 +116,69 @@
                     <th>2022</th>
                     <th>2023</th>
                     <th>Perangkat Daerah</th>
+                    <th>Grafik</th>
                   </tr>
                   </tfoot>
                 </table>
+                
               </div>
               <!-- /.card-body -->
         </div>
 @endsection
 
 @section('script')
+<script>
+  // Data tahun dan pencapaian
+var dataTahun = [2021, 2022, 2023, 2024, 2025];
+var dataPencapaian = [80, 120, 150, 200, 100];
+
+// Membuat grafik
+var ctx = document.getElementById('grafik').getContext('2d');
+var grafik = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: dataTahun,
+    datasets: [{
+      label: 'Pencapaian',
+      data: dataPencapaian,
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+</script>
+<script>
+  var modal = document.getElementById("myModal");
+var buttons = document.getElementsByClassName("modal-btn");
+var closeButton = document.getElementsByClassName("close")[0];
+
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function() {
+    modal.style.display = "block";
+  };
+}
+
+closeButton.onclick = function() {
+  modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+</script>
 <script>
   $(function () {
     $("#example1").DataTable({

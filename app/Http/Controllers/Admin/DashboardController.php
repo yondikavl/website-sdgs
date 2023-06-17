@@ -12,13 +12,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
-            $indikators = Indikator::all();
-            $subindikators = SubIndikator::all();
-            $totaluser = cache()->remember('totaluser', 33600, function () {
-                return User::where('roles_id', 2)->count();
-            });
-            return view('admin.dashboard', compact('indikators', 'subindikators', 'totaluser'));
-        }
+        $indikators = Indikator::all()->count();
+        $subindikators = SubIndikator::all()->count();
+        $users = User::all()->count();
+        return view('admin.dashboard', compact('indikators', 'subindikators', 'users'));
     }
 }
