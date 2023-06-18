@@ -74,21 +74,21 @@
                   <tr>
                     <td>{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
-                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->tipe}}</td>
+                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->tipe  ?? "-"}}</td>
                     <td>
-                      {{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->persentase ?? 0}}
+                      {{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->persentase ?? "-"}}
                     </td>
                     <td>
-                        {{$subindikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? 0}}
+                        {{$subindikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? "-"}}
                     </td>
 
-                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->sumber_data}}</td>
+                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->sumber_data ?? "-"}}</td>
                     <td>
                       <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $subindikator-> id}});">Detail</div>
                       <div id="myModal" class="modal">
                         <div class="modal-content">
                           <span class="close">&times;</span>
-                          <h3>Kode Sub-Indikator</h3>
+                          <h3>Grafik Pencapaian</h3>
                           <canvas id="grafik"></canvas>
                         </div>
                       </div>
