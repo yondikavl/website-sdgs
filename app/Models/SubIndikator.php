@@ -22,6 +22,7 @@ class SubIndikator extends Model
 
     public function pencapaian()
     {
-        return $this->hasMany(pencapaian::class);
+        // 
+        return $this->hasMany(Pencapaian::class, 'subindikator_id', 'id');
     }
 }

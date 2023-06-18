@@ -62,41 +62,29 @@
                     <th>Kode</th>
                     <th>Jenis Data</th>
                     <th>Satuan</th>
-                    <th>2022</th>
-                    <th>2023</th>
+                    {{-- get 2 tahun terakhir --}}
+                    <th>{{date('Y')-1}}</th>
+                    <th>{{date('Y')}}</th>
                     <th>Perangkat Daerah</th>
                     <th>Grafik</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($subindikators->where('indikator_id', $indikator->id) as $subindikator)
+                    @foreach ($subindikators as $subindikator)
                   <tr>
                     <td>{{$subindikator->kode_sub}}</td>
                     <td>{{$subindikator->nama_sub}}</td>
+                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->tipe}}</td>
                     <td>
-                      @if ($loop->iteration % 2 == 0)
-                          Orang
-                      @else
-                          %
-                      @endif
+                      {{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->persentase ?? 0}}
                     </td>
                     <td>
-                      @if ($loop->iteration % 2 == 0)
-                          30
-                      @else
-                          90
-                      @endif
+                        {{$subindikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? 0}}
                     </td>
+
+                    <td>{{$subindikator->pencapaian->where('tahun', date('Y')-1)->first()->sumber_data}}</td>
                     <td>
-                      @if ($loop->iteration % 2 == 0)
-                          50
-                      @else
-                          40
-                      @endif
-                    </td>
-                    <td>Dinas {{$loop->iteration}}</td>
-                    <td>
-                      <div class="btn btn-primary modal-btn">Detail</div>
+                      <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $subindikator-> id}});">Detail</div>
                       <div id="myModal" class="modal">
                         <div class="modal-content">
                           <span class="close">&times;</span>
@@ -113,14 +101,14 @@
                     <th>Kode</th>
                     <th>Jenis Data</th>
                     <th>Satuan</th>
-                    <th>2022</th>
-                    <th>2023</th>
+                    <th>{{date('Y')-1}}</th>
+                    <th>{{date('Y')}}</th>
                     <th>Perangkat Daerah</th>
                     <th>Grafik</th>
                   </tr>
                   </tfoot>
                 </table>
-                
+
               </div>
               <!-- /.card-body -->
         </div>
@@ -128,55 +116,70 @@
 
 @section('script')
 <script>
-  // Data tahun dan pencapaian
-var dataTahun = [2021, 2022, 2023, 2024, 2025];
-var dataPencapaian = [80, 120, 150, 200, 100];
 
-// Membuat grafik
-var ctx = document.getElementById('grafik').getContext('2d');
-var grafik = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: dataTahun,
-    datasets: [{
-      label: 'Pencapaian',
-      data: dataPencapaian,
-      backgroundColor: 'rgba(75, 192, 192, 0.6)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
+var data = {!! json_encode($pencapaians) !!};
+
+function showGrafik(sub_id) {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    // Mencari data subindikator yang dipilih
+    var dataSubindikator = data.find(function(item) {
+        return item[sub_id];
+    });
+
+    var dataTahun = [];
+    var dataPencapaian = [];
+
+    // Mencari data pencapaian dari subindikator tersebut
+    for(var i = 0; i < dataSubindikator[sub_id].length; i++) {
+        dataTahun.push(dataSubindikator[sub_id][i].tahun);
+        dataPencapaian.push(dataSubindikator[sub_id][i].persentase);
     }
-  }
-});
+
+    // Membuat grafik dimiulai dari 0 sampai nilai tertinggi
+    var max = Math.max(...dataPencapaian);
+    var min = Math.min(...dataPencapaian);
+    var ctx = document.getElementById('grafik').getContext('2d');
+    var grafik = new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: dataTahun,
+        datasets: [{
+            label: 'Pencapaian',
+            data: dataPencapaian,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+        },
+        options: {
+        responsive: true,
+        scales: {
+            y: {
+            beginAtZero: true,
+            min: 0,
+            max: max + 10
+            }
+        }
+        }
+    });
+
+}
+
+
 
 </script>
 <script>
   var modal = document.getElementById("myModal");
-var buttons = document.getElementsByClassName("modal-btn");
 var closeButton = document.getElementsByClassName("close")[0];
 
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = function() {
-    modal.style.display = "block";
-  };
-}
 
 closeButton.onclick = function() {
   modal.style.display = "none";
 };
 
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
+
 
 </script>
 <script>
