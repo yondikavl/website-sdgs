@@ -13,7 +13,8 @@
           <form method="POST" action="mailto:sekretariat.sdgs@bappeda.go.id">
             @csrf
 
-            <div class="form-group">
+            <div class="form-row">
+            <div class="form-group col-md-6">
               <label for="name">{{ __('Nama') }}</label>
               <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="nama..." required autocomplete="name" autofocus>
               @error('name')
@@ -23,7 +24,7 @@
               @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
               <label for="email">{{ __('Email') }}</label>
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="email..." required autocomplete="email">
               @error('email')
@@ -31,6 +32,7 @@
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
+            </div>
             </div>
 
             <div class="form-group">
