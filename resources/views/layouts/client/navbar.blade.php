@@ -11,9 +11,9 @@
       <li class="nav-item">
         <a class="nav-link font-weight-bold" href="/tujuan">TUJUAN</a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link font-weight-bold" href="/target">TARGET</a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link font-weight-bold" href="/kontak">KONTAK</a>
       </li>
