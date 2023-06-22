@@ -167,46 +167,6 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-white">
-          <i class="nav-icon fas fa-user"></i>
-          <p>
-            User
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="/admin/user/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Data User</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/admin/user/create/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Tambah Data User</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white">
-          <i class="nav-icon fas fa-columns"></i>
-          <p>
-            Pilar
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="/admin/pilar/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Data Pilar</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-copy"></i>
           <p>
             Indikator
@@ -245,11 +205,11 @@
           </li>
         </ul>
       </li>
-      {{-- <li class="nav-item">
+      <li class="nav-item">
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-chart-line"></i>
           <p>
-            pencapaian
+            Pencapaian
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
@@ -267,7 +227,7 @@
             </a>
           </li>
         </ul>
-      </li> --}}
+      </li>
       <li class="nav-item">
         <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
             @csrf
@@ -299,40 +259,6 @@
             Home
           </p>
         </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white">
-          <i class="nav-icon fas fa-columns"></i>
-          <p>
-            Pilar
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="/opd/pilar/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Data Pilar</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white">
-          <i class="nav-icon fas fa-copy"></i>
-          <p>
-            Indikator
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="/opd/indikator/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Data Indikator</p>
-            </a>
-          </li>
-        </ul>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-white">

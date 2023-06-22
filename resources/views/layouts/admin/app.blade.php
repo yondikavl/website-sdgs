@@ -138,7 +138,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+      <div class="container-fluid mb-5">
         @yield("content")
       </div><!-- /.container-fluid -->
     </section>

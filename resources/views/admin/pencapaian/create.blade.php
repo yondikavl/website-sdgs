@@ -160,6 +160,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <a href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download template file</a>
                             </div>
 
                             <div class="mt-4">

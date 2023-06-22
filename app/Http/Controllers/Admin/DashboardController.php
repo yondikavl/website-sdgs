@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Indikator;
 use App\Models\SubIndikator;
+use App\Models\Pencapaian;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class DashboardController extends Controller
         $indikators = Indikator::all()->count();
         $subindikators = SubIndikator::all()->count();
         $users = User::all()->count();
-        return view('admin.dashboard', compact('indikators', 'subindikators', 'users'));
+        $pencapaian = Pencapaian::all()->count();
+        return view('admin.dashboard', compact('indikators', 'subindikators', 'users', 'pencapaian'));
     }
 }
