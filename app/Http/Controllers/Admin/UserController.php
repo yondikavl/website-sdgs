@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Indikator;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -54,17 +56,19 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        return view('admin.user.edit', compact('user'));
+        $indikators = Indikator::all();
+        return view('admin.user.edit', compact('user', 'indikators'));
     }
 
-    public function update(UserStoreRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         if ($request->password == null) {
             $user = User::where('id', $id)->first();
             $user->update([
                 'nama' => $request->nama,
                 'email' => $request->email,
-                'roles_id' => $request->roles_id
+                'roles_id' => $request->roles_id,
+                'permissions' => $request->permissions
             ]);
         } else {
             $user = User::where('id', $id)->first();
@@ -72,7 +76,8 @@ class UserController extends Controller
                 'nama' => $request->nama,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'roles_id' => $request->roles_id
+                'roles_id' => $request->roles_id,
+                'permissions' => $request->permissions
             ]);
         }
 

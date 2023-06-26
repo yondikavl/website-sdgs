@@ -15,14 +15,26 @@ class SubindikatorController extends Controller
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $subindikators = SubIndikator::all();
         } else if(auth()->user()->roles_id == 3) {
-            $subindikators = SubIndikator::whereIn('indikator_id', auth()->user()->permissions)->get();
+            if(auth()->user()->permissions != null){
+                $subindikators = SubIndikator::whereIn('indikator_id', auth()->user()->permissions)->get();
+            } else {
+                $subindikators = SubIndikator::where('indikator_id', null)->get();
+            }
         }
         return view('admin.subindikator.index', compact('subindikators'));
     }
 
     public function create()
     {
-        $indikators = Indikator::all();
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+            $indikators = Indikator::all();
+        } else if(auth()->user()->roles_id == 3) {
+            if(auth()->user()->permissions != null){
+                $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+            } else {
+                $indikators = Indikator::where('id', null)->get();
+            }
+        }
         return view('admin.subindikator.create', compact('indikators'));
     }
 

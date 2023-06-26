@@ -14,7 +14,14 @@ class PencapaianController extends Controller
     public function index()
     {
         if (auth()->user()->roles_id == 3) {
-            $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
+            // if user permission is not empty
+            if(auth()->user()->permissions != null){
+                // get pencapaian where indikator id is in user permission
+                $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
+            } else {
+                // get pencapaian where indikator id is null
+                $pencapaians = Pencapaian::where('indikator_id', null)->get();
+            }
         } else {
             $pencapaians = Pencapaian::all();
         }
@@ -26,7 +33,11 @@ class PencapaianController extends Controller
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
-            $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+            if(auth()->user()->permissions != null){
+                $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+            } else {
+                $indikators = Indikator::where('id', null)->get();
+            }
         }
         return view('admin.pencapaian.create', compact('indikators'));
     }

@@ -21,6 +21,7 @@
         <div class="form-group">
           <label for="indikator_id">{{ __('ID Indikator') }}</label>
           <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
+            <option value="">-- Pilih Indikator --</option>
             @foreach ($indikators as $indikator)
               <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
             @endforeach
