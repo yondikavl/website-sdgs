@@ -13,10 +13,11 @@ class PencapaianController extends Controller
 {
     public function index()
     {
-        // get pencapaian with subindikator and indikator
-        $pencapaians = Pencapaian::with('subindikator')->get();
-        // dd($pencapaians);
-        // $pencapaians = Pencapaian::all();
+        if (auth()->user()->roles_id == 3) {
+            $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
+        } else {
+            $pencapaians = Pencapaian::all();
+        }
         return view('admin.pencapaian.index', compact('pencapaians'));
     }
 
