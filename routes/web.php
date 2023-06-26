@@ -81,3 +81,5 @@ Route::get('/kontak', function () {
 // ajax
 // get all indikator
 Route::get('get-indikator', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
+// get all subindikator
+Route::get('get-subindikator/{id}', [SubIndikatorController::class, 'getAllSubIndikator'])->name('get-subindikator');

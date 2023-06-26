@@ -23,10 +23,12 @@ class PencapaianController extends Controller
 
     public function create()
     {
-        $indikators = Indikator::all();
-        $subindikators = SubIndikator::all();
-        $pencapaian = Pencapaian::all();
-        return view('admin.pencapaian.create', compact('indikators', 'subindikators', 'pencapaian'));
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+            $indikators = Indikator::all();
+        } else if(auth()->user()->roles_id == 3) {
+            $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+        }
+        return view('admin.pencapaian.create', compact('indikators'));
     }
 
     public function store(Request $request)

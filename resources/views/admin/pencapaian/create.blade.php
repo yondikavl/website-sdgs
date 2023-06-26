@@ -37,8 +37,9 @@
                         @csrf
                         <div class="form-group">
                             <label for="indikator_id">{{ __('ID Indikator') }}</label>
-                            <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id"
+                            <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" onchange="getSubindikator(this.value)"
                                 required>
+                                <option value="">Pilih Indikator</option>
                                 @foreach ($indikators as $indikator)
                                     <option value="{{ $indikator->id }}">{{ $indikator->id }}.
                                         {{ $indikator->nama_indikator }}</option>
@@ -54,11 +55,7 @@
                             <label for="subindikator_id">{{ __('ID Sub-Indikator') }}</label>
                             <select class="form-control col-form-label rounded-2" name="subindikator_id"
                                 id="subindikator_id" required>
-                                @foreach ($subindikators->where('indikator_id') as $subindikator)
-                                    <option value="{{ $subindikator->id }}">{{ $subindikator->id }}.
-                                        {{ $subindikator->nama_sub }}
-                                    </option>
-                                @endforeach
+                                <option value="">Pilih Sub-Indikator</option>
                             </select>
                             @error('subindikator_id')
                                 <span class="invalid-feedback" role="alert">
@@ -177,3 +174,22 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    <script>
+
+        function getSubindikator(id){
+            $('#subindikator_id').empty();
+            $('#subindikator_id').append(`<option value="">Pilih Sub-Indikator</option>`);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-subindikator', '') }}"+'/'+id,
+                success: function(response) {
+                    response.forEach(element => {
+                        $('#subindikator_id').append(`<option value="${element['id']}">${element['kode_sub']}. ${element['nama_sub']}</option>`);
+                    });
+                }
+            });
+        }
+
+    </script>
