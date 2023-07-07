@@ -87,6 +87,8 @@ class PencapaianController extends Controller
                 return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
             } else if (auth()->user()->roles_id == 2) {
                 return redirect('admin/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+            } else if (auth()->user()->roles_id == 3) {
+                return redirect('opd/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
             }
         }
 
@@ -122,6 +124,8 @@ class PencapaianController extends Controller
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
         }
     }
 
@@ -172,6 +176,8 @@ class PencapaianController extends Controller
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
         }
     }
 
@@ -184,6 +190,8 @@ class PencapaianController extends Controller
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Hapus Data!');
         } else if (auth()->user()->roles_id == 2) {
             return redirect('admin/pencapaian')->with('sukses', 'Berhasil Hapus Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/pencapaian')->with('sukses', 'Berhasil Hapus Data!');
         }
     }
 }
