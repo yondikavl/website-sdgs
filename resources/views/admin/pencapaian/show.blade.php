@@ -14,7 +14,7 @@
     @elseif (auth()->user()->roles_id == 2)
     <form method="POST" action="{{ route('admin.pencapaian.show', $pencapaian->id) }}" enctype='multipart/form-data'>
     @elseif (auth()->user()->roles_id == 3)
-    <form method="POST" action="{{ route('user.pencapaian.show', $pencapaian->id) }}" enctype='multipart/form-data'>
+    <form method="POST" action="{{ route('opd.pencapaian.show', $pencapaian->id) }}" enctype='multipart/form-data'>
     @endif
         @csrf
         <div class="card-body">
@@ -25,7 +25,7 @@
                 @foreach ($indikators as $indikator)
                 <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
                 @endforeach
-              </select>  
+              </select>
                 @error('indikator_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                 @foreach ($subindikators as $subindikator)
                 <option value="{{$subindikator->id}}">{{$subindikator->id}}. {{$subindikator->nama_sub}}</option>
                 @endforeach
-              </select>  
+              </select>
                 @error('subindikator_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -76,19 +76,19 @@
             </div>
             </div>
             <div class="d-flex col-12 flex-row">
-            
+
             </div>
             <div class="d-flex col-12 flex-row">
             <div class="form-group col-6">
                 @if (auth()->user()->roles_id == 1)
                   <a class="btn btn-success" href="/super/pencapaian/">{{ __('Kembali') }}</a>
-                @elseif (auth()->user()->roles_id == 2)  
+                @elseif (auth()->user()->roles_id == 2)
                   <a class="btn btn-success" href="/admin/pencapaian/">{{ __('Kembali') }}</a>
                 @endif
             </div>
             </div>
           </div>
-      <!-- /.card-body -->      
+      <!-- /.card-body -->
     </form>
   </div>
 @endsection
