@@ -32,7 +32,7 @@
                       <br>
                       Jalan Robert Wolter Monginsidi No. 223, Tanjungkarang Pusat, Pengajaran, Kec. Tlk. Betung Utara, Kota Bandar Kota Bandar Lampung, Kota Bandar Lampung 35119
                       <br>
-                      Alamat email: sekretariat.sdgs@bappeda.go.id
+                      Alamat email: bappeda@bandarlampungkota.go.id
                   </p>
               </div>
           </div>

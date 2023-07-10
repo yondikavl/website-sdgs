@@ -39,18 +39,24 @@
             <label for="roles_id">{{ __('Roles ID') }}</label>
             <select class="form-control col-form-label rounded-2" name="roles_id" id="roles_id" disabled>
                 <option value="{{$user->roles_id}}">{{$user->roles_id}}</option>
-            </select>  
+            </select>
               @error('roles_id')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
               @enderror
           </div>
-        <div class="">
-            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
-          </div>
+          <div class="d-flex col-12 flex-row">
+            <div class="form-group col-6">
+                @if (auth()->user()->roles_id == 1)
+                  <a class="btn btn-success" href="/super/user/">{{ __('Kembali') }}</a>
+                @elseif (auth()->user()->roles_id == 2)
+                  <a class="btn btn-success" href="/admin/user/">{{ __('Kembali') }}</a>
+                @endif
+            </div>
+            </div>
       </div>
-      <!-- /.card-body -->      
+      <!-- /.card-body -->
     </form>
   </div>
 @endsection

@@ -60,12 +60,12 @@
         <div class="">
           @if (auth()->user()->roles_id == 1)
             <a class="btn btn-success" href="/super/pilar/">{{ __('Kembali') }}</a>
-          @elseif (auth()->user()->roles_id == 2)  
+          @elseif (auth()->user()->roles_id == 2)
             <a class="btn btn-success" href="/admin/pilar/">{{ __('Kembali') }}</a>
           @endif
         </div>
       </div>
-      <!-- /.card-body -->      
+      <!-- /.card-body -->
     </form>
   </div>
 @endsection

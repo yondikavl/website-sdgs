@@ -76,14 +76,13 @@
             </div>
             </div>
             <div class="d-flex col-12 flex-row">
-
-            </div>
-            <div class="d-flex col-12 flex-row">
             <div class="form-group col-6">
                 @if (auth()->user()->roles_id == 1)
                   <a class="btn btn-success" href="/super/pencapaian/">{{ __('Kembali') }}</a>
                 @elseif (auth()->user()->roles_id == 2)
                   <a class="btn btn-success" href="/admin/pencapaian/">{{ __('Kembali') }}</a>
+                @elseif (auth()->user()->roles_id == 3)
+                  <a class="btn btn-success" href="/opd/pencapaian/">{{ __('Kembali') }}</a>
                 @endif
             </div>
             </div>

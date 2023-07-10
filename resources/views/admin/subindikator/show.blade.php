@@ -52,6 +52,8 @@
             <a class="btn btn-success" href="/super/subindikator/">{{ __('Kembali') }}</a>
           @elseif (auth()->user()->roles_id == 2)
             <a class="btn btn-success" href="/admin/subindikator/">{{ __('Kembali') }}</a>
+          @elseif (auth()->user()->roles_id == 3)
+            <a class="btn btn-success" href="/opd/subindikator/">{{ __('Kembali') }}</a>
           @endif
         </div>
       </div>
