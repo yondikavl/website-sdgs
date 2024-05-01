@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Models\Indikator;
+use App\Models\Tujuan;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
@@ -56,8 +56,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        $indikators = Indikator::all();
-        return view('admin.user.edit', compact('user', 'indikators'));
+        $tujuans = Tujuan::all();
+        return view('admin.user.edit', compact('user', 'tujuans'));
     }
 
     public function update(UserUpdateRequest $request, $id)

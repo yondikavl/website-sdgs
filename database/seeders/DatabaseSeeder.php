@@ -17,9 +17,13 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             UserSeeder::class,
             PilarSeeder::class,
+            TujuanSeeder::class,
             IndikatorSeeder::class,
-            SubSeeder::class,
             PencapaianSeeder::class,
+            ProvinsiSeeder::class,
+            KabupatenSeeder::class,
+            KecamatanSeeder::class,
+            KelurahanSeeder::class,
         ]);
     }
 }

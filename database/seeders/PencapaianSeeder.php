@@ -17,7 +17,6 @@ class PencapaianSeeder extends Seeder
             [
                 'id' => 1,
                 'indikator_id' => 1,
-                'subindikator_id' => 1,
                 'tahun' => '2022',
                 'tipe' => '%',
                 'persentase' => 100,
@@ -26,7 +25,6 @@ class PencapaianSeeder extends Seeder
             [
                 'id' => 2,
                 'indikator_id' => 1,
-                'subindikator_id' => 1,
                 'tahun' => '2023',
                 'tipe' => '%',
                 'persentase' => 100,

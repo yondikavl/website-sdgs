@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('foto_user')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('roles_id')->nullable()->default(99);
-            $table->foreign('roles_id')->references('id')->on('roles');
+            $table->foreignId('roles_id')->nullable()->default(99);
             $table->json('permissions')->nullable();
             $table->rememberToken();
             $table->timestamps();

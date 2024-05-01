@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indikator', function (Blueprint $table) {
+        Schema::create('alamat_pencapain', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pilar_id')->nullable();
-            $table->foreign('pilar_id')->references('id')->on('pilar');
-            $table->string('ikon_indikator')->nullable();
-            $table->string('nama_indikator');
-            $table->text('deskripsi_indikator');
+            $table->foreignId('pencapaian_id')->nullable();
+            $table->foreignId('kelurahan_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indikator');
+        Schema::dropIfExists('alamat_pencapain');
     }
 };

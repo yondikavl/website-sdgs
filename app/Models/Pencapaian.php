@@ -18,13 +18,13 @@ class Pencapaian extends Model
         'sumber_data',
     ];
 
-    // public function indikator()
-    // {
-    //     return $this->belongsTo(Indikator::class, 'subindikator_id', 'id');
-    // }
-
-    public function subindikator()
+    public function Indikator()
     {
-        return $this->belongsTo(SubIndikator::class, 'subindikator_id', 'id');
+        return $this->belongsTo(Indikator::class, 'indikator_id', 'id');
+    }
+
+    public function Alamat()
+    {
+        return $this->belongsToMany(Kelurahan::class, 'alamat_pencapain', 'pencapaian_id', 'kelurahan_id');
     }
 }

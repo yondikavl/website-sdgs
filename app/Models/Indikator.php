@@ -10,19 +10,18 @@ class Indikator extends Model
     use HasFactory;
     protected $table = 'indikator';
     protected $fillable = [
-        'pilar_id',
-        'ikon_indikator',
-        'nama_indikator',
-        'deskripsi_indikator'
+        'tujuan_id',
+        'kode_indikator',
+        'nama_indikator'
     ];
 
-    public function pilar()
+    public function Tujuan()
     {
-        return $this->belongsTo(Pilar::class, 'pilar_id', 'id');
+        return $this->belongsTo(Tujuan::class, 'tujuan_id', 'id');
     }
 
-    public function subindikator()
+    public function Pencapaian()
     {
-        return $this->hasMany(SubIndikator::class);
+        return $this->hasMany(Pencapaian::class);
     }
 }

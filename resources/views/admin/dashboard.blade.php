@@ -8,9 +8,9 @@
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>{{$indikators}}</h3>
+        <h3>{{$tujuans}}</h3>
 
-        <p>Data Indikator</p>
+        <p>Data Tujuan</p>
       </div>
       <div class="icon">
         <i class="ion ion-bag"></i>
@@ -23,9 +23,9 @@
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
-        <h3>{{$subindikators}}</h3>
+        <h3>{{$indikators}}</h3>
 
-        <p>Data Sub-Indikator</p>
+        <p>Data Indikator</p>
       </div>
       <div class="icon">
         <i class="ion ion-stats-bars"></i>

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subindikator', function (Blueprint $table) {
+        Schema::create('tujuan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('indikator_id')->nullable();
-            $table->foreign('indikator_id')->references('id')->on('indikator');
-            $table->string('kode_sub');
-            $table->text('nama_sub');
+            $table->foreignId('pilar_id')->nullable();
+            $table->string('ikon_tujuan')->nullable();
+            $table->string('nama_tujuan');
+            $table->text('deskripsi_tujuan');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_indikator');
+        Schema::dropIfExists('tujuan');
     }
 };

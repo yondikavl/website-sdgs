@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Pilar;
-use App\Models\Indikator;
+use App\Models\Tujuan;
+use App\Models\indikator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndikatorStoreRequest;
 use Illuminate\Http\Request;
@@ -15,96 +15,94 @@ class IndikatorController extends Controller
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
-            $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+            if(auth()->user()->permiindikatorions != null){
+                $indikators = Indikator::whereIn('tujuan_id', auth()->user()->permiindikatorions)->get();
+            } else {
+                $indikators = Indikator::where('tujuan_id', null)->get();
+            }
         }
         return view('admin.indikator.index', compact('indikators'));
     }
 
     public function create()
     {
-        if (auth()->user()->roles_id == 1) {
-            $pilars = Pilar::all();
-            return view('admin.indikator.create', compact('pilars'));
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+            $tujuans = Tujuan::all();
+        } else if(auth()->user()->roles_id == 3) {
+            if(auth()->user()->permiindikatorions != null){
+                $tujuans = Tujuan::whereIn('id', auth()->user()->permiindikatorions)->get();
+            } else {
+                $tujuans = Tujuan::where('id', null)->get();
+            }
         }
+        return view('admin.indikator.create', compact('tujuans'));
     }
 
     public function store(IndikatorStoreRequest $request)
     {
+        $indikator = Indikator::create([
+            'tujuan_id' => $request->tujuan_id,
+            'nama_indikator' => $request->nama_indikator,
+            'kode_indikator' => $request->kode_indikator
+        ]);
+
         if (auth()->user()->roles_id == 1) {
-            $indikator = Indikator::create([
-                'pilar_id' => $request->pilar_id,
-                'nama_indikator' => $request->nama_indikator,
-                'deskripsi_indikator' => $request->deskripsi_indikator
-            ]);
-
-            if ($request->hasFile('ikon_indikator')) {
-                $ikon_indikator = $request->ikon_indikator;
-                $indikator->ikon_indikator = time() . '_' . $ikon_indikator->getClientOriginalName();
-                $indikator->update();
-                $ikon_indikator->move('../public/assets/ikon/', time() . '_' . $ikon_indikator->getClientOriginalName());
-            }
-
             return redirect('super/indikator')->with('sukses', 'Berhasil Tambah Data!');
+        } else if (auth()->user()->roles_id == 2) {
+            return redirect('admin/indikator')->with('sukses', 'Berhasil Tambah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/indikator')->with('sukses', 'Berhasil Tambah Data!');
         }
     }
 
     public function show($id)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
-            $pilars = Pilar::all();
-            $indikator = Indikator::where('id', $id)->firstOrFail();
-            return view('admin.indikator.show', compact('indikator', 'pilars'));
-        }
+        $tujuans = Tujuan::all();
+        $indikator = Indikator::where('id', $id)->firstOrFail();
+        return view('admin.indikator.show', compact('indikator', 'tujuans'));
     }
 
     public function edit($id)
     {
-        if (auth()->user()->roles_id == 1) {
-            $pilars = Pilar::all();
-            $indikator = Indikator::where('id', $id)->firstOrFail();
-            return view('admin.indikator.edit', compact('indikator', 'pilars'));
-        }
+        $tujuans = Tujuan::all();
+        $indikator = Indikator::where('id', $id)->firstOrFail();
+        return view('admin.indikator.edit', compact('indikator', 'tujuans'));
     }
 
-    public function update(IndikatorStoreRequest $request, $id)
+    public function update(indikatorStoreRequest $request, $id)
     {
+        $indikator = Indikator::where('id', $id)->update([
+            'tujuan_id' => $request->tujuan_id,
+            'nama_indikator' => $request->nama_indikator,
+            'kode_indikator' => $request->kode_indikator
+        ]);
+
         if (auth()->user()->roles_id == 1) {
-
-
-            $indikator = Indikator::where('id', $id)->update([
-                'pilar_id' => $request->pilar_id,
-                'nama_indikator' => $request->nama_indikator,
-                'deskripsi_indikator' => $request->deskripsi_indikator
-            ]);
-
-
-
-            if ($request->hasFile('ikon_indikator')) {
-                $ikon_indikator = $request->ikon_indikator;
-                $indikator = Indikator::where('id', $id)->firstOrFail();
-                $indikator->ikon_indikator = time() . '_' . $ikon_indikator->getClientOriginalName();
-                $indikator->update();
-                $ikon_indikator->move('../public/assets/ikon/', time() . '_' . $ikon_indikator->getClientOriginalName());
-            }
-
             return redirect('super/indikator')->with('sukses', 'Berhasil Ubah Data!');
+        } else if (auth()->user()->roles_id == 2) {
+            return redirect('admin/indikator')->with('sukses', 'Berhasil Ubah Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/indikator')->with('sukses', 'Berhasil Ubah Data!');
         }
     }
 
     public function destroy($id)
     {
-        if (auth()->user()->roles_id == 1) {
-            $indikator = Indikator::where('id', $id)->firstOrFail();
-            $indikator->delete();
+        $indikator = Indikator::where('id', $id)->firstOrFail();
+        $indikator->delete();
 
+        if (auth()->user()->roles_id == 1) {
             return redirect('super/indikator')->with('sukses', 'Berhasil Hapus Data!');
+        } else if (auth()->user()->roles_id == 2) {
+            return redirect('admin/indikator')->with('sukses', 'Berhasil Hapus Data!');
+        } else if (auth()->user()->roles_id == 3) {
+            return redirect('opd/indikator')->with('sukses', 'Berhasil Hapus Data!');
         }
     }
 
-    // get all indikator json
-    public function getAllIndikator()
+    public function getAllindikator($id)
     {
-        $indikators = Indikator::all();
+        $indikators = Indikator::where('tujuan_id', $id)->get();
         return response()->json($indikators);
     }
 }

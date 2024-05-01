@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Indikator;
-use App\Models\SubIndikator;
+use App\Models\Tujuan;
 use App\Models\Pencapaian;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -57,21 +57,21 @@ class PencapaianController extends Controller
 
                     // check if data is not header
                     if ($key != 0) {
-                        // get indikator id and subindikator id from database with kode subindikator
-                        $sub_indikator = SubIndikator::where('kode_sub', $value[0])->first();
-                        // dd($sub_indikator);
-                        // check if subindikator is exist
-                        if ($sub_indikator != null) {
-                            // dd($sub_indikator);
+                        // get indikator id and tujuan id from database with kode tujuan
+                        $indikator = Tujuan::where('kode_sub', $value[0])->first();
+                        // dd($indikator);
+                        // check if tujuan is exist
+                        if ($indikator != null) {
+                            // dd($indikator);
                             // check if data is exist
-                            $pencapaian = Pencapaian::where('indikator_id', $sub_indikator->indikator_id)->where('subindikator_id', $sub_indikator->id)->where('tahun', $request->tahun)->first();
+                            $pencapaian = Pencapaian::where('indikator_id', $indikator->indikator_id)->where('tujuan_id', $indikator->id)->where('tahun', $request->tahun)->first();
                             // check if data is not exist
                             if ($pencapaian == null) {
 
                                 // create data
                                 $pencapaian = Pencapaian::create([
-                                    'indikator_id' => $sub_indikator->indikator_id,
-                                    'subindikator_id' => $sub_indikator->id,
+                                    'indikator_id' => $indikator->indikator_id,
+                                    'tujuan_id' => $indikator->id,
                                     'tahun' => $request->tahun,
                                     'tipe' => $value[2],
                                     'persentase' => $value[3],
@@ -95,7 +95,7 @@ class PencapaianController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'subindikator_id' => 'required',
+                'tujuan_id' => 'required',
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
@@ -103,7 +103,7 @@ class PencapaianController extends Controller
             ],
             [
                 'indikator_id.required' => 'Indikator tidak boleh kosong!',
-                'subindikator_id.required' => 'Subindikator tidak boleh kosong!',
+                'tujuan_id.required' => 'tujuan tidak boleh kosong!',
                 'tahun.required' => 'Tahun tidak boleh kosong!',
                 'tipe.required' => 'Tipe tidak boleh kosong!',
                 'persentase.required' => 'Persentase tidak boleh kosong!',
@@ -113,7 +113,7 @@ class PencapaianController extends Controller
 
         $pencapaian = Pencapaian::create([
             'indikator_id' => $request->indikator_id,
-            'subindikator_id' => $request->subindikator_id,
+            'tujuan_id' => $request->tujuan_id,
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
@@ -132,17 +132,17 @@ class PencapaianController extends Controller
     public function show($id)
     {
         $indikators = Indikator::all();
-        $subindikators = Subindikator::all();
+        $tujuans = Tujuan::all();
         $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-        return view('admin.pencapaian.show', compact('pencapaian', 'subindikators', 'indikators'));
+        return view('admin.pencapaian.show', compact('pencapaian', 'tujuans', 'indikators'));
     }
 
     public function edit($id)
     {
         $indikators = Indikator::all();
-        $subindikators = Subindikator::all();
+        $tujuans = Tujuan::all();
         $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-        return view('admin.pencapaian.edit', compact('pencapaian', 'subindikators', 'indikators'));
+        return view('admin.pencapaian.edit', compact('pencapaian', 'tujuans', 'indikators'));
     }
 
     public function update(Request $request, $id)
@@ -150,14 +150,14 @@ class PencapaianController extends Controller
         $request->validate(
             [
                 'indikator_id' => 'required',
-                'subindikator_id' => 'required',
+                'tujuan_id' => 'required',
                 'tahun' => 'required',
                 'tipe' => 'required',
                 'persentase' => 'required',
             ],
             [
                 'indikator_id.required' => 'Indikator harus diisi!',
-                'subindikator_id.required' => 'Subindikator harus diisi!',
+                'tujuan_id.required' => 'tujuan harus diisi!',
                 'tahun.required' => 'Tahun harus diisi!',
                 'tipe.required' => 'Tipe harus diisi!',
                 'persentase.required' => 'Persentase harus diisi!',
@@ -166,7 +166,7 @@ class PencapaianController extends Controller
 
         $pencapaian = Pencapaian::where('id', $id)->update([
             'indikator_id' => $request->indikator_id,
-            'subindikator_id' => $request->subindikator_id,
+            'tujuan_id' => $request->tujuan_id,
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,

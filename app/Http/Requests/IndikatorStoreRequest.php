@@ -22,22 +22,20 @@ class IndikatorStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pilar_id' => 'required',
+            'tujuan_id' => 'required',
             'nama_indikator' => 'required|max:255',
-            'deskripsi_indikator' => 'required',
-            'ikon_indikator' => 'mimes:jpg,bmp,png,svg,jpeg|max:2048'
+            'kode_indikator' => 'required|max:255'
         ];
     }
 
     public function messages()
     {
         return [
-            'pilar_id.required' => 'Pilar tidak boleh kosong',
-            'nama_indikator.required' => 'Nama Indikator tidak boleh kosong',
-            'nama_indikator.max' => 'Nama Indikator tidak boleh lebih dari 255 karakter',
-            'deskripsi_indikator.required' => 'Deskripsi Indikator tidak boleh kosong',
-            'ikon_indikator.mimes' => 'Ikon Indikator harus berupa gambar dengan format png, jpg, jpeg, bmp, svg',
-            'ikon_indikator.max' => 'Ikon Indikator tidak boleh lebih dari 2MB'
+            'tujuan_id.required' => 'Tujuan tidak boleh kosong',
+            'nama_indikator.required' => 'Nama indikator tidak boleh kosong',
+            'nama_indikator.max' => 'Nama indikator tidak boleh lebih dari 255 karakter',
+            'kode_indikator.required' => 'Kode indikator tidak boleh kosong',
+            'kode_indikator.max' => 'Kode indikator tidak boleh lebih dari 255 karakter'
         ];
     }
 }

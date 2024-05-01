@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pencapaian', function (Blueprint $table) {
+        Schema::create('indikator', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('indikator_id')->nullable();
-            $table->text('tahun');
-            $table->text('tipe');
-            $table->integer('persentase');
-            $table->text('sumber_data');
+            $table->foreignId('tujuan_id')->nullable();
+            $table->string('kode_indikator');
+            $table->text('nama_indikator');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pencapaian');
+        Schema::dropIfExists('indikator');
     }
 };
