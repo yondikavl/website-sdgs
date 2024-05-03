@@ -5,16 +5,16 @@ use App\Http\Middleware\Admin;
 use App\Http\Middleware\SuperAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PilarController;
-use App\Http\Controllers\Client\TargetController;
-use App\Http\Controllers\Client\TujuanController;
-use App\Http\Controllers\Client\BerandaController;
 use App\Http\Controllers\Admin\PencapaianController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
-use App\Http\Controllers\Admin\SubIndikatorController;
+use App\Http\Controllers\Client\BerandaController;
+use App\Http\Controllers\Client\TargetController;
+use App\Http\Controllers\Client\TujuansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +39,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
+        Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
-        Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
     });
 
@@ -49,8 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
+        Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
-        Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
     });
 
@@ -59,15 +59,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
+        Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
-        Route::resource('subindikator', SubIndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
     });
 });
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
-Route::get('tujuan', [TujuanController::class, 'index'])->name('tujuan');
+Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
+Route::get('tujuan/{id}', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');

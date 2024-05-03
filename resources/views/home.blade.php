@@ -69,17 +69,17 @@
         </div>
     </div>
     <div class="d-md-none">
-        <div id="carouselIndikator" class="carousel slide" data-ride="carousel">
+        <div id="carouseltujuan" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
-            @foreach ($indikators as $index => $indikator)
-              <li data-target="#carouselIndikator" data-slide-to="{{ $index }}" @if ($index == 0) class="active" @endif></li>
+            @foreach ($tujuans as $index => $tujuan)
+              <li data-target="#carouseltujuan" data-slide-to="{{ $index }}" @if ($index == 0) class="active" @endif></li>
             @endforeach
           </ol>
           <div class="carousel-inner">
-            @foreach ($indikators as $index => $indikator)
+            @foreach ($tujuans as $index => $tujuan)
               <div class="carousel-item @if ($index == 0) active @endif">
-                <a href="/indikator/{{$indikator->id}}">
-                  <img class="d-block w-100" src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" alt="{{$indikator->nama_indikator}}">
+                <a href="/tujuan/{{$tujuan->id}}">
+                  <img class="d-block w-100" src="{{ asset('assets/ikon/'. $tujuan->ikon_tujuan) }}" alt="{{$tujuan->nama_tujuan}}">
                 </a>
               </div>
             @endforeach
@@ -87,11 +87,11 @@
               <img class="d-block w-100" src="{{ asset('assets/img/logo-sdgs.png') }}" alt="Logo SDGs">
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselIndikator" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#carouseltujuan" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselIndikator" role="button" data-slide="next">
+          <a class="carousel-control-next" href="#carouseltujuan" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
@@ -100,9 +100,9 @@
 
       <div class="d-none d-md-block">
         <div class="text-center">
-          @foreach ($indikators as $indikator)
-          <a href="/indikator/{{$indikator->id}}">
-            <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="165" alt="{{$indikator->nama_indikator}}">
+          @foreach ($tujuans as $tujuan)
+          <a href="/tujuan/{{$tujuan->id}}">
+            <img src="{{ asset('assets/ikon/'. $tujuan->ikon_tujuan) }}" width="165" alt="{{$tujuan->nama_tujuan}}">
           </a>
           @endforeach
           <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="165" alt="Logo SDGs">

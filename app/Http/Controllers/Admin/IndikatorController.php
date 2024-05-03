@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Tujuan;
-use App\Models\indikator;
+use App\Models\Indikator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndikatorStoreRequest;
 use Illuminate\Http\Request;
@@ -16,9 +15,9 @@ class IndikatorController extends Controller
             $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
             if(auth()->user()->permiindikatorions != null){
-                $indikators = Indikator::whereIn('tujuan_id', auth()->user()->permiindikatorions)->get();
+                $indikators = Indikator::whereIn('indikator_id', auth()->user()->permiindikatorions)->get();
             } else {
-                $indikators = Indikator::where('tujuan_id', null)->get();
+                $indikators = Indikator::where('indikator_id', null)->get();
             }
         }
         return view('admin.indikator.index', compact('indikators'));
@@ -27,23 +26,23 @@ class IndikatorController extends Controller
     public function create()
     {
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
-            $tujuans = Tujuan::all();
+            $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
             if(auth()->user()->permiindikatorions != null){
-                $tujuans = Tujuan::whereIn('id', auth()->user()->permiindikatorions)->get();
+                $indikators = indikator::whereIn('id', auth()->user()->permiindikatorions)->get();
             } else {
-                $tujuans = Tujuan::where('id', null)->get();
+                $indikators = indikator::where('id', null)->get();
             }
         }
-        return view('admin.indikator.create', compact('tujuans'));
+        return view('admin.indikator.create', compact('indikators'));
     }
 
     public function store(IndikatorStoreRequest $request)
     {
         $indikator = Indikator::create([
             'tujuan_id' => $request->tujuan_id,
-            'nama_indikator' => $request->nama_indikator,
-            'kode_indikator' => $request->kode_indikator
+            'kode_indikator' => $request->kode_indikator,
+            'nama_indikator' => $request->nama_indikator
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -57,22 +56,22 @@ class IndikatorController extends Controller
 
     public function show($id)
     {
-        $tujuans = Tujuan::all();
+        $indikators = indikator::all();
         $indikator = Indikator::where('id', $id)->firstOrFail();
-        return view('admin.indikator.show', compact('indikator', 'tujuans'));
+        return view('admin.indikator.show', compact('indikator', 'indikators'));
     }
 
     public function edit($id)
     {
-        $tujuans = Tujuan::all();
+        $indikators = indikator::all();
         $indikator = Indikator::where('id', $id)->firstOrFail();
-        return view('admin.indikator.edit', compact('indikator', 'tujuans'));
+        return view('admin.indikator.edit', compact('indikator', 'indikators'));
     }
 
     public function update(indikatorStoreRequest $request, $id)
     {
         $indikator = Indikator::where('id', $id)->update([
-            'tujuan_id' => $request->tujuan_id,
+            'tujuan_id' => $request->indikator_id,
             'nama_indikator' => $request->nama_indikator,
             'kode_indikator' => $request->kode_indikator
         ]);
@@ -102,7 +101,7 @@ class IndikatorController extends Controller
 
     public function getAllindikator($id)
     {
-        $indikators = Indikator::where('tujuan_id', $id)->get();
+        $indikators = Indikator::where('indikator_id', $id)->get();
         return response()->json($indikators);
     }
 }

@@ -1,12 +1,12 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Kelola Sub-Indikator')
+@section('title', 'Kelola Tujuan')
 
 @section('content')
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ __('Tabel Data Sub-Indikator') }}</h3>
+                <h3 class="card-title">{{ __('Tabel Data Tujuan') }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -14,31 +14,35 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID Indikator</th>
-                    <th>Nama Sub-Indikator</th>
+                    <th>ID Pilar</th>
+                    <th>Ikon</th>
+                    <th>Nama Tujuan</th>
+                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($subindikators as $subindikator)
+                    @foreach ($tujuans as $tujuan)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$subindikator->kode_sub}}</td>
-                    <td>{{$subindikator->nama_sub}}</td>
+                    <td>{{$tujuan->Pilar->nama_pilar}}</td>
+                    <td><img src="{{ asset('assets/ikon/'.$tujuan->ikon_tujuan) }}" alt="" width="50"></td>
+                    <td>{{$tujuan->nama_tujuan}}</td>
+                    <td>{{$tujuan->deskripsi_tujuan}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
-                          <a href="{{ route('super.subindikator.show',$subindikator->id) }}" class="show-button">
+                          <a href="{{ route('super.tujuan.show',$tujuan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('super.subindikator.edit',$subindikator->id) }}" class="edit-button">
+                          <a href="{{ route('super.tujuan.edit',$tujuan->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                           <!-- Button trigger modal -->
-                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$subindikator->id}}">
+                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$tujuan->id}}">
                             <i class="fa-solid fa-trash-can"></i>
                           </a>
                           <!-- Modal -->
-                          <div class="modal fade bd-example-modal-sm{{$subindikator->id}}" tabindex="-1" role="dialog" aria-hidden="">
+                          <div class="modal fade bd-example-modal-sm{{$tujuan->id}}" tabindex="-1" role="dialog" aria-hidden="">
                             <div class="modal-dialog ">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -48,7 +52,7 @@
                                     </div>
                                     <div class="modal-body">Apakah anda yakin ingin menghapus data?</div>
                                     <div class="modal-footer">
-                                        <form action="{{route('super.subindikator.destroy', $subindikator->id)}}" method="POST">
+                                        <form action="{{route('super.tujuan.destroy', $tujuan->id)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <input type="submit" class="btn btn-danger light" name="" id="" value="Hapus">
@@ -59,18 +63,12 @@
                             </div>
                           </div>
                           @elseif(auth()->user()->roles_id == 2)
-                          <a href="{{ route('admin.subindikator.show',$subindikator->id) }}" class="show-button">
+                          <a href="{{ route('admin.tujuan.show',$tujuan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
-                          </a>
-                          <a href="{{ route('admin.subindikator.edit',$subindikator->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
                           </a>
                           @elseif(auth()->user()->roles_id == 3)
-                          <a href="{{ route('opd.subindikator.show',$subindikator->id) }}" class="show-button">
+                          <a href="{{ route('opd.tujuan.show',$tujuan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
-                          </a>
-                          <a href="{{ route('opd.subindikator.edit',$subindikator->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
                           </a>
                         @endif
                         </td>
@@ -80,8 +78,10 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
-                    <th>ID Indikator</th>
-                    <th>Nama Sub-Indikator</th>
+                    <th>ID Pilar</th>
+                    <th>Ikon</th>
+                    <th>Nama Tujuan</th>
+                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </tfoot>

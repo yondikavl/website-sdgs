@@ -68,8 +68,31 @@
         <a href="#" class="nav-link text-white">
           <i class="nav-icon fas fa-copy"></i>
           <p>
-            Indikator
+            Tujuan
             <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="/super/tujuan/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Data Tujuan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/super/tujuan/create/" class="nav-link text-white">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Tambah Data Tujuan</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
+          <i class="nav-icon fas fa-chart-pie"></i>
+          <p>
+            Indikator
+            <i class="right fas fa-angle-left"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
@@ -82,30 +105,7 @@
           <li class="nav-item">
             <a href="/super/indikator/create/" class="nav-link text-white">
               <i class="far fa-circle nav-icon"></i>
-              <p>Tambah Data Indikator</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white">
-          <i class="nav-icon fas fa-chart-pie"></i>
-          <p>
-            Sub-Indikator
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="/super/subindikator/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Data Sub-Indikator</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/super/subindikator/create/" class="nav-link text-white">
-              <i class="far fa-circle nav-icon"></i>
-              <p><small>Tambah Data Sub-Indikator</small></p>
+              <p><small>Tambah Data Indikator</small></p>
             </a>
           </li>
         </ul>

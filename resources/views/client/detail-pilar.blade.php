@@ -33,9 +33,9 @@
 </div>
 @endif
 <div class="text-center">
-    @foreach ($indikators->where('pilar_id', $pilar->id) as $indikator)
-    <a href="/indikator/{{$indikator->id}}">
-        <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="185" alt="">
+    @foreach ($tujuans->where('pilar_id', $pilar->id) as $tujuan)
+    <a href="/tujuan/{{$tujuan->id}}">
+        <img src="{{ asset('assets/ikon/'. $tujuan->ikon_tujuan) }}" width="185" alt="">
     </a>
     @endforeach
 </div>

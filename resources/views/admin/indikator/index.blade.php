@@ -14,10 +14,8 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID Pilar</th>
-                    <th>Ikon</th>
+                    <th>ID Indikator</th>
                     <th>Nama Indikator</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </thead>
@@ -25,10 +23,8 @@
                     @foreach ($indikators as $indikator)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$indikator->pilar_id}}</td>
-                    <td><img src="{{ asset('assets/ikon/'.$indikator->ikon_indikator) }}" alt="" width="50"></td>
+                    <td>{{$indikator->kode_indikator}}</td>
                     <td>{{$indikator->nama_indikator}}</td>
-                    <td>{{$indikator->deskripsi_indikator}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                           <a href="{{ route('super.indikator.show',$indikator->id) }}" class="show-button">
@@ -66,9 +62,15 @@
                           <a href="{{ route('admin.indikator.show',$indikator->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
+                          <a href="{{ route('admin.indikator.edit',$indikator->id) }}" class="edit-button">
+                            <i class="fa-solid fa-marker"></i>
+                          </a>
                           @elseif(auth()->user()->roles_id == 3)
                           <a href="{{ route('opd.indikator.show',$indikator->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
+                          </a>
+                          <a href="{{ route('opd.indikator.edit',$indikator->id) }}" class="edit-button">
+                            <i class="fa-solid fa-marker"></i>
                           </a>
                         @endif
                         </td>
@@ -78,10 +80,8 @@
                   <tfoot>
                   <tr>
                     <th>No</th>
-                    <th>ID Pilar</th>
-                    <th>Ikon</th>
+                    <th>ID Indikator</th>
                     <th>Nama Indikator</th>
-                    <th>Deskripsi</th>
                     <th>More</th>
                   </tr>
                   </tfoot>
