@@ -10,17 +10,17 @@ class Pencapaian extends Model
     use HasFactory;
     protected $table = 'pencapaian';
     protected $fillable = [
+        'tujuan_id',
         'indikator_id',
-        'subindikator_id',
         'tahun',
         'tipe',
         'persentase',
         'sumber_data',
     ];
 
-    public function Indikator()
+    public function Tujuan()
     {
-        return $this->belongsTo(Indikator::class, 'indikator_id', 'id');
+        return $this->belongsTo(Tujuan::class, 'tujuan_id', 'id');
     }
 
     public function Alamat()

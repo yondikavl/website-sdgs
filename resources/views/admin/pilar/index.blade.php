@@ -9,7 +9,7 @@
                 <h3 class="card-title">{{ __('Tabel Data Pilar') }}</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body mb-3">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -73,14 +73,6 @@
                   </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Pilar</th>
-                    <th>Deskripsi</th>
-                    <th>More</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

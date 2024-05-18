@@ -75,16 +75,6 @@
                   </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>No</th>
-                    <th>ID Pilar</th>
-                    <th>Ikon</th>
-                    <th>Nama Tujuan</th>
-                    <th>Deskripsi</th>
-                    <th>More</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

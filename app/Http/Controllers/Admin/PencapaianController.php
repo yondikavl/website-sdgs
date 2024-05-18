@@ -31,15 +31,15 @@ class PencapaianController extends Controller
     public function create()
     {
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
-            $indikators = Indikator::all();
+            $tujuans = Tujuan::all();
         } else if(auth()->user()->roles_id == 3) {
             if(auth()->user()->permissions != null){
-                $indikators = Indikator::whereIn('id', auth()->user()->permissions)->get();
+                $tujuans = Tujuan::whereIn('id', auth()->user()->permissions)->get();
             } else {
-                $indikators = Indikator::where('id', null)->get();
+                $tujuans = Tujuan::where('id', null)->get();
             }
         }
-        return view('admin.pencapaian.create', compact('indikators'));
+        return view('admin.pencapaian.create', compact('tujuans'));
     }
 
     public function store(Request $request)
@@ -58,7 +58,7 @@ class PencapaianController extends Controller
                     // check if data is not header
                     if ($key != 0) {
                         // get indikator id and tujuan id from database with kode tujuan
-                        $indikator = Tujuan::where('kode_sub', $value[0])->first();
+                        $indikator = Tujuan::where('kode_indikator', $value[0])->first();
                         // dd($indikator);
                         // check if tujuan is exist
                         if ($indikator != null) {

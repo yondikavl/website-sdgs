@@ -77,14 +77,6 @@
                   </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>No</th>
-                    <th>ID Indikator</th>
-                    <th>Nama Indikator</th>
-                    <th>More</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

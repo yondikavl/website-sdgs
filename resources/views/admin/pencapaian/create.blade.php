@@ -36,28 +36,28 @@
                         @endif
                         @csrf
                         <div class="form-group">
-                            <label for="indikator_id">{{ __('ID Indikator') }}</label>
-                            <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" onchange="getSubindikator(this.value)"
+                            <label for="tujuan_id">{{ __('ID Tujuan') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikator(this.value)"
                                 required>
-                                <option value="">Pilih Indikator</option>
-                                @foreach ($indikators as $indikator)
-                                    <option value="{{ $indikator->id }}">{{ $indikator->id }}.
-                                        {{ $indikator->nama_indikator }}</option>
+                                <option value="">Pilih Tujuan</option>
+                                @foreach ($tujuans as $tujuan)
+                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}.
+                                        {{ $tujuan->nama_tujuan }}</option>
                                 @endforeach
                             </select>
-                            @error('indikator_id')
+                            @error('tujuan_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="subindikator_id">{{ __('ID Sub-Indikator') }}</label>
-                            <select class="form-control col-form-label rounded-2" name="subindikator_id"
-                                id="subindikator_id" required>
-                                <option value="">Pilih Sub-Indikator</option>
+                            <label for="indikator_id">{{ __('ID Indikator') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="indikator_id"
+                                id="indikator_id" required>
+                                <option value="">Pilih Indikator</option>
                             </select>
-                            @error('subindikator_id')
+                            @error('indikator_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -178,15 +178,15 @@
 @section('script')
     <script>
 
-        function getSubindikator(id){
-            $('#subindikator_id').empty();
-            $('#subindikator_id').append(`<option value="">Pilih Sub-Indikator</option>`);
+        function getIndikator(id){
+            $('#indikator_id').empty();
+            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
             $.ajax({
                 type: 'GET',
-                url: "{{ route('get-subindikator', '') }}"+'/'+id,
+                url: "{{ route('get-indikator', '') }}"+'/'+id,
                 success: function(response) {
                     response.forEach(element => {
-                        $('#subindikator_id').append(`<option value="${element['id']}">${element['kode_sub']}. ${element['nama_sub']}</option>`);
+                        $('#indikator_id').append(`<option value="${element['id']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`);
                     });
                 }
             });

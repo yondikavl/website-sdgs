@@ -14,8 +14,8 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Kode SubIndikator</th>
-                    <th>Nama SubIndikator</th>
+                    <th>Kode Indikator</th>
+                    <th>Nama Indikator</th>
                     <th>Tahun</th>
                     <th>Satuan</th>
                     <th>Nilai</th>
@@ -27,8 +27,8 @@
                     @foreach ($pencapaians as $pencapaian)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$pencapaian->subindikator->kode_sub}}</td>
-                    <td>{{$pencapaian->subindikator->nama_sub}}</td>
+                    <td>{{$pencapaian->indikator->kode_indikator}}</td>
+                    <td>{{$pencapaian->indikator->nama_indikator}}</td>
                     <td>{{$pencapaian->tahun}}</td>
                     <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>
@@ -85,18 +85,6 @@
                   </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>No</th>
-                    <th>Kode SubIndikator</th>
-                    <th>Nama SubIndikator</th>
-                    <th>Tahun</th>
-                    <th>Satuan</th>
-                    <th>Nilai</th>
-                    <th>Sumber Data</th>
-                    <th>More</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
