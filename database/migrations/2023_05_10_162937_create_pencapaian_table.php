@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pencapaian', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('indikator_id')->nullable();
+            $table->string('indikator_id')->nullable();
             $table->text('tahun');
             $table->text('tipe');
             $table->integer('persentase');

@@ -126,13 +126,13 @@
 
                         <div class="card-body">
                             @if (auth()->user()->roles_id == 1)
-                                <form method="POST" action="{{ route('super.pencapaian.store') }}"
+                                <form method="POST" action="{{ route('super.pencapaian.import') }}"
                                     enctype='multipart/form-data'>
                                 @elseif (auth()->user()->roles_id == 2)
-                                    <form method="POST" action="{{ route('admin.pencapaian.store') }}"
+                                    <form method="POST" action="{{ route('admin.pencapaian.import') }}"
                                         enctype='multipart/form-data'>
                                     @elseif (auth()->user()->roles_id == 3)
-                                        <form method="POST" action="{{ route('opd.pencapaian.store') }}"
+                                        <form method="POST" action="{{ route('opd.pencapaian.import') }}"
                                             enctype='multipart/form-data'>
                             @endif
                             @csrf
@@ -157,7 +157,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                <a href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download template file</a>
+                                <a target="_blank" href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download template file</a>
                             </div>
 
                             <div class="mt-4">
@@ -186,7 +186,7 @@
                 url: "{{ route('get-indikator', '') }}"+'/'+id,
                 success: function(response) {
                     response.forEach(element => {
-                        $('#indikator_id').append(`<option value="${element['id']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`);
+                        $('#indikator_id').append(`<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`);
                     });
                 }
             });

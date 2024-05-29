@@ -9,6 +9,7 @@ class Tujuan extends Model
 {
     use HasFactory;
     protected $table = 'tujuan';
+    protected $primaryKey = 'pilar_id';
     protected $fillable = [
         'pilar_id',
         'ikon_tujuan',

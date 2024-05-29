@@ -15,7 +15,7 @@ class Pilar extends Model
         'deskripsi_pilar'
     ];
 
-    public function indikator()
+    public function Indikator()
     {
         return $this->hasMany(Indikator::class);
     }

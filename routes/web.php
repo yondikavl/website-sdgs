@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     // CMS SUPER ADMIN
     Route::middleware([SuperAdmin::class])->name('super.')->prefix('super')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
         Route::resource('tujuan', TujuanController::class);
@@ -81,6 +82,5 @@ Route::get('/kontak', function () {
 
 // ajax
 // get all indikator
-Route::get('get-indikator', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
-// get all subindikator
-Route::get('get-subindikator/{id}', [SubIndikatorController::class, 'getAllSubIndikator'])->name('get-subindikator');
+Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
+Route::get('get-tujuan', [TujuanController::class, 'getAllTujuan'])->name('get-tujuan');

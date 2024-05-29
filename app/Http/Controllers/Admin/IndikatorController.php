@@ -99,9 +99,9 @@ class IndikatorController extends Controller
         }
     }
 
-    public function getAllindikator($id)
+    public function getAllIndikator($id)
     {
-        $indikators = Indikator::where('indikator_id', $id)->get();
+        $indikators = Indikator::where('tujuan_id', $id)->get();
         return response()->json($indikators);
     }
 }

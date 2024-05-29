@@ -27,8 +27,8 @@
                     @foreach ($pencapaians as $pencapaian)
                   <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$pencapaian->indikator->kode_indikator}}</td>
-                    <td>{{$pencapaian->indikator->nama_indikator}}</td>
+                    <td>{{$pencapaian->indikator_id}}</td>
+                    <td>{{$pencapaian->Indikator->nama_indikator ?? '-'}}</td>
                     <td>{{$pencapaian->tahun}}</td>
                     <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>

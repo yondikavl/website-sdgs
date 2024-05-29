@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('indikator', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             $table->foreignId('tujuan_id')->nullable();
-            $table->string('kode_indikator');
+            $table->string('kode_indikator')->primary();
             $table->text('nama_indikator');
             $table->timestamps();
         });

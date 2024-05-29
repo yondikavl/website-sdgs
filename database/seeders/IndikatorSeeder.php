@@ -912,7 +912,7 @@ class IndikatorSeeder extends Seeder
                 'tujuan_id' => 15, 'kode_indikator' => '15.a.1',  "nama_indikator" => "(a) Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan dan (b) pendapatan yang dihasilkan dan pembiayaan dimobilisasi dari instrumen ekonomi terkait keanekaragaman hayati.", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 15, 'kode_indikator' => '15.a.1',  "nama_indikator" => "Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 15, 'kode_indikator' => '15.a.1.(b)',  "nama_indikator" => "Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
                 'tujuan_id' => 15, 'kode_indikator' => '15.b.1',  "nama_indikator" => "(a) Bantuan pembangunan resmi untuk konservasi dan pemanfaatan keanekaragaman hayati secara berkelanjutan dan (b) pendapatan yang dihasilkan dan pembiayaan dimobilisasi dari instrumen ekonomi terkait keanekaragaman keanekaragaman", 'created_at'=> now(), 'updated_at'=> now()
@@ -1059,7 +1059,7 @@ class IndikatorSeeder extends Seeder
                 'tujuan_id' => 16, 'kode_indikator' => '16.9.1.(b)',  "nama_indikator" => "Persentase cakupan kepemilikan akta kelahiran pada penduduk 0-17 tahun", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 16, 'kode_indikator' => '16.9.1.(b)',  "nama_indikator" => "Jumlah kasus terverifikasi atas pembunuhan, penculikan dan penghilangan secara paksa, penahanan sewenang-wenang dan penyiksaan terhadap jurnalis, awak media, serikat pekerja, dan pembela HAM dalam 12 bulan terakhir", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 16, 'kode_indikator' => '16.9.1.(c)',  "nama_indikator" => "Jumlah kasus terverifikasi atas pembunuhan, penculikan dan penghilangan secara paksa, penahanan sewenang-wenang dan penyiksaan terhadap jurnalis, awak media, serikat pekerja, dan pembela HAM dalam 12 bulan terakhir", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
                 'tujuan_id' => 16, 'kode_indikator' => '16.10.1.(a)',  "nama_indikator" => "Indikator Kebebasan dari kekerasan bagi jurnalis dan awak media", 'created_at'=> now(), 'updated_at'=> now()
