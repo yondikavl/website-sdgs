@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Client\BerandaController;
+use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuansController;
 
@@ -67,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
+Route::get('/dashboard-client', [DashboardClientController::class, 'index'])->name('dashboard-client');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('tujuan/{id}', [TujuansController::class, 'index'])->name('tujuan');

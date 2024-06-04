@@ -10,11 +10,11 @@
                 <a class="nav-link font-weight-bold" href="/">BERANDA</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link font-weight-bold" href="/dashboard-client">DASHBOARD</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link font-weight-bold" href="/tujuan">TUJUAN</a>
             </li>
-            {{-- <li class="nav-item">
-        <a class="nav-link font-weight-bold" href="/target">TARGET</a>
-      </li> --}}
             <li class="nav-item">
                 <a class="nav-link font-weight-bold" href="/kontak">KONTAK</a>
             </li>
