@@ -1,21 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light py-2 px-5">
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-2 px-3">
     <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/logo.png') }}" width="50" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+        <ul class="navbar-nav mr-auto ml-md-4 my-4 my-md-0">
+            <li class="nav-item my-2 my-md-0">
                 <a class="nav-link font-weight-bold" href="/">BERANDA</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item my-2 my-md-0">
                 <a class="nav-link font-weight-bold" href="/dashboard-client">DASHBOARD</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item my-2 my-md-0">
                 <a class="nav-link font-weight-bold" href="/tujuan">TUJUAN</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item my-2 my-md-0">
                 <a class="nav-link font-weight-bold" href="/kontak">KONTAK</a>
             </li>
         </ul>
