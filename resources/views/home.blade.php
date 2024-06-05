@@ -35,7 +35,9 @@
                                             alt="">
                                     </div>
                                     <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
+                                    <p class="text-center d-none d-md-block text-md col-lg-10 mx-auto">
+                                        {{ $pilar->deskripsi_pilar }}
+                                    </p>
                                 </a>
                             @elseif ($pilar->id == 2)
                                 <a class="card bg-gradient-warning w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -44,7 +46,9 @@
                                             alt="">
                                     </div>
                                     <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
+                                    <p class="text-center d-none d-md-block text-md col-lg-10 mx-auto">
+                                        {{ $pilar->deskripsi_pilar }}
+                                    </p>
                                 </a>
                             @elseif ($pilar->id == 3)
                                 <a class="card bg-gradient-success w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -53,7 +57,8 @@
                                             alt="">
                                     </div>
                                     <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
+                                    <p class="text-center d-none d-md-block text-md col-lg-10 mx-auto">
+                                        {{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @elseif ($pilar->id == 4)
                                 <a class="card bg-gradient-primary w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -62,7 +67,8 @@
                                             alt="">
                                     </div>
                                     <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
+                                    <p class="text-center d-none d-md-block text-md col-lg-10 mx-auto">
+                                        {{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @endif
                         </div>
