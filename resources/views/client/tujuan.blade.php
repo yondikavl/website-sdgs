@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <h1 class="text-center mb-5 font-weight-bold">17 Tujuan SDGs</h1>
+    <h1 class="text-center mb-5 font-weight-bold text-xl">17 Tujuan SDGs</h1>
     <div class="text-center">
         <div class="row d-none d-md-flex">
             @foreach ($tujuans as $tujuan)

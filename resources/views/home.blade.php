@@ -8,12 +8,12 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <h1 class="text-center font-weight-bold mb-5">SDGs Kota Bandar Lampung</h1>
-                    <h5 class="font-weight-light text-justify">
+                    <h5 class="font-weight-light text-justify text-md">
                         Kota Bandar Lampung telah berkomitmen untuk mencapai Sustainable Development Goals (SDGs) atau
                         Tujuan Pembangunan Berkelanjutan (TPB) yang ditunjukkan dengan telah disusun dan ditetapkannya
                         dokumen Rencana Aksi Daerah (RAD) SDGs/TPB Kota Bandar Lampung 2020-2024.
                     </h5>
-                    <h5 class="font-weight-light text-justify d-none d-md-block">
+                    <h5 class="font-weight-light text-justify text-md">
                         Ini selaras dengan dokumen RAD SDGs/TPB Provinsi Lampung yang telah ditetapkan oleh Pemerintah
                         Provinsi Lampung. Komitmen dalam perencanaan pembangunan Kota Bandar Lampung pun ditunjukkan dengan
                         telah diselaraskannya dokumen Rencana Pembangunan Jangka Menengah Daerah (RPJMD) Kota Bandar Lampung
@@ -34,8 +34,8 @@
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
                                     </div>
-                                    <h3 class="text-center">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block">{{ $pilar->deskripsi_pilar }}</p>
+                                    <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
+                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @elseif ($pilar->id == 2)
                                 <a class="card bg-gradient-warning w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -43,8 +43,8 @@
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
                                     </div>
-                                    <h3 class="text-center">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block">{{ $pilar->deskripsi_pilar }}</p>
+                                    <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
+                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @elseif ($pilar->id == 3)
                                 <a class="card bg-gradient-success w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -52,8 +52,8 @@
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
                                     </div>
-                                    <h3 class="text-center">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block">{{ $pilar->deskripsi_pilar }}</p>
+                                    <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
+                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @elseif ($pilar->id == 4)
                                 <a class="card bg-gradient-primary w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
@@ -61,8 +61,8 @@
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
                                     </div>
-                                    <h3 class="text-center">{{ $pilar->nama_pilar }}</h3>
-                                    <p class="text-center d-none d-md-block">{{ $pilar->deskripsi_pilar }}</p>
+                                    <h3 class="text-center text-lg">{{ $pilar->nama_pilar }}</h3>
+                                    <p class="text-center d-none d-md-block text-md">{{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @endif
                         </div>
