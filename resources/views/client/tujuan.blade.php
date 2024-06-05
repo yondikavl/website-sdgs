@@ -24,9 +24,8 @@
             @foreach ($tujuans as $tujuan)
                 <div class="col-md-3 mb-4">
                     <a href="/tujuan/{{ $tujuan->id }}">
-                        <div class="card bg-white">
-                            <div class="card-body d-flex justify-content-center align-items-center mb-3"
-                                style="height: 100px">
+                        <div class="card bg-white p-3" style="min-height: 200px; max-height: 200px">
+                            <div class="card-body d-flex justify-content-center align-items-center mb-3">
                                 <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="70" alt="">
                             </div>
                             <h4 class="card-title text-center">{{ $tujuan->nama_tujuan }}</h4>
