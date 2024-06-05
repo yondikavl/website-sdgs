@@ -60,7 +60,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-lg-11">
                     @include('layouts.client.navbar')
-                    <div class="p-5">
+                    <div class="py-5">
                         @yield('content')
                     </div>
                     @include('layouts.client.footer')

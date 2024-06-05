@@ -3,7 +3,7 @@
 @section('title', 'Beranda')
 
 @section('content')
-    <div>
+    <div class="col-12">
         <div class="container mb-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-100 mb-3">
+        <div class="container mb-3">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     @foreach ($pilars as $index => $pilar)
@@ -78,7 +78,7 @@
                 </a>
             </div>
         </div>
-        <div class="d-md-none">
+        <div class="container d-md-none">
             <div id="carouseltujuan" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     @foreach ($tujuans as $index => $tujuan)
@@ -86,17 +86,19 @@
                             @if ($index == 0) class="active" @endif></li>
                     @endforeach
                 </ol>
-                <div class="carousel-inner">
+                <div class="carousel-inner rounded-lg">
                     @foreach ($tujuans as $index => $tujuan)
                         <div class="carousel-item @if ($index == 0) active @endif">
                             <a href="/tujuan/{{ $tujuan->id }}">
-                                <img class="d-block w-100" src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}"
+                                <img class="d-block w-100 rounded-lg"
+                                    src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}"
                                     alt="{{ $tujuan->nama_tujuan }}">
                             </a>
                         </div>
                     @endforeach
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{{ asset('assets/img/logo-sdgs.png') }}" alt="Logo SDGs">
+                        <img class="d-block w-100 rounded-lg" src="{{ asset('assets/img/logo-sdgs.png') }}"
+                            alt="Logo SDGs">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouseltujuan" role="button" data-slide="prev">
@@ -110,15 +112,15 @@
             </div>
         </div>
 
-        <div class="d-none d-md-block">
+        <div class="container d-none d-md-block">
             <div class="text-center">
                 @foreach ($tujuans as $tujuan)
                     <a href="/tujuan/{{ $tujuan->id }}">
-                        <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="165"
-                            alt="{{ $tujuan->nama_tujuan }}">
+                        <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="184"
+                            class="rounded-lg my-1" alt="{{ $tujuan->nama_tujuan }}">
                     </a>
                 @endforeach
-                <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="165" alt="Logo SDGs">
+                <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="184" alt="Logo SDGs">
             </div>
         </div>
 
