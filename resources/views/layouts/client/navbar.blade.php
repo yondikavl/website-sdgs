@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto ml-md-4 my-4 my-md-0">
             <li class="nav-item my-2 my-md-0">
-                <a class="nav-link font-weight-bold text-sm" href="/">BERANDA</a>
+                <a class="nav-link font-weight-bold text-sm" href="/">Beranda</a>
             </li>
             <li class="nav-item my-2 my-md-0">
-                <a class="nav-link font-weight-bold text-sm" href="/dashboard-client">DASHBOARD</a>
+                <a class="nav-link font-weight-bold text-sm" href="/dashboard-client">Dashboard</a>
             </li>
             <li class="nav-item my-2 my-md-0">
-                <a class="nav-link font-weight-bold text-sm" href="/tujuan">TUJUAN</a>
+                <a class="nav-link font-weight-bold text-sm" href="/tujuan">Tujuan</a>
             </li>
             <li class="nav-item my-2 my-md-0">
-                <a class="nav-link font-weight-bold text-sm" href="/kontak">KONTAK</a>
+                <a class="nav-link font-weight-bold text-sm" href="/kontak">Kontak</a>
             </li>
         </ul>
         <a class="navbar-brand ml-auto" href="#"><img src="{{ asset('assets/img/logo-sdgs.png') }}" width="50"
