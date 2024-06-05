@@ -134,6 +134,29 @@
                 </ul>
             </li>
             <li class="nav-item">
+                <a href="#" class="nav-link text-white">
+                    <i class="nav-icon fa-solid fa-location-dot"></i>
+                    <p>
+                        Alamat
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/super/alamat/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Alamat</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/super/alamat/create/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p><small>Tambah Data Alamat</small></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                     @csrf
                 </form>

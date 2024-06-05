@@ -6,6 +6,7 @@ use App\Http\Middleware\SuperAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AlamatController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PilarController;
 use App\Http\Controllers\Admin\PencapaianController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::resource('alamat', AlamatController::class);
     });
 
     // CMS ADMIN
