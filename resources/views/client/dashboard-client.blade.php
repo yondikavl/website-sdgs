@@ -25,6 +25,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12 mx-auto my-5">
+            @include('layouts.client.dashpage')
+        </div>
         <div>
             <canvas id="myChart"></canvas>
         </div>
