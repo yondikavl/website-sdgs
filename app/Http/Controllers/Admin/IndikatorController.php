@@ -29,9 +29,9 @@ class IndikatorController extends Controller
             $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
             if(auth()->user()->permiindikatorions != null){
-                $indikators = indikator::whereIn('id', auth()->user()->permiindikatorions)->get();
+                $indikators = Indikator::whereIn('id', auth()->user()->permiindikatorions)->get();
             } else {
-                $indikators = indikator::where('id', null)->get();
+                $indikators = Indikator::where('id', null)->get();
             }
         }
         return view('admin.indikator.create', compact('indikators'));

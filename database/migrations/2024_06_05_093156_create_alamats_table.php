@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('alamats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_alamat');
-            $table->string('slug');
-            $table->string('foto')->nullable();
-            $table->string('location')->nullable();
-            $table->longText('deskripsi')->nullable();
+            $table->string('provinsi');
+            $table->string('kotaorkab');
+            $table->string('latitude');     
+            $table->string('longitude');
             $table->timestamps();
         });
     }

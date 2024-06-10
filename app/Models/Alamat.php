@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Alamat extends Model
 {
     use HasFactory;
-    protected $table = 'alamat_pencapaian';
+    protected $table = 'alamats';
+
     protected $fillable = [
-        'nama_kelurahan',
-        'long',
-        'lat',
+        'provinsi',
+        'kotaorkab',
+        'latitude',
+        'longitude',
     ];
 }
