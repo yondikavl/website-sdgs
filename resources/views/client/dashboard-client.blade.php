@@ -21,7 +21,7 @@
         <div class="container mb-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mb-5">Dashboard SDGs</h1>
+                    <h1 class="text-center font-weight-bold mb-5">Dashboard SDGs Kota Bandar Lampung</h1>
                 </div>
             </div>
         </div>
