@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-class Kecamatan extends District
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Kecamatan extends Model
 {
     use HasFactory;
     protected $table = 'kecamatan';
