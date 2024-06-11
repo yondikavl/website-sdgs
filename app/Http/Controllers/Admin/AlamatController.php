@@ -17,8 +17,8 @@ class AlamatController extends Controller
      */
     public function index()
     {
-        $alamats = Alamat::all();
-        return view('admin.alamat.index', compact('alamats'));
+        $maps = Alamat::all();
+        return view('admin.alamat.index', compact('maps'));
     }
 
     /**
@@ -29,7 +29,8 @@ class AlamatController extends Controller
     public function create()
     {
         if (auth()->user()->roles_id == 1) {
-            return view('admin.alamat.create');
+            $maps = Alamat::all();
+            return view('admin.alamat.create', compact('maps'));
         }
     }
 
@@ -41,15 +42,20 @@ class AlamatController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->roles_id == 1) {
-            $alamat = alamat::create([
-                'nama_kelurahan' => $request->nama_kelurahan,
-                'long' => $request->long,
-                'lat' => $request->lat,
-            ]);
+        $request->validate([
+            'provinsi' => 'required',
+            'kotaorkab' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ]);
 
-            return redirect('super/alamat')->with('sukses', 'Berhasil Tambah Data!');
-        }
+        Alamat::create([
+            'provinsi' => $request->provinsi,
+            'kotaorkab' => $request->kotaorkab,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+        return redirect('super/alamat')->with('sukses', 'Berhasil Tambah Data!');
     }
 
     /**
@@ -58,12 +64,9 @@ class AlamatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Alamat $map)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
-            $alamat = Alamat::where('id', $id)->firstOrFail();
-            return view('admin.alamat.show', compact('alamat'));
-        }
+
     }
 
     /**
@@ -72,12 +75,10 @@ class AlamatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Alamat $map)
     {
-        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2 || auth()->user()->roles_id == 3) {
-            $alamat = Alamat::where('id', $id)->firstOrFail();
-            return view('admin.alamat.edit', compact('alamat'));
-        }
+        $maps = Alamat::all();
+        return view('admin.alamat.edit', compact('map'), compact('maps'));
     }
 
     /**
@@ -87,23 +88,29 @@ class AlamatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($request, $id)
+    public function update(Request $request, Alamat $map)
     {
-        if (auth()->user()->roles_id == 1) {
-            $alamat = alamat::create([
-                'nama_kelurahan' => $request->nama_kelurahan,
-                'long' => $request->long,
-                'lat' => $request->lat,
-            ]);
+        $request->validate([
+            'provinsi' => 'required',
+            'kotaorkab' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ]);
 
+        Map::where('id', $map->id)
+            ->update([
+                'provinsi' => $request->provinsi,
+                'kotaorkab' => $request->kotaorkab,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
             return redirect('super/alamat')->with('sukses', 'Berhasil Tambah Data!');
-        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Alamat  $map
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
