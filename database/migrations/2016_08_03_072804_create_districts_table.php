@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('kecamatan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('code', 7)->unique();
+            $table->char('code', 7)->nullable(); // Make the code field nullable
             $table->string('name', 255);
+            $table->string('deskripsi', 255);
             $table->text('meta')->nullable();
             $table->timestamps();
 

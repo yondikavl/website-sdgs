@@ -137,21 +137,21 @@
                 <a href="#" class="nav-link text-white">
                     <i class="nav-icon fa-solid fa-location-dot"></i>
                     <p>
-                        Alamat
+                        Kecamatan
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/super/alamat/" class="nav-link text-white">
+                        <a href="/super/kecamatan/" class="nav-link text-white">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Data Alamat</p>
+                            <p>Data Kecamatan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/super/alamat/create/" class="nav-link text-white">
+                        <a href="/super/kecamatan/create/" class="nav-link text-white">
                             <i class="far fa-circle nav-icon"></i>
-                            <p><small>Tambah Data Alamat</small></p>
+                            <p><small>Tambah Data Kecamatan</small></p>
                         </a>
                     </li>
                 </ul>

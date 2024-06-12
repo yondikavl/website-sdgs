@@ -1,59 +1,44 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Kelola pencapaian')
+@section('title', 'Kelola Kecamatan')
 
 @section('content')
-          <div class="card">
-            <select class="btn-sm btn-info" name="year_filter" id="yearFilter">
-              <button class="btn-sm btn-info">
-              <option value="">Pilih Tahun</option>
-              @foreach ($pencapaians->pluck('tahun')->unique() as $tahun)
-              <option value="{{ $tahun }}">{{ $tahun }}</option>
-              @endforeach
-            </button>
-            </select>
+
+        <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ __('Tabel Data pencapaian') }}</h3>
+                <h3 class="card-title">{{ __('Tabel Data Kecamatan') }}</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body mb-3">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Kode Indikator</th>
-                    <th>Nama Indikator</th>
-                    <th>Tahun</th>
-                    <th>Satuan</th>
-                    <th>Nilai</th>
-                    <th>Sumber Data</th>
-                    <th>More</th>
+                    <th>Nama Kecamatan</th>
+                    <th>Deskripsi</th>
+                    <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pencapaians as $pencapaian)
+                    @foreach ($kecamatans as $kecamatan)
                   <tr>
-                    <td>{{$loop->iteration}}.</td>
-                    <td>{{$pencapaian->indikator_id}}</td>
-                    <td>{{$pencapaian->Indikator->nama_indikator ?? '-'}}</td>
-                    <td>{{$pencapaian->tahun}}</td>
-                    <td>{{$pencapaian->tipe}}</td>
-                    <td>{{$pencapaian->persentase}}</td>
-                    <td>{{$pencapaian->sumber_data}}</td>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$kecamatan->name}}</td>
+                    <td>{{$kecamatan->deskripsi}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
-                          <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
+                          <a href="{{ route('super.kecamatan.show',$kecamatan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
                           </a>
-                          <a href="{{ route('super.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
+                          <a href="{{ route('super.kecamatan.edit',$kecamatan->id) }}" class="edit-button">
                             <i class="fa-solid fa-marker"></i>
                           </a>
                           <!-- Button trigger modal -->
-                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$pencapaian->id}}">
+                          <a role="button"  class="delete-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm{{$kecamatan->id}}">
                             <i class="fa-solid fa-trash-can"></i>
                           </a>
                           <!-- Modal -->
-                          <div class="modal fade bd-example-modal-sm{{$pencapaian->id}}" tabindex="-1" role="dialog" aria-hidden="">
+                          <div class="modal fade bd-example-modal-sm{{$kecamatan->id}}" tabindex="-1" role="dialog" aria-hidden="">
                             <div class="modal-dialog ">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -63,7 +48,7 @@
                                     </div>
                                     <div class="modal-body">Apakah anda yakin ingin menghapus data?</div>
                                     <div class="modal-footer">
-                                        <form action="{{route('super.pencapaian.destroy', $pencapaian->id)}}" method="POST">
+                                        <form action="{{route('super.kecamatan.destroy', $kecamatan->id)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <input type="submit" class="btn btn-danger light" name="" id="" value="Hapus">
@@ -74,18 +59,12 @@
                             </div>
                           </div>
                           @elseif(auth()->user()->roles_id == 2)
-                          <a href="{{ route('admin.pencapaian.show',$pencapaian->id) }}" class="show-button">
+                          <a href="{{ route('admin.kecamatan.show',$kecamatan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
-                          </a>
-                          <a href="{{ route('admin.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
                           </a>
                           @elseif(auth()->user()->roles_id == 3)
-                          <a href="{{ route('opd.pencapaian.show',$pencapaian->id) }}" class="show-button">
+                          <a href="{{ route('opd.kecamatan.show',$kecamatan->id) }}" class="show-button">
                             <i class="fa-solid fa-eye"></i>
-                          </a>
-                          <a href="{{ route('opd.pencapaian.edit',$pencapaian->id) }}" class="edit-button">
-                            <i class="fa-solid fa-marker"></i>
                           </a>
                         @endif
                         </td>
@@ -95,52 +74,25 @@
                 </table>
               </div>
               <!-- /.card-body -->
-          </div>
+            </div>
 
 @endsection
 
 @section('script')
 <script>
   $(function () {
-    var table = $("#example1").DataTable({
+    $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": [
-        {
-          extend: 'csv',
-          exportOptions: {
-            columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
-          }
-        },
-        {
-          extend: 'excel',
-          exportOptions: {
-            columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
-          }
-        },
-        {
-          extend: 'pdf',
-          exportOptions: {
-            columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
-          }
-        },
-        {
-          extend: 'print',
-          exportOptions: {
-            columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
-          }
-        }
-      ]
-    });
-
-    table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-    $('#yearFilter').on('change', function () {
-      var selectedYear = $(this).val();
-      if (selectedYear) {
-        table.columns(3).search('^' + selectedYear + '$', true, false).draw();
-      } else {
-        table.columns(3).search('').draw();
-      }
+      "buttons": ["csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
     });
   });
 </script>
