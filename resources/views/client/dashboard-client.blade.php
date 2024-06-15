@@ -46,15 +46,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 mx-auto my-5">
+        <div class="container col-lg-12 mx-auto my-5">
             @include('layouts.client.dashpage')
         </div>
-        <div>
+        <div class="container">
             <canvas id="myChart"></canvas>
         </div>
 
         <div
-            class="col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
+            class="container col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
             <svg width="297mm" height="210mm" version="1.1"
                 style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
                 viewBox="0 0 21000 29700">
