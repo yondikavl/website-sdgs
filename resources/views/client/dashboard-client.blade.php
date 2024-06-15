@@ -4,6 +4,26 @@
 
 @section('style')
     <style>
+        .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .popup h3 {
+        margin-top: 0;
+    }
+
+    .popup button {
+        margin-top: 10px;
+    }
+
         .container {
             width: 80%;
             margin: 15px auto;
@@ -261,22 +281,44 @@
         const kecamatanData = @json($kecamatans);
 
         function handleClick(event) {
-            const pathElement = event.target;
-            pathElement.classList.remove("animate-click");
-            void pathElement.offsetWidth;
-            pathElement.classList.add("animate-click");
+        const pathElement = event.target;
+        const kecamatanCode = pathElement.id.substring(1); // Extracting code from element id (assuming id is like 'a1234')
 
-            const parentSVG = pathElement.parentNode;
-            parentSVG.appendChild(pathElement);
+        // Find the kecamatan data based on the code
+        const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
+
+        // Show the pop-up with the kecamatan data
+        showPopup(kecamatan);
+    }
+
+    function showPopup(kecamatan) {
+        // Create the popup element
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.innerHTML = `
+            <h3>${kecamatan.name}</h3>
+            <p>${kecamatan.deskripsi}</p>
+            <button onclick="closePopup()">Close</button>
+        `;
+
+        // Append the popup to the body
+        document.body.appendChild(popup);
+    }
+
+    function closePopup() {
+        const popup = document.querySelector('.popup');
+        if (popup) {
+            popup.remove();
         }
+    }
 
-        kecamatanData.map((item, index) => {
-            document.addEventListener("DOMContentLoaded", function() {
-                const pathElement = document.querySelector(`#a${item.code}`);
-                if (pathElement) {
-                    pathElement.addEventListener("click", handleClick);
-                }
-            });
+    kecamatanData.map((item, index) => {
+        document.addEventListener("DOMContentLoaded", function() {
+            const pathElement = document.querySelector(`#a${item.code}`);
+            if (pathElement) {
+                pathElement.addEventListener("click", handleClick);
+            }
         });
-    </script>
+    });
+</script>
 @endsection
