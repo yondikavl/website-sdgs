@@ -283,23 +283,18 @@
             myChart.update();
         }
 
-        // Logic for SVG path elements handling
         const kecamatanData = @json($kecamatans);
 
         function handleClick(event) {
             const pathElement = event.target;
             const kecamatanCode = pathElement.id.substring(
-                1); // Extracting code from element id (assuming id is like 'a1234')
+                1);
 
-            // Find the kecamatan data based on the code
             const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
-
-            // Show the pop-up with the kecamatan data
             showPopup(kecamatan);
         }
 
         function showPopup(kecamatan) {
-            // Create the popup element
             const popup = document.createElement('div');
             popup.classList.add('popup');
             popup.innerHTML = `
@@ -308,7 +303,6 @@
             <button onclick="closePopup()">Close</button>
         `;
 
-            // Append the popup to the body
             document.body.appendChild(popup);
         }
 
