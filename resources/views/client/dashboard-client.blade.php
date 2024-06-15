@@ -195,7 +195,6 @@
 @endsection
 
 @section('script')
-
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -212,11 +211,53 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 5 // Rentang maksimum sumbu Y
+                        max: 5
                     }
                 }
             }
         });
+
+        document.getElementById('menu-prediksi').addEventListener('click', function(event) {
+            event.preventDefault();
+            updateChart('prediksi');
+        });
+
+        document.getElementById('menu-analisis').addEventListener('click', function(event) {
+            event.preventDefault();
+            updateChart('analisis');
+        });
+
+        function updateChart(type) {
+            let newData;
+            if (type === 'prediksi') {
+                newData = {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Tingkat Kemiskinan',
+                        data: [2, 3, 4, 3, 5],
+                        backgroundColor: "rgba(153,255,51,0.6)"
+                    }]
+                };
+            } else if (type === 'analisis') {
+                newData = {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Tingkat Kemiskinan',
+                        data: [2, 3, 4, 3, 5],
+                        backgroundColor: "rgba(153,255,51,0.6)"
+                    }, {
+                        label: 'Tingkat Kemiskinan Alternatif',
+                        data: [2, 4, 2, 3, 3],
+                        backgroundColor: "rgba(153,255,255,0.6)"
+                    }]
+                };
+            }
+
+            myChart.data = newData;
+            myChart.update();
+        }
+
+        // Logic for SVG path elements handling
         const kecamatanData = @json($kecamatans);
 
         function handleClick(event) {
@@ -230,16 +271,12 @@
         }
 
         kecamatanData.map((item, index) => {
-            // console.log(item);
-
             document.addEventListener("DOMContentLoaded", function() {
                 const pathElement = document.querySelector(`#a${item.code}`);
                 if (pathElement) {
                     pathElement.addEventListener("click", handleClick);
                 }
             });
-        })
-        // Add event listener to the SVG path element
+        });
     </script>
-
 @endsection

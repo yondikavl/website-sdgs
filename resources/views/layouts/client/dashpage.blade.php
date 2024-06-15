@@ -3,13 +3,13 @@
         <div class="mx-auto">
             <ul class="navbar-nav d-flex justify-content-center">
                 <li class="nav-item mx-2 my-2 my-md-0">
-                    <a class="nav-link text-sm bg-success rounded-lg px-3 py-2 text-center"
-                        style="min-width: 250px; max-width: 250px" href="dashboard-client/prediksi"><i
+                    <a id="menu-prediksi" class="nav-link text-sm bg-success rounded-lg px-3 py-2 text-center"
+                        style="min-width: 250px; max-width: 250px" href="dashboard-client/grafik-prediksi"><i
                             class="fa-solid fa-chart-simple mx-2" style="color: #ffffff;"></i>Prediksi</a>
                 </li>
                 <li class="nav-item mx-2 my-2 my-md-0">
-                    <a class="nav-link text-sm bg-success rounded-lg px-3 py-2 text-center"
-                        style="min-width: 250px; max-width: 250px" href="#"><i
+                    <a id="menu-analisis" class="nav-link text-sm bg-success rounded-lg px-3 py-2 text-center"
+                        style="min-width: 250px; max-width: 250px" href="dashboard-client/grafik-analisis"><i
                             class="fa-solid fa-magnifying-glass mx-2" style="color: #ffffff;"></i>Analisis
                         Pembanding</a>
                 </li>

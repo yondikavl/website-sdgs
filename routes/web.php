@@ -17,7 +17,6 @@ use App\Http\Controllers\Client\BerandaController;
 use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuansController;
-use App\Http\Controllers\PrediksiController;
 
 /*
 |--------------------------------------------------------------------------
