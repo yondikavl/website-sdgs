@@ -13,21 +13,25 @@ use Illuminate\Http\Request;
 class PencapaianController extends Controller
 {
     public function index()
-    {
-        if (auth()->user()->roles_id == 3) {
-            // if user permission is not empty
-            if(auth()->user()->permissions != null){
-                // get pencapaian where indikator id is in user permission
-                $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
-            } else {
-                // get pencapaian where indikator id is null
-                $pencapaians = Pencapaian::where('indikator_id', null)->get();
-            }
+{
+    if (auth()->user()->roles_id == 3) {
+        // if user permission is not empty
+        if(auth()->user()->permissions != null){
+            // get pencapaian where indikator id is in user permission
+            $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
         } else {
-            $pencapaians = Pencapaian::all();
+            // get pencapaian where indikator id is null
+            $pencapaians = Pencapaian::where('indikator_id', null)->get();
         }
-        return view('admin.pencapaian.index', compact('pencapaians'));
+    } else {
+        $pencapaians = Pencapaian::all();
     }
+
+    // Sort the years in descending order
+    $years = $pencapaians->pluck('tahun')->unique()->sortDesc();
+
+    return view('admin.pencapaian.index', compact('pencapaians', 'years'));
+}
 
     public function create()
     {
