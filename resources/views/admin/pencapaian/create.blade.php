@@ -7,6 +7,12 @@
         .table-cell-padding td {
             padding: 10px;
         }
+
+        .table-header-green tr:nth-child(1),
+        .table-header-green tr:nth-child(2) {
+            background-color: #28a745;
+            color: white;
+        }
     </style>
 @endsection
 
@@ -262,7 +268,8 @@
 
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = html;
-                    tempDiv.querySelector('table').classList.add('table-cell-padding', 'table', 'table-striped');
+                    const table = tempDiv.querySelector('table');
+                    table.classList.add('table-cell-padding', 'table', 'table-striped', 'table-header-green');
                     content.innerHTML += tempDiv.innerHTML;
                 };
                 reader.readAsArrayBuffer(file);
