@@ -2,6 +2,14 @@
 
 @section('title', 'Tambah pencapaian')
 
+@section('style')
+    <style>
+        .table-cell-padding td {
+            padding: 10px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="card card-success m-2">
         <div class="card-header">
@@ -239,11 +247,19 @@
                         id: "data-table",
                         editable: false
                     });
-                    content.innerHTML += html;
+
+                    // Create a temporary element to hold the HTML string
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+
+                    // Add the class to the table
+                    tempDiv.querySelector('table').classList.add('table-cell-padding', 'table', 'table-striped');
+
+                    // Append the modified HTML to the content div
+                    content.innerHTML += tempDiv.innerHTML;
                 };
                 reader.readAsArrayBuffer(file);
             }
-
 
             $('#filePreviewModal').modal('show');
         }
