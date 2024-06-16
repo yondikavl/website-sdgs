@@ -366,10 +366,10 @@ class IndikatorSeeder extends Seeder
                 'tujuan_id' => 6, 'kode_indikator' => '6.6.1',  "nama_indikator" => "Perubahan tingkat sumber daya air terkait ekosistem dari waktu ke waktu", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 6, 'kode_indikator' => '6.a.1.',  "nama_indikator" => "Jumlah ODA terkait air dan sanitasi yang menjadi bagian rencana belanja pemerintah.", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 6, 'kode_indikator' => '6.a.1',  "nama_indikator" => "Jumlah ODA terkait air dan sanitasi yang menjadi bagian rencana belanja pemerintah.", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 6, 'kode_indikator' => '6.b.1.',  "nama_indikator" => "Proporsi unit pemerintah lokal yang menerbitkan dan melaksanakan kebijakan dan prosedur terkait partisipasi masyarakat dalam pengelolaanair dan sanitasi.", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 6, 'kode_indikator' => '6.b.1',  "nama_indikator" => "Proporsi unit pemerintah lokal yang menerbitkan dan melaksanakan kebijakan dan prosedur terkait partisipasi masyarakat dalam pengelolaanair dan sanitasi.", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
                 'tujuan_id' => 7, 'kode_indikator' => '7.1.1',  "nama_indikator" => "Rasio elektrifikasi.", 'created_at'=> now(), 'updated_at'=> now()
@@ -1047,7 +1047,7 @@ class IndikatorSeeder extends Seeder
                 'tujuan_id' => 16, 'kode_indikator' => '16.8.1',  "nama_indikator" => "Proporsi keanggotaan dan hak pengambilan keputusan dari negara-negara berkembang di Organisasi internasional", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 16, 'kode_indikator' => '16.8.1.(a.)',  "nama_indikator" => "Jumlah keanggotaan dan kontribusi dalam forum dan organisasi internasional", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 16, 'kode_indikator' => '16.8.1.(a)',  "nama_indikator" => "Jumlah keanggotaan dan kontribusi dalam forum dan organisasi internasional", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
                 'tujuan_id' => 16, 'kode_indikator' => '16.9.1',  "nama_indikator" => "Proporsi anak umur di bawah 5 tahun yang kelahirannya dicatat oleh lembaga pencatatan sipil menurut umur", 'created_at'=> now(), 'updated_at'=> now()

@@ -45,14 +45,20 @@ class PencapaianController extends Controller
 
     public function import (Request $request){
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls',
+            'files.*' => 'required|mimes:xlsx,xls',
+        ], [
+            'files.*.required' => 'File tidak boleh kosong!',
+            'files.*.mimes' => 'File harus berformat xlsx atau xls!',
         ]);
 
         // dd($request->all());
 
-        $file = $request->file('file');
+        $files = $request->file('files');
 
-        $data = Excel::import(new PencapaianImport($request->tahun), $file);
+        foreach ($files as $file) {
+            Excel::import(new PencapaianImport($request->tahun), $file);
+        }
+        
         // dd($data);
         if (auth()->user()->roles_id == 1) {
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
