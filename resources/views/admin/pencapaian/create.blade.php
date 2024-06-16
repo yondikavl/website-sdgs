@@ -196,7 +196,7 @@
                     <div id="file-content" class="table-responsive"></div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn_modal_close" type="button" class="btn btn-danger"
+                    <button id="btn_modal_close_footer" type="button" class="btn btn-danger"
                         data-dismiss="modal">Tutup</button>
                 </div>
             </div>
@@ -212,6 +212,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#btn_modal_close').on('click', function() {
+                $('#filePreviewModal').modal('hide');
+            });
+        });
+
+        $(document).ready(function() {
+            $('#btn_modal_close_footer').on('click', function() {
+                $('#filePreviewModal').modal('hide');
+            });
+        });
+
         function getIndikator(id) {
             $('#indikator_id').empty();
             $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
@@ -248,14 +260,9 @@
                         editable: false
                     });
 
-                    // Create a temporary element to hold the HTML string
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = html;
-
-                    // Add the class to the table
                     tempDiv.querySelector('table').classList.add('table-cell-padding', 'table', 'table-striped');
-
-                    // Append the modified HTML to the content div
                     content.innerHTML += tempDiv.innerHTML;
                 };
                 reader.readAsArrayBuffer(file);
@@ -263,11 +270,5 @@
 
             $('#filePreviewModal').modal('show');
         }
-
-        $(document).ready(function() {
-            $('#btn_modal_close').on('click', function() {
-                $('#filePreviewModal').modal('hide');
-            });
-        });
     </script>
 @endsection
