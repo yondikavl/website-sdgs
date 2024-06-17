@@ -17,10 +17,26 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.user.index', compact('users'));
     }
-
+    
+    public function getIndikator($roles_id)
+{
+    if ($roles_id == 3) {
+        $tujuans = Tujuan::all();
+        return response()->json($tujuans);
+    }
+}
     public function create()
     {
-        return view('admin.user.create');
+        if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
+            $tujuans = Tujuan::all();
+        } else if(auth()->user()->roles_id == 3) {
+            if(auth()->user()->permissions != null){
+                $tujuans = Tujuan::whereIn('id', auth()->user()->permissions)->get();
+            } else {
+                $tujuans = Tujuan::where('id', null)->get();
+            }
+        }
+        return view('admin.user.create', compact('tujuans'));
     }
 
     public function store(UserStoreRequest $request)

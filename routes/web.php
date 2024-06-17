@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
         Route::resource('user', UserController::class);
+        Route::get('/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('get-indikator');
         Route::resource('pilar', PilarController::class);
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
