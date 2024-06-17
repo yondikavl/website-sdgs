@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
     });
 
     // CMS OPD
@@ -67,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
     });
 });
 
