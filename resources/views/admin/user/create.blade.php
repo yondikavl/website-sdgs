@@ -2,6 +2,25 @@
 
 @section('title', 'Tambah User')
 
+@section('style')
+<style>
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-item label {
+    margin-left: 5px;
+}
+</style>
+@endsection
+
 @section('content')
     <div class="card card-success m-2">
         <div class="card-header">
@@ -50,7 +69,7 @@
             </div>
             <div class="form-group">
                 <label for="roles_id">{{ __('Roles ID') }}</label>
-                <select class="form-control col-form-label rounded-2" name="roles_id" id="roles_id" onchange="getTujuan(this.value)">
+                <select class="form-control col-form-label rounded-2" name="roles_id" id="roles_id">
                     <option value="1">Super Admin</option>
                     <option value="2">Admin</option>
                     <option value="3">OPD</option>
@@ -74,30 +93,49 @@
 </div>
 
 <script>
-    function getTujuan(roles_id) {
-        if (roles_id == 3) {
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-indikator', '') }}" + '/' + roles_id,
-                dataType: 'json',
-                success: function(data) {
-                    var html = '';
-                    $.each(data, function(i, item) {
-                        html += '<div class="form-check">';
-                        html += '<input class="form-check-input" type="checkbox" name="tujuan_id[]" value="'+item.id+'" id="tujuan'+item.id+'">';
-                        html += '<label class="form-check-label" for="tujuan'+item.id+'">'+item.nama_indikator+'</label>';
-                        html += '</div>';
-                    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const rolesSelect = document.getElementById('roles_id');
+        const listIndikator = document.getElementById('list-indikator');
+        const tujuanContainer = document.getElementById('tujuan_id');
 
-                    $('#list-indikator').removeAttr('hidden');
-                    $('#tujuan_id').html(html);
-                }
+        rolesSelect.addEventListener('change', function() {
+            if (rolesSelect.value == 3) {
+                fetchTujuan();
+            } else {
+                listIndikator.hidden = true;
+                tujuanContainer.innerHTML = '';
+            }
+        });
+
+        function fetchTujuan() {
+        fetch('{{ route('admin.get-indikator', ['roles_id' => 3]) }}')
+        .then(response => response.json())
+        .then(data => {
+            listIndikator.hidden = false;
+            tujuanContainer.innerHTML = '';
+
+            data.forEach(tujuan => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'checkbox-item';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'tujuan_id[]';
+                checkbox.value = tujuan.id;
+
+                const label = document.createElement('label');
+                label.textContent = tujuan.nama_tujuan;
+                label.appendChild(checkbox);
+
+                wrapper.appendChild(checkbox);
+                wrapper.appendChild(label);
+
+                tujuanContainer.appendChild(wrapper);
             });
-        } else {
-            $('#list-indikator').attr('hidden', true);
-            $('#tujuan_id').html('');
+        })
+        .catch(error => console.error('Error fetching tujuan:', error));
         }
-    }
+    });
 </script>
 
 @endsection

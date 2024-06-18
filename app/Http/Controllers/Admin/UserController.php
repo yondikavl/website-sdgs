@@ -24,7 +24,9 @@ class UserController extends Controller
         $tujuans = Tujuan::all();
         return response()->json($tujuans);
     }
+    return response()->json([]);
 }
+
     public function create()
     {
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
@@ -46,7 +48,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'roles_id' => $request->roles_id,
-            'permissions' => $request->permissions
+            'permissions' => $request->tujuan_id,
         ]);
 
         if ($request->hasFile('foto_user')) {
@@ -70,46 +72,41 @@ class UserController extends Controller
     }
 
     public function edit($id)
-    {
-        $user = User::where('id', $id)->first();
-        $tujuans = Tujuan::all();
-        return view('admin.user.edit', compact('user', 'tujuans'));
-    }
+{
+    $user = User::findOrFail($id);
+    $tujuans = Tujuan::all();
+    $userTujuanIds = $user->permissions ?? [];
+
+    return view('admin.user.edit', compact('user', 'tujuans', 'userTujuanIds'));
+}
 
     public function update(UserUpdateRequest $request, $id)
-    {
-        if ($request->password == null) {
-            $user = User::where('id', $id)->first();
-            $user->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'roles_id' => $request->roles_id,
-                'permissions' => $request->permissions
-            ]);
-        } else {
-            $user = User::where('id', $id)->first();
-            $user->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'roles_id' => $request->roles_id,
-                'permissions' => $request->permissions
-            ]);
-        }
+{
+    $user = User::findOrFail($id);
 
-        if ($request->hasFile('foto_user')) {
-            $foto_user = $request->foto_user;
-            $user->foto_user = time() . '_' . $foto_user->getClientOriginalName();
-            $user->update();
-            $foto_user->move('../public/assets/profile/', time() . '_' . $foto_user->getClientOriginalName());
-        }
+    $user->update([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'roles_id' => $request->roles_id,
+        'permissions' => $request->tujuan_id, // Storing the tujuan IDs in permissions
+    ]);
 
-        if (auth()->user()->roles_id == 1) {
-            return redirect('super/user')->with('sukses', 'Berhasil Ubah Data!');
-        } else if (auth()->user()->roles_id == 2) {
-            return redirect('admin/user')->with('sukses', 'Berhasil Ubah Data!');
-        }
+    if ($request->filled('password')) {
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
     }
+
+    if ($request->hasFile('foto_user')) {
+        $foto_user = $request->file('foto_user');
+        $filename = time() . '_' . $foto_user->getClientOriginalName();
+        $foto_user->move(public_path('assets/profile'), $filename);
+        $user->update(['foto_user' => $filename]);
+    }
+
+    return redirect()->route(auth()->user()->roles_id == 1 ? 'super.user.index' : 'admin.user.index')
+    ->with('sukses', 'Berhasil Update Data!');
+}
 
     public function destroy($id)
     {

@@ -290,21 +290,21 @@
                 <a href="#" class="nav-link text-white">
                     <i class="nav-icon fas fa-chart-pie"></i>
                     <p>
-                        Sub-Indikator
+                        Indikator
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/opd/subindikator/" class="nav-link text-white">
+                        <a href="/opd/indikator/" class="nav-link text-white">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Data Sub-Indikator</p>
+                            <p>Data Indikator</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/opd/subindikator/create/" class="nav-link text-white">
+                        <a href="/opd/indikator/create/" class="nav-link text-white">
                             <i class="far fa-circle nav-icon"></i>
-                            <p><small>Tambah Data Sub-Indikator</small></p>
+                            <p><small>Tambah Data Indikator</small></p>
                         </a>
                     </li>
                 </ul>

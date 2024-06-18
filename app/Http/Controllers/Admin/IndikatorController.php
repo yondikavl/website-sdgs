@@ -11,17 +11,22 @@ class IndikatorController extends Controller
 {
     public function index()
     {
+        $indikators = [];
+
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $indikators = Indikator::all();
         } else if(auth()->user()->roles_id == 3) {
             if(auth()->user()->permiindikatorions != null){
                 $indikators = Indikator::whereIn('indikator_id', auth()->user()->permiindikatorions)->get();
             } else {
-                $indikators = Indikator::where('indikator_id', null)->get();
+                // Handle the case where user has no permissions
+                $indikators = []; // or Indikator::whereIn('indikator_id', [])->get();
             }
         }
+
         return view('admin.indikator.index', compact('indikators'));
     }
+
 
     public function create()
     {
