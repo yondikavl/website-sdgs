@@ -66,8 +66,19 @@
             @include('layouts.client.dashpage')
         </div>
         <div class="container">
+            <label for="year-select">Pilih Tahun:</label>
+            <select id="year-select" onchange="updateChartForYear()">
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+        <div class="container">
             <canvas id="myChart"></canvas>
         </div>
+
 
         <div
             class="container p-5 col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
@@ -137,6 +148,7 @@
 
         </div>
         <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </div>
 
 @endsection
@@ -147,18 +159,22 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['2020', '2021', '2022', '2023', '2024'],
+                labels: generateMonthlyLabels(2024),
                 datasets: [{
                     label: 'Tingkat Kemiskinan',
-                    data: [2, 3, 4, 3, 5],
+                    data: [6, 7, 8, 7, 9, 8, 7, 9, 8, 7, 6, 7],
                     backgroundColor: "rgba(153,255,51,0.6)"
+                }, {
+                    label: 'Tingkat Pendidikan',
+                    data: [8, 9, 7, 8, 9, 8, 9, 7, 8, 9, 8, 7],
+                    backgroundColor: "rgba(255,153,51,0.6)"
                 }]
             },
             options: {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 5
+                        max: 10
                     }
                 }
             }
@@ -174,28 +190,68 @@
             updateChart('analisis');
         });
 
+        const data2020 = {
+            kemiskinan: [2, 3, 4, 3, 5, 6, 4, 5, 6, 4, 3, 2],
+            pendidikan: [7, 8, 7, 8, 9, 8, 7, 8, 9, 7, 8, 9]
+        };
+
+        const data2021 = {
+            kemiskinan: [3, 4, 5, 4, 6, 5, 4, 6, 5, 4, 3, 4],
+            pendidikan: [8, 9, 8, 9, 7, 8, 9, 8, 9, 8, 7, 8]
+        };
+
+        const data2022 = {
+            kemiskinan: [4, 5, 6, 5, 7, 6, 5, 7, 6, 5, 4, 5],
+            pendidikan: [9, 7, 8, 9, 8, 7, 8, 9, 8, 7, 9, 8]
+        };
+
+        const data2023 = {
+            kemiskinan: [5, 6, 7, 6, 8, 7, 6, 8, 7, 6, 5, 6],
+            pendidikan: [7, 8, 9, 8, 7, 9, 8, 9, 7, 8, 9, 8]
+        };
+
+        const data2024 = {
+            kemiskinan: [6, 7, 8, 7, 9, 8, 7, 9, 8, 7, 6, 7],
+            pendidikan: [8, 9, 7, 8, 9, 8, 9, 7, 8, 9, 8, 7]
+        };
+
         function updateChart(type) {
+            let selectedYear = document.getElementById('year-select').value;
+            let labels = generateMonthlyLabels(selectedYear);
+
             let newData;
             if (type === 'prediksi') {
                 newData = {
-                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    labels: labels,
                     datasets: [{
                         label: 'Tingkat Kemiskinan',
-                        data: [2, 3, 4, 3, 5],
+                        data: getDataForYear(selectedYear).kemiskinan,
                         backgroundColor: "rgba(153,255,51,0.6)"
+                    }, {
+                        label: 'Tingkat Pendidikan',
+                        data: getDataForYear(selectedYear).pendidikan,
+                        backgroundColor: "rgba(255,153,51,0.6)"
                     }]
                 };
             } else if (type === 'analisis') {
                 newData = {
-                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    labels: labels,
                     datasets: [{
                         label: 'Tingkat Kemiskinan',
-                        data: [2, 3, 4, 3, 5],
+                        data: getDataForYear(selectedYear).kemiskinan,
                         backgroundColor: "rgba(153,255,51,0.6)"
                     }, {
-                        label: 'Tingkat Kemiskinan Alternatif',
-                        data: [2, 4, 2, 3, 3],
+                        label: 'Rasio Gini',
+                        data: getDataForYear(selectedYear).kemiskinan.map(value => value - 1),
                         backgroundColor: "rgba(153,255,255,0.6)"
+                    }, {
+                        label: 'Pertumbuhan Ekonomi',
+                        data: getDataForYear(selectedYear).pendidikan,
+                        backgroundColor: "rgba(255,153,51,0.6)"
+                    }, {
+                        label: 'Pengangguran Terbuka',
+                        data: getDataForYear(selectedYear).pendidikan.map(value => value - 1),
+                        backgroundColor: "rgba(51,153,255,0.6)"
                     }]
                 };
             }
@@ -203,6 +259,37 @@
             myChart.data = newData;
             myChart.update();
         }
+
+        function updateChartForYear() {
+            let type = document.querySelector('input[name="chart-type"]:checked').value || 'prediksi';
+            updateChart(type);
+        }
+
+        function generateMonthlyLabels() {
+            return ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+                'November', 'Desember'
+            ];
+        }
+
+        function getDataForYear(year) {
+            switch (year) {
+                case '2020':
+                    return data2020;
+                case '2021':
+                    return data2021;
+                case '2022':
+                    return data2022;
+                case '2023':
+                    return data2023;
+                case '2024':
+                    return data2024;
+                default:
+                    return data2020;
+            }
+        }
+
+        updateChartForYear();
+
 
         const kecamatanData = @json($kecamatans);
 
