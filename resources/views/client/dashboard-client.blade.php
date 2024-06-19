@@ -155,6 +155,45 @@
 
 @section('script')
     <script>
+        const kecamatanData = @json($kecamatans);
+
+        function handleClick(event) {
+            const pathElement = event.target;
+            const kecamatanCode = pathElement.id.substring(
+                1);
+
+            const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
+            showPopup(kecamatan);
+        }
+
+        function showPopup(kecamatan) {
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.innerHTML = `
+            <h3>${kecamatan.name}</h3>
+            <p>${kecamatan.deskripsi}</p>
+            <button onclick="closePopup()">Close</button>
+        `;
+
+            document.body.appendChild(popup);
+        }
+
+        function closePopup() {
+            const popup = document.querySelector('.popup');
+            if (popup) {
+                popup.remove();
+            }
+        }
+
+        kecamatanData.map((item, index) => {
+            document.addEventListener("DOMContentLoaded", function() {
+                const pathElement = document.querySelector(`#a${item.code}`);
+                if (pathElement) {
+                    pathElement.addEventListener("click", handleClick);
+                }
+            });
+        });
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -291,43 +330,6 @@
         updateChartForYear();
 
 
-        const kecamatanData = @json($kecamatans);
-
-        function handleClick(event) {
-            const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(
-                1);
-
-            const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
-            showPopup(kecamatan);
-        }
-
-        function showPopup(kecamatan) {
-            const popup = document.createElement('div');
-            popup.classList.add('popup');
-            popup.innerHTML = `
-            <h3>${kecamatan.name}</h3>
-            <p>${kecamatan.deskripsi}</p>
-            <button onclick="closePopup()">Close</button>
-        `;
-
-            document.body.appendChild(popup);
-        }
-
-        function closePopup() {
-            const popup = document.querySelector('.popup');
-            if (popup) {
-                popup.remove();
-            }
-        }
-
-        kecamatanData.map((item, index) => {
-            document.addEventListener("DOMContentLoaded", function() {
-                const pathElement = document.querySelector(`#a${item.code}`);
-                if (pathElement) {
-                    pathElement.addEventListener("click", handleClick);
-                }
-            });
-        });
+        
     </script>
 @endsection
