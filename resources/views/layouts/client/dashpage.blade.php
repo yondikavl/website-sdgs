@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 border rounded-lg border-width-3">
-    <div class="collapse navbar-collapse" id="navbarNav">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border rounded-lg border-width-3">
+    <div class="navbar-collapse">
         <div class="mx-auto">
             <ul class="navbar-nav d-flex justify-content-center">
                 <li class="nav-item mx-2 my-2 my-md-0">

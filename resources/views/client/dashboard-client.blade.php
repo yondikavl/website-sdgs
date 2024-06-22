@@ -49,6 +49,25 @@
             transform: scale(1.04);
             z-index: 1;
         }
+
+        @media (max-width: 768px) {
+            .popup {
+                width: 90%;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            #myChart {
+                width: 100%;
+                height: 400px;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
     </style>
 @endsection
 
@@ -62,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="container col-lg-12 mx-auto my-5">
+        <div class="col-lg-12 container mx-auto my-5">
             @include('layouts.client.dashpage')
         </div>
         <div class="container">
