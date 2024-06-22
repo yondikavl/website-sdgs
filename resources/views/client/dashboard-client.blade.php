@@ -21,13 +21,13 @@
             margin-top: 0;
         }
 
-        .popup button {
-            margin-top: 10px;
-            border: 0;
-            border-radius: 4px;
-            background-color: green;
-            color: white;
-            padding: 4px 8px;
+        .close-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: rgb(116, 116, 116);
         }
 
         .container {
@@ -75,11 +75,17 @@
                 <option value="2020">2020</option>
             </select>
         </div>
-        <div class="container">
+        <div class="container mb-5">
             <canvas id="myChart"></canvas>
         </div>
 
-
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-12 mx-auto">
+                    <h2 class="text-center font-weight-bold mt-5">Geografis Kota Bandar Lampung</h2>
+                </div>
+            </div>
+        </div>
         <div
             class="container p-5 col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
             <svg width="880" height="846" viewBox="0 0 880 846" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +151,6 @@
                     fill="#5CB585" />
             </svg>
 
-
         </div>
         <script src="script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -154,6 +159,7 @@
 @endsection
 
 @section('script')
+    <script script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         const kecamatanData = @json($kecamatans);
 
@@ -166,13 +172,17 @@
         }
 
         function showPopup(kecamatan) {
+            closePopup();
+
             const popup = document.createElement('div');
             popup.classList.add('popup');
             popup.innerHTML = `
-            <h3>${kecamatan.name}</h3>
-            <p>${kecamatan.deskripsi}</p>
-            <button onclick="closePopup()">Close</button>
-        `;
+                <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
+                <div class="px-4 py-3">
+                    <h3>${kecamatan.name}</h3>
+                    <p>${kecamatan.deskripsi}</p>
+                </div>
+            `;
 
             document.body.appendChild(popup);
         }
