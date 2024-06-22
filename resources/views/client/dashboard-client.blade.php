@@ -159,8 +159,7 @@
 
         function handleClick(event) {
             const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(
-                1);
+            const kecamatanCode = pathElement.id.substring(1);
 
             const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
             showPopup(kecamatan);
@@ -185,7 +184,7 @@
             }
         }
 
-        kecamatanData.map((item, index) => {
+        kecamatanData.map((item) => {
             document.addEventListener("DOMContentLoaded", function() {
                 const pathElement = document.querySelector(`#a${item.code}`);
                 if (pathElement) {
@@ -219,16 +218,6 @@
             }
         });
 
-        document.getElementById('menu-prediksi').addEventListener('click', function(event) {
-            event.preventDefault();
-            updateChart('prediksi');
-        });
-
-        document.getElementById('menu-analisis').addEventListener('click', function(event) {
-            event.preventDefault();
-            updateChart('analisis');
-        });
-
         const data2020 = {
             kemiskinan: [2, 3, 4, 3, 5, 6, 4, 5, 6, 4, 3, 2],
             pendidikan: [7, 8, 7, 8, 9, 8, 7, 8, 9, 7, 8, 9]
@@ -253,6 +242,16 @@
             kemiskinan: [6, 7, 8, 7, 9, 8, 7, 9, 8, 7, 6, 7],
             pendidikan: [8, 9, 7, 8, 9, 8, 9, 7, 8, 9, 8, 7]
         };
+
+        document.getElementById('menu-prediksi').addEventListener('click', function(event) {
+            event.preventDefault();
+            updateChart('prediksi');
+        });
+
+        document.getElementById('menu-analisis').addEventListener('click', function(event) {
+            event.preventDefault();
+            updateChart('analisis');
+        });
 
         function updateChart(type) {
             let selectedYear = document.getElementById('year-select').value;
@@ -287,10 +286,6 @@
                         label: 'Pertumbuhan Ekonomi',
                         data: getDataForYear(selectedYear).pendidikan,
                         backgroundColor: "rgba(255,153,51,0.6)"
-                    }, {
-                        label: 'Pengangguran Terbuka',
-                        data: getDataForYear(selectedYear).pendidikan.map(value => value - 1),
-                        backgroundColor: "rgba(51,153,255,0.6)"
                     }]
                 };
             }
@@ -300,8 +295,13 @@
         }
 
         function updateChartForYear() {
-            let type = document.querySelector('input[name="chart-type"]:checked').value || 'prediksi';
-            updateChart(type);
+            const selectedYear = document.getElementById('year-select').value;
+            const newData = getDataForYear(selectedYear);
+
+            myChart.data.labels = generateMonthlyLabels();
+            myChart.data.datasets[0].data = newData.kemiskinan;
+            myChart.data.datasets[1].data = newData.pendidikan;
+            myChart.update();
         }
 
         function generateMonthlyLabels() {
@@ -328,8 +328,5 @@
         }
 
         updateChartForYear();
-
-
-        
     </script>
 @endsection
