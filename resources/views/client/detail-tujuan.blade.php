@@ -1,6 +1,6 @@
 @extends('layouts.client.app')
 
-@section('title', 'Detail tujuan')
+@section('title', 'Detail Tujuan')
 
 @section('style')
 <style>
@@ -52,7 +52,7 @@
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{ __('Tabel Data Sub-tujuan') }}</h3>
+                <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -70,21 +70,21 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($subtujuans as $subtujuan)
+                    @foreach ($indikators as $indikator)
                   <tr>
-                    <td>{{$subtujuan->kode_sub}}</td>
-                    <td>{{$subtujuan->nama_sub}}</td>
-                    <td>{{$subtujuan->pencapaian->where('tahun', date('Y')-1)->first()->tipe  ?? "-"}}</td>
+                    <td>{{$indikator->kode_indikator}}</td>
+                    <td>{{$indikator->nama_indikator}}</td>
+                    <td>{{$indikator->pencapaian->where('tahun', date('Y')-1)->first()->tipe  ?? "-"}}</td>
                     <td>
-                      {{$subtujuan->pencapaian->where('tahun', date('Y')-1)->first()->persentase ?? "-"}}
+                      {{$indikator->pencapaian->where('tahun', date('Y')-1)->first()->persentase ?? "-"}}
                     </td>
                     <td>
-                        {{$subtujuan->pencapaian->where('tahun', date('Y'))->first()->persentase ?? "-"}}
+                        {{$indikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? "-"}}
                     </td>
 
-                    <td>{{$subtujuan->pencapaian->where('tahun', date('Y')-1)->first()->sumber_data ?? "-"}}</td>
+                    <td>{{$indikator->pencapaian->where('tahun', date('Y')-1)->first()->sumber_data ?? "-"}}</td>
                     <td>
-                      <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $subtujuan-> id}});">Detail</div>
+                      <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $indikator-> id}});">Detail</div>
                       <div id="myModal" class="modal">
                         <div class="modal-content">
                           <span class="close">&times;</span>
@@ -96,17 +96,6 @@
                   </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Kode</th>
-                    <th>Jenis Data</th>
-                    <th>Satuan</th>
-                    <th>{{date('Y')-1}}</th>
-                    <th>{{date('Y')}}</th>
-                    <th>Perangkat Daerah</th>
-                    <th>Grafik</th>
-                  </tr>
-                  </tfoot>
                 </table>
 
               </div>
@@ -123,18 +112,18 @@ function showGrafik(sub_id) {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
 
-    // Mencari data subtujuan yang dipilih
-    var dataSubtujuan = data.find(function(item) {
+    // Mencari data indikator yang dipilih
+    var dataindikator = data.find(function(item) {
         return item[sub_id];
     });
 
     var dataTahun = [];
     var dataPencapaian = [];
 
-    // Mencari data pencapaian dari subtujuan tersebut
-    for(var i = 0; i < dataSubtujuan[sub_id].length; i++) {
-        dataTahun.push(dataSubtujuan[sub_id][i].tahun);
-        dataPencapaian.push(dataSubtujuan[sub_id][i].persentase);
+    // Mencari data pencapaian dari indikator tersebut
+    for(var i = 0; i < dataindikator[sub_id].length; i++) {
+        dataTahun.push(dataindikator[sub_id][i].tahun);
+        dataPencapaian.push(dataindikator[sub_id][i].persentase);
     }
 
     // Membuat grafik dimiulai dari 0 sampai nilai tertinggi

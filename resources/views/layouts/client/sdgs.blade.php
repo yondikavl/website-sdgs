@@ -1,7 +1,7 @@
 <div class="text-center mb-5">
-    @foreach ($indikators as $indikator)
-    <a href="/indikator/{{$indikator->id}}">
-        <img src="{{ asset('assets/ikon/'. $indikator->ikon_indikator) }}" width="50" alt="{{$indikator->nama_indikator}}">
+    @foreach ($tujuans as $tujuan)
+    <a href="/tujuan/{{$tujuan->id}}">
+        <img src="{{ asset('assets/ikon/'. $tujuan->ikon_tujuan) }}" width="50" alt="{{$tujuan->nama_tujuan}}">
     </a>
     @endforeach
 </div>

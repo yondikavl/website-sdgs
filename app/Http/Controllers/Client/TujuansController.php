@@ -19,7 +19,7 @@ class TujuansController extends Controller
     public function show($id)
     {
         $tujuans = Tujuan::all();
-        $tujuan = Tujuan::findOrFail($id);
+        $tujuan = Tujuan::where('id', $id)->first();
         $indikators = Indikator::with('pencapaian')->where('tujuan_id', $id)->get();
         $pencapaians = [];
 
@@ -31,12 +31,7 @@ class TujuansController extends Controller
             ];
             array_push($pencapaians, $data);
         }
-
-
-
-
         // return $pencapaians;
-
-        return view('client.detail-indikator', compact('tujuans', 'indikator', 'indikators', 'pencapaians'));
+        return view('client.detail-tujuan', compact('tujuans', 'tujuan', 'indikators', 'pencapaians'));
     }
 }

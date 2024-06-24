@@ -1,10 +1,10 @@
 @extends('layouts.client.app')
 
-@section('title', 'Detail Sub-Indikator')
+@section('title', 'Detail Indikator')
 
 @section('content')
 <div class="text-center">
-    <h1>Detail Sub-Indikator</h1>
+    <h1>Detail Indikator</h1>
     <img src="{{ asset('assets/ikon/default.png') }}" width="180" alt="">
     <h2>{{$subindikator->nama_sub}}</h2>
     <p>{{$subindikator->deskripsi_sub}}</p>
