@@ -86,7 +86,7 @@
         </div>
         <div class="container">
             <label for="year-select">Pilih Tahun:</label>
-            <select id="year-select" onchange="updateChartForYear()">
+            <select class="rounded-lg px-2 py-1" id="year-select" onchange="updateChartForYear()">
                 <option value="2024">2024</option>
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
@@ -249,28 +249,45 @@
 
         const data2020 = {
             kemiskinan: [2, 3, 4, 3, 5, 6, 4, 5, 6, 4, 3, 2],
-            pendidikan: [7, 8, 7, 8, 9, 8, 7, 8, 9, 7, 8, 9]
+            pendidikan: [7, 8, 7, 8, 9, 8, 7, 8, 9, 7, 8, 9],
+            pengangguran: [4, 3, 5, 4, 6, 5, 4, 5, 6, 4, 3, 4],
+            rasioGini: [2, 3, 2, 3, 4, 3, 2, 4, 3, 2, 3, 2],
+            ekonomi: [5, 6, 5, 6, 7, 6, 5, 6, 7, 5, 6, 5]
         };
 
         const data2021 = {
             kemiskinan: [3, 4, 5, 4, 6, 5, 4, 6, 5, 4, 3, 4],
-            pendidikan: [8, 9, 8, 9, 7, 8, 9, 8, 9, 8, 7, 8]
+            pendidikan: [8, 9, 8, 9, 7, 8, 9, 8, 9, 8, 7, 8],
+            pengangguran: [5, 4, 6, 5, 7, 6, 5, 6, 7, 5, 4, 5],
+            rasioGini: [3, 4, 3, 4, 5, 4, 3, 5, 4, 3, 4, 3],
+            ekonomi: [6, 7, 6, 7, 8, 7, 6, 7, 8, 6, 7, 6]
         };
 
         const data2022 = {
             kemiskinan: [4, 5, 6, 5, 7, 6, 5, 7, 6, 5, 4, 5],
-            pendidikan: [9, 7, 8, 9, 8, 7, 8, 9, 8, 7, 9, 8]
+            pendidikan: [9, 7, 8, 9, 8, 7, 8, 9, 8, 7, 9, 8],
+            pengangguran: [6, 5, 7, 6, 8, 7, 6, 7, 8, 6, 5, 6],
+            rasioGini: [4, 5, 4, 5, 6, 5, 4, 6, 5, 4, 5, 4],
+            ekonomi: [7, 8, 7, 8, 9, 8, 7, 8, 9, 7, 8, 7]
         };
 
         const data2023 = {
             kemiskinan: [5, 6, 7, 6, 8, 7, 6, 8, 7, 6, 5, 6],
-            pendidikan: [7, 8, 9, 8, 7, 9, 8, 9, 7, 8, 9, 8]
+            pendidikan: [7, 8, 9, 8, 7, 9, 8, 9, 7, 8, 9, 8],
+            pengangguran: [7, 6, 8, 7, 9, 8, 7, 8, 9, 7, 6, 7],
+            rasioGini: [5, 6, 5, 6, 7, 6, 5, 7, 6, 5, 6, 5],
+            ekonomi: [8, 9, 8, 9, 10, 9, 8, 9, 10, 8, 9, 8]
         };
 
         const data2024 = {
             kemiskinan: [6, 7, 8, 7, 9, 8, 7, 9, 8, 7, 6, 7],
-            pendidikan: [8, 9, 7, 8, 9, 8, 9, 7, 8, 9, 8, 7]
+            pendidikan: [8, 9, 7, 8, 9, 8, 9, 7, 8, 9, 8, 7],
+            pengangguran: [8, 7, 9, 8, 10, 9, 8, 9, 10, 8, 7, 8],
+            rasioGini: [6, 7, 6, 7, 8, 7, 6, 8, 7, 6, 7, 6],
+            ekonomi: [9, 10, 9, 10, 8, 10, 9, 10, 8, 9, 10, 9]
         };
+
+
 
         document.getElementById('menu-prediksi').addEventListener('click', function(event) {
             event.preventDefault();
@@ -308,12 +325,16 @@
                         data: getDataForYear(selectedYear).kemiskinan,
                         backgroundColor: "rgba(153,255,51,0.6)"
                     }, {
+                        label: 'Pengangguran Terbuka',
+                        data: getDataForYear(selectedYear).pengangguran,
+                        backgroundColor: "rgba(153,17,255,0.6)"
+                    }, {
                         label: 'Rasio Gini',
-                        data: getDataForYear(selectedYear).kemiskinan.map(value => value - 1),
+                        data: getDataForYear(selectedYear).rasioGini,
                         backgroundColor: "rgba(153,255,255,0.6)"
                     }, {
                         label: 'Pertumbuhan Ekonomi',
-                        data: getDataForYear(selectedYear).pendidikan,
+                        data: getDataForYear(selectedYear).ekonomi,
                         backgroundColor: "rgba(255,153,51,0.6)"
                     }]
                 };
