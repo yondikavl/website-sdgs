@@ -10,8 +10,8 @@
 
         .table-header-green tr:nth-child(1),
         .table-header-green tr:nth-child(2) {
-            background-color: #28a745;
-            color: white;
+            background-color: #fff;
+            color: black;
         }
     </style>
 @endsection
@@ -72,6 +72,21 @@
                                 <option value="">Pilih Indikator</option>
                             </select>
                             @error('indikator_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="Kecamatan">{{ __('Kecamatan') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="Kecamatan[]" id="Kecamatan"
+                                required>
+                                <option value="">Pilih Kecamatan</option>
+                                @foreach($kecamatans as $kecamatan)
+                                    <option value="{{$kecamatan->id}}">{{$kecamatan->id}} {{$kecamatan->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('kecamatan_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -149,8 +164,22 @@
                                             enctype='multipart/form-data'>
                             @endif
                             @csrf
+                            <a class="btn btn-success mb-2 float-right" target="_blank"
+                            href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download
+                            template file</a>
                             <div class="form-group">
-                                <label for="files">{{ __('File') }}</label>
+                                <label for="tahun">{{ __('Tahun') }} <span style="color:red"> * </span></label>
+                                <input type="tahun" class="form-control @error('tahun') is-invalid @enderror"
+                                    id="tahun" placeholder="2020" name="tahun" required autocomplete="tahun"
+                                    autofocus>
+                                @error('tahun')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="files">{{ __('File') }} <span style="color:red"> * </span></label>
                                 <input type="file" class="form-control @error('File') is-invalid @enderror"
                                     id="files" placeholder="Masukkan File" name="files[]" multiple="true" required
                                     autocomplete="file" autofocus onchange="previewFiles()">
@@ -160,24 +189,28 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="tahun">{{ __('Tahun') }}</label>
-                                <input type="tahun" class="form-control @error('tahun') is-invalid @enderror"
-                                    id="tahun" placeholder="2020" name="tahun" required autocomplete="tahun"
-                                    autofocus>
-                                @error('tahun')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                <a target="_blank"
-                                    href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download
-                                    template file</a>
+                            <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="filePreviewModalLabel">Preview Isi File</h5>
+                                        <button id="btn_modal_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="file-content" class="table-responsive"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btn_modal_close_footer" type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Batal</button>
+                                            <button type="submit" id="simpan" class="btn btn-success">{{ __('Simpan') }}</button>
+                                            <button type="button" id="perbaiki" class="btn btn-success" style="display: none;">{{ __('Perbaiki File') }}</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
-                            </div>
-                            </form>
+                        </div>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -186,28 +219,7 @@
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filePreviewModalLabel">Preview Isi File</h5>
-                    <button id="btn_modal_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="file-content" class="table-responsive"></div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn_modal_close_footer" type="button" class="btn btn-danger"
-                        data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 @endsection
 
 @section('script')
@@ -222,11 +234,17 @@
             $('#btn_modal_close').on('click', function() {
                 $('#filePreviewModal').modal('hide');
             });
-        });
 
-        $(document).ready(function() {
             $('#btn_modal_close_footer').on('click', function() {
                 $('#filePreviewModal').modal('hide');
+            });
+
+            $('#perbaiki').on('click', function() {
+                $('#files').val('');  // Reset the file input
+                $('#file-content').empty();  // Clear the file content preview
+                $('#perbaiki').hide();
+                $('#simpan').show();
+                $('#filePreviewModal').modal('hide');  // Hide the modal
             });
         });
 
@@ -251,6 +269,7 @@
             const files = document.getElementById('files').files;
 
             content.innerHTML = '';
+            let hasNullData = false;
 
             for (const file of files) {
                 const reader = new FileReader();
@@ -261,16 +280,67 @@
                     });
                     const firstSheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[firstSheetName];
-                    const html = XLSX.utils.sheet_to_html(worksheet, {
-                        id: "data-table",
-                        editable: false
-                    });
+                    const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = html;
-                    const table = tempDiv.querySelector('table');
-                    table.classList.add('table-cell-padding', 'table', 'table-striped', 'table-header-green');
-                    content.innerHTML += tempDiv.innerHTML;
+                    const headers = sheetData[1];
+                    const kodeIndex = headers.indexOf('Kode Indikator');
+                    const namaIndex = headers.indexOf('Nama Indikator');
+                    const satuanIndex = headers.indexOf('Satuan');
+                    const nilaiIndex = headers.indexOf('Nilai');
+                    const sumberIndex = headers.indexOf('Sumber Data');
+                    const kecamatanIndex = headers.indexOf('Nama Kecamatan');
+
+
+                    if (kodeIndex === -1 || namaIndex === -1) {
+                        content.innerHTML += 'Kolom Kode dan/atau Nama tidak ditemukan.';
+                        $('#simpan').hide();
+                        $('#perbaiki').show();
+                        return;
+                    }
+
+                    let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
+                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Satuan</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th></tr></thead><tbody>';
+
+                    for (let i = 2; i < sheetData.length; i++) {
+                        const row = sheetData[i];
+                        const kode = row[kodeIndex] ?? 'Kode Indikator tidak ada';
+                        const nama = row[namaIndex] ?? 'Nama Indikator tidak ada';
+                        const satuan = row[satuanIndex] ?? 'Satuan tidak ada';
+                        const nilai = row[nilaiIndex] ?? 'Nilai tidak ada';
+                        const sumber = row[sumberIndex] ?? 'Sumber data tidak ada';
+                        const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
+
+                        const kodeClass = kode === 'Kode Indikator tidak ada' ? 'bg-danger' : '';
+                        const namaClass = nama === 'Nama Indikator tidak ada' ? 'bg-danger' : '';
+                        const satuanClass = satuan === 'Satuan tidak ada' ? 'bg-danger' : '';
+                        const nilaiClass = nilai === 'Nilai tidak ada' ? 'bg-danger' : '';
+                        const sumberClass = sumber === 'Sumber data tidak ada' ? 'bg-danger' : '';
+                        const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
+
+                        tableHtml += `<tr>
+                            <td class="${kodeClass}">${kode}</td>
+                            <td class="${namaClass}">${nama}</td>
+                            <td class="${satuanClass}">${satuan}</td>
+                            <td class="${nilaiClass}">${nilai}</td>
+                            <td class="${sumberClass}">${sumber}</td>
+                            <td class="${kecamatanClass}">${kecamatan}</td>
+                        </tr>`;
+
+                        if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || satuan === 'Satuan tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {
+                            hasNullData = true;
+                        }
+                    }
+
+                    tableHtml += '</tbody></table>';
+                    content.innerHTML += tableHtml;
+
+                    if (hasNullData) {
+                        $('#simpan').hide();
+                        $('#perbaiki').show();
+                    } else {
+                        $('#simpan').show();
+                        $('#perbaiki').hide();
+                    }
                 };
                 reader.readAsArrayBuffer(file);
             }

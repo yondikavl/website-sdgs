@@ -77,7 +77,6 @@ Route::get('dashboard-client', [DashboardClientController::class, 'index'])->nam
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('tujuan/{id}', [TujuansController::class, 'show'])->name('tujuan');
-// Route::get('indikator/{id}', [TujuanController::class, 'show'])->name('detail-indikator');
 Route::get('target', [TargetController::class, 'index'])->name('target');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');

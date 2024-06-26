@@ -29,19 +29,32 @@
                     <th>Satuan</th>
                     <th>Nilai</th>
                     <th>Sumber Data</th>
+                    <th>Nama Kecamatan</th>
                     <th>More</th>
                 </tr>
             </thead>
             <tbody>
+                <?php
+                    $i = 1;
+                    ?>
                 @foreach ($pencapaians as $pencapaian)
                 <tr>
-                    <td>{{$loop->iteration}}.</td>
+                    <td>{{$i++}}.</td>
                     <td>{{$pencapaian->indikator_id}}</td>
                     <td>{{$pencapaian->Indikator->nama_indikator ?? '-'}}</td>
                     <td>{{$pencapaian->tahun}}</td>
                     <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>
                     <td>{{$pencapaian->sumber_data}}</td>
+                    @php
+                        $kecamatanNames = $pencapaian->Kecamatan->pluck('name')->toArray();
+                        $kecamatansString = implode(', ', $kecamatanNames);
+                        $decodedkecamatans = explode(', ', $kecamatansString);
+                    @endphp
+
+                    @foreach ($decodedkecamatans as $kecamatan)
+                        <td>{{ $kecamatan }}</td>
+                    @endforeach
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                         <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">

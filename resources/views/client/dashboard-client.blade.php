@@ -182,45 +182,55 @@
     <script>
         const kecamatanData = @json($kecamatans);
 
-        function handleClick(event) {
-            const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(1);
+function handleClick(event) {
+    const pathElement = event.target;
+    const kecamatanCode = pathElement.id.substring(1);
 
-            const kecamatan = kecamatanData.find(item => item.code == kecamatanCode);
-            showPopup(kecamatan);
-        }
+    const kecamatan = kecamatanData.find(item => 
+        item.kecamatan.some(k => k.code === kecamatanCode)
+    );
 
-        function showPopup(kecamatan) {
-            closePopup();
+    // Find the specific kecamatan data based on the code
+    const foundKecamatan = kecamatan.kecamatan.find(k => k.code === kecamatanCode);
 
-            const popup = document.createElement('div');
-            popup.classList.add('popup');
-            popup.innerHTML = `
-                <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
-                <div class="px-4 py-3">
-                    <h3>${kecamatan.name}</h3>
-                    <p>${kecamatan.deskripsi}</p>
-                </div>
-            `;
+    showPopup(foundKecamatan);
+}
 
-            document.body.appendChild(popup);
-        }
+function showPopup(kecamatan) {
+    closePopup();
 
-        function closePopup() {
-            const popup = document.querySelector('.popup');
-            if (popup) {
-                popup.remove();
+    const popup = document.createElement('div');
+    popup.classList.add('popup');
+    popup.innerHTML = `
+        <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
+        <div class="px-4 py-3">
+            <h3>${kecamatan.name}</h3>
+            <p>${kecamatan.deskripsi}</p>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+}
+
+function closePopup() {
+    const popup = document.querySelector('.popup');
+    if (popup) {
+        popup.remove();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    kecamatanData.forEach(item => {
+        item.kecamatan.forEach(kecamatan => {
+            const pathElement = document.querySelector(`#a${kecamatan.code}`);
+            if (pathElement) {
+                pathElement.addEventListener("click", handleClick);
             }
-        }
-
-        kecamatanData.map((item) => {
-            document.addEventListener("DOMContentLoaded", function() {
-                const pathElement = document.querySelector(`#a${item.code}`);
-                if (pathElement) {
-                    pathElement.addEventListener("click", handleClick);
-                }
-            });
         });
+    });
+});
+
+
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {

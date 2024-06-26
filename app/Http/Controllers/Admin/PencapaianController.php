@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Indikator;
 use App\Models\Tujuan;
 use App\Models\Pencapaian;
+use App\Models\Kecamatan;
 use App\Imports\PencapaianImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,12 +20,14 @@ class PencapaianController extends Controller
         if(auth()->user()->permissions != null){
             // get pencapaian where indikator id is in user permission
             $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
+            
         } else {
             // get pencapaian where indikator id is null
             $pencapaians = Pencapaian::where('indikator_id', null)->get();
         }
     } else {
         $pencapaians = Pencapaian::all();
+        // dd($pencapaians);
     }
 
     // Sort the years in descending order
@@ -35,6 +38,7 @@ class PencapaianController extends Controller
 
     public function create()
     {
+        $kecamatans = Kecamatan::where('city_code', 1871)->get();
         if (auth()->user()->roles_id == 1 || auth()->user()->roles_id == 2) {
             $tujuans = Tujuan::all();
         } else if(auth()->user()->roles_id == 3) {
@@ -44,7 +48,7 @@ class PencapaianController extends Controller
                 $tujuans = Tujuan::where('id', null)->get();
             }
         }
-        return view('admin.pencapaian.create', compact('tujuans'));
+        return view('admin.pencapaian.create', compact('tujuans', 'kecamatans'));
     }
 
     public function import (Request $request){
@@ -63,7 +67,7 @@ class PencapaianController extends Controller
             Excel::import(new PencapaianImport($request->tahun), $file);
         }
         
-        // dd($data);
+        // dd($files);
         if (auth()->user()->roles_id == 1) {
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
         } else if (auth()->user()->roles_id == 2) {
@@ -99,6 +103,7 @@ class PencapaianController extends Controller
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
             'sumber_data' => $request->sumber_data,
+            'kecamatan_id' => $request->kecamatan_id
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -148,6 +153,8 @@ class PencapaianController extends Controller
             'tahun' => $request->tahun,
             'tipe' => $request->tipe,
             'persentase' => $request->persentase,
+            'sumber_data' => $request->sumber_data,
+            'kecamatan_id' => $request->kecamatan_id
         ]);
 
         if (auth()->user()->roles_id == 1) {

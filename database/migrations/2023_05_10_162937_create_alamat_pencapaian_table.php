@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pencapaian_id')->nullable();
             $table->foreignId('kelurahan_id')->nullable();
-            $table->string('nama_kelurahan');
-            $table->string('long');
-            $table->string('lat');
             $table->timestamps();
         });
     }
