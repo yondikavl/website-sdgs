@@ -78,21 +78,6 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="Kecamatan">{{ __('Kecamatan') }}</label>
-                            <select class="form-control col-form-label rounded-2" name="Kecamatan[]" id="Kecamatan"
-                                required>
-                                <option value="">Pilih Kecamatan</option>
-                                @foreach($kecamatans as $kecamatan)
-                                    <option value="{{$kecamatan->id}}">{{$kecamatan->id}} {{$kecamatan->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('kecamatan_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="tahun">{{ __('Tahun') }}</label>
                             <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun"
                                 placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
@@ -127,7 +112,6 @@
                                 </span>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="persentase">{{ __('Sumber Data') }}</label>
                             <div class="input-group">
@@ -136,6 +120,21 @@
                                     autocomplete="current-sumber_data">
                             </div>
                             @error('persentase')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="Kecamatan">{{ __('Kecamatan') }}</label>
+                            <select class="form-control col-form-label rounded-2" name="kecamatan_id[]" id="Kecamatan"
+                                required>
+                                <option value="">Pilih Kecamatan</option>
+                                @foreach($kecamatans as $kecamatan)
+                                    <option value="{{$kecamatan->id}}">{{$kecamatan->id}} {{$kecamatan->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('kecamatan_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -240,11 +239,11 @@
             });
 
             $('#perbaiki').on('click', function() {
-                $('#files').val('');  // Reset the file input
-                $('#file-content').empty();  // Clear the file content preview
+                $('#files').val('');
+                $('#file-content').empty();
                 $('#perbaiki').hide();
                 $('#simpan').show();
-                $('#filePreviewModal').modal('hide');  // Hide the modal
+                $('#filePreviewModal').modal('hide');
             });
         });
 

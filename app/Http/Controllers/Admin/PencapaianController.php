@@ -78,33 +78,36 @@ class PencapaianController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    $request->validate(
+        [
+            'indikator_id' => 'required',
+            'tahun' => 'required',
+            'tipe' => 'required',
+            'persentase' => 'required',
+            'sumber_data' => 'required',
+            'kecamatan_id' => 'required|array',
+        ],
+        [
+            'indikator_id.required' => 'Indikator tidak boleh kosong!',
+            'tahun.required' => 'Tahun tidak boleh kosong!',
+            'tipe.required' => 'Tipe tidak boleh kosong!',
+            'persentase.required' => 'Persentase tidak boleh kosong!',
+            'sumber_data.required' => 'Sumber data tidak boleh kosong!',
+            'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+        ]
+    );
 
-        $request->validate(
-            [
-                'indikator_id' => 'required',
-                'tahun' => 'required',
-                'tipe' => 'required',
-                'persentase' => 'required',
-                'sumber_data' => 'required',
-            ],
-            [
-                'indikator_id.required' => 'Indikator tidak boleh kosong!',
-                'tahun.required' => 'Tahun tidak boleh kosong!',
-                'tipe.required' => 'Tipe tidak boleh kosong!',
-                'persentase.required' => 'Persentase tidak boleh kosong!',
-                'sumber_data.required' => 'Sumber data tidak boleh kosong!',
-            ]
-        );
+    $pencapaian = Pencapaian::create([
+        'indikator_id' => $request->indikator_id,
+        'tahun' => $request->tahun,
+        'tipe' => $request->tipe,
+        'persentase' => $request->persentase,
+        'sumber_data' => $request->sumber_data,
+    ]);
 
-        $pencapaian = Pencapaian::create([
-            'indikator_id' => $request->indikator_id,
-            'tahun' => $request->tahun,
-            'tipe' => $request->tipe,
-            'persentase' => $request->persentase,
-            'sumber_data' => $request->sumber_data,
-            'kecamatan_id' => $request->kecamatan_id
-        ]);
+    // Attach kecamatan to pencapaian
+    $pencapaian->Kecamatan()->attach($request->kecamatan_id);
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');

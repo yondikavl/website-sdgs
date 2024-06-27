@@ -4,8 +4,7 @@
 
 @section('content')
 <div class="card">
-  <!-- Notifikasi teks -->
-  <div id="notification" class="alert alert-info">
+    <div id="notification" class="alert alert-info">
     Silakan pilih tahun terlebih dahulu untuk menampilkan data.
     <select class="btn-sm btn-success" name="year_filter" id="yearFilter">
         <option value="">Pilih Tahun</option>
@@ -13,7 +12,7 @@
         <option value="{{ $tahun }}">{{ $tahun }}</option>
         @endforeach
     </select>
-  </div>
+</div>
     <div class="card-header">
         <h3 class="card-title">{{ __('Tabel Data pencapaian') }}</h3>
     </div>
@@ -54,7 +53,7 @@
 
                     @foreach ($decodedkecamatans as $kecamatan)
                         <td>{{ $kecamatan }}</td>
-                    @endforeach
+                    @endforeach
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                         <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
