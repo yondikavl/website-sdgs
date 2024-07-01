@@ -213,7 +213,7 @@
             success: function(response) {
                 var tahunSelect = $('#tahun');
                 tahunSelect.empty();
-                tahunSelect.append('<option value="">Select Year</option>');
+                tahunSelect.append('<option value="">Pilih Tahun</option>');
                 $.each(response.tahuns, function(index, tahun) {
                     tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
                 });
