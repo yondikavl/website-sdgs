@@ -65,9 +65,11 @@
 @section('content')
     <div class="col-12">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                    <h2 class="text-center font-weight-bold">Geografis Kota Bandar Lampung</h2>
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <h1 class="text-center font-weight-bold mb-5">Geospasial SDGs Kota Bandar Lampung</h1>
+                    </div>
                 </div>
             </div>
             <div class="row mt-5">
