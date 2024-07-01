@@ -40,7 +40,7 @@ class PencapaianImport implements ToModel, WithStartRow
 
             foreach ($kecamatanNames as $kecamatanName) {
                 $kecamatanName = trim($kecamatanName);
-                $kecamatan = Kecamatan::firstOrCreate(['name' => $kecamatanName]);
+                $kecamatan = Kecamatan::where('city_code', 1871)->firstOrCreate(['name' => $kecamatanName]);
 
                 $kecamatanIds[] = $kecamatan->id;
             }

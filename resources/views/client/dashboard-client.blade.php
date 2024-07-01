@@ -104,7 +104,7 @@
                     <h2 class="text-center font-weight-bold mt-5">Geografis Kota Bandar Lampung</h2>
                 </div>
             </div>
-        </div>
+            </div>
         <div
             class="container p-5 col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
             <svg width="880" height="846" viewBox="0 0 880 846" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -179,6 +179,7 @@
 
 @section('script')
     <script script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
     <script>
         const kecamatanData = @json($kecamatans);
 
@@ -186,17 +187,17 @@ function handleClick(event) {
     const pathElement = event.target;
     const kecamatanCode = pathElement.id.substring(1);
 
-    const kecamatan = kecamatanData.find(item => 
+    const pencapaian = kecamatanData.find(item => 
         item.kecamatan.some(k => k.code === kecamatanCode)
     );
 
-    // Find the specific kecamatan data based on the code
-    const foundKecamatan = kecamatan.kecamatan.find(k => k.code === kecamatanCode);
+    const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
 
-    showPopup(foundKecamatan);
+    showPopup(kecamatan, pencapaian);
 }
 
-function showPopup(kecamatan) {
+function showPopup(kecamatan, pencapaian) {
+    
     closePopup();
 
     const popup = document.createElement('div');
@@ -205,7 +206,10 @@ function showPopup(kecamatan) {
         <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
         <div class="px-4 py-3">
             <h3>${kecamatan.name}</h3>
-            <p>${kecamatan.deskripsi}</p>
+            <p>${pencapaian.tahun}</p>
+            <p>${pencapaian.tipe}</p>
+            <p>${pencapaian.persentase}</p>
+            <p>${pencapaian.sumber_data}</p>
         </div>
     `;
 
@@ -222,6 +226,7 @@ function closePopup() {
 document.addEventListener("DOMContentLoaded", function() {
     kecamatanData.forEach(item => {
         item.kecamatan.forEach(kecamatan => {
+            // console.log(kecamatan.code)
             const pathElement = document.querySelector(`#a${kecamatan.code}`);
             if (pathElement) {
                 pathElement.addEventListener("click", handleClick);
