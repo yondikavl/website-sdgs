@@ -15,8 +15,12 @@ use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Client\BerandaController;
 use App\Http\Controllers\Client\DashboardClientController;
+use App\Http\Controllers\Client\GeospasialController;
+use App\Http\Controllers\Client\PembandingController;
+use App\Http\Controllers\Client\PrediksiController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuansController;
+use App\Models\Geospasial;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +78,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
 Route::get('dashboard-client', [DashboardClientController::class, 'index'])->name('dashboard-client');
+Route::get('prediksi', [PrediksiController::class, 'index'])->name('prediksi');
+Route::get('pembanding', [PembandingController::class, 'index'])->name('pembanding');
+Route::get('geospasial', [GeospasialController::class, 'index'])->name('Geospasial');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('tujuan/{id}', [TujuansController::class, 'show'])->name('tujuan');

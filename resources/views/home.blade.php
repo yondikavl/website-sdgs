@@ -23,13 +23,14 @@
                 </div>
             </div>
         </div>
-        <div class="container mb-3">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
+        <div class="container mb-3" style="border-radius: 12px">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-radius: 12px">
+                <div class="carousel-inner" style="border-radius: 12px">
                     @foreach ($pilars as $index => $pilar)
-                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" style="border-radius: 12px">
                             @if ($pilar->id == 1)
-                                <a class="card bg-gradient-danger w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
+                                <a class="card bg-gradient-danger w-100 text-white p-5" style="border-radius: 12px"
+                                    href="/pilar/{{ $pilar->id }}">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
@@ -40,7 +41,8 @@
                                     </p>
                                 </a>
                             @elseif ($pilar->id == 2)
-                                <a class="card bg-gradient-warning w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
+                                <a class="card bg-gradient-warning w-100 text-white p-5" style="border-radius: 12px"
+                                    href="/pilar/{{ $pilar->id }}">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
@@ -51,7 +53,8 @@
                                     </p>
                                 </a>
                             @elseif ($pilar->id == 3)
-                                <a class="card bg-gradient-success w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
+                                <a class="card bg-gradient-success w-100 text-white p-5" style="border-radius: 12px"
+                                    href="/pilar/{{ $pilar->id }}">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
@@ -61,7 +64,8 @@
                                         {{ $pilar->deskripsi_pilar }}</p>
                                 </a>
                             @elseif ($pilar->id == 4)
-                                <a class="card bg-gradient-primary w-100 text-white p-4" href="/pilar/{{ $pilar->id }}">
+                                <a class="card bg-gradient-primary w-100 text-white p-5" style="border-radius: 12px"
+                                    href="/pilar/{{ $pilar->id }}">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <img src="{{ asset('assets/ikon/' . $pilar->ikon_pilar) }}" width="50"
                                             alt="">
