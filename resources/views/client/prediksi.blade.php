@@ -5,7 +5,7 @@
 @section('style')
     <style>
         .container {
-            width: 80%;
+            width: 90%;
             margin: 15px auto;
         }
 
@@ -39,21 +39,35 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <label for="tujuan-select">Tujuan:</label>
-            <select class="rounded-lg px-2 py-1" id="tujuan-select">
-                <option value="tujuan1">tujuan1</option>
-                <option value="tujuan2">tujuan2</option>
-            </select>
 
-            <label for="indikator-select" class="ml-5">Indikator:</label>
-            <select class="rounded-lg px-2 py-1" id="indikator-select">
-                <option value="tujuan1">indikator1</option>
-                <option value="tujuan2">indikator2</option>
-            </select>
+        <div class="row my-5">
+            <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                <form class="form-inline">
+                    <!-- Tujuan -->
+                    <div class="form-group mx-3">
+                        <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
+                        <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="" required>
+                            <option value="">Pilih Tujuan</option>
+                            {{-- @foreach ($tujuans as $tujuan) --}}
+                            <option value="">Tujuan 1</option>
+                            <option value="">Tujuan 2</option>
+                            {{-- @endforeach --}}
+                        </select>
+                    </div>
+
+                    <!-- Indikator -->
+                    <div class="form-group mx-3">
+                        <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
+                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="">
+                            <option value="">Pilih Indikator</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
+
         <div class="container mb-5">
-            <canvas id="myChart" width="400" height="200"></canvas>
+            <canvas id="myChart"></canvas>
         </div>
 
         <script src="script.js"></script>

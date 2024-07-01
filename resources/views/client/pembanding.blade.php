@@ -4,6 +4,11 @@
 
 @section('style')
     <style>
+        .container {
+            width: 90%;
+            margin: 15px auto;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -33,6 +38,12 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
         }
     </style>
 
