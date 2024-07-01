@@ -88,6 +88,8 @@ Route::get('/kontak', function () {
 
 // ajax
 // get all indikator
+Route::get('/client/get-tahun', [DashboardClientController::class, 'getTahun'])->name('client.getTahun');
+Route::get('get-peta-indikator/{id}', [DashboardClientController::class, 'getAllIndikator'])->name('get-peta-indikator');
 Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
 Route::get('get-tujuan', [TujuanController::class, 'getAllTujuan'])->name('get-tujuan');
 Route::get('admin/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('admin.get-indikator');
