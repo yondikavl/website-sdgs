@@ -13,6 +13,6 @@ class DashboardClientController extends Controller
     public function index()
     {
         $kecamatans = Pencapaian::with('Kecamatan')->get();
-        return view('client.dashboard-client', compact('tujuans', 'tahuns', 'kecamatans'));
+        return view('client.dashboard-client', compact('kecamatans'));
     }
 }
