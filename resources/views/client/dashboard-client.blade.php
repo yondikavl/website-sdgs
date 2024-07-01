@@ -119,7 +119,7 @@
                     <select id="indikator_id" name="indikator_id" onchange="getTahun(this.value)">
                         <option value="">Pilih Indikator</option>
                     </select>
-                    
+
                     <!-- Add the year dropdown -->
                     <select id="tahun" name="tahun">
                         <option value="">Pilih Tahun</option>
@@ -204,25 +204,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function getTahun(indikatorId) {
-        $.ajax({
-            url: '{{ route('client.getTahun') }}', // Define the route in web.php
-            type: 'GET',
-            data: {
-                indikator_id: indikatorId
-            },
-            success: function(response) {
-                var tahunSelect = $('#tahun');
-                tahunSelect.empty();
-                tahunSelect.append('<option value="">Pilih Tahun</option>');
-                $.each(response.tahuns, function(index, tahun) {
-                    tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
-                });
-            },
-            error: function(xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    }
+            $.ajax({
+                url: '{{ route('client.getTahun') }}', // Define the route in web.php
+                type: 'GET',
+                data: {
+                    indikator_id: indikatorId
+                },
+                success: function(response) {
+                    var tahunSelect = $('#tahun');
+                    tahunSelect.empty();
+                    tahunSelect.append('<option value="">Pilih Tahun</option>');
+                    $.each(response.tahuns, function(index, tahun) {
+                        tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
         function getIndikator(id) {
             $('#indikator_id').empty();
             $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
@@ -241,11 +242,12 @@
     </script>
     <script>
         const kecamatanData = @json($kecamatans);
+
         function handleClick(event) {
             const pathElement = event.target;
             const kecamatanCode = pathElement.id.substring(1);
 
-            const pencapaian = kecamatanData.find(item => 
+            const pencapaian = kecamatanData.find(item =>
                 item.kecamatan.some(k => k.code === kecamatanCode)
             );
 
@@ -255,7 +257,7 @@
         }
 
         function showPopup(kecamatan, pencapaian) {
-            
+
             closePopup();
 
             const popup = document.createElement('div');

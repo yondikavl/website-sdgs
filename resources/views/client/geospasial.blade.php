@@ -64,13 +64,49 @@
 
 @section('content')
     <div class="col-12">
-        <div class="container mt-5">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h2 class="text-center font-weight-bold mt-5">Geografis Kota Bandar Lampung</h2>
+                    <h2 class="text-center font-weight-bold">Geografis Kota Bandar Lampung</h2>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                    <form class="form-inline">
+                        <!-- Tujuan -->
+                        <div class="form-group mx-2">
+                            <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
+                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
+                                onchange="getIndikator(this.value)" required>
+                                <option value="">Pilih Peta Tujuan</option>
+                                @foreach ($tujuans as $tujuan)
+                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Indikator -->
+                        <div class="form-group mx-2">
+                            <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
+                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
+                                onchange="getTahun(this.value)">
+                                <option value="">Pilih Indikator</option>
+                            </select>
+                        </div>
+
+                        <!-- Tahun -->
+                        <div class="form-group mx-2">
+                            <label for="tahun" class="mr-2">{{ __('Tahun') }}</label>
+                            <select class="form-control rounded-2" id="tahun" name="tahun">
+                                <option value="">Pilih Tahun</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
         <div
             class="container p-5 col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
             <svg width="880" height="846" viewBox="0 0 880 846" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,37 +180,63 @@
 
 @section('script')
     <script script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getTahun(indikatorId) {
+            $.ajax({
+                url: '{{ route('client.getTahun') }}', // Define the route in web.php
+                type: 'GET',
+                data: {
+                    indikator_id: indikatorId
+                },
+                success: function(response) {
+                    var tahunSelect = $('#tahun');
+                    tahunSelect.empty();
+                    tahunSelect.append('<option value="">Pilih Tahun</option>');
+                    $.each(response.tahuns, function(index, tahun) {
+                        tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        function getIndikator(id) {
+            $('#indikator_id').empty();
+            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-peta-indikator', '') }}" + '/' + id,
+                success: function(response) {
+                    response.forEach(element => {
+                        $('#indikator_id').append(
+                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
+                        );
+                    });
+                }
+            });
+        }
+    </script>
     <script>
         const kecamatanData = @json($kecamatans);
-
-        console.log("Kecamatan data loaded: ", kecamatanData);
 
         function handleClick(event) {
             const pathElement = event.target;
             const kecamatanCode = pathElement.id.substring(1);
-            console.log("Path element clicked: ", pathElement);
-            console.log("Kecamatan code extracted: ", kecamatanCode);
 
             const pencapaian = kecamatanData.find(item =>
                 item.kecamatan.some(k => k.code === kecamatanCode)
             );
 
-            if (!pencapaian) {
-                console.error("No data found for kecamatan code: ", kecamatanCode);
-                return;
-            }
-
             const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
-            if (!kecamatan) {
-                console.error("No kecamatan found with code: ", kecamatanCode);
-                return;
-            }
 
-            console.log("Kecamatan data found: ", kecamatan);
             showPopup(kecamatan, pencapaian);
         }
 
         function showPopup(kecamatan, pencapaian) {
+
             closePopup();
 
             const popup = document.createElement('div');
@@ -183,12 +245,13 @@
                 <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
                 <div class="px-4 py-3">
                     <h3>${kecamatan.name}</h3>
-                    <p>Tahun: ${pencapaian.tahun}</p>
-                    <p>Tipe: ${pencapaian.tipe}</p>
-                    <p>Persentase: ${pencapaian.persentase}</p>
-                    <p>Sumber Data: ${pencapaian.sumber_data}</p>
+                    <p>${pencapaian.tahun}</p>
+                    <p>${pencapaian.tipe}</p>
+                    <p>${pencapaian.persentase}</p>
+                    <p>${pencapaian.sumber_data}</p>
                 </div>
             `;
+
             document.body.appendChild(popup);
         }
 
@@ -198,20 +261,5 @@
                 popup.remove();
             }
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            kecamatanData.forEach(item => {
-                item.kecamatan.forEach(kecamatan => {
-                    const pathElement = document.querySelector(`#a${kecamatan.code}`);
-                    if (pathElement) {
-                        console.log("Adding click event listener to: ", pathElement);
-                        pathElement.addEventListener("click", handleClick);
-                    } else {
-                        console.error("Path element not found for kecamatan code: ", kecamatan
-                            .code);
-                    }
-                });
-            });
-        });
     </script>
 @endsection
