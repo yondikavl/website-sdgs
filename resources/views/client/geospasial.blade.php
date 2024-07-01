@@ -147,32 +147,48 @@
     <script>
         const kecamatanData = @json($kecamatans);
 
+        console.log("Kecamatan data loaded: ", kecamatanData);
+
         function handleClick(event) {
             const pathElement = event.target;
             const kecamatanCode = pathElement.id.substring(1);
+            console.log("Path element clicked: ", pathElement);
+            console.log("Kecamatan code extracted: ", kecamatanCode);
 
-            const kecamatan = kecamatanData.find(item =>
+            const pencapaian = kecamatanData.find(item =>
                 item.kecamatan.some(k => k.code === kecamatanCode)
             );
 
-            const foundKecamatan = kecamatan.kecamatan.find(k => k.code === kecamatanCode);
+            if (!pencapaian) {
+                console.error("No data found for kecamatan code: ", kecamatanCode);
+                return;
+            }
 
-            showPopup(foundKecamatan);
+            const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
+            if (!kecamatan) {
+                console.error("No kecamatan found with code: ", kecamatanCode);
+                return;
+            }
+
+            console.log("Kecamatan data found: ", kecamatan);
+            showPopup(kecamatan, pencapaian);
         }
 
-        function showPopup(kecamatan) {
+        function showPopup(kecamatan, pencapaian) {
             closePopup();
 
             const popup = document.createElement('div');
             popup.classList.add('popup');
             popup.innerHTML = `
-        <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
-        <div class="px-4 py-3">
-            <h3>${kecamatan.name}</h3>
-            <p>${kecamatan.deskripsi}</p>
-        </div>
-    `;
-
+                <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
+                <div class="px-4 py-3">
+                    <h3>${kecamatan.name}</h3>
+                    <p>Tahun: ${pencapaian.tahun}</p>
+                    <p>Tipe: ${pencapaian.tipe}</p>
+                    <p>Persentase: ${pencapaian.persentase}</p>
+                    <p>Sumber Data: ${pencapaian.sumber_data}</p>
+                </div>
+            `;
             document.body.appendChild(popup);
         }
 
@@ -188,7 +204,11 @@
                 item.kecamatan.forEach(kecamatan => {
                     const pathElement = document.querySelector(`#a${kecamatan.code}`);
                     if (pathElement) {
+                        console.log("Adding click event listener to: ", pathElement);
                         pathElement.addEventListener("click", handleClick);
+                    } else {
+                        console.error("Path element not found for kecamatan code: ", kecamatan
+                            .code);
                     }
                 });
             });

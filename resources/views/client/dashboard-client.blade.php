@@ -104,7 +104,7 @@
                     <h2 class="text-center font-weight-bold mt-5">Geografis Kota Bandar Lampung</h2>
                 </div>
             </div>
-            </div>
+        </div>
         <div
             class="container p-5 col-lg-12 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
             <svg width="880" height="846" viewBox="0 0 880 846" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +179,7 @@
 
 @section('script')
     <script script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
+
     <script>
         const kecamatanData = @json($kecamatans);
 
@@ -187,18 +187,18 @@
             const pathElement = event.target;
             const kecamatanCode = pathElement.id.substring(1);
 
-    const pencapaian = kecamatanData.find(item => 
-        item.kecamatan.some(k => k.code === kecamatanCode)
-    );
+            const pencapaian = kecamatanData.find(item =>
+                item.kecamatan.some(k => k.code === kecamatanCode)
+            );
 
-    const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
+            const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
 
-    showPopup(kecamatan, pencapaian);
-}
+            showPopup(kecamatan, pencapaian);
+        }
 
-function showPopup(kecamatan, pencapaian) {
-    
-    closePopup();
+        function showPopup(kecamatan, pencapaian) {
+
+            closePopup();
 
             const popup = document.createElement('div');
             popup.classList.add('popup');
@@ -223,17 +223,17 @@ function showPopup(kecamatan, pencapaian) {
             }
         }
 
-document.addEventListener("DOMContentLoaded", function() {
-    kecamatanData.forEach(item => {
-        item.kecamatan.forEach(kecamatan => {
-            // console.log(kecamatan.code)
-            const pathElement = document.querySelector(`#a${kecamatan.code}`);
-            if (pathElement) {
-                pathElement.addEventListener("click", handleClick);
-            }
+        document.addEventListener("DOMContentLoaded", function() {
+            kecamatanData.forEach(item => {
+                item.kecamatan.forEach(kecamatan => {
+                    // console.log(kecamatan.code)
+                    const pathElement = document.querySelector(`#a${kecamatan.code}`);
+                    if (pathElement) {
+                        pathElement.addEventListener("click", handleClick);
+                    }
+                });
+            });
         });
-    });
-});
 
 
 
