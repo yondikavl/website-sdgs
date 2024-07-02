@@ -4,30 +4,43 @@
 
 @section('style')
     <style>
+        .popup-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .popup-table th, .popup-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        
+        .popup-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+        
         .popup {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
         }
-
-        .popup h3 {
-            margin-top: 0;
-        }
-
+        
         .close-icon {
+            cursor: pointer;
             position: absolute;
             top: 10px;
             right: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            color: rgb(116, 116, 116);
         }
 
         .container {
@@ -115,7 +128,6 @@
                 </h3>
             </div>
         </div>
-
 
         <div
             class="container p-5 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
@@ -259,31 +271,55 @@
             const selectedTahun = $('#tahun').val();
             const selectedIndikator = $('#indikator_id').val();
 
-            const pencapaian = kecamatanData.find(item =>
+            const pencapaian = kecamatanData.filter(item =>
                 item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
                 item.kecamatan.some(k => k.code === kecamatanCode)
             );
 
-            const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
+            const kecamatan = pencapaian.map(item => item.kecamatan.find(k => k.code === kecamatanCode));
 
             showPopup(kecamatan, pencapaian);
         }
 
-        function showPopup(kecamatan, pencapaian) {
+        function showPopup(kecamatanList, pencapaianList) {
             closePopup();
 
             const popup = document.createElement('div');
             popup.classList.add('popup');
-            popup.innerHTML = `
-            <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
-            <div class="px-4 py-3">
-                <h3>${kecamatan.name}</h3>
-                <p>${pencapaian.tahun}</p>
-                <p>${pencapaian.tipe}</p>
-                <p>${pencapaian.persentase}</p>
-                <p>${pencapaian.sumber_data}</p>
-            </div>
-        `;
+
+            let popupContent = `
+                <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
+                <div class="px-4 py-3">
+                    <h3>${kecamatanList[0].name}</h3>
+                    <table class="popup-table">
+                        <thead>
+                            <tr>
+                                <th>Tahun</th>
+                                <th>Tipe</th>
+                                <th>Persentase</th>
+                                <th>Sumber Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            pencapaianList.forEach((pencapaian, index) => {
+                popupContent += `
+                    <tr>
+                        <td>${pencapaian.tahun}</td>
+                        <td>${pencapaian.tipe}</td>
+                        <td>${pencapaian.persentase}</td>
+                        <td>${pencapaian.sumber_data}</td>
+                    </tr>
+                `;
+            });
+
+            popupContent += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            popup.innerHTML = popupContent;
 
             document.body.appendChild(popup);
         }
@@ -317,7 +353,7 @@
             });
 
             indikatorSet.forEach(indikator => {
-                $('#indikator_id').append(`<option value="${indikator}">${nama_indikator}</option>`);
+                $('#indikator_id').append(`<option value="${indikator}">${indikator}</option>`);
             });
 
             $('#tahun, #indikator_id').on('change', function() {
@@ -327,5 +363,4 @@
             });
         });
     </script>
-
 @endsection
