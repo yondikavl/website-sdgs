@@ -70,7 +70,6 @@
             <canvas id="myChart"></canvas>
         </div>
 
-        <script src="script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </div>
 @endsection
@@ -81,14 +80,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Data historis (2019-2024)
+            var historicalData = [60, 70, 80, 70, 80, 75];
+            var labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
+
+            // Fungsi untuk memprediksi data 5 tahun ke depan
+            function predictData(data, years) {
+                var growthRate = (data[data.length - 1] - data[0]) / data.length;
+                var predictedData = [...data];
+                for (var i = 1; i <= years; i++) {
+                    predictedData.push(predictedData[predictedData.length - 1] + growthRate);
+                }
+                return predictedData.slice(data.length);
+            }
+
+            // Data prediksi 5 tahun ke depan (2025-2029)
+            var predictedData = predictData(historicalData, 6);
+            var forecastLabels = labels.concat(['2025', '2026', '2027', '2028', '2029', '2030']);
+
+            // Menggabungkan data historis dan prediksi
+            var combinedData = historicalData.concat(predictedData);
+
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: generateMonthlyLabels(),
+                    labels: forecastLabels,
                     datasets: [{
                         label: '1.1.1 Tingkat Kemiskinan',
-                        data: [60, 70, 80, 70, 10, 80, 70, 90, 80, 70, 60, 70],
-                        backgroundColor: "rgba(25,255,51,0.6)"
+                        data: combinedData,
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        fill: false
                     }]
                 },
                 options: {
@@ -97,13 +120,15 @@
                             beginAtZero: true,
                             max: 100
                         }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Forecasting SDGs Kota Bandar Lampung 2019-2029'
+                        }
                     }
                 }
             });
         });
-
-        function generateMonthlyLabels() {
-            return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        }
     </script>
 @endsection
