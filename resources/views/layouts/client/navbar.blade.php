@@ -10,13 +10,13 @@
                 <a class="nav-link font-weight-bold" href="/">Beranda</a>
             </li>
             <li class="nav-item dropdown my-2 my-md-0">
-                <a class="nav-link dropdown-toggle font-weight-bold" href="/dashboard-client" id="navbarDropdown"
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle font-weight-bold" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dashboard
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/prediksi">Prediksi</a>
-                    <a class="dropdown-item" href="/pembanding">Analisis Pembanding</a>
+                    <a class="dropdown-item" href="/pembanding/1">Analisis Pembanding</a>
                     <a class="dropdown-item" href="/geospasial">Peta Geospasial</a>
                 </div>
             </li>

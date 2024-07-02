@@ -4,11 +4,6 @@
 
 @section('style')
     <style>
-        .container {
-            width: 90%;
-            margin: 15px auto;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -39,44 +34,26 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-        }
     </style>
 
 @endsection
 
 @section('content')
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <h1 class="text-center font-weight-bold mb-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
-            </div>
+
+    @include('layouts.client.sdgs')
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h2>{{ $tujuan->nama_tujuan }}</h2>
+            <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
+            <p>{{ $tujuan->deskripsi_tujuan }}</p>
         </div>
     </div>
 
-    <div class="container row my-5">
-        <div class="col-lg-12 d-flex align-items-center">
-            <form class="form-inline">
-                <!-- Tujuan -->
-                <div class="form-group">
-                    <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
-                    <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="" required>
-                        <option value="">Pilih Tujuan</option>
-                        {{-- @foreach ($tujuans as $tujuan) --}}
-                        <option value="">Tujuan 1</option>
-                        <option value="">Tujuan 2</option>
-                        {{-- @endforeach --}}
-                    </select>
-                </div>
-            </form>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
         </div>
-    </div>
-
-    <div class="container card">
         <!-- /.card-header -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -86,13 +63,14 @@
                         <th>Jenis Data</th>
                         <th>Satuan</th>
                         {{-- get 2 tahun terakhir --}}
-                        <th>2023</th>
-                        <th>2024</th>
+                        <th>{{ date('Y') - 1 }}</th>
+                        <th>{{ date('Y') }}</th>
                         <th>Perangkat Daerah</th>
+                        <th>Grafik</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($indikators as $indikator)
+                    @foreach ($indikators as $indikator)
                         <tr>
                             <td>{{ $indikator->kode_indikator }}</td>
                             <td>{{ $indikator->nama_indikator }}</td>
@@ -118,7 +96,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
 
@@ -128,6 +106,57 @@
 @endsection
 
 @section('script')
+    <script>
+        var data = {!! json_encode($pencapaians) !!};
+
+        function showGrafik(sub_id) {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+
+            // Mencari data indikator yang dipilih
+            var dataindikator = data.find(function(item) {
+                return item[sub_id];
+            });
+
+            var dataTahun = [];
+            var dataPencapaian = [];
+
+            // Mencari data pencapaian dari indikator tersebut
+            for (var i = 0; i < dataindikator[sub_id].length; i++) {
+                dataTahun.push(dataindikator[sub_id][i].tahun);
+                dataPencapaian.push(dataindikator[sub_id][i].persentase);
+            }
+
+            // Membuat grafik dimiulai dari 0 sampai nilai tertinggi
+            var max = Math.max(...dataPencapaian);
+            var min = Math.min(...dataPencapaian);
+            var ctx = document.getElementById('grafik').getContext('2d');
+            var grafik = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dataTahun,
+                    datasets: [{
+                        label: 'Pencapaian',
+                        data: dataPencapaian,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: max + 10
+                        }
+                    }
+                }
+            });
+
+        }
+    </script>
     <script>
         var modal = document.getElementById("myModal");
         var closeButton = document.getElementsByClassName("close")[0];

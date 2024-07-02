@@ -80,6 +80,7 @@ Route::get('/', [BerandaController::class, 'index'])->name('index');
 Route::get('dashboard-client', [DashboardClientController::class, 'index'])->name('dashboard-client');
 Route::get('prediksi', [PrediksiController::class, 'index'])->name('prediksi');
 Route::get('pembanding', [PembandingController::class, 'index'])->name('pembanding');
+Route::get('pembanding/{id}', [PembandingController::class, 'show'])->name('pembanding');
 Route::get('geospasial', [GeospasialController::class, 'index'])->name('Geospasial');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');

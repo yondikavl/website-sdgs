@@ -121,12 +121,6 @@
                             max: 100
                         }
                     },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Forecasting SDGs Kota Bandar Lampung 2019-2029'
-                        }
-                    }
                 }
             });
         });

@@ -61,12 +61,6 @@
                     <tr>
                         <th>Kode</th>
                         <th>Jenis Data</th>
-                        <th>Satuan</th>
-                        {{-- get 2 tahun terakhir --}}
-                        <th>{{ date('Y') - 1 }}</th>
-                        <th>{{ date('Y') }}</th>
-                        <th>Perangkat Daerah</th>
-                        <th>Grafik</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,27 +68,6 @@
                         <tr>
                             <td>{{ $indikator->kode_indikator }}</td>
                             <td>{{ $indikator->nama_indikator }}</td>
-                            <td>{{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->tipe ?? '-' }}</td>
-                            <td>
-                                {{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->persentase ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $indikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? '-' }}
-                            </td>
-
-                            <td>{{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->sumber_data ?? '-' }}
-                            </td>
-                            <td>
-                                <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $indikator->id }});">Detail
-                                </div>
-                                <div id="myModal" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                        <h3>Grafik Pencapaian</h3>
-                                        <canvas id="grafik"></canvas>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
