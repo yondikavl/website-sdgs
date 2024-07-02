@@ -107,7 +107,9 @@
                     </form>
                 </div>
             </div>
+            <h2> <p id="indikator_value"></p><p id="tahun_value"></p></h2>
         </div>
+
 
         <div
             class="container p-5 mt-5 bg-light border rounded-lg border-width-3 d-flex justify-content-center align-items-center">
@@ -182,14 +184,13 @@
 
 @section('script')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     function getTahun(indikatorId) {
         $.ajax({
-            url: '{{ route('client.getTahun') }}', // Define the route in web.php
+            url: '{{ route('client.getTahun') }}',
             type: 'GET',
-            data: {
-                indikator_id: indikatorId
-            },
+            data: { indikator_id: indikatorId },
             success: function(response) {
                 var tahunSelect = $('#tahun');
                 tahunSelect.empty();
@@ -219,15 +220,40 @@
             }
         });
     }
-</script>
-<script>
+
+    function updateIndikatorAndTahunH1() {
+    var selectedIndikatorText = $('#indikator_id option:selected').text();
+    var selectedTahunText = $('#tahun option:selected').text();
+
+    // Check if both values are selected
+    if (selectedIndikatorText && selectedTahunText) {
+        var combinedText = `Peta Indikator: ${selectedIndikatorText}, Tahun: ${selectedTahunText}`;
+        $('#indikator_value').text(combinedText);
+        $('#tahun_value').text('');
+    }
+}
+
+$(document).ready(function() {
+    $('#indikator_id').change(function() {
+        updateIndikatorAndTahunH1();
+    });
+
+    $('#tahun').change(function() {
+        updateIndikatorAndTahunH1();
+    });
+});
+
     const kecamatanData = @json($kecamatans);
 
     function handleClick(event) {
         const pathElement = event.target;
         const kecamatanCode = pathElement.id.substring(1);
 
-        const pencapaian = kecamatanData.find(item =>
+        const selectedTahun = $('#tahun').val();
+        const selectedIndikator = $('#indikator_id').val();
+
+        const pencapaian = kecamatanData.find(item => 
+            item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
             item.kecamatan.some(k => k.code === kecamatanCode)
         );
 
@@ -237,7 +263,6 @@
     }
 
     function showPopup(kecamatan, pencapaian) {
-
         closePopup();
 
         const popup = document.createElement('div');
@@ -264,15 +289,36 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+        // Populate filter dropdowns with unique tahun and indikator values
+        const tahunSet = new Set();
+        const indikatorSet = new Set();
+
         kecamatanData.forEach(item => {
+            tahunSet.add(item.tahun);
+            indikatorSet.add(item.indikator_id);
+
             item.kecamatan.forEach(kecamatan => {
-                // console.log(kecamatan.code)
                 const pathElement = document.querySelector(`#a${kecamatan.code}`);
                 if (pathElement) {
                     pathElement.addEventListener("click", handleClick);
                 }
             });
         });
-    });    
-    </script>
+
+        tahunSet.forEach(tahun => {
+            $('#tahun').append(`<option value="${tahun}">${tahun}</option>`);
+        });
+
+        indikatorSet.forEach(indikator => {
+            $('#indikator_id').append(`<option value="${indikator}">${nama_indikator}</option>`);
+        });
+
+        $('#tahun, #indikator_id').on('change', function() {
+            const selectedTahun = $('#tahun').val();
+            const selectedIndikator = $('#indikator_id').val();
+            console.log('Filters changed:', selectedTahun, selectedIndikator);
+        });
+    });
+</script>
+
 @endsection
