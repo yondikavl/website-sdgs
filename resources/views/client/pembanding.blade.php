@@ -42,15 +42,15 @@
 
     @include('layouts.client.sdgs')
 
-    <div class="card text-center">
+    <div class="container card text-center rounded-lg">
         <div class="card-body">
             <h2>{{ $tujuan->nama_tujuan }}</h2>
-            <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
+            <img class="m-3" src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
             <p>{{ $tujuan->deskripsi_tujuan }}</p>
         </div>
     </div>
 
-    <div class="card">
+    <div class="container card">
         <div class="card-header">
             <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
         </div>
