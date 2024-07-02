@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li class="nav-item my-2 my-md-0">
-                <a class="nav-link font-weight-bold" href="/tujuan">Tujuan</a>
+                <a class="nav-link font-weight-bold" href="/tujuan">Tujuan SDGs</a>
             </li>
             <li class="nav-item my-2 my-md-0">
                 <a class="nav-link font-weight-bold" href="/kontak">Kontak</a>

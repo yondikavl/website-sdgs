@@ -50,15 +50,33 @@
 @endsection
 
 @section('content')
-
-    <div class="card">
-        <div class="container mb-5">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mb-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
-                </div>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h1 class="text-center font-weight-bold mb-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
             </div>
         </div>
+    </div>
+
+    <div class="container row my-5">
+        <div class="col-lg-12 d-flex align-items-center">
+            <form class="form-inline">
+                <!-- Tujuan -->
+                <div class="form-group">
+                    <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
+                    <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="" required>
+                        <option value="">Pilih Tujuan</option>
+                        {{-- @foreach ($tujuans as $tujuan) --}}
+                        <option value="">Tujuan 1</option>
+                        <option value="">Tujuan 2</option>
+                        {{-- @endforeach --}}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container card">
         <!-- /.card-header -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">

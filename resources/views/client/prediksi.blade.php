@@ -40,11 +40,11 @@
             </div>
         </div>
 
-        <div class="row my-5">
-            <div class="col-lg-12 d-flex align-items-center justify-content-center">
+        <div class="container row my-5">
+            <div class="col-lg-12 d-flex align-items-center">
                 <form class="form-inline">
                     <!-- Tujuan -->
-                    <div class="form-group mx-3">
+                    <div class="form-group">
                         <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
                         <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="" required>
                             <option value="">Pilih Tujuan</option>
