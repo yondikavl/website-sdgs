@@ -77,10 +77,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
-Route::get('dashboard-client', [DashboardClientController::class, 'index'])->name('dashboard-client');
 Route::get('prediksi', [PrediksiController::class, 'index'])->name('prediksi');
 Route::get('pembanding', [PembandingController::class, 'index'])->name('pembanding');
-Route::get('geospasial', [GeospasialController::class, 'index'])->name('Geospasial');
+Route::get('geospasial', [GeospasialController::class, 'index'])->name('geospasial');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('tujuan/{id}', [TujuansController::class, 'show'])->name('tujuan');
@@ -95,8 +94,8 @@ Route::get('/kontak', function () {
 
 // ajax
 // get all indikator
-Route::get('/client/get-tahun', [DashboardClientController::class, 'getTahun'])->name('client.getTahun');
-Route::get('get-peta-indikator/{id}', [DashboardClientController::class, 'getAllIndikator'])->name('get-peta-indikator');
+Route::get('/client/get-tahun', [GeospasialController::class, 'getTahun'])->name('client.getTahun');
+Route::get('get-peta-indikator/{id}', [GeospasialController::class, 'getAllIndikator'])->name('get-peta-indikator');
 Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
 Route::get('get-tujuan', [TujuanController::class, 'getAllTujuan'])->name('get-tujuan');
 Route::get('admin/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('admin.get-indikator');

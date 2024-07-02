@@ -1,6 +1,6 @@
 @extends('layouts.client.app')
 
-@section('title', 'Prediksi')
+@section('title', 'Geospasial')
 
 @section('style')
     <style>
@@ -181,87 +181,98 @@
 @endsection
 
 @section('script')
-    <script script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function getTahun(indikatorId) {
-            $.ajax({
-                url: '{{ route('client.getTahun') }}', // Define the route in web.php
-                type: 'GET',
-                data: {
-                    indikator_id: indikatorId
-                },
-                success: function(response) {
-                    var tahunSelect = $('#tahun');
-                    tahunSelect.empty();
-                    tahunSelect.append('<option value="">Pilih Tahun</option>');
-                    $.each(response.tahuns, function(index, tahun) {
-                        tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
-                    });
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        }
-
-        function getIndikator(id) {
-            $('#indikator_id').empty();
-            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-peta-indikator', '') }}" + '/' + id,
-                success: function(response) {
-                    response.forEach(element => {
-                        $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
-                        );
-                    });
-                }
-            });
-        }
-    </script>
-    <script>
-        const kecamatanData = @json($kecamatans);
-
-        function handleClick(event) {
-            const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(1);
-
-            const pencapaian = kecamatanData.find(item =>
-                item.kecamatan.some(k => k.code === kecamatanCode)
-            );
-
-            const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
-
-            showPopup(kecamatan, pencapaian);
-        }
-
-        function showPopup(kecamatan, pencapaian) {
-
-            closePopup();
-
-            const popup = document.createElement('div');
-            popup.classList.add('popup');
-            popup.innerHTML = `
-                <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
-                <div class="px-4 py-3">
-                    <h3>${kecamatan.name}</h3>
-                    <p>${pencapaian.tahun}</p>
-                    <p>${pencapaian.tipe}</p>
-                    <p>${pencapaian.persentase}</p>
-                    <p>${pencapaian.sumber_data}</p>
-                </div>
-            `;
-
-            document.body.appendChild(popup);
-        }
-
-        function closePopup() {
-            const popup = document.querySelector('.popup');
-            if (popup) {
-                popup.remove();
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getTahun(indikatorId) {
+        $.ajax({
+            url: '{{ route('client.getTahun') }}', // Define the route in web.php
+            type: 'GET',
+            data: {
+                indikator_id: indikatorId
+            },
+            success: function(response) {
+                var tahunSelect = $('#tahun');
+                tahunSelect.empty();
+                tahunSelect.append('<option value="">Pilih Tahun</option>');
+                $.each(response.tahuns, function(index, tahun) {
+                    tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
+                });
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
             }
+        });
+    }
+
+    function getIndikator(id) {
+        $('#indikator_id').empty();
+        $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-peta-indikator', '') }}" + '/' + id,
+            success: function(response) {
+                response.forEach(element => {
+                    $('#indikator_id').append(
+                        `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
+                    );
+                });
+            }
+        });
+    }
+</script>
+<script>
+    const kecamatanData = @json($kecamatans);
+
+    function handleClick(event) {
+        const pathElement = event.target;
+        const kecamatanCode = pathElement.id.substring(1);
+
+        const pencapaian = kecamatanData.find(item =>
+            item.kecamatan.some(k => k.code === kecamatanCode)
+        );
+
+        const kecamatan = pencapaian.kecamatan.find(k => k.code === kecamatanCode);
+
+        showPopup(kecamatan, pencapaian);
+    }
+
+    function showPopup(kecamatan, pencapaian) {
+
+        closePopup();
+
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.innerHTML = `
+            <i class="fas fa-times close-icon p-1" onclick="closePopup()"></i>
+            <div class="px-4 py-3">
+                <h3>${kecamatan.name}</h3>
+                <p>${pencapaian.tahun}</p>
+                <p>${pencapaian.tipe}</p>
+                <p>${pencapaian.persentase}</p>
+                <p>${pencapaian.sumber_data}</p>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+    }
+
+    function closePopup() {
+        const popup = document.querySelector('.popup');
+        if (popup) {
+            popup.remove();
         }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        kecamatanData.forEach(item => {
+            item.kecamatan.forEach(kecamatan => {
+                // console.log(kecamatan.code)
+                const pathElement = document.querySelector(`#a${kecamatan.code}`);
+                if (pathElement) {
+                    pathElement.addEventListener("click", handleClick);
+                }
+            });
+        });
+    });    
     </script>
 @endsection

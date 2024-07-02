@@ -10,7 +10,7 @@
                 <a class="nav-link font-weight-bold" href="/">Beranda</a>
             </li>
             <li class="nav-item dropdown my-2 my-md-0">
-                <a class="nav-link dropdown-toggle font-weight-bold" href="/dashboard-client" id="navbarDropdown"
+                <a class="nav-link dropdown-toggle font-weight-bold" id="navbarDropdown"
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dashboard
                 </a>
