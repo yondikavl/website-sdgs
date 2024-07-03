@@ -87,33 +87,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-lg-12 d-flex align-items-center">
-                    <form class="form-inline">
+            <div class="row h-100 d-flex justify-content-center align-items-center">
+                <div class="col-lg-8">
+                    <form class="form-inline justify-content-center">
                         <!-- Tujuan -->
                         <div class="form-group mx-3">
                             <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
-                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
-                                onchange="getIndikator(this.value)" required>
+                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikator(this.value)" required>
                                 <option value="">Pilih Peta Tujuan</option>
                                 @foreach ($tujuans as $tujuan)
-                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
-                                    </option>
+                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
                                 @endforeach
                             </select>
                         </div>
-
+        
                         <!-- Indikator -->
                         <div class="form-group mx-3">
                             <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
-                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
-                                onchange="getTahun(this.value)">
+                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="getTahun(this.value)">
                                 <option value="">Pilih Indikator</option>
                             </select>
                         </div>
-
+        
                         <!-- Tahun -->
-                        <div class="form-group mx-3">
+                        <div class="form-group mx-5 mt-3">
                             <label for="tahun" class="mr-2">{{ __('Tahun') }}</label>
                             <select class="form-control rounded-2" id="tahun" name="tahun">
                                 <option value="">Pilih Tahun</option>
@@ -122,8 +119,8 @@
                     </form>
                 </div>
             </div>
-            <div class="d-flex justify-content-center align-items-center mx-auto mt-5">
-                <h3 class="mt-5">
+            <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+                <h3 class="mt-3">
                     <p id="indikator_value"></p>
                     <p id="tahun_value"></p>
                 </h3>
