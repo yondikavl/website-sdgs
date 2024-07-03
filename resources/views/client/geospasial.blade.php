@@ -93,24 +93,27 @@
                         <!-- Tujuan -->
                         <div class="form-group mx-3">
                             <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
-                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikator(this.value)" required>
+                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
+                                onchange="getIndikator(this.value)" required>
                                 <option value="">Pilih Peta Tujuan</option>
                                 @foreach ($tujuans as $tujuan)
-                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
+                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <!-- Indikator -->
                         <div class="form-group mx-3">
                             <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
-                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="getTahun(this.value)">
+                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
+                                onchange="getTahun(this.value)">
                                 <option value="">Pilih Indikator</option>
                             </select>
                         </div>
-        
+
                         <!-- Tahun -->
-                        <div class="form-group mx-5 mt-3">
+                        <div class="form-group mx-3">
                             <label for="tahun" class="mr-2">{{ __('Tahun') }}</label>
                             <select class="form-control rounded-2" id="tahun" name="tahun">
                                 <option value="">Pilih Tahun</option>
