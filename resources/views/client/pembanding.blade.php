@@ -40,7 +40,7 @@
 
 @section('content')
 
-    @include('layouts.client.sdgs')
+    @include('layouts.client.pembanding')
 
     <div class="container card text-center rounded-lg">
         <div class="card-body">
@@ -62,9 +62,8 @@
                         <th>Kode</th>
                         <th>Jenis Data</th>
                         <th>Satuan</th>
-                        {{-- get 2 tahun terakhir --}}
-                        <th>{{ date('Y') - 1 }}</th>
-                        <th>{{ date('Y') }}</th>
+                        <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->first()->tahun }}</th>
+                        <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->skip(1)->first()->tahun }}</th>
                         <th>Perangkat Daerah</th>
                         <th>Grafik</th>
                     </tr>
@@ -74,19 +73,18 @@
                         <tr>
                             <td>{{ $indikator->kode_indikator }}</td>
                             <td>{{ $indikator->nama_indikator }}</td>
-                            <td>{{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->tipe ?? '-' }}</td>
+                            <td>{{ $indikator->pencapaian->sortByDesc('tahun')->first()->tipe ?? '-' }}</td>
                             <td>
-                                {{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->persentase ?? '-' }}
+                                {{ $indikator->pencapaian->sortByDesc('tahun')->first()->persentase ?? '-' }}
                             </td>
                             <td>
-                                {{ $indikator->pencapaian->where('tahun', date('Y'))->first()->persentase ?? '-' }}
+                                {{ $indikator->pencapaian->sortByDesc('tahun')->skip(1)->first()->persentase ?? '-' }}
                             </td>
-
-                            <td>{{ $indikator->pencapaian->where('tahun', date('Y') - 1)->first()->sumber_data ?? '-' }}
+                            <td>{{ $indikator->pencapaian->sortByDesc('tahun')->first()->sumber_data ?? '-' }}
                             </td>
                             <td>
-                                <div class="btn btn-primary modal-btn" onclick="showGrafik({{ $indikator->id }});">Detail
-                                </div>
+                                <div class="btn btn-primary modal-btn"
+                                    onclick="showGrafik({{ $indikator->id }});">Detail</div>
                                 <div id="myModal" class="modal">
                                     <div class="modal-content">
                                         <span class="close">&times;</span>
@@ -99,10 +97,11 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
         <!-- /.card-body -->
     </div>
+    
+    
 @endsection
 
 @section('script')

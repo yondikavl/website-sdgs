@@ -128,46 +128,50 @@ class PencapaianController extends Controller
 
     public function edit($id)
     {
+        $kecamatans = Kecamatan::where('city_code', 1871)->get();
         $indikators = Indikator::all();
         $tujuans = Tujuan::all();
         $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
-        return view('admin.pencapaian.edit', compact('pencapaian', 'tujuans', 'indikators'));
+        return view('admin.pencapaian.edit', compact('kecamatans', 'pencapaian', 'tujuans', 'indikators'));
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate(
-            [
-                'indikator_id' => 'required',
-                'tahun' => 'required',
-                'tipe' => 'required',
-                'persentase' => 'required',
-            ],
-            [
-                'indikator_id.required' => 'Indikator harus diisi!',
-                'tahun.required' => 'Tahun harus diisi!',
-                'tipe.required' => 'Tipe harus diisi!',
-                'persentase.required' => 'Persentase harus diisi!',
-            ]
-        );
+{
+    $request->validate([
+        'tahun' => 'required',
+        'tipe' => 'required',
+        'persentase' => 'required',
+        'kecamatan_id' => 'required|array',
+        'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+    ], [
+        'tahun.required' => 'Tahun harus diisi!',
+        'tipe.required' => 'Tipe harus diisi!',
+        'persentase.required' => 'Persentase harus diisi!',
+    ]);
 
-        $pencapaian = Pencapaian::where('id', $id)->update([
-            'indikator_id' => $request->indikator_id,
-            'tahun' => $request->tahun,
-            'tipe' => $request->tipe,
-            'persentase' => $request->persentase,
-            'sumber_data' => $request->sumber_data,
-            'kecamatan_id' => $request->kecamatan_id
-        ]);
+    // Update the Pencapaian record
+    Pencapaian::where('id', $id)->update([
+        'tahun' => $request->tahun,
+        'tipe' => $request->tipe,
+        'persentase' => $request->persentase,
+        'sumber_data' => $request->sumber_data,
+    ]);
 
-        if (auth()->user()->roles_id == 1) {
-            return redirect('super/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
-        } else if (auth()->user()->roles_id == 2) {
-            return redirect('admin/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
-        } else if (auth()->user()->roles_id == 3) {
-            return redirect('opd/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
-        }
+    // Retrieve the updated Pencapaian instance
+    $pencapaian = Pencapaian::find($id);
+
+    // Attach kecamatan_id
+    $pencapaian->Kecamatan()->attach($request->kecamatan_id);
+
+    // Redirect based on user role
+    if (auth()->user()->roles_id == 1) {
+        return redirect('super/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
+    } elseif (auth()->user()->roles_id == 2) {
+        return redirect('admin/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
+    } elseif (auth()->user()->roles_id == 3) {
+        return redirect('opd/pencapaian')->with('sukses', 'Berhasil Ubah Data!');
     }
+}
 
     public function destroy($id)
     {

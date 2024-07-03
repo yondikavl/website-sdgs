@@ -389,22 +389,22 @@
         }
 
         function updateTable(kecamatan, pencapaianList) {
-            const tableBody = document.getElementById('data-table-body');
-            const kecamatanName = document.getElementById('kecamatan-name');
-            tableBody.innerHTML = ''; // Clear previous data
-            kecamatanName.textContent = kecamatan.name; // Set kecamatan name
-
-            pencapaianList.forEach((pencapaian) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${pencapaian.tahun}</td>
-                    <td>${pencapaian.tipe}</td>
-                    <td>${pencapaian.persentase}</td>
-                    <td>${pencapaian.sumber_data}</td>
-                `;
-                tableBody.appendChild(row);
+        const tableBody = document.getElementById('data-table-body');
+        const kecamatanName = document.getElementById('kecamatan-name');
+        tableBody.innerHTML = ''; // Clear previous data
+        kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
+        pencapaianList.forEach((pencapaian) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${pencapaian.tahun}</td>
+                <td>${pencapaian.tipe}</td>
+                <td>${pencapaian.persentase}</td>
+                <td>${pencapaian.sumber_data}</td>
+            `;
+            tableBody.appendChild(row);
             });
         }
+
 
         document.addEventListener("DOMContentLoaded", function() {
             // Populate filter dropdowns with unique tahun and indikator values
