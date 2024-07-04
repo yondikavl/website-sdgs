@@ -13,14 +13,18 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 60%;
+            max-width: 800px; /* Max width to avoid overfitting */
+            max-height: 90%; /* Max height to avoid overflow */
+            overflow-y: auto; /* Enable vertical scrolling if content overflows */
         }
 
         .close {
@@ -54,7 +58,7 @@
     <div class="container card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
-            <button id="pembanding" class="btn btn-primary ms-auto">Bandingkan</button>
+            <button id="openComparisonModal" class="btn btn-primary ms-auto">Bandingkan</button>
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -63,8 +67,12 @@
                         <th>Kode</th>
                         <th>Jenis Data</th>
                         <th>Satuan</th>
-                        <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->first()->tahun }}</th>
-                        <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->skip(1)->first()->tahun }}</th>
+                        @php
+                            $latestPencapaianYear = $indikators->first()->pencapaian->sortByDesc('tahun')->first();
+                            $secondLatestPencapaianYear = $indikators->first()->pencapaian->sortByDesc('tahun')->skip(1)->first();
+                        @endphp
+                        <th>{{ $latestPencapaianYear->tahun ?? '-' }}</th>
+                        <th>{{ $secondLatestPencapaianYear->tahun ?? '-' }}</th>
                         <th>Perangkat Daerah</th>
                     </tr>
                 </thead>
@@ -88,102 +96,127 @@
         </div>
     </div>
 
-    <!-- Modal for Comparison -->
-    <div id="comparisonModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Perbandingan Data Indikator</h3>
-            <canvas id="comparisonChart"></canvas>
-        </div>
-    </div>
+<!-- Modal for Comparison -->
+<div id="comparisonModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 class="justify-content-center d-flex">Perbandingan Data Indikator</h3>
+        
+        <!-- Selection Dropdowns inside Modal -->
+        <div>
+            <label for="indicator1">Pilih Indikator 1:</label>
+            <select class="form-control rounded-2" id="indicator1">
+                @foreach ($indikators as $indikator)
+                    <option value="{{ $indikator->id }}">{{ $indikator->nama_indikator }}</option>
+                @endforeach
+            </select>
 
+            <label for="indicator2">Pilih Indikator 2:</label>
+            <select class="form-control rounded-2" id="indicator2">
+                @foreach ($indikators as $indikator)
+                    <option value="{{ $indikator->id }}">{{ $indikator->nama_indikator }}</option>
+                @endforeach
+            </select>
+
+            <button class="mt-2 btn btn-primary" id="generateComparison">Bandingkan</button>
+        </div>
+        
+        <canvas id="comparisonChart"></canvas>
+    </div>
+</div>
 @endsection
 
 @section('script')
-    <script>
-        var data = {!! json_encode($pencapaians) !!};
+<script>
+    var data = {!! json_encode($pencapaians) !!};
 
-        function getRandomIndikators(data) {
-            const keys = Object.keys(data);
-            const randomIndices = [];
-            while (randomIndices.length < 2) {
-                const randomIndex = Math.floor(Math.random() * keys.length);
-                if (!randomIndices.includes(randomIndex)) {
-                    randomIndices.push(randomIndex);
-                }
-            }
-            return randomIndices.map(index => data[keys[index]]);
-        }
+    function getSelectedIndikators(data, indikator1Id, indikator2Id) {
+        const indikator1 = data.find(item => Object.keys(item)[0] == indikator1Id);
+        const indikator2 = data.find(item => Object.keys(item)[0] == indikator2Id);
+        return [indikator1, indikator2];
+    }
 
-        function showComparisonModal() {
-            var modal = document.getElementById("comparisonModal");
-            var comparisonData = getRandomIndikators(data);
+    function showComparisonChart() {
+        var indikator1Id = document.getElementById("indicator1").value;
+        var indikator2Id = document.getElementById("indicator2").value;
 
-            var labels = comparisonData[0][Object.keys(comparisonData[0])[0]].map(item => item.tahun);
-            var dataset1 = comparisonData[0][Object.keys(comparisonData[0])[0]].map(item => item.persentase);
-            var dataset2 = comparisonData[1][Object.keys(comparisonData[1])[0]].map(item => item.persentase);
+        var comparisonData = getSelectedIndikators(data, indikator1Id, indikator2Id);
 
-            var ctx = document.getElementById('comparisonChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Indikator 1',
-                            data: dataset1,
-                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            fill: false
-                        },
-                        {
-                            label: 'Indikator 2',
-                            data: dataset2,
-                            backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        var labels = comparisonData[0][indikator1Id].map(item => item.tahun);
+        var dataset1 = comparisonData[0][indikator1Id].map(item => item.persentase);
+        var dataset2 = comparisonData[1][indikator2Id].map(item => item.persentase);
+
+        var ctx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Indikator 1',
+                        data: dataset1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false
+                    },
+                    {
+                        label: 'Indikator 2',
+                        data: dataset2,
+                        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
-
-            modal.style.display = "block";
-        }
-
-        document.getElementById("pembanding").onclick = showComparisonModal;
-        document.getElementsByClassName("close")[0].onclick = function() {
-            document.getElementById("comparisonModal").style.display = "none";
-        };
-    </script>
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": true,
-                "buttons": ["csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            }
         });
-    </script>
-    <!-- DataTables & Plugins -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    }
+
+    document.getElementById("openComparisonModal").onclick = function() {
+        document.getElementById("comparisonModal").style.display = "flex";
+    };
+
+    document.getElementById("generateComparison").onclick = showComparisonChart;
+
+    document.getElementsByClassName("close")[0].onclick = function() {
+        document.getElementById("comparisonModal").style.display = "none";
+    };
+
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("comparisonModal")) {
+            document.getElementById("comparisonModal").style.display = "none";
+        }
+    };
+</script>
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": true,
+            "buttons": ["csv", "excel", "pdf", "print"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
+<!-- DataTables & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 @endsection
