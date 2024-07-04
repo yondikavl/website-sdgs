@@ -27,6 +27,27 @@
                 width: 100%;
             }
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 @endsection
 
@@ -73,6 +94,32 @@
                     SD/sederajat,
                     SMP/sederajat, dan SMA/sederajat.</span></p>
             <canvas id="myChart"></canvas>
+            <div class="text-center mt-3">
+                <label for="lineSelector" class="mr-2">Pilih Garis yang Ditampilkan:</label>
+                <select id="lineSelector" class="form-control d-inline-block w-auto">
+                    <option value="all">Semua Garis</option>
+                    <option value="0">SD/Sederajat</option>
+                    <option value="1">SMP/Sederajat</option>
+                    <option value="2">SMA/Sederajat</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="container mb-5">
+            <h2 class="text-center">Data Prediksi</h2>
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Tahun</th>
+                        <th>SD/Sederajat</th>
+                        <th>SMP/Sederajat</th>
+                        <th>SMA/Sederajat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+            </table>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -124,32 +171,34 @@
             var combinedData2 = historicalData2.concat(predictedData2);
             var combinedData3 = historicalData3.concat(predictedData3);
 
+            var datasets = [{
+                    label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
+                    data: combinedData1,
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    fill: false
+                },
+                {
+                    label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
+                    data: combinedData2,
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    fill: false
+                },
+                {
+                    label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
+                    data: combinedData3,
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    fill: false
+                }
+            ];
+
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: forecastLabels,
-                    datasets: [{
-                            label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
-                            data: combinedData1,
-                            borderColor: "rgba(75, 192, 192, 1)",
-                            backgroundColor: "rgba(75, 192, 192, 0.2)",
-                            fill: false
-                        },
-                        {
-                            label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
-                            data: combinedData2,
-                            borderColor: "rgba(255, 99, 132, 1)",
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            fill: false
-                        },
-                        {
-                            label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
-                            data: combinedData3,
-                            borderColor: "rgba(54, 162, 235, 1)",
-                            backgroundColor: "rgba(54, 162, 235, 0.2)",
-                            fill: false
-                        }
-                    ]
+                    datasets: datasets
                 },
                 options: {
                     scales: {
@@ -161,6 +210,33 @@
                     },
                 }
             });
+
+            document.getElementById('lineSelector').addEventListener('change', function() {
+                var selectedIndex = this.value;
+                if (selectedIndex === 'all') {
+                    myChart.data.datasets = datasets;
+                } else {
+                    myChart.data.datasets = [datasets[selectedIndex]];
+                }
+                myChart.update();
+            });
+
+            function updateTable() {
+                var tableBody = document.querySelector('#dataTable tbody');
+                tableBody.innerHTML = '';
+
+                for (var i = 0; i < forecastLabels.length; i++) {
+                    var row = '<tr>' +
+                        '<td>' + forecastLabels[i] + '</td>' +
+                        '<td>' + (combinedData1[i] !== undefined ? combinedData1[i].toFixed(2) : '-') + '</td>' +
+                        '<td>' + (combinedData2[i] !== undefined ? combinedData2[i].toFixed(2) : '-') + '</td>' +
+                        '<td>' + (combinedData3[i] !== undefined ? combinedData3[i].toFixed(2) : '-') + '</td>' +
+                        '</tr>';
+                    tableBody.innerHTML += row;
+                }
+            }
+
+            updateTable();
         });
     </script>
 @endsection
