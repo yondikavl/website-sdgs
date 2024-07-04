@@ -10,15 +10,17 @@
             z-index: 99;
             left: 0;
             top: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 30%;
+            width: 60%;
         }
 
         .close {
@@ -35,7 +37,6 @@
             cursor: pointer;
         }
     </style>
-
 @endsection
 
 @section('content')
@@ -51,10 +52,10 @@
     </div>
 
     <div class="container card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
+            <button id="pembanding" class="btn btn-primary ms-auto">Bandingkan</button>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -65,104 +66,101 @@
                         <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->first()->tahun }}</th>
                         <th>{{ $indikators->first()->pencapaian->sortByDesc('tahun')->skip(1)->first()->tahun }}</th>
                         <th>Perangkat Daerah</th>
-                        <th>Grafik</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($indikators as $indikator)
+                        @php
+                            $latestPencapaian = $indikator->pencapaian->sortByDesc('tahun')->first();
+                            $secondLatestPencapaian = $indikator->pencapaian->sortByDesc('tahun')->skip(1)->first();
+                        @endphp
                         <tr>
                             <td>{{ $indikator->kode_indikator }}</td>
                             <td>{{ $indikator->nama_indikator }}</td>
-                            <td>{{ $indikator->pencapaian->sortByDesc('tahun')->first()->tipe ?? '-' }}</td>
-                            <td>
-                                {{ $indikator->pencapaian->sortByDesc('tahun')->first()->persentase ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $indikator->pencapaian->sortByDesc('tahun')->skip(1)->first()->persentase ?? '-' }}
-                            </td>
-                            <td>{{ $indikator->pencapaian->sortByDesc('tahun')->first()->sumber_data ?? '-' }}
-                            </td>
-                            <td>
-                                <div class="btn btn-primary modal-btn"
-                                    onclick="showGrafik({{ $indikator->id }});">Detail</div>
-                                <div id="myModal" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                        <h3>Grafik Pencapaian</h3>
-                                        <canvas id="grafik"></canvas>
-                                    </div>
-                                </div>
-                            </td>
+                            <td>{{ $latestPencapaian->tipe ?? '-' }}</td>
+                            <td>{{ $latestPencapaian->persentase ?? '-' }}</td>
+                            <td>{{ $secondLatestPencapaian->persentase ?? '-' }}</td>
+                            <td>{{ $latestPencapaian->sumber_data ?? '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <!-- /.card-body -->
     </div>
-    
-    
+
+    <!-- Modal for Comparison -->
+    <div id="comparisonModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Perbandingan Data Indikator</h3>
+            <canvas id="comparisonChart"></canvas>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
     <script>
         var data = {!! json_encode($pencapaians) !!};
 
-        function showGrafik(sub_id) {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-
-            // Mencari data indikator yang dipilih
-            var dataindikator = data.find(function(item) {
-                return item[sub_id];
-            });
-
-            var dataTahun = [];
-            var dataPencapaian = [];
-
-            // Mencari data pencapaian dari indikator tersebut
-            for (var i = 0; i < dataindikator[sub_id].length; i++) {
-                dataTahun.push(dataindikator[sub_id][i].tahun);
-                dataPencapaian.push(dataindikator[sub_id][i].persentase);
+        function getRandomIndikators(data) {
+            const keys = Object.keys(data);
+            const randomIndices = [];
+            while (randomIndices.length < 2) {
+                const randomIndex = Math.floor(Math.random() * keys.length);
+                if (!randomIndices.includes(randomIndex)) {
+                    randomIndices.push(randomIndex);
+                }
             }
+            return randomIndices.map(index => data[keys[index]]);
+        }
 
-            // Membuat grafik dimiulai dari 0 sampai nilai tertinggi
-            var max = Math.max(...dataPencapaian);
-            var min = Math.min(...dataPencapaian);
-            var ctx = document.getElementById('grafik').getContext('2d');
-            var grafik = new Chart(ctx, {
-                type: 'bar',
+        function showComparisonModal() {
+            var modal = document.getElementById("comparisonModal");
+            var comparisonData = getRandomIndikators(data);
+
+            var labels = comparisonData[0][Object.keys(comparisonData[0])[0]].map(item => item.tahun);
+            var dataset1 = comparisonData[0][Object.keys(comparisonData[0])[0]].map(item => item.persentase);
+            var dataset2 = comparisonData[1][Object.keys(comparisonData[1])[0]].map(item => item.persentase);
+
+            var ctx = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
                 data: {
-                    labels: dataTahun,
-                    datasets: [{
-                        label: 'Pencapaian',
-                        data: dataPencapaian,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Indikator 1',
+                            data: dataset1,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false
+                        },
+                        {
+                            label: 'Indikator 2',
+                            data: dataset2,
+                            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            fill: false
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            min: 0,
-                            max: max + 10
+                            beginAtZero: true
                         }
                     }
                 }
             });
 
+            modal.style.display = "block";
         }
-    </script>
-    <script>
-        var modal = document.getElementById("myModal");
-        var closeButton = document.getElementsByClassName("close")[0];
 
-
-        closeButton.onclick = function() {
-            modal.style.display = "none";
+        document.getElementById("pembanding").onclick = showComparisonModal;
+        document.getElementsByClassName("close")[0].onclick = function() {
+            document.getElementById("comparisonModal").style.display = "none";
         };
     </script>
     <script>
@@ -173,18 +171,9 @@
                 "autoWidth": true,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
         });
     </script>
-    <!-- DataTables  & Plugins -->
+    <!-- DataTables & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
