@@ -67,6 +67,11 @@
         </div>
 
         <div class="container mb-5">
+            <p class="my-4 text-center text-lg">Prediksi data indikator <span class="text-bold">4.1.2 Tingkat penyelesaian
+                    pendidikan
+                    jenjang
+                    SD/sederajat,
+                    SMP/sederajat, dan SMA/sederajat.</span></p>
             <canvas id="myChart"></canvas>
         </div>
 
@@ -82,13 +87,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('myChart').getContext('2d');
 
-            // Data historis (2019-2024)
-            var historicalData1 = [60, 70, 80, 70, 80, 75];
-            var historicalData2 = [65, 75, 85, 75, 85, 80];
-            var historicalData3 = [55, 65, 75, 65, 75, 70];
+            var historicalData1 = [96, 98, 97, 98, 99, 99];
+            var historicalData2 = [95, 98, 96, 97, 96, 97];
+            var historicalData3 = [95, 94, 95, 94, 95, 95];
             var labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
 
-            // Fungsi untuk memprediksi data 6 tahun ke depan menggunakan regresi linier
             function predictData(data, years) {
                 var x = [];
                 var y = data;
@@ -102,7 +105,10 @@
 
                 var predictedData = [];
                 for (var i = y.length; i < y.length + years; i++) {
-                    predictedData.push(line(i));
+                    var prediction = line(i);
+                    prediction = Math.min(100, Math.max(0,
+                        prediction)); // memastikan nilai prediksi berada di antara 0 dan 100
+                    predictedData.push(prediction);
                 }
                 return predictedData;
             }
@@ -123,21 +129,21 @@
                 data: {
                     labels: forecastLabels,
                     datasets: [{
-                            label: '1.1.1 Tingkat Kemiskinan',
+                            label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
                             data: combinedData1,
                             borderColor: "rgba(75, 192, 192, 1)",
                             backgroundColor: "rgba(75, 192, 192, 0.2)",
                             fill: false
                         },
                         {
-                            label: '1.2.1 Tingkat Pengangguran',
+                            label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
                             data: combinedData2,
                             borderColor: "rgba(255, 99, 132, 1)",
                             backgroundColor: "rgba(255, 99, 132, 0.2)",
                             fill: false
                         },
                         {
-                            label: '1.3.1 Tingkat Pendidikan',
+                            label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
                             data: combinedData3,
                             borderColor: "rgba(54, 162, 235, 1)",
                             backgroundColor: "rgba(54, 162, 235, 0.2)",
