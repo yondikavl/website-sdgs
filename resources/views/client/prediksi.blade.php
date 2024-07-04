@@ -62,7 +62,7 @@
         </div>
 
         <div class="container row my-5">
-            <div class="col-lg-12 d-flex align-items-center">
+            <div class="d-flex align-items-center">
                 <form class="form-inline">
                     <!-- Tujuan -->
                     <div class="form-group">
@@ -93,20 +93,20 @@
                     jenjang
                     SD/sederajat,
                     SMP/sederajat, dan SMA/sederajat.</span></p>
-            <canvas id="myChart"></canvas>
-            <div class="text-center mt-3">
-                <label for="lineSelector" class="mr-2">Pilih Garis yang Ditampilkan:</label>
+            <div class="text-left my-5">
+                <label for="lineSelector" class="mr-2">Garis yang ingin ditampilkan:</label>
                 <select id="lineSelector" class="form-control d-inline-block w-auto">
                     <option value="all">Semua Garis</option>
-                    <option value="0">SD/Sederajat</option>
-                    <option value="1">SMP/Sederajat</option>
-                    <option value="2">SMA/Sederajat</option>
+                    <option value="0">Tingkat penyelesaian pendidikan di jenjang SD/Sederajat</option>
+                    <option value="1">Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat</option>
+                    <option value="2">Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat</option>
                 </select>
             </div>
+            <canvas id="myChart"></canvas>
         </div>
 
         <div class="container mb-5">
-            <h2 class="text-center">Data Prediksi</h2>
+            <h2 class="text-center">Table Data Prediksi</h2>
             <table id="dataTable">
                 <thead>
                     <tr>
