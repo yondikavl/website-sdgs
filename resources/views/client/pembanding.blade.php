@@ -128,13 +128,36 @@
 
 @section('script')
 <script>
-    var data = {!! json_encode($pencapaians) !!};
+    const data = @json($pencapaians);
 
-    function getSelectedIndikators(data, indikator1Id, indikator2Id) {
-        const indikator1 = data.find(item => Object.keys(item)[0] == indikator1Id);
-        const indikator2 = data.find(item => Object.keys(item)[0] == indikator2Id);
-        return [indikator1, indikator2];
-    }
+function getSelectedIndikators(data, indikator1Id, indikator2Id) {
+    const indikator1 = data.find(item => Object.keys(item)[0] == indikator1Id);
+    const indikator2 = data.find(item => Object.keys(item)[0] == indikator2Id);
+    return [indikator1, indikator2];
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const indicator1Select = document.getElementById('indicator1');
+    const indicator2Select = document.getElementById('indicator2');
+    const generateButton = document.getElementById('generateComparison');
+
+    indicator1Select.addEventListener('change', () => {
+        console.log(`Indikator 1 selected: ${indicator1Select.value}`);
+    });
+
+    indicator2Select.addEventListener('change', () => {
+        console.log(`Indikator 2 selected: ${indicator2Select.value}`);
+    });
+
+    generateButton.addEventListener('click', () => {
+        const indikator1Id = indicator1Select.value;
+        const indikator2Id = indicator2Select.value;
+        const [indikator1, indikator2] = getSelectedIndikators(data, indikator1Id, indikator2Id);
+
+        console.log('Indikator 1 data:', indikator1);
+        console.log('Indikator 2 data:', indikator2);
+    });
+});
 
     function showComparisonChart() {
         var indikator1Id = document.getElementById("indicator1").value;
