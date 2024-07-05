@@ -128,96 +128,93 @@
 
 @section('script')
 <script>
-    const data = @json($pencapaians);
+    const data = @json($indikators);
 
-function getSelectedIndikators(data, indikator1Id, indikator2Id) {
-    const indikator1 = data.find(item => Object.keys(item)[0] == indikator1Id);
-    const indikator2 = data.find(item => Object.keys(item)[0] == indikator2Id);
-    return [indikator1, indikator2];
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const indicator1Select = document.getElementById('indicator1');
-    const indicator2Select = document.getElementById('indicator2');
-    const generateButton = document.getElementById('generateComparison');
-
-    indicator1Select.addEventListener('change', () => {
-        console.log(`Indikator 1 selected: ${indicator1Select.value}`);
-    });
-
-    indicator2Select.addEventListener('change', () => {
-        console.log(`Indikator 2 selected: ${indicator2Select.value}`);
-    });
-
-    generateButton.addEventListener('click', () => {
-        const indikator1Id = indicator1Select.value;
-        const indikator2Id = indicator2Select.value;
-        const [indikator1, indikator2] = getSelectedIndikators(data, indikator1Id, indikator2Id);
-
-        console.log('Indikator 1 data:', indikator1);
-        console.log('Indikator 2 data:', indikator2);
-    });
-});
-
-    function showComparisonChart() {
-        var indikator1Id = document.getElementById("indicator1").value;
-        var indikator2Id = document.getElementById("indicator2").value;
-
-        var comparisonData = getSelectedIndikators(data, indikator1Id, indikator2Id);
-
-        var labels = comparisonData[0][indikator1Id].map(item => item.tahun);
-        var dataset1 = comparisonData[0][indikator1Id].map(item => item.persentase);
-        var dataset2 = comparisonData[1][indikator2Id].map(item => item.persentase);
-
-        var ctx = document.getElementById('comparisonChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Indikator 1',
-                        data: dataset1,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        fill: false
-                    },
-                    {
-                        label: 'Indikator 2',
-                        data: dataset2,
-                        backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+    function getSelectedIndikators(data, indikator1Id, indikator2Id) {
+        const indikator1 = data.find(item => item.id == indikator1Id);
+        const indikator2 = data.find(item => item.id == indikator2Id);
+        return [indikator1, indikator2];
     }
 
-    document.getElementById("openComparisonModal").onclick = function() {
-        document.getElementById("comparisonModal").style.display = "flex";
-    };
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const indicator1Select = document.getElementById('indicator1');
+        const indicator2Select = document.getElementById('indicator2');
+        const generateButton = document.getElementById('generateComparison');
+        const modal = document.getElementById('comparisonModal');
+        const closeButton = document.querySelector('.close');
 
-    document.getElementById("generateComparison").onclick = showComparisonChart;
+        generateButton.addEventListener('click', () => {
+            const indikator1Id = indicator1Select.value;
+            const indikator2Id = indicator2Select.value;
+            const [indikator1, indikator2] = getSelectedIndikators(data, indikator1Id, indikator2Id);
 
-    document.getElementsByClassName("close")[0].onclick = function() {
-        document.getElementById("comparisonModal").style.display = "none";
-    };
+            if (indikator1 && indikator2) {
+                const combinedData = [...indikator1.pencapaian, ...indikator2.pencapaian];
+                combinedData.sort((a, b) => a.tahun - b.tahun);
+                
+                const labels = [...new Set(combinedData.map(item => item.tahun))];
 
-    // Close modal if user clicks outside of it
-    window.onclick = function(event) {
-        if (event.target == document.getElementById("comparisonModal")) {
-            document.getElementById("comparisonModal").style.display = "none";
-        }
-    };
+                const dataset1 = labels.map(year => {
+                    const entry = indikator1.pencapaian.find(item => item.tahun === year);
+                    return entry ? entry.persentase : null;
+                });
+
+                const dataset2 = labels.map(year => {
+                    const entry = indikator2.pencapaian.find(item => item.tahun === year);
+                    return entry ? entry.persentase : null;
+                });
+
+                var ctx = document.getElementById('comparisonChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: indikator1.nama_indikator,
+                                data: dataset1,
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                fill: false
+                            },
+                            {
+                                label: indikator2.nama_indikator,
+                                data: dataset2,
+                                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                                borderColor: 'rgba(153, 102, 255, 1)',
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error('Data for the selected indicators is not available.');
+            }
+        });
+
+        document.getElementById("openComparisonModal").onclick = function() {
+            modal.style.display = "flex";
+        };
+
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    });
 </script>
 <script>
     $(function() {

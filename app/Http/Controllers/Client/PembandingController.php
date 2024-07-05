@@ -26,13 +26,15 @@ class PembandingController extends Controller
     foreach ($indikators as $indikator) {
         $pencapaian = Pencapaian::select('tahun', 'persentase')->where('indikator_id', $indikator->id)->get();
         $data = [
-            $indikator->id => $pencapaian
+            'id' => $indikator->id,
+            'nama' => $indikator->nama_indikator,
+            'pencapaian' => $pencapaian
         ];
         array_push($pencapaians, $data);
     }
 
     return view('client.pembanding', compact('tujuans', 'tujuan', 'indikators', 'pencapaians'));
-    }
+}
 
     public function getIndikators($tujuan_id)
 {
