@@ -14,28 +14,28 @@ class GeospasialController extends Controller
     {
         $kecamatans = Pencapaian::with('Kecamatan')->get();
         $pencapaian = Pencapaian::with('Indikator.Tujuan')->get();
-        $tujuans = $pencapaian->pluck('Indikator.Tujuan')->flatten()->unique('indikator_id')->values();
+        $tujuans = $pencapaian->pluck('Indikator.Tujuan')->flatten()->unique('id')->values();
         $indikators = Indikator::all();
         return view('client.geospasial', compact('indikators', 'kecamatans', 'tujuans'));
     }
 
     public function getTahun(Request $request)
-    {
-        $indikatorId = $request->indikator_id;
-        $years = Pencapaian::where('indikator_id', $indikatorId)
+{
+    $indikatorId = $request->indikator_id;
+    $years = Pencapaian::where('indikator_id', $indikatorId)
                         ->pluck('tahun')
-                        ->unique();
-
-        return response()->json(['tahuns' => $years]);
-    }
+                        ->unique()
+                        ->sortDesc()
+                        ->values();
+    return response()->json(['tahuns' => $years]);
+}
     
     public function getAllIndikator($id)
     {
+        // Ambil semua indikator yang terkait dengan tujuan yang dipilih
+        $indikators = Indikator::where('tujuan_id', $id)->get();
         
-        $pencapaian = Pencapaian::with('Indikator')->get();
-        $indikators = $pencapaian->pluck('Indikator')->flatten()->unique('indikator_id');
-        
-        // dd($indikators);
         return response()->json($indikators);
     }
+
 }
