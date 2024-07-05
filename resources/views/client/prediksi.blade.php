@@ -94,14 +94,25 @@
                     SD/sederajat,
                     SMP/sederajat, dan SMA/sederajat.</span></p>
             <div class="text-left my-5">
-                <label for="lineSelector" class="mr-2">Garis yang ingin ditampilkan:</label>
-                <select id="lineSelector" class="form-control d-inline-block w-auto">
-                    <option value="all">Semua Garis</option>
-                    <option value="0">Tingkat penyelesaian pendidikan di jenjang SD/Sederajat</option>
-                    <option value="1">Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat</option>
-                    <option value="2">Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat</option>
-                </select>
+                <div id="lineSelector" class="d-inline-block w-auto">
+                    <div>
+                        <input type="checkbox" id="checkbox-0" checked>
+                        <label for="checkbox-0" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
+                            SD/Sederajat</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox-1" checked>
+                        <label for="checkbox-1" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
+                            SMP/Sederajat</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkbox-2" checked>
+                        <label for="checkbox-2" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
+                            SMA/Sederajat</label>
+                    </div>
+                </div>
             </div>
+
             <canvas id="myChart"></canvas>
         </div>
 
@@ -211,15 +222,25 @@
                 }
             });
 
-            document.getElementById('lineSelector').addEventListener('change', function() {
-                var selectedIndex = this.value;
-                if (selectedIndex === 'all') {
-                    myChart.data.datasets = datasets;
-                } else {
-                    myChart.data.datasets = [datasets[selectedIndex]];
-                }
+            function updateChart() {
+                var checkboxes = document.querySelectorAll('#lineSelector input[type="checkbox"]');
+                var selectedDatasets = [];
+
+                checkboxes.forEach((checkbox, index) => {
+                    if (checkbox.checked) {
+                        selectedDatasets.push(datasets[index]);
+                    }
+                });
+
+                myChart.data.datasets = selectedDatasets;
                 myChart.update();
+            }
+
+            document.querySelectorAll('#lineSelector input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateChart);
             });
+
+            updateChart();
 
             function updateTable() {
                 var tableBody = document.querySelector('#dataTable tbody');
