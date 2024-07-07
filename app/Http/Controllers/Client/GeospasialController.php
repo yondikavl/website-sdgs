@@ -20,21 +20,24 @@ class GeospasialController extends Controller
     }
 
     public function getTahun(Request $request)
-{
-    $indikatorId = $request->indikator_id;
-    $years = Pencapaian::where('indikator_id', $indikatorId)
-                        ->pluck('tahun')
-                        ->unique()
-                        ->sortDesc()
-                        ->values();
-    return response()->json(['tahuns' => $years]);
-}
+    {
+        $indikatorId = $request->indikator_id;
+        $years = Pencapaian::where('indikator_id', $indikatorId)
+                            ->pluck('tahun')
+                            ->unique()
+                            ->sortDesc()
+                            ->values();
+        return response()->json(['tahuns' => $years]);
+    }
     
     public function getAllIndikator($id)
     {
-        // Ambil semua indikator yang terkait dengan tujuan yang dipilih
-        $indikators = Indikator::where('tujuan_id', $id)->get();
-        
+        $indikators = Indikator::where('tujuan_id', $id)
+            ->whereHas('pencapaian', function($query) {
+                $query->whereNotNull('tahun');
+            })
+            ->get();
+
         return response()->json($indikators);
     }
 
