@@ -22,6 +22,8 @@ class PencapaianImport implements ToModel, WithStartRow
         $tipe = $row[2];
         $persentase = $row[3];
         $sumber_data = $row[4];
+        $tingkatan = $row[6];
+        $keterangan = $row[7];
 
         // Fetch or create the Pencapaian record
         $pencapaian = Pencapaian::create(
@@ -31,6 +33,8 @@ class PencapaianImport implements ToModel, WithStartRow
                 'tipe' => $tipe,
                 'persentase' => $persentase,
                 'sumber_data' => $sumber_data,
+                'tingkatan' => $tingkatan,
+                'keterangan' => $keterangan
             ]
         );
 

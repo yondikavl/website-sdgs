@@ -17,7 +17,9 @@ return new class extends Migration
             $table->text('tahun');
             $table->text('tipe');
             $table->integer('persentase');
-            $table->text('sumber_data');
+            $table->text('sumber_data')->nullable();
+            $table->text('tingkatan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

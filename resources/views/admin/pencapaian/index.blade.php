@@ -29,6 +29,8 @@
                     <th>Nilai</th>
                     <th>Sumber Data</th>
                     <th>Nama Kecamatan</th>
+                    <th>Tingkatan</th>
+                    <th>Keterangan</th>
                     <th>More</th>
                 </tr>
             </thead>
@@ -54,6 +56,8 @@
                     @foreach ($decodedkecamatans as $kecamatan)
                         <td>{{ $kecamatan }}</td>
                     @endforeach
+                    <td>{{$pencapaian->tingkatan}}</td>
+                    <td>{{$pencapaian->keterangan}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                         <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">

@@ -65,21 +65,22 @@
             <div class="d-flex align-items-center">
                 <form class="form-inline">
                     <!-- Tujuan -->
-                    <div class="form-group">
+                    <div class="form-group mx-3">
                         <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
-                        <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="" required>
-                            <option value="">Pilih Tujuan</option>
-                            {{-- @foreach ($tujuans as $tujuan) --}}
-                            <option value="">Tujuan 1</option>
-                            <option value="">Tujuan 2</option>
-                            {{-- @endforeach --}}
+                        <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
+                            onchange="getIndikator(this.value)" required>
+                            <option value="">Pilih Peta Tujuan</option>
+                            @foreach ($tujuans as $tujuan)
+                                <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
                     <!-- Indikator -->
                     <div class="form-group mx-3">
                         <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
-                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="">
+                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="updateChartAndTable(this.value)">
                             <option value="">Pilih Indikator</option>
                         </select>
                     </div>
@@ -87,31 +88,13 @@
             </div>
         </div>
 
+        <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+            <h3 class="mt-3">
+                <p>Prediksi data indikator yang dipilih: <span id="indikator_value"></span></p>
+            </h3>
+        </div>
+
         <div class="container mb-5">
-            <p class="my-4 text-center text-lg">Prediksi data indikator <span class="text-bold">4.1.2 Tingkat penyelesaian
-                    pendidikan
-                    jenjang
-                    SD/sederajat,
-                    SMP/sederajat, dan SMA/sederajat.</span></p>
-            <div class="text-left my-5">
-                <div id="lineSelector" class="d-inline-block w-auto">
-                    <div>
-                        <input type="checkbox" id="checkbox-0" checked>
-                        <label for="checkbox-0" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
-                            SD/Sederajat</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="checkbox-1" checked>
-                        <label for="checkbox-1" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
-                            SMP/Sederajat</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="checkbox-2" checked>
-                        <label for="checkbox-2" style="font-weight: normal;">Tingkat penyelesaian pendidikan di jenjang
-                            SMA/Sederajat</label>
-                    </div>
-                </div>
-            </div>
 
             <canvas id="myChart"></canvas>
         </div>
@@ -141,14 +124,48 @@
 @section('script')
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function getIndikator(tujuanId) {
+            $('#indikator_id').empty();
+            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
+                success: function(response) {
+                    response.forEach(element => {
+                        $('#indikator_id').append(
+                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
+                        );
+                    });
+
+                    // Select the first available indicator by default
+                    if (response.length > 0) {
+                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                    }
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('myChart').getContext('2d');
 
-            var historicalData1 = [96, 98, 97, 98, 99, 99];
-            var historicalData2 = [95, 98, 96, 97, 96, 97];
-            var historicalData3 = [95, 94, 95, 94, 95, 95];
-            var labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                }
+            });
 
             function predictData(data, years) {
                 var x = [];
@@ -164,100 +181,131 @@
                 var predictedData = [];
                 for (var i = y.length; i < y.length + years; i++) {
                     var prediction = line(i);
-                    prediction = Math.min(100, Math.max(0,
-                        prediction)); // memastikan nilai prediksi berada di antara 0 dan 100
+                    prediction = Math.min(100, Math.max(0, prediction)); // memastikan nilai prediksi berada di antara 0 dan 100
                     predictedData.push(prediction);
                 }
                 return predictedData;
             }
 
-            // Data prediksi 6 tahun ke depan (2025-2030)
-            var predictedData1 = predictData(historicalData1, 6);
-            var predictedData2 = predictData(historicalData2, 6);
-            var predictedData3 = predictData(historicalData3, 6);
-            var forecastLabels = labels.concat(['2025', '2026', '2027', '2028', '2029', '2030']);
+            function updateChartAndTable(indikatorId) {
+                if (!indikatorId) return;
+                console.log(indikatorId);
 
-            // Menggabungkan data historis dan prediksi
-            var combinedData1 = historicalData1.concat(predictedData1);
-            var combinedData2 = historicalData2.concat(predictedData2);
-            var combinedData3 = historicalData3.concat(predictedData3);
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('get-prediksi-data', '') }}" + '/' + indikatorId,
+                    success: function(response) {
+                        console.log(response.pencapaians)
+                        // Track unique 'tingkatan' values
+                    var uniqueTingkatan = [];
+                    var uniqueTahun = [];
 
-            var datasets = [{
-                    label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
-                    data: combinedData1,
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    fill: false
-                },
-                {
-                    label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
-                    data: combinedData2,
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    fill: false
-                },
-                {
-                    label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
-                    data: combinedData3,
-                    borderColor: "rgba(54, 162, 235, 1)",
-                    backgroundColor: "rgba(54, 162, 235, 0.2)",
-                    fill: false
-                }
-            ];
+                    var tingkatanData = [];
+                    var tahunData = [];
 
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: forecastLabels,
-                    datasets: datasets
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            min: 0,
-                            max: 100
+                    var persentaseData = [];
+
+                    // Iterate through pencapaians data and log unique 'tingkatan'
+                    response.pencapaians.forEach(function(pencapaian, index) {
+                        var persentase = pencapaian.persentase
+                        var tingkatan = pencapaian.tingkatan;
+                        if (!uniqueTingkatan[tingkatan]) {
+                            uniqueTingkatan[tingkatan] = true;
+                            tingkatanData.push(tingkatan);
+                            // console.log(`Item ${index + 1} - Tingkatan:`, tingkatan);
                         }
-                    },
-                }
-            });
+                        var tahun = pencapaian.tahun;
+                        if (!uniqueTahun[tahun]) {
+                            uniqueTahun[tahun] = true;
+                            tahunData.push(tahun);
+                            // console.log(`Item ${index + 1} - Tahun:`, tahun);
+                        }
+                    });
+                    
+                    
+                    console.log(tingkatanData);
+                    console.log(tahunData);
 
-            function updateChart() {
-                var checkboxes = document.querySelectorAll('#lineSelector input[type="checkbox"]');
-                var selectedDatasets = [];
 
-                checkboxes.forEach((checkbox, index) => {
-                    if (checkbox.checked) {
-                        selectedDatasets.push(datasets[index]);
+                        var historicalData1 = response.historicalData1;
+                        var historicalData2 = response.historicalData2;
+                        var historicalData3 = response.historicalData3;
+                        var labels = response.labels;
+
+                        var predictedData1 = predictData(historicalData1, 6);
+                        var predictedData2 = predictData(historicalData2, 6);
+                        var predictedData3 = predictData(historicalData3, 6);
+                        var forecastLabels = labels.concat(['2025', '2026', '2027', '2028', '2029', '2030']);
+
+                        var combinedData1 = historicalData1.concat(predictedData1);
+                        var combinedData2 = historicalData2.concat(predictedData2);
+                        var combinedData3 = historicalData3.concat(predictedData3);
+
+                        var datasets = [{
+                                label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
+                                data: combinedData1,
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                fill: false
+                            },
+                            {
+                                label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
+                                data: combinedData2,
+                                borderColor: "rgba(255, 99, 132, 1)",
+                                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                                fill: false
+                            },
+                            {
+                                label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
+                                data: combinedData3,
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                                fill: false
+                            }
+                        ];
+
+                        myChart.data.labels = forecastLabels;
+                        myChart.data.datasets = datasets;
+                        myChart.update();
+
+                        var tableBody = document.querySelector('#dataTable tbody');
+                        tableBody.innerHTML = '';
+
+                        for (var i = 0; i < forecastLabels.length; i++) {
+                            var row = '<tr>' +
+                                '<td>' + forecastLabels[i] + '</td>' +
+                                '<td>' + (combinedData1[i] !== undefined ? combinedData1[i].toFixed(2) : '-') + '</td>' +
+                                '<td>' + (combinedData2[i] !== undefined ? combinedData2[i].toFixed(2) : '-') + '</td>' +
+                                '<td>' + (combinedData3[i] !== undefined ? combinedData3[i].toFixed(2) : '-') + '</td>' +
+                                '</tr>';
+                            tableBody.innerHTML += row;
+                        }
+
+                        var selectedText = $("#indikator_id option:selected").text();
+                        $('#indikator_value').text(selectedText);
                     }
                 });
-
-                myChart.data.datasets = selectedDatasets;
-                myChart.update();
             }
 
             document.querySelectorAll('#lineSelector input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', updateChart);
+                checkbox.addEventListener('change', function() {
+                    var checkboxes = document.querySelectorAll('#lineSelector input[type="checkbox"]');
+                    var selectedDatasets = [];
+
+                    checkboxes.forEach((checkbox, index) => {
+                        if (checkbox.checked) {
+                            selectedDatasets.push(myChart.data.datasets[index]);
+                        }
+                    });
+
+                    myChart.data.datasets = selectedDatasets;
+                    myChart.update();
+                });
             });
 
-            updateChart();
-
-            function updateTable() {
-                var tableBody = document.querySelector('#dataTable tbody');
-                tableBody.innerHTML = '';
-
-                for (var i = 0; i < forecastLabels.length; i++) {
-                    var row = '<tr>' +
-                        '<td>' + forecastLabels[i] + '</td>' +
-                        '<td>' + (combinedData1[i] !== undefined ? combinedData1[i].toFixed(2) : '-') + '</td>' +
-                        '<td>' + (combinedData2[i] !== undefined ? combinedData2[i].toFixed(2) : '-') + '</td>' +
-                        '<td>' + (combinedData3[i] !== undefined ? combinedData3[i].toFixed(2) : '-') + '</td>' +
-                        '</tr>';
-                    tableBody.innerHTML += row;
-                }
-            }
-
-            updateTable();
+            $('#indikator_id').on('change', function() {
+                updateChartAndTable(this.value);
+            });
         });
     </script>
 @endsection

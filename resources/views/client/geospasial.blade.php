@@ -286,6 +286,8 @@
                             <th>Tipe</th>
                             <th>Persentase</th>
                             <th>Sumber Data</th>
+                            <th>Tingkatan</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody id="data-table-body">
@@ -422,6 +424,8 @@
                 <td>${pencapaian.tipe}</td>
                 <td>${pencapaian.persentase}</td>
                 <td>${pencapaian.sumber_data}</td>
+                <td>${pencapaian.tingkatan}</td>
+                <td>${pencapaian.keterangan}</td>
             `;
                 tableBody.appendChild(row);
             });

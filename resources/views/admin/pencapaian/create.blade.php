@@ -113,13 +113,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="persentase">{{ __('Sumber Data') }}</label>
+                            <label for="sumber_data">{{ __('Sumber Data') }}</label>
                             <div class="input-group">
-                                <input type="text" class="form-control @error('persentase') is-invalid @enderror"
+                                <input type="text" class="form-control @error('sumber_data') is-invalid @enderror"
                                     placeholder="Masukkan sumber data" name="sumber_data" required
                                     autocomplete="current-sumber_data">
                             </div>
-                            @error('persentase')
+                            @error('sumber_data')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -135,6 +135,32 @@
                                 @endforeach
                             </select>
                             @error('kecamatan_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tingkatan">{{ __('Tingkatan') }}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control @error('tingkatan') is-invalid @enderror"
+                                    placeholder="Masukkan Tingkatan" name="tingkatan" required
+                                    autocomplete="current-tingkatan">
+                            </div>
+                            @error('tingkatan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">{{ __('Keterangan') }}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
+                                    placeholder="Masukkan Keterangan" name="keterangan" required
+                                    autocomplete="current-keterangan">
+                            </div>
+                            @error('keterangan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -164,8 +190,10 @@
                             @endif
                             @csrf
                             <a class="btn btn-success mb-2 float-right" target="_blank"
-                            href="https://docs.google.com/spreadsheets/d/1WSfNsuYFjru5dCCjRN-Zn9c4hvdsWB5N/edit?usp=drive_link&ouid=106704558331702404617&rtpof=true&sd=true">Download
-                            template file</a>
+                            href="{{asset('assets/template/Admin-Template-Pencapaian.xlsx')}}"
+                            download="Admin-Template-Pencapaian">
+                            Download template file
+                            </a>
                             <div class="form-group">
                                 <label for="tahun">{{ __('Tahun') }} <span style="color:red"> * </span></label>
                                 <input type="tahun" class="form-control @error('tahun') is-invalid @enderror"
@@ -189,7 +217,7 @@
                                 @enderror
                             </div>
                             <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="filePreviewModalLabel">Preview Isi File</h5>
@@ -288,6 +316,8 @@
                     const nilaiIndex = headers.indexOf('Nilai');
                     const sumberIndex = headers.indexOf('Sumber Data');
                     const kecamatanIndex = headers.indexOf('Nama Kecamatan');
+                    const tingkatanIndex = headers.indexOf('Tingkatan');
+                    const keteranganIndex = headers.indexOf('Keterangan');
 
 
                     if (kodeIndex === -1 || namaIndex === -1) {
@@ -298,7 +328,7 @@
                     }
 
                     let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
-                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Satuan</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th></tr></thead><tbody>';
+                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Satuan</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
 
                     for (let i = 2; i < sheetData.length; i++) {
                         const row = sheetData[i];
@@ -308,6 +338,8 @@
                         const nilai = row[nilaiIndex] ?? 'Nilai tidak ada';
                         const sumber = row[sumberIndex] ?? 'Sumber data tidak ada';
                         const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
+                        const tingkatan = row[tingkatanIndex] ?? 'Tingkatan data tidak ada';
+                        const keterangan = row[keteranganIndex] ?? 'Keterangan data tidak ada';
 
                         const kodeClass = kode === 'Kode Indikator tidak ada' ? 'bg-danger' : '';
                         const namaClass = nama === 'Nama Indikator tidak ada' ? 'bg-danger' : '';
@@ -315,6 +347,8 @@
                         const nilaiClass = nilai === 'Nilai tidak ada' ? 'bg-danger' : '';
                         const sumberClass = sumber === 'Sumber data tidak ada' ? 'bg-danger' : '';
                         const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
+                        const tingkatanClass = tingkatan === 'Tingkatan data tidak ada' ? 'bg-danger' : '';
+                        const keteranganClass = keterangan === 'Keterangan data tidak ada' ? 'bg-danger' : '';
 
                         tableHtml += `<tr>
                             <td class="${kodeClass}">${kode}</td>
@@ -323,6 +357,8 @@
                             <td class="${nilaiClass}">${nilai}</td>
                             <td class="${sumberClass}">${sumber}</td>
                             <td class="${kecamatanClass}">${kecamatan}</td>
+                            <td class="${tingkatanClass}">${tingkatan}</td>
+                            <td class="${keteranganClass}">${keterangan}</td>
                         </tr>`;
 
                         if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || satuan === 'Satuan tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {

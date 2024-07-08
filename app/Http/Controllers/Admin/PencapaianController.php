@@ -87,6 +87,7 @@ class PencapaianController extends Controller
             'persentase' => 'required',
             'sumber_data' => 'required',
             'kecamatan_id' => 'required|array',
+            'tingkatan' => 'required|max:255',
         ],
         [
             'indikator_id.required' => 'Indikator tidak boleh kosong!',
@@ -95,6 +96,7 @@ class PencapaianController extends Controller
             'persentase.required' => 'Persentase tidak boleh kosong!',
             'sumber_data.required' => 'Sumber data tidak boleh kosong!',
             'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+            'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
         ]
     );
 
@@ -104,6 +106,8 @@ class PencapaianController extends Controller
         'tipe' => $request->tipe,
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
+        'tingkatan' => $request->tingkatan,
+        'keterangan' => $request->keterangan
     ]);
 
     // Attach kecamatan to pencapaian
@@ -143,10 +147,12 @@ class PencapaianController extends Controller
         'persentase' => 'required',
         'kecamatan_id' => 'required|array',
         'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+        'tingkatan' => 'required|max:255',
     ], [
         'tahun.required' => 'Tahun harus diisi!',
         'tipe.required' => 'Tipe harus diisi!',
         'persentase.required' => 'Persentase harus diisi!',
+        'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
     ]);
 
     // Update the Pencapaian record
@@ -155,6 +161,7 @@ class PencapaianController extends Controller
         'tipe' => $request->tipe,
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
+        'tingkatan' => $request->tingkatan
     ]);
 
     // Retrieve the updated Pencapaian instance

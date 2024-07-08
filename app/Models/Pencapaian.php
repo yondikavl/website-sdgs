@@ -15,6 +15,8 @@ class Pencapaian extends Model
         'tipe',
         'persentase',
         'sumber_data',
+        'tingkatan',
+        'keterangan'
     ];
 
     public function Indikator()
