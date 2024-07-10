@@ -283,8 +283,7 @@
                     <thead>
                         <tr>
                             <th>Tahun</th>
-                            <th>Tipe</th>
-                            <th>Persentase</th>
+                            <th>Data</th>
                             <th>Sumber Data</th>
                             <th>Tingkatan</th>
                             <th>Keterangan</th>
@@ -303,175 +302,183 @@
 @endsection
 
 @section('script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        function getTahun(indikatorId) {
-            $.ajax({
-                url: '{{ route('client.getTahun') }}',
-                type: 'GET',
-                data: {
-                    indikator_id: indikatorId
-                },
-                success: function(response) {
-                    var tahunSelect = $('#tahun');
-                    tahunSelect.empty();
-                    tahunSelect.append('<option value="">Pilih Tahun</option>');
+<script>
+    function getTahun(indikatorId) {
+        $.ajax({
+            url: '{{ route('client.getTahun') }}',
+            type: 'GET',
+            data: {
+                indikator_id: indikatorId
+            },
+            success: function(response) {
+                var tahunSelect = $('#tahun');
+                tahunSelect.empty();
+                tahunSelect.append('<option value="">Pilih Tahun</option>');
 
-                    // Sort years in descending order
-                    response.tahuns.sort((a, b) => b - a);
+                // Sort years in descending order
+                response.tahuns.sort((a, b) => b - a);
 
-                    $.each(response.tahuns, function(index, tahun) {
-                        tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
-                    });
-
-                    // Select the first available year by default
-                    if (response.tahuns.length > 0) {
-                        tahunSelect.val(response.tahuns[0]).trigger('change');
-                    }
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        }
-
-        function getIndikator(tujuanId) {
-            $('#indikator_id').empty();
-            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
-                success: function(response) {
-                    response.forEach(element => {
-                        $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
-                        );
-                    });
-
-                    // Select the first available indicator by default
-                    if (response.length > 0) {
-                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
-                    }
-                }
-            });
-        }
-
-        function updateIndikatorAndTahunH1() {
-            var selectedIndikatorText = $('#indikator_id option:selected').text();
-            var selectedTahunText = $('#tahun option:selected').text();
-
-            // Check if both values are selected
-            if (selectedIndikatorText && selectedTahunText) {
-                var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
-                $('#indikator_value').text(combinedText);
-                $('#tahun_value').text('');
-            }
-        }
-
-        $(document).ready(function() {
-            $('#indikator_id').change(function() {
-                updateIndikatorAndTahunH1();
-            });
-
-            $('#tahun').change(function() {
-                updateIndikatorAndTahunH1();
-            });
-
-            // Trigger change event to select the first available option for tujuan
-            if ($('#tujuan_id option').length > 1) {
-                $('#tujuan_id').val($('#tujuan_id option:eq(1)').val()).trigger('change');
-            }
-
-            // After selecting the first available options, trigger the updateTable function for the default kecamatan
-            $(document).ajaxStop(function() {
-                handleClick({
-                    target: {
-                        id: 'a187106'
-                    }
+                $.each(response.tahuns, function(index, tahun) {
+                    tahunSelect.append('<option value="' + tahun + '">' + tahun + '</option>');
                 });
-            });
+
+                // Select the first available year by default
+                if (response.tahuns.length > 0) {
+                    tahunSelect.val(response.tahuns[0]).trigger('change');
+                }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    function getIndikator(tujuanId) {
+        $('#indikator_id').empty();
+        $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
+            success: function(response) {
+                response.forEach(element => {
+                    // Potong teks indikator
+                    let truncatedText = truncateText(`${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
+                    $('#indikator_id').append(
+                        `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
+                    );
+                });
+
+                // Select the first available indicator by default
+                if (response.length > 0) {
+                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                }
+            }
+        });
+    }
+
+    function truncateText(text, wordLimit) {
+        var words = text.split(' ');
+        if (words.length > wordLimit) {
+            return words.slice(0, wordLimit).join(' ') + '...';
+        }
+        return text;
+    }
+
+    function updateIndikatorAndTahunH1() {
+        var selectedIndikatorText = $('#indikator_id option:selected').attr('data-full-text');
+        var selectedTahunText = $('#tahun option:selected').text();
+
+        // Check if both values are selected
+        if (selectedIndikatorText && selectedTahunText) {
+            var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
+            $('#indikator_value').text(combinedText);
+            $('#tahun_value').text('');
+        }
+    }
+
+    $(document).ready(function() {
+        $('#indikator_id').change(function() {
+            updateIndikatorAndTahunH1();
         });
 
-        const kecamatanData = @json($kecamatans);
+        $('#tahun').change(function() {
+            updateIndikatorAndTahunH1();
+        });
 
-        function handleClick(event) {
-            const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(1);
-
-            const selectedTahun = $('#tahun').val();
-            const selectedIndikator = $('#indikator_id').val();
-
-            const pencapaian = kecamatanData.filter(item =>
-                item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
-                item.kecamatan.some(k => k.code === kecamatanCode)
-            );
-
-            const kecamatan = pencapaian.map(item => item.kecamatan.find(k => k.code === kecamatanCode));
-
-            updateTable(kecamatan[0], pencapaian);
+        // Trigger change event to select the first available option for tujuan
+        if ($('#tujuan_id option').length > 1) {
+            $('#tujuan_id').val($('#tujuan_id option:eq(1)').val()).trigger('change');
         }
 
-        function updateTable(kecamatan, pencapaianList) {
-            const tableBody = document.getElementById('data-table-body');
-            const kecamatanName = document.getElementById('kecamatan-name');
-            tableBody.innerHTML = ''; // Clear previous data
-            kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
-            pencapaianList.forEach((pencapaian) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+        // After selecting the first available options, trigger the updateTable function for the default kecamatan
+        $(document).ajaxStop(function() {
+            handleClick({
+                target: {
+                    id: 'a187106'
+                }
+            });
+        });
+    });
+
+    const kecamatanData = @json($kecamatans);
+
+    function handleClick(event) {
+        const pathElement = event.target;
+        const kecamatanCode = pathElement.id.substring(1);
+
+        const selectedTahun = $('#tahun').val();
+        const selectedIndikator = $('#indikator_id').val();
+
+        const pencapaian = kecamatanData.filter(item =>
+            item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
+            item.kecamatan.some(k => k.code === kecamatanCode)
+        );
+
+        const kecamatan = pencapaian.map(item => item.kecamatan.find(k => k.code === kecamatanCode));
+
+        updateTable(kecamatan[0], pencapaian);
+    }
+
+    function updateTable(kecamatan, pencapaianList) {
+        const tableBody = document.getElementById('data-table-body');
+        const kecamatanName = document.getElementById('kecamatan-name');
+        tableBody.innerHTML = ''; // Clear previous data
+        kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
+        pencapaianList.forEach((pencapaian) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
                 <td>${pencapaian.tahun}</td>
-                <td>${pencapaian.tipe}</td>
-                <td>${pencapaian.persentase}</td>
+                <td>${pencapaian.persentase}${pencapaian.tipe}</td>
                 <td>${pencapaian.sumber_data}</td>
                 <td>${pencapaian.tingkatan}</td>
                 <td>${pencapaian.keterangan}</td>
             `;
-                tableBody.appendChild(row);
-            });
-        }
+            tableBody.appendChild(row);
+        });
+    }
 
+    document.addEventListener("DOMContentLoaded", function() {
+        // Populate filter dropdowns with unique tahun and indikator values
+        const tahunSet = new Set();
+        const indikatorSet = new Set();
 
-        document.addEventListener("DOMContentLoaded", function() {
-            // Populate filter dropdowns with unique tahun and indikator values
-            const tahunSet = new Set();
-            const indikatorSet = new Set();
+        kecamatanData.forEach(item => {
+            tahunSet.add(item.tahun);
+            indikatorSet.add(item.indikator_id);
 
-            kecamatanData.forEach(item => {
-                tahunSet.add(item.tahun);
-                indikatorSet.add(item.indikator_id);
-
-                item.kecamatan.forEach(kecamatan => {
-                    const pathElement = document.querySelector(`#a${kecamatan.code}`);
-                    if (pathElement) {
-                        pathElement.addEventListener("click", handleClick);
-                    }
-                });
-            });
-
-            tahunSet.forEach(tahun => {
-                $('#tahun').append(`<option value="${tahun}">${tahun}</option>`);
-            });
-
-            indikatorSet.forEach(indikator => {
-                $('#indikator_id').append(`<option value="${indikator}">${indikator}</option>`);
-            });
-
-            $('#tahun, #indikator_id').on('change', function() {
-                const selectedTahun = $('#tahun').val();
-                const selectedIndikator = $('#indikator_id').val();
-                console.log('Filters changed:', selectedTahun, selectedIndikator);
+            item.kecamatan.forEach(kecamatan => {
+                const pathElement = document.querySelector(`#a${kecamatan.code}`);
+                if (pathElement) {
+                    pathElement.addEventListener("click", handleClick);
+                }
             });
         });
 
-        svgPanZoom('#my-svg', {
-            zoomEnabled: true,
-            controlIconsEnabled: true,
-            fit: true,
-            center: true,
-            minZoom: 0.5,
-            maxZoom: 10,
-            dblClickZoomEnabled: false,
+        tahunSet.forEach(tahun => {
+            $('#tahun').append(`<option value="${tahun}">${tahun}</option>`);
         });
-    </script>
+
+        indikatorSet.forEach(indikator => {
+            $('#indikator_id').append(`<option value="${indikator}">${indikator}</option>`);
+        });
+
+        $('#tahun, #indikator_id').on('change', function() {
+            const selectedTahun = $('#tahun').val();
+            const selectedIndikator = $('#indikator_id').val();
+            console.log('Filters changed:', selectedTahun, selectedIndikator);
+        });
+    });
+
+    svgPanZoom('#my-svg', {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true,
+        minZoom: 0.5,
+        maxZoom: 10,
+        dblClickZoomEnabled: false,
+    });
+</script>
 @endsection
