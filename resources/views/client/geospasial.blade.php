@@ -110,11 +110,12 @@
                 </div>
             </div>
             <div class="row h-100 d-flex justify-content-center align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <form class="form-inline justify-content-center">
                         <!-- Tujuan -->
-                        <div class="form-group mx-3">
-                            <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
+                        <div class="form-group m-2">
+                            <label for="tujuan_id" class="mr-2"
+                                style="min-width: 100px; max-width: 100px;">{{ __('Tujuan') }}</label>
                             <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
                                 onchange="getIndikator(this.value)" required>
                                 <option value="">Pilih Peta Tujuan</option>
@@ -126,8 +127,9 @@
                         </div>
 
                         <!-- Indikator -->
-                        <div class="form-group mx-3">
-                            <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
+                        <div class="form-group m-2">
+                            <label for="indikator_id" class="mr-2"
+                                style="min-width: 100px; max-width: 100px;">{{ __('Indikator') }}</label>
                             <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
                                 onchange="getTahun(this.value)">
                                 <option value="">Pilih Indikator</option>
@@ -135,8 +137,9 @@
                         </div>
 
                         <!-- Tahun -->
-                        <div class="form-group mx-3">
-                            <label for="tahun" class="mr-2">{{ __('Tahun') }}</label>
+                        <div class="form-group m-2">
+                            <label for="tahun" class="mr-2"
+                                style="min-width: 100px; max-width: 100px;">{{ __('Tahun') }}</label>
                             <select class="form-control rounded-2" id="tahun" name="tahun">
                                 <option value="">Pilih Tahun</option>
                             </select>
@@ -337,44 +340,47 @@
         }
 
         function getIndikator(tujuanId) {
-        $('#indikator_id').empty();
-        $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
-            success: function(response) {
-                response.forEach(element => {
-                    // Potong teks indikator
-                    let truncatedText = truncateText(`${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
-                    $('#indikator_id').append(
-                        `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
-                    );
-                });
+            $('#indikator_id').empty();
+            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
+                success: function(response) {
+                    response.forEach(element => {
+                        // Potong teks indikator
+                        let truncatedText = truncateText(
+                            `${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
+                        $('#indikator_id').append(
+                            `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
+                        );
+                    });
 
-                // Select the first available indicator by default
-                if (response.length > 0) {
-                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                    // Select the first available indicator by default
+                    if (response.length > 0) {
+                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                    }
                 }
+            });
+        }
+
+        function truncateText(text, wordLimit) {
+            var words = text.split(' ');
+            if (words.length > wordLimit) {
+                return words.slice(0, wordLimit).join(' ') + '...';
             }
-        });
-    }
-    function truncateText(text, wordLimit) {
-        var words = text.split(' ');
-        if (words.length > wordLimit) {
-            return words.slice(0, wordLimit).join(' ') + '...';
+            return text;
         }
-        return text;
-    }
-    function updateIndikatorAndTahunH1() {
-        var selectedIndikatorText = $('#indikator_id option:selected').attr('data-full-text');
-        var selectedTahunText = $('#tahun option:selected').text();
-        // Check if both values are selected
-        if (selectedIndikatorText && selectedTahunText) {
-            var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
-            $('#indikator_value').text(combinedText);
-            $('#tahun_value').text('');
+
+        function updateIndikatorAndTahunH1() {
+            var selectedIndikatorText = $('#indikator_id option:selected').attr('data-full-text');
+            var selectedTahunText = $('#tahun option:selected').text();
+            // Check if both values are selected
+            if (selectedIndikatorText && selectedTahunText) {
+                var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
+                $('#indikator_value').text(combinedText);
+                $('#tahun_value').text('');
+            }
         }
-    }
 
         $(document).ready(function() {
             $('#indikator_id').change(function() {

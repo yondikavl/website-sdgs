@@ -61,12 +61,13 @@
             </div>
         </div>
 
-        <div class="container row my-5">
-            <div class="d-flex align-items-center">
+        <div class="container my-5">
+            <div class="d-flex align-items-center justify-content-center">
                 <form class="form-inline">
                     <!-- Tujuan -->
-                    <div class="form-group mx-3">
-                        <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
+                    <div class="form-group m-2">
+                        <label for="tujuan_id" class="mr-2 d-flex"
+                            style="min-width: 100px; max-width: 100px;">{{ __('Tujuan') }}</label>
                         <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
                             onchange="getIndikator(this.value)" required>
                             <option value="">Pilih Peta Tujuan</option>
@@ -78,8 +79,9 @@
                     </div>
 
                     <!-- Indikator -->
-                    <div class="form-group mx-3">
-                        <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
+                    <div class="form-group m-2">
+                        <label for="indikator_id" class="mr-2 d-flex"
+                            style="min-width: 100px; max-width: 100px;">{{ __('Indikator') }}</label>
                         <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
                             onchange="getKecamatan(this.value)">
                             <option value="">Pilih Indikator</option>
@@ -87,8 +89,9 @@
                     </div>
 
                     <!-- Kecamatan -->
-                    <div class="form-group mx-3">
-                        <label for="kecamatan_id" class="mr-2">{{ __('Kecamatan') }}</label>
+                    <div class="form-group m-2">
+                        <label for="kecamatan_id" class="mr-2 d-flex"
+                            style="min-width: 100px; max-width: 100px;">{{ __('Kecamatan') }}</label>
                         <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
                             onchange="updateChartAndTable()">
                             <option value="">Pilih Kecamatan</option>
@@ -144,8 +147,12 @@
                 url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
                 success: function(response) {
                     response.forEach(element => {
+                        let namaIndikator = element['nama_indikator'];
+                        if (namaIndikator.length > 30) {
+                            namaIndikator = namaIndikator.substring(0, 30) + '...';
+                        }
                         $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
+                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${namaIndikator}</option>`
                         );
                     });
                     if (response.length > 0) {
@@ -154,6 +161,7 @@
                 }
             });
         }
+
 
         function getKecamatan(indikatorId) {
             console.log('Indikator ID:', indikatorId); // Debugging
@@ -188,84 +196,96 @@
         }
 
         function updateChartAndTable() {
-    var indikatorId = $('#indikator_id').val();
-    var kecamatanId = $('#kecamatan_id').val();
+            var indikatorId = $('#indikator_id').val();
+            var kecamatanId = $('#kecamatan_id').val();
 
-    if (!indikatorId || !kecamatanId) return;
+            if (!indikatorId || !kecamatanId) return;
 
-    $.ajax({
-        type: 'GET',
-        url: "{{ route('get-prediksi-data', ['indikatorId' => ':indikatorId', 'kecamatanId' => ':kecamatanId']) }}"
-            .replace(':indikatorId', indikatorId)
-            .replace(':kecamatanId', kecamatanId),
-        success: function(response) {
-            if (!response || !response.labels || !response.historicalData || !response.tingkatans) {
-                console.error("Data tidak lengkap atau format tidak sesuai.");
-                return;
-            }
-
-            var labels = response.labels;
-            var historicalData = response.historicalData;
-            var tingkatans = response.tingkatans;
-
-            var datasets = [];
-            var tableBody = $('#dataTable tbody');
-            var tableHead = $('#dataTable thead');
-            tableBody.empty();
-            tableHead.empty();
-
-            var startYear = parseInt(labels[labels.length - 1]) + 1;
-            var endYear = 2030;
-            var predictedYears = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
-
-            // Build table header
-            var headerRow = '<tr><th>Tahun</th>';
-            tingkatans.forEach(tingkatan => {
-                headerRow += `<th>${tingkatan}/Sederajat</th>`;
-            });
-            headerRow += '</tr>';
-            tableHead.append(headerRow);
-
-            tingkatans.forEach(tingkatan => {
-                var historicalDataForTingkatan = historicalData[tingkatan].map(parseFloat);
-                var predictedData = predictData(historicalDataForTingkatan, startYear, endYear);
-
-                datasets.push({
-                    label: tingkatan + '/Sederajat',
-                    data: historicalDataForTingkatan.concat(predictedData),
-                    borderColor: getRandomColor(),
-                    borderWidth: 2,
-                    fill: false
-                });
-
-                predictedYears.forEach((year, index) => {
-                    var row = tableBody.find(`tr:contains(${year})`);
-                    if (row.length === 0) {
-                        row = $('<tr>').appendTo(tableBody);
-                        row.append(`<td>${year}</td>`);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-prediksi-data', ['indikatorId' => ':indikatorId', 'kecamatanId' => ':kecamatanId']) }}"
+                    .replace(':indikatorId', indikatorId)
+                    .replace(':kecamatanId', kecamatanId),
+                success: function(response) {
+                    if (!response || !response.labels || !response.historicalData || !response.tingkatans) {
+                        console.error("Data tidak lengkap atau format tidak sesuai.");
+                        return;
                     }
-                    row.append(`<td>${predictedData[index].toFixed(2)}%</td>`);
-                });
+
+                    var labels = response.labels;
+                    var historicalData = response.historicalData;
+                    var tingkatans = response.tingkatans;
+
+                    var datasets = [];
+                    var tableBody = $('#dataTable tbody');
+                    var tableHead = $('#dataTable thead');
+                    tableBody.empty();
+                    tableHead.empty();
+
+                    var startYear = parseInt(labels[labels.length - 1]) + 1;
+                    var endYear = 2030;
+                    var predictedYears = Array.from({
+                        length: endYear - startYear + 1
+                    }, (_, i) => startYear + i);
+
+                    // Build table header
+                    var headerRow = '<tr><th>Tahun</th>';
+                    tingkatans.forEach(tingkatan => {
+                        headerRow += `<th>${tingkatan}/Sederajat</th>`;
+                    });
+                    headerRow += '</tr>';
+                    tableHead.append(headerRow);
+
+                    // Add historical data to table
+                    labels.forEach((year, index) => {
+                        var row = `<tr><td>${year}</td>`;
+                        tingkatans.forEach(tingkatan => {
+                            row += `<td>${historicalData[tingkatan][index].toFixed(2)}%</td>`;
+                        });
+                        row += '</tr>';
+                        tableBody.append(row);
+                    });
+
+                    tingkatans.forEach(tingkatan => {
+                        var historicalDataForTingkatan = historicalData[tingkatan].map(parseFloat);
+                        var predictedData = predictData(historicalDataForTingkatan, startYear, endYear);
+
+                        datasets.push({
+                            label: tingkatan + '/Sederajat',
+                            data: historicalDataForTingkatan.concat(predictedData),
+                            borderColor: getRandomColor(),
+                            borderWidth: 2,
+                            fill: false
+                        });
+
+                        predictedYears.forEach((year, index) => {
+                            var row = tableBody.find(`tr:contains(${year})`);
+                            if (row.length === 0) {
+                                row = $('<tr>').appendTo(tableBody);
+                                row.append(`<td>${year}</td>`);
+                            }
+                            row.append(`<td>${predictedData[index].toFixed(2)}%</td>`);
+                        });
+                    });
+
+                    window.myChart.data.labels = labels.concat(predictedYears);
+                    window.myChart.data.datasets = datasets;
+                    window.myChart.update();
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
             });
-
-            window.myChart.data.labels = labels.concat(predictedYears);
-            window.myChart.data.datasets = datasets;
-            window.myChart.update();
-        },
-        error: function(xhr) {
-            console.error(xhr.responseText);
         }
-    });
-}
 
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
 
 
         $(document).ready(function() {
