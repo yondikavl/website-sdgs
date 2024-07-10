@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('sumber_data')->nullable();
             $table->text('tingkatan')->nullable();
             $table->text('keterangan')->nullable();
+            $table->text('user_id')->nullable();
             $table->timestamps();
         });
     }

@@ -337,37 +337,44 @@
         }
 
         function getIndikator(tujuanId) {
-            $('#indikator_id').empty();
-            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
-                success: function(response) {
-                    response.forEach(element => {
-                        $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
-                        );
-                    });
+        $('#indikator_id').empty();
+        $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
+            success: function(response) {
+                response.forEach(element => {
+                    // Potong teks indikator
+                    let truncatedText = truncateText(`${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
+                    $('#indikator_id').append(
+                        `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
+                    );
+                });
 
-                    // Select the first available indicator by default
-                    if (response.length > 0) {
-                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
-                    }
+                // Select the first available indicator by default
+                if (response.length > 0) {
+                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
                 }
-            });
-        }
-
-        function updateIndikatorAndTahunH1() {
-            var selectedIndikatorText = $('#indikator_id option:selected').text();
-            var selectedTahunText = $('#tahun option:selected').text();
-
-            // Check if both values are selected
-            if (selectedIndikatorText && selectedTahunText) {
-                var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
-                $('#indikator_value').text(combinedText);
-                $('#tahun_value').text('');
             }
+        });
+    }
+    function truncateText(text, wordLimit) {
+        var words = text.split(' ');
+        if (words.length > wordLimit) {
+            return words.slice(0, wordLimit).join(' ') + '...';
         }
+        return text;
+    }
+    function updateIndikatorAndTahunH1() {
+        var selectedIndikatorText = $('#indikator_id option:selected').attr('data-full-text');
+        var selectedTahunText = $('#tahun option:selected').text();
+        // Check if both values are selected
+        if (selectedIndikatorText && selectedTahunText) {
+            var combinedText = `Peta Indikator ${selectedIndikatorText}, Tahun ${selectedTahunText}`;
+            $('#indikator_value').text(combinedText);
+            $('#tahun_value').text('');
+        }
+    }
 
         $(document).ready(function() {
             $('#indikator_id').change(function() {

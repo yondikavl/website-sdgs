@@ -7,13 +7,17 @@ use App\Models\Kecamatan;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Support\Facades\Auth;
 
 class PencapaianImport implements ToModel, WithStartRow
 {
     public $tahun;
+    public $userId;
 
-    public function __construct($tahun){
+    public function __construct($tahun)
+    {
         $this->tahun = $tahun;
+        $this->userId = Auth::user()->id;
     }
 
     public function model(array $row)
@@ -25,18 +29,22 @@ class PencapaianImport implements ToModel, WithStartRow
         $tingkatan = $row[6];
         $keterangan = $row[7];
 
+        // Validate the input data
+        if (!$kode_indikator || !$tipe || !$persentase || !$sumber_data || !$tingkatan) {
+            return null; // Skip this row if any required field is missing
+        }
+
         // Fetch or create the Pencapaian record
-        $pencapaian = Pencapaian::create(
-            [
-                'indikator_id' => $kode_indikator,
-                'tahun' => $this->tahun,
-                'tipe' => $tipe,
-                'persentase' => $persentase,
-                'sumber_data' => $sumber_data,
-                'tingkatan' => $tingkatan,
-                'keterangan' => $keterangan
-            ]
-        );
+        $pencapaian = Pencapaian::create([
+            'indikator_id' => $kode_indikator,
+            'tahun' => $this->tahun,
+            'tipe' => $tipe,
+            'persentase' => $persentase,
+            'sumber_data' => $sumber_data,
+            'tingkatan' => $tingkatan,
+            'keterangan' => $keterangan,
+            'user_id' => $this->userId, // Set the user_id to the authenticated user's ID
+        ]);
 
         if (!empty($row[5])) {
             $kecamatanNames = explode(',', $row[5]);

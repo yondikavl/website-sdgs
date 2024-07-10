@@ -100,6 +100,8 @@ class PencapaianController extends Controller
         ]
     );
 
+    $currentUser = auth()->user();
+
     $pencapaian = Pencapaian::create([
         'indikator_id' => $request->indikator_id,
         'tahun' => $request->tahun,
@@ -107,20 +109,23 @@ class PencapaianController extends Controller
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
         'tingkatan' => $request->tingkatan,
-        'keterangan' => $request->keterangan
+        'keterangan' => $request->keterangan,
+        'user_id' => $currentUser->id, // Set the user_id to the current authenticated user's ID
     ]);
 
     // Attach kecamatan to pencapaian
     $pencapaian->Kecamatan()->attach($request->kecamatan_id);
 
-        if (auth()->user()->roles_id == 1) {
-            return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
-        } else if (auth()->user()->roles_id == 2) {
-            return redirect('admin/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
-        } else if (auth()->user()->roles_id == 3) {
-            return redirect('opd/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
-        }
+    if ($currentUser->roles_id == 1) {
+        return redirect('super/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+    } else if ($currentUser->roles_id == 2) {
+        return redirect('admin/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
+    } else if ($currentUser->roles_id == 3) {
+        return redirect('opd/pencapaian')->with('sukses', 'Berhasil Tambah Data!');
     }
+}
+
+
 
     public function show($id)
     {

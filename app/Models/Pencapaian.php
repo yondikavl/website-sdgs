@@ -16,7 +16,8 @@ class Pencapaian extends Model
         'persentase',
         'sumber_data',
         'tingkatan',
-        'keterangan'
+        'keterangan',
+        'user_id',
     ];
 
     public function Indikator()
@@ -28,4 +29,10 @@ class Pencapaian extends Model
     {
         return $this->belongsToMany(Kecamatan::class, 'alamat_pencapaian', 'pencapaian_id', 'kecamatan_id');
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
 }

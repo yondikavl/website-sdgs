@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function Role(){
         return $this->belongsTo(Role::class, 'roles_id', 'id');
     }
+
+    public function Pencapaian(){
+        return $this->hasMany(Pencapaian::class, 'user_id', 'id');
+    }
 }
