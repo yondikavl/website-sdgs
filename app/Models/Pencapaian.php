@@ -26,6 +26,6 @@ class Pencapaian extends Model
 
     public function Kecamatan()
     {
-        return $this->belongsToMany(Kecamatan::class, 'alamat_pencapaian', 'pencapaian_id', 'kelurahan_id');
+        return $this->belongsToMany(Kecamatan::class, 'alamat_pencapaian', 'pencapaian_id', 'kecamatan_id');
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('alamat_pencapaian', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pencapaian_id')->nullable();
-            $table->foreignId('kelurahan_id')->nullable();
+            $table->foreignId('kecamatan_id')->nullable();
             $table->integer('tinggi')->default(100);
             $table->integer('sedang')->default(75);
             $table->integer('rendah')->default(50);

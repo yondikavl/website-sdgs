@@ -80,7 +80,8 @@
                     <!-- Indikator -->
                     <div class="form-group mx-3">
                         <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
-                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="getKecamatan(this.value)">
+                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
+                            onchange="getKecamatan(this.value)">
                             <option value="">Pilih Indikator</option>
                         </select>
                     </div>
@@ -88,7 +89,8 @@
                     <!-- Kecamatan -->
                     <div class="form-group mx-3">
                         <label for="kecamatan_id" class="mr-2">{{ __('Kecamatan') }}</label>
-                        <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id" onchange="updateChartAndTable()">
+                        <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
+                            onchange="updateChartAndTable()">
                             <option value="">Pilih Kecamatan</option>
                         </select>
                     </div>
@@ -129,116 +131,167 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-statistics"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-statistics"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    function getIndikator(tujuanId) {
-        $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
-            success: function(response) {
-                response.forEach(element => {
-                    $('#indikator_id').append(`<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`);
-                });
-                if (response.length > 0) {
-                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+    <script>
+        function getIndikator(tujuanId) {
+            $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
+                success: function(response) {
+                    response.forEach(element => {
+                        $('#indikator_id').append(
+                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
+                        );
+                    });
+                    if (response.length > 0) {
+                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    function getKecamatan(indikatorId) {
-        $.ajax({
-            url: "{{ route('get-kecamatan') }}",
-            type: 'GET',
-            data: { indikator_id: indikatorId },
-            success: function(response) {
-                var kecamatanSelect = $('#kecamatan_id');
-                kecamatanSelect.empty().append('<option value="">Pilih Kecamatan</option>');
-                response.kecamatans.forEach(kecamatan => {
-                    kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan.name + '</option>');
+        function getKecamatan(indikatorId) {
+            console.log('Indikator ID:', indikatorId); // Debugging
+            $.ajax({
+                url: "{{ route('get-kecamatan') }}",
+                type: 'GET',
+                data: {
+                    indikator_id: indikatorId
+                },
+                success: function(response) {
+                    var kecamatanSelect = $('#kecamatan_id');
+                    kecamatanSelect.empty().append('<option value="">Pilih Kecamatan</option>');
+                    response.kecamatans.forEach(kecamatan => {
+                        kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan
+                            .name + '</option>');
+                    });
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        function predictData(data, startYear, endYear) {
+            var x = data.map((_, i) => i);
+            var regression = ss.linearRegression(x.map((d, i) => [d, data[i]]));
+            var line = ss.linearRegressionLine(regression);
+            var years = endYear - startYear + 1;
+            return Array.from({
+                length: years
+            }, (_, i) => Math.min(100, Math.max(0, line(data.length + i))));
+        }
+
+        function updateChartAndTable() {
+    var indikatorId = $('#indikator_id').val();
+    var kecamatanId = $('#kecamatan_id').val();
+
+    if (!indikatorId || !kecamatanId) return;
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ route('get-prediksi-data', ['indikatorId' => ':indikatorId', 'kecamatanId' => ':kecamatanId']) }}"
+            .replace(':indikatorId', indikatorId)
+            .replace(':kecamatanId', kecamatanId),
+        success: function(response) {
+            if (!response || !response.labels || !response.historicalData || !response.tingkatans) {
+                console.error("Data tidak lengkap atau format tidak sesuai.");
+                return;
+            }
+
+            var labels = response.labels;
+            var historicalData = response.historicalData;
+            var tingkatans = response.tingkatans;
+
+            var datasets = [];
+            var tableBody = $('#dataTable tbody');
+            var tableHead = $('#dataTable thead');
+            tableBody.empty();
+            tableHead.empty();
+
+            var startYear = parseInt(labels[labels.length - 1]) + 1;
+            var endYear = 2030;
+            var predictedYears = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+
+            // Build table header
+            var headerRow = '<tr><th>Tahun</th>';
+            tingkatans.forEach(tingkatan => {
+                headerRow += `<th>${tingkatan}/Sederajat</th>`;
+            });
+            headerRow += '</tr>';
+            tableHead.append(headerRow);
+
+            tingkatans.forEach(tingkatan => {
+                var historicalDataForTingkatan = historicalData[tingkatan].map(parseFloat);
+                var predictedData = predictData(historicalDataForTingkatan, startYear, endYear);
+
+                datasets.push({
+                    label: tingkatan + '/Sederajat',
+                    data: historicalDataForTingkatan.concat(predictedData),
+                    borderColor: getRandomColor(),
+                    borderWidth: 2,
+                    fill: false
                 });
-                updateChartAndTable(indikatorId);
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
 
-    function predictData(data, years) {
-        var x = data.map((_, i) => i);
-        var regression = ss.linearRegression(x.map((d, i) => [d, data[i]]));
-        var line = ss.linearRegressionLine(regression);
-        return Array.from({ length: years }, (_, i) => Math.min(100, Math.max(0, line(data.length + i))));
-    }
-
-    function updateChartAndTable() {
-        var indikatorId = $('#indikator_id').val();
-        var kecamatanId = $('#kecamatan_id').val();
-
-        if (!indikatorId || !kecamatanId) return;
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('get-prediksi-data', ['indikatorId' => ':indikatorId', 'kecamatanId' => ':kecamatanId']) }}"
-                .replace(':indikatorId', indikatorId)
-                .replace(':kecamatanId', kecamatanId),
-            success: function(response) {
-                var labels = response.labels;
-                var historicalData1 = response.historicalData1;
-                var historicalData2 = response.historicalData2;
-                var historicalData3 = response.historicalData3;
-
-                var predictedData1 = predictData(historicalData1, 6);
-                var predictedData2 = predictData(historicalData2, 6);
-                var predictedData3 = predictData(historicalData3, 6);
-
-                var predictedYears = labels.slice(-6).map(year => parseInt(year) + 1);
-
-                var tableBody = $('#dataTable tbody');
-                tableBody.empty();
                 predictedYears.forEach((year, index) => {
-                    tableBody.append(`
-                        <tr>
-                            <td>${year}</td>
-                            <td>${predictedData1[index].toFixed(2)}%</td>
-                            <td>${predictedData2[index].toFixed(2)}%</td>
-                            <td>${predictedData3[index].toFixed(2)}%</td>
-                        </tr>
-                    `);
+                    var row = tableBody.find(`tr:contains(${year})`);
+                    if (row.length === 0) {
+                        row = $('<tr>').appendTo(tableBody);
+                        row.append(`<td>${year}</td>`);
+                    }
+                    row.append(`<td>${predictedData[index].toFixed(2)}%</td>`);
                 });
+            });
 
-                myChart.data.labels = labels.concat(predictedYears);
-                myChart.data.datasets = [
-                    { label: 'SD/Sederajat', data: historicalData1.concat(predictedData1), borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 2, fill: false },
-                    { label: 'SMP/Sederajat', data: historicalData2.concat(predictedData2), borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, fill: false },
-                    { label: 'SMA/Sederajat', data: historicalData3.concat(predictedData3), borderColor: 'rgba(255, 206, 86, 1)', borderWidth: 2, fill: false }
-                ];
-                myChart.update();
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [] }, options: { scales: { y: { beginAtZero: true, min: 0, max: 100 } } } });
-
-        $('#indikator_id').change(function() {
-            getKecamatan($(this).val());
-        });
-
-        $('#kecamatan_id').change(updateChartAndTable);
+            window.myChart.data.labels = labels.concat(predictedYears);
+            window.myChart.data.datasets = datasets;
+            window.myChart.update();
+        },
+        error: function(xhr) {
+            console.error(xhr.responseText);
+        }
     });
-</script>
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+        $(document).ready(function() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            window.myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            $('#indikator_id').change(function() {
+                getKecamatan($(this).val());
+            });
+
+            $('#kecamatan_id').change(updateChartAndTable);
+        });
+    </script>
 @endsection
-
-
-
