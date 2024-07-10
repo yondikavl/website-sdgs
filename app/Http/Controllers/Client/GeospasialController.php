@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Client;
 
 use App\Models\Pencapaian;
 use App\Models\Indikator;
-use App\Models\Geospasial;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

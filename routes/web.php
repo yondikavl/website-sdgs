@@ -87,7 +87,7 @@ Route::get('tujuan/{id}', [TujuansController::class, 'show'])->name('tujuan');
 Route::get('target', [TargetController::class, 'index'])->name('target');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
-Route::get('pencapaian/{id}', [ProgramController::class, 'show'])->name('detail-pencapaian');
+Route::get('pencapaian/{id}', [PencapaianController::class, 'show'])->name('detail-pencapaian');
 
 Route::get('/kontak', function () {
     return view('client.kontak');
