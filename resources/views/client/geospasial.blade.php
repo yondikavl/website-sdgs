@@ -433,6 +433,7 @@
 
 
         document.addEventListener("DOMContentLoaded", function() {
+            // Populate filter dropdowns with unique tahun and indikator values
             const tahunSet = new Set();
             const indikatorSet = new Set();
 
@@ -455,7 +456,8 @@
 
                 item.kecamatan.forEach(kecamatan => {
                     const pathElement = document.querySelector(`#a${kecamatan.code}`);
-                    console.log(item.indikator_id)
+                    console.log(item.persentase)
+
 
                     pathElement.setAttribute('fill', newColor);
 
