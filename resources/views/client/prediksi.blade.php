@@ -80,8 +80,16 @@
                     <!-- Indikator -->
                     <div class="form-group mx-3">
                         <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
-                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="updateChartAndTable(this.value)">
+                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id" onchange="getKecamatan(this.value)">
                             <option value="">Pilih Indikator</option>
+                        </select>
+                    </div>
+
+                    <!-- Kecamatan -->
+                    <div class="form-group mx-3">
+                        <label for="kecamatan_id" class="mr-2">{{ __('Kecamatan') }}</label>
+                        <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id" onchange="updateChartAndTable()">
+                            <option value="">Pilih Kecamatan</option>
                         </select>
                     </div>
                 </form>
@@ -95,7 +103,6 @@
         </div>
 
         <div class="container mb-5">
-
             <canvas id="myChart"></canvas>
         </div>
 
@@ -122,190 +129,116 @@
 @endsection
 
 @section('script')
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function getIndikator(tujuanId) {
-            $('#indikator_id').empty();
-            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
-                success: function(response) {
-                    response.forEach(element => {
-                        $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`
-                        );
-                    });
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-statistics"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-                    // Select the first available indicator by default
-                    if (response.length > 0) {
-                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
-                    }
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('myChart').getContext('2d');
-
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: []
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            min: 0,
-                            max: 100
-                        }
-                    },
-                }
-            });
-
-            function predictData(data, years) {
-                var x = [];
-                var y = data;
-                for (var i = 0; i < y.length; i++) {
-                    x.push(i);
-                }
-                var regression = ss.linearRegression(x.map(function(d, i) {
-                    return [d, y[i]];
-                }));
-                var line = ss.linearRegressionLine(regression);
-
-                var predictedData = [];
-                for (var i = y.length; i < y.length + years; i++) {
-                    var prediction = line(i);
-                    prediction = Math.min(100, Math.max(0, prediction)); // memastikan nilai prediksi berada di antara 0 dan 100
-                    predictedData.push(prediction);
-                }
-                return predictedData;
-            }
-
-            function updateChartAndTable(indikatorId) {
-                if (!indikatorId) return;
-                console.log(indikatorId);
-
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('get-prediksi-data', '') }}" + '/' + indikatorId,
-                    success: function(response) {
-                        console.log(response.pencapaians)
-                        // Track unique 'tingkatan' values
-                    var uniqueTingkatan = [];
-                    var uniqueTahun = [];
-
-                    var tingkatanData = [];
-                    var tahunData = [];
-
-                    var persentaseData = [];
-
-                    // Iterate through pencapaians data and log unique 'tingkatan'
-                    response.pencapaians.forEach(function(pencapaian, index) {
-                        var persentase = pencapaian.persentase
-                        var tingkatan = pencapaian.tingkatan;
-                        if (!uniqueTingkatan[tingkatan]) {
-                            uniqueTingkatan[tingkatan] = true;
-                            tingkatanData.push(tingkatan);
-                            // console.log(`Item ${index + 1} - Tingkatan:`, tingkatan);
-                        }
-                        var tahun = pencapaian.tahun;
-                        if (!uniqueTahun[tahun]) {
-                            uniqueTahun[tahun] = true;
-                            tahunData.push(tahun);
-                            // console.log(`Item ${index + 1} - Tahun:`, tahun);
-                        }
-                    });
-                    
-                    
-                    console.log(tingkatanData);
-                    console.log(tahunData);
-
-
-                        var historicalData1 = response.historicalData1;
-                        var historicalData2 = response.historicalData2;
-                        var historicalData3 = response.historicalData3;
-                        var labels = response.labels;
-
-                        var predictedData1 = predictData(historicalData1, 6);
-                        var predictedData2 = predictData(historicalData2, 6);
-                        var predictedData3 = predictData(historicalData3, 6);
-                        var forecastLabels = labels.concat(['2025', '2026', '2027', '2028', '2029', '2030']);
-
-                        var combinedData1 = historicalData1.concat(predictedData1);
-                        var combinedData2 = historicalData2.concat(predictedData2);
-                        var combinedData3 = historicalData3.concat(predictedData3);
-
-                        var datasets = [{
-                                label: 'Tingkat penyelesaian pendidikan di jenjang SD/Sederajat',
-                                data: combinedData1,
-                                borderColor: "rgba(75, 192, 192, 1)",
-                                backgroundColor: "rgba(75, 192, 192, 0.2)",
-                                fill: false
-                            },
-                            {
-                                label: 'Tingkat penyelesaian pendidikan di jenjang SMP/Sederajat',
-                                data: combinedData2,
-                                borderColor: "rgba(255, 99, 132, 1)",
-                                backgroundColor: "rgba(255, 99, 132, 0.2)",
-                                fill: false
-                            },
-                            {
-                                label: 'Tingkat penyelesaian pendidikan di jenjang SMA/Sederajat',
-                                data: combinedData3,
-                                borderColor: "rgba(54, 162, 235, 1)",
-                                backgroundColor: "rgba(54, 162, 235, 0.2)",
-                                fill: false
-                            }
-                        ];
-
-                        myChart.data.labels = forecastLabels;
-                        myChart.data.datasets = datasets;
-                        myChart.update();
-
-                        var tableBody = document.querySelector('#dataTable tbody');
-                        tableBody.innerHTML = '';
-
-                        for (var i = 0; i < forecastLabels.length; i++) {
-                            var row = '<tr>' +
-                                '<td>' + forecastLabels[i] + '</td>' +
-                                '<td>' + (combinedData1[i] !== undefined ? combinedData1[i].toFixed(2) : '-') + '</td>' +
-                                '<td>' + (combinedData2[i] !== undefined ? combinedData2[i].toFixed(2) : '-') + '</td>' +
-                                '<td>' + (combinedData3[i] !== undefined ? combinedData3[i].toFixed(2) : '-') + '</td>' +
-                                '</tr>';
-                            tableBody.innerHTML += row;
-                        }
-
-                        var selectedText = $("#indikator_id option:selected").text();
-                        $('#indikator_value').text(selectedText);
-                    }
+<script>
+    function getIndikator(tujuanId) {
+        $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-prediksi-indikator', '') }}" + '/' + tujuanId,
+            success: function(response) {
+                response.forEach(element => {
+                    $('#indikator_id').append(`<option value="${element['kode_indikator']}">${element['kode_indikator']}. ${element['nama_indikator']}</option>`);
                 });
+                if (response.length > 0) {
+                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                }
             }
-
-            document.querySelectorAll('#lineSelector input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    var checkboxes = document.querySelectorAll('#lineSelector input[type="checkbox"]');
-                    var selectedDatasets = [];
-
-                    checkboxes.forEach((checkbox, index) => {
-                        if (checkbox.checked) {
-                            selectedDatasets.push(myChart.data.datasets[index]);
-                        }
-                    });
-
-                    myChart.data.datasets = selectedDatasets;
-                    myChart.update();
-                });
-            });
-
-            $('#indikator_id').on('change', function() {
-                updateChartAndTable(this.value);
-            });
         });
-    </script>
+    }
+
+    function getKecamatan(indikatorId) {
+        $.ajax({
+            url: "{{ route('get-kecamatan') }}",
+            type: 'GET',
+            data: { indikator_id: indikatorId },
+            success: function(response) {
+                var kecamatanSelect = $('#kecamatan_id');
+                kecamatanSelect.empty().append('<option value="">Pilih Kecamatan</option>');
+                response.kecamatans.forEach(kecamatan => {
+                    kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan.name + '</option>');
+                });
+                updateChartAndTable(indikatorId);
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function predictData(data, years) {
+        var x = data.map((_, i) => i);
+        var regression = ss.linearRegression(x.map((d, i) => [d, data[i]]));
+        var line = ss.linearRegressionLine(regression);
+        return Array.from({ length: years }, (_, i) => Math.min(100, Math.max(0, line(data.length + i))));
+    }
+
+    function updateChartAndTable() {
+        var indikatorId = $('#indikator_id').val();
+        var kecamatanId = $('#kecamatan_id').val();
+
+        if (!indikatorId || !kecamatanId) return;
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-prediksi-data', ['indikatorId' => ':indikatorId', 'kecamatanId' => ':kecamatanId']) }}"
+                .replace(':indikatorId', indikatorId)
+                .replace(':kecamatanId', kecamatanId),
+            success: function(response) {
+                var labels = response.labels;
+                var historicalData1 = response.historicalData1;
+                var historicalData2 = response.historicalData2;
+                var historicalData3 = response.historicalData3;
+
+                var predictedData1 = predictData(historicalData1, 6);
+                var predictedData2 = predictData(historicalData2, 6);
+                var predictedData3 = predictData(historicalData3, 6);
+
+                var predictedYears = labels.slice(-6).map(year => parseInt(year) + 1);
+
+                var tableBody = $('#dataTable tbody');
+                tableBody.empty();
+                predictedYears.forEach((year, index) => {
+                    tableBody.append(`
+                        <tr>
+                            <td>${year}</td>
+                            <td>${predictedData1[index].toFixed(2)}%</td>
+                            <td>${predictedData2[index].toFixed(2)}%</td>
+                            <td>${predictedData3[index].toFixed(2)}%</td>
+                        </tr>
+                    `);
+                });
+
+                myChart.data.labels = labels.concat(predictedYears);
+                myChart.data.datasets = [
+                    { label: 'SD/Sederajat', data: historicalData1.concat(predictedData1), borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 2, fill: false },
+                    { label: 'SMP/Sederajat', data: historicalData2.concat(predictedData2), borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, fill: false },
+                    { label: 'SMA/Sederajat', data: historicalData3.concat(predictedData3), borderColor: 'rgba(255, 206, 86, 1)', borderWidth: 2, fill: false }
+                ];
+                myChart.update();
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [] }, options: { scales: { y: { beginAtZero: true, min: 0, max: 100 } } } });
+
+        $('#indikator_id').change(function() {
+            getKecamatan($(this).val());
+        });
+
+        $('#kecamatan_id').change(updateChartAndTable);
+    });
+</script>
 @endsection
+
+
+

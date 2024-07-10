@@ -98,7 +98,10 @@ Route::get('/kontak', function () {
 Route::get('/client/get-tahun', [GeospasialController::class, 'getTahun'])->name('client.getTahun');
 Route::get('get-peta-indikator/{id}', [GeospasialController::class, 'getAllIndikator'])->name('get-peta-indikator');
 Route::get('get-prediksi-indikator/{id}', [PrediksiController::class, 'getAllIndikator'])->name('get-prediksi-indikator');
-Route::get('/get-prediksi-data/{id}', [PrediksiController::class, 'getPrediksiData'])->name('get-prediksi-data');
+Route::get('get-kecamatan', [PrediksiController::class, 'getKecamatan'])->name('get-kecamatan');
+// Route::get('get-prediksi-data/{indikatorId}/{kecamatanId}', [PrediksiController::class, 'getPrediksiData']);
+
+Route::get('get-prediksi-data/{indikatorId}/{kecamatanId}', [PrediksiController::class, 'getPrediksiData'])->name('get-prediksi-data');
 Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
 Route::get('get-tujuan', [TujuanController::class, 'getAllTujuan'])->name('get-tujuan');
 Route::get('admin/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('admin.get-indikator');
