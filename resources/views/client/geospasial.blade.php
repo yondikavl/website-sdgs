@@ -11,14 +11,21 @@
 
         .popup-table th,
         .popup-table td {
-            border: 1px solid #ddd;
+            border: 1px solid green;
             padding: 8px;
         }
 
-        .popup-table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
+        th {
             text-align: left;
+            background-color: #28a745;
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
@@ -69,6 +76,32 @@
             transform: scale(1.04);
             z-index: 1;
             fill: #226742;
+        }
+
+        @media (max-width: 1024px) {
+            .popup {
+                width: 90%;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .container-content {
+                flex-direction: column;
+                width: 100%;
+                padding: 0;
+            }
+
+            #my-svg {
+                width: 100%;
+                margin-bottom: 12px;
+                height: 500px;
+            }
+
+            .table-container {
+                overflow: auto;
+            }
         }
 
         @media (max-width: 768px) {
@@ -458,7 +491,7 @@
                     console.log(item.indikator.nama_indikator);
                     const value = item.persentase;
                     let newColor;
-    
+
                     if (value <= item.indikator.rendah) {
                         newColor = 'red';
                     } else if (value > item.indikator.rendah || value <= item.indikator.sedang) {
@@ -469,16 +502,16 @@
                         newColor = 'grey';
                     }
 
-                item.kecamatan.forEach(kecamatan => {
-                    const pathElement = document.querySelector(`#a${kecamatan.code}`);
+                    item.kecamatan.forEach(kecamatan => {
+                        const pathElement = document.querySelector(`#a${kecamatan.code}`);
 
-                    pathElement.setAttribute('fill', newColor);
+                        pathElement.setAttribute('fill', newColor);
 
-                    if (pathElement) {
-                        pathElement.addEventListener("click", handleClick);
-                    }
-                });
-            }
+                        if (pathElement) {
+                            pathElement.addEventListener("click", handleClick);
+                        }
+                    });
+                }
             });
 
             tahunSet.forEach(tahun => {

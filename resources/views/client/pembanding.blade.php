@@ -17,13 +17,23 @@
             margin-bottom: 20px;
         }
 
-        th, td {
-            border: 1px solid black;
+        th,
+        td {
+            border: 1px solid green;
             padding: 8px;
             text-align: center;
         }
 
         th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
@@ -67,7 +77,8 @@
             <!-- Tujuan -->
             <div class="form-group">
                 <label for="tujuan_id" class="">{{ __('Tujuan') }}</label>
-                <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikators(this.value)" required>
+                <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikators(this.value)"
+                    required>
                     <option value="">Pilih Peta Tujuan</option>
                     @foreach ($tujuans as $tujuan)
                         <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
@@ -81,7 +92,8 @@
                 <!-- Kecamatan 1 -->
                 <div class="form-group">
                     <label for="kecamatan_id_1" class="col-md-6">{{ __('Kecamatan 1') }}</label>
-                    <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1" onchange="updateTable1()">
+                    <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1"
+                        onchange="updateTable1()">
                         <option value="">Pilih Kecamatan 1</option>
                     </select>
                 </div>
@@ -89,7 +101,7 @@
                     <thead>
                         <tr>
                             <th>Indikator</th>
-                            @foreach($tahuns as $item)
+                            @foreach ($tahuns as $item)
                                 <th>{{ $item }}</th>
                             @endforeach
                         </tr>
@@ -104,7 +116,8 @@
                 <!-- Kecamatan 2 -->
                 <div class="form-group">
                     <label for="kecamatan_id_2" class="col-md-6">{{ __('Kecamatan 2') }}</label>
-                    <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2" onchange="updateTable2()">
+                    <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2"
+                        onchange="updateTable2()">
                         <option value="">Pilih Kecamatan 2</option>
                     </select>
                 </div>
@@ -112,7 +125,7 @@
                     <thead>
                         <tr>
                             <th>Indikator</th>
-                            @foreach($tahuns as $item)
+                            @foreach ($tahuns as $item)
                                 <th>{{ $item }}</th>
                             @endforeach
                         </tr>
@@ -127,66 +140,66 @@
 @endsection
 
 @section('script')
-<script>
-    function getIndikators(tujuanId) {
-        if (!tujuanId) return;
+    <script>
+        function getIndikators(tujuanId) {
+            if (!tujuanId) return;
 
-        fetch(`/pembanding/indikators/${tujuanId}`)
-        .then(response => response.json())
-        .then(data => {
-            updateKecamatanOptions();
-        });
-    }
-
-    function updateTable(tujuanId, kecamatanId, tableId) {
-        if (!tujuanId || !kecamatanId) return;
-
-        fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
-            .then(response => response.json())
-            .then(data => {
-                const tahuns = @json($tahuns);
-                let tableBody = document.querySelector(`#${tableId} tbody`);
-                tableBody.innerHTML = '';
-
-                for (let indikator in data) {
-                    let row = `<tr>
-                                   <td>${indikator}</td>`;
-                    tahuns.forEach(tahun => {
-                        row += `<td>${data[indikator][tahun] || '-'}</td>`;
-                    });
-                    row += `</tr>`;
-                    tableBody.innerHTML += row;
-                }
-            });
-    }
-
-    function updateKecamatanOptions() {
-        fetch(`/pembanding/kecamatans`)
-            .then(response => response.json())
-            .then(data => {
-                let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
-                let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
-                kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
-                kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
-
-                data.forEach(kecamatan => {
-                    let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
-                    kecamatanSelect1.innerHTML += option;
-                    kecamatanSelect2.innerHTML += option;
+            fetch(`/pembanding/indikators/${tujuanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateKecamatanOptions();
                 });
-            });
-    }
+        }
 
-    function updateTable1() {
-        let tujuanId = document.getElementById('tujuan_id').value;
-        let kecamatanId = document.getElementById('kecamatan_id_1').value;
-        updateTable(tujuanId, kecamatanId, 'table1');
-    }
+        function updateTable(tujuanId, kecamatanId, tableId) {
+            if (!tujuanId || !kecamatanId) return;
 
-    function updateTable2() {
-        let tujuanId = document.getElementById('tujuan_id').value;
-        let kecamatanId = document.getElementById('kecamatan_id_2').value;
-        updateTable(tujuanId, kecamatanId, 'table2');
-    }
-</script>
+            fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tahuns = @json($tahuns);
+                    let tableBody = document.querySelector(`#${tableId} tbody`);
+                    tableBody.innerHTML = '';
+
+                    for (let indikator in data) {
+                        let row = `<tr>
+                                   <td>${indikator}</td>`;
+                        tahuns.forEach(tahun => {
+                            row += `<td>${data[indikator][tahun] || '-'}</td>`;
+                        });
+                        row += `</tr>`;
+                        tableBody.innerHTML += row;
+                    }
+                });
+        }
+
+        function updateKecamatanOptions() {
+            fetch(`/pembanding/kecamatans`)
+                .then(response => response.json())
+                .then(data => {
+                    let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
+                    let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
+                    kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
+                    kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
+
+                    data.forEach(kecamatan => {
+                        let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
+                        kecamatanSelect1.innerHTML += option;
+                        kecamatanSelect2.innerHTML += option;
+                    });
+                });
+        }
+
+        function updateTable1() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_1').value;
+            updateTable(tujuanId, kecamatanId, 'table1');
+        }
+
+        function updateTable2() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_2').value;
+            updateTable(tujuanId, kecamatanId, 'table2');
+        }
+    </script>
 @endsection

@@ -36,7 +36,7 @@
         table,
         th,
         td {
-            border: 1px solid black;
+            border: 1px solid green;
         }
 
         th,
@@ -46,6 +46,15 @@
         }
 
         th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
     </style>
@@ -111,9 +120,9 @@
             <canvas id="myChart"></canvas>
         </div>
 
-        <div class="container mb-5">
-            <h2 class="text-center">Table Data Prediksi</h2>
-            <table id="dataTable">
+        <h2 class="text-center">Table Data Prediksi</h2>
+        <div class="container mb-5 table-responsive">
+            <table id="dataTable" style="border: 0;">
                 <thead>
                     <tr>
                         <th>Tahun</th>
