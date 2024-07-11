@@ -17,8 +17,7 @@
             margin-bottom: 20px;
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
@@ -33,6 +32,24 @@
                 width: 100%;
             }
         }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            min-width: 100px;
+            max-width: 100px;
+        }
     </style>
 @endsection
 
@@ -46,94 +63,130 @@
             </div>
         </div>
 
-        <div class="container my-5">
-            <div class="d-flex align-items-center justify-content-center">
-                <form class="form-inline">
-                    <!-- Tujuan -->
-                    <div class="form-group m-2">
-                        <label for="tujuan_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Tujuan') }}</label>
-                        <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
-                            onchange="getIndikator(this.value)" required>
-                            <option value="">Pilih Peta Tujuan</option>
-                            @foreach ($tujuans as $tujuan)
-                                <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Indikator -->
-                    <div class="form-group m-2">
-                        <label for="indikator_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Indikator') }}</label>
-                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
-                            onchange="getKecamatan(this.value)">
-                            <option value="">Pilih Indikator</option>
-                        </select>
-                    </div>
-
-                    <!-- Kecamatan -->
-                    <div class="form-group m-2">
-                        <label for="kecamatan_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Kecamatan') }}</label>
-                        <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
-                            onchange="updateChartAndTable()">
-                            <option value="">Pilih Kecamatan</option>
-                        </select>
-                    </div>
-                </form>
+        <div class="form-container">
+            <!-- Tujuan -->
+            <div class="form-group">
+                <label for="tujuan_id" class="">{{ __('Tujuan') }}</label>
+                <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikators(this.value)" required>
+                    <option value="">Pilih Peta Tujuan</option>
+                    @foreach ($tujuans as $tujuan)
+                        <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
         <div class="table-container">
-            <table id="table1" class="overflow-auto">
-                <thead>
-                    <tr>
-                        <th>Kecamatan</th>
-                        @for ($year = 2019; $year <= 2024; $year++)
-                            <th>{{ $year }}</th>
-                        @endfor
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (['Teluk Betung Barat', 'Teluk Betung Timur', 'Teluk Betung Selatan', 'Teluk Betung Utara', 'Tanjung Karang Timur', 'Tanjung Karang Pusat', 'Tanjung Karang Barat', 'Tanjung Senang', 'Kedaton', 'Panjang', 'Sukarame', 'Sukabumi', 'Rajabasa', 'Tanjung Raya', 'Labuhan Ratu', 'Way Halim', 'Kemiling', 'Langkapura', 'Enggal', 'Kedamaian'] as $kecamatan)
+            <div class="form-container">
+                <!-- Kecamatan 1 -->
+                <div class="form-group">
+                    <label for="kecamatan_id_1" class="col-md-6">{{ __('Kecamatan 1') }}</label>
+                    <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1" onchange="updateTable1()">
+                        <option value="">Pilih Kecamatan 1</option>
+                    </select>
+                </div>
+                <table id="table1" class="overflow-auto">
+                    <thead>
                         <tr>
-                            <td>{{ $kecamatan }}</td>
-                            @for ($year = 2019; $year <= 2024; $year++)
-                                <td>-</td>
-                            @endfor
+                            <th>Indikator</th>
+                            @foreach($tahuns as $item)
+                                <th>{{ $item }}</th>
+                            @endforeach
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <!-- Table data will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
 
-            <table id="table2" class="overflow-auto">
-                <thead>
-                    <tr>
-                        <th>Kecamatan</th>
-                        @for ($year = 2019; $year <= 2024; $year++)
-                            <th>{{ $year }}</th>
-                        @endfor
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (['Teluk Betung Barat', 'Teluk Betung Timur', 'Teluk Betung Selatan', 'Teluk Betung Utara', 'Tanjung Karang Timur', 'Tanjung Karang Pusat', 'Tanjung Karang Barat', 'Tanjung Senang', 'Kedaton', 'Panjang', 'Sukarame', 'Sukabumi', 'Rajabasa', 'Tanjung Raya', 'Labuhan Ratu', 'Way Halim', 'Kemiling', 'Langkapura', 'Enggal', 'Kedamaian'] as $kecamatan)
+            <div class="form-container">
+                <!-- Kecamatan 2 -->
+                <div class="form-group">
+                    <label for="kecamatan_id_2" class="col-md-6">{{ __('Kecamatan 2') }}</label>
+                    <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2" onchange="updateTable2()">
+                        <option value="">Pilih Kecamatan 2</option>
+                    </select>
+                </div>
+                <table id="table2" class="overflow-auto">
+                    <thead>
                         <tr>
-                            <td>{{ $kecamatan }}</td>
-                            @for ($year = 2019; $year <= 2024; $year++)
-                                <td>-</td>
-                            @endfor
+                            <th>Indikator</th>
+                            @foreach($tahuns as $item)
+                                <th>{{ $item }}</th>
+                            @endforeach
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <!-- Table data will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-    <script>
-        // JavaScript untuk memanipulasi tabel, jika diperlukan
-    </script>
+<script>
+    function getIndikators(tujuanId) {
+        if (!tujuanId) return;
+
+        fetch(`/pembanding/indikators/${tujuanId}`)
+        .then(response => response.json())
+        .then(data => {
+            updateKecamatanOptions();
+        });
+    }
+
+    function updateTable(tujuanId, kecamatanId, tableId) {
+        if (!tujuanId || !kecamatanId) return;
+
+        fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
+            .then(response => response.json())
+            .then(data => {
+                const tahuns = @json($tahuns);
+                let tableBody = document.querySelector(`#${tableId} tbody`);
+                tableBody.innerHTML = '';
+
+                for (let indikator in data) {
+                    let row = `<tr>
+                                   <td>${indikator}</td>`;
+                    tahuns.forEach(tahun => {
+                        row += `<td>${data[indikator][tahun] || '-'}</td>`;
+                    });
+                    row += `</tr>`;
+                    tableBody.innerHTML += row;
+                }
+            });
+    }
+
+    function updateKecamatanOptions() {
+        fetch(`/pembanding/kecamatans`)
+            .then(response => response.json())
+            .then(data => {
+                let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
+                let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
+                kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
+                kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
+
+                data.forEach(kecamatan => {
+                    let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
+                    kecamatanSelect1.innerHTML += option;
+                    kecamatanSelect2.innerHTML += option;
+                });
+            });
+    }
+
+    function updateTable1() {
+        let tujuanId = document.getElementById('tujuan_id').value;
+        let kecamatanId = document.getElementById('kecamatan_id_1').value;
+        updateTable(tujuanId, kecamatanId, 'table1');
+    }
+
+    function updateTable2() {
+        let tujuanId = document.getElementById('tujuan_id').value;
+        let kecamatanId = document.getElementById('kecamatan_id_2').value;
+        updateTable(tujuanId, kecamatanId, 'table2');
+    }
+</script>
 @endsection

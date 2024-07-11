@@ -17,6 +17,9 @@ class Indikator extends Model
         'tujuan_id',
         'kode_indikator',
         'nama_indikator',
+        'tinggi',
+        'sedang',
+        'rendah'
     ];
 
     public function Tujuan()

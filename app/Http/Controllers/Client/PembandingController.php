@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Pencapaian;
 use App\Models\Tujuan;
 use App\Models\Indikator;
-use App\Models\Pencapaian;
+use App\Models\Kecamatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,35 +13,47 @@ class PembandingController extends Controller
 {
     public function index()
     {
-        $tujuans = Tujuan::all();
-        return view('client.pembanding', compact('tujuans'));
+        $pencapaian = Pencapaian::with('Indikator.Tujuan')->get();
+        $tujuans = $pencapaian->pluck('Indikator.Tujuan')->flatten()->unique('id')->values();
+        $tahuns = Pencapaian::all()->pluck('tahun')->unique()->sort()->values();
+        return view('client.pembanding', compact('tujuans', 'tahuns'));
     }
 
-    public function show($id)
-{
-    $tujuans = Tujuan::all();
-    $tujuan = Tujuan::where('id', $id)->first();
-    $indikators = Indikator::with('pencapaian')->where('tujuan_id', $id)->get();
-    $pencapaians = [];
-
-    foreach ($indikators as $indikator) {
-        $pencapaian = Pencapaian::select('tahun', 'persentase')->where('indikator_id', $indikator->id)->get();
-        $data = [
-            'id' => $indikator->id,
-            'nama' => $indikator->nama_indikator,
-            'pencapaian' => $pencapaian
-        ];
-        array_push($pencapaians, $data);
+    public function getIndikators($tujuanId)
+    {
+        $indikators = Indikator::where('tujuan_id', $tujuanId)->get();
+        return response()->json($indikators);
     }
 
-    return view('client.pembanding', compact('tujuans', 'tujuan', 'indikators', 'pencapaians'));
-}
+    public function getPencapaian($tujuanId, $kecamatanId)
+    {
+        $pencapaians = Pencapaian::whereHas('Kecamatan', function($query) use ($kecamatanId) {
+            $query->where('kecamatan.id', $kecamatanId);
+        })->whereHas('Indikator', function($query) use ($tujuanId) {
+            $query->where('indikator.tujuan_id', $tujuanId);
+        })->with('Indikator')->get();
 
-    public function getIndikators($tujuan_id)
-{
-    $indikators = Indikator::where('tujuan_id', $tujuan_id)->get();
-    return response()->json($indikators);
-}
+        // Transform data
+        $data = [];
+        foreach ($pencapaians as $pencapaian) {
+            $indikatorName = $pencapaian->Indikator->nama_indikator;
+            $tahun = $pencapaian->tahun;
+            $persentase = $pencapaian->persentase;
 
+            if (!isset($data[$indikatorName])) {
+                $data[$indikatorName] = [];
+            }
+            $data[$indikatorName][$tahun] = $persentase;
+        }
+
+        return response()->json($data);
+    }
+
+    public function getKecamatans()
+    {
+        $pencapaians = Pencapaian::with('Kecamatan')->get();
+        $kecamatans = $pencapaians->pluck('Kecamatan')->flatten()->unique('id')->values();
+        return response()->json($kecamatans);
+    }
 
 }

@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tahun">{{ __('Tahun') }}</label>
-                            <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahun"
+                            <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahunManual"
                                 placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
                             @error('tahun')
                                 <span class="invalid-feedback" role="alert">
@@ -232,7 +232,8 @@
                                         <button id="btn_modal_close_footer" type="button" class="btn btn-danger"
                                             data-dismiss="modal">Batal</button>
                                             <button type="submit" id="simpan" class="btn btn-success">{{ __('Simpan') }}</button>
-                                            <button type="button" id="perbaiki" class="btn btn-success" style="display: none;">{{ __('Perbaiki File') }}</button>
+                                            <button type="button" id="perbaiki" class="btn btn-danger" style="display: none;">{{ __('Perbaiki File') }}</button>
+                                            <button type="button" id="tahunBtn" class="btn btn-danger" style="display: none;">{{ __('Isi Tahun Dulu!!') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +267,19 @@
                 $('#filePreviewModal').modal('hide');
             });
 
+            $('#tahunBtn').on('click', function() {
+                $('#files').val('');
+                $('#file-content').empty();
+                $('#btn_modal_close_footer').hide();
+                $('#perbaiki').hide();
+                $('#simpan').show();
+                $('#filePreviewModal').modal('hide');
+            });
+
             $('#perbaiki').on('click', function() {
                 $('#files').val('');
                 $('#file-content').empty();
+                $('#btn_modal_close_footer').hide();
                 $('#perbaiki').hide();
                 $('#simpan').show();
                 $('#filePreviewModal').modal('hide');
@@ -294,6 +305,7 @@
         function previewFiles() {
             const content = document.getElementById('file-content');
             const files = document.getElementById('files').files;
+            const tahun = document.getElementById('tahun').value.trim();
 
             content.innerHTML = '';
             let hasNullData = false;
@@ -310,14 +322,14 @@
                     const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
                     const headers = sheetData[1];
-                    const kodeIndex = headers.indexOf('Kode Indikator');
-                    const namaIndex = headers.indexOf('Nama Indikator');
-                    const satuanIndex = headers.indexOf('Satuan');
-                    const nilaiIndex = headers.indexOf('Nilai');
-                    const sumberIndex = headers.indexOf('Sumber Data');
-                    const kecamatanIndex = headers.indexOf('Nama Kecamatan');
-                    const tingkatanIndex = headers.indexOf('Tingkatan');
-                    const keteranganIndex = headers.indexOf('Keterangan');
+                    const kodeIndex = 0;
+                    const namaIndex = 1;
+                    const satuanIndex = 2;
+                    const nilaiIndex = 3;
+                    const sumberIndex = 4;
+                    const kecamatanIndex = 5;
+                    const tingkatanIndex = 6;
+                    const keteranganIndex = 7;
 
 
                     if (kodeIndex === -1 || namaIndex === -1) {
@@ -370,8 +382,15 @@
                     content.innerHTML += tableHtml;
 
                     if (hasNullData) {
+                        $('#btn_modal_close_footer').hide();
                         $('#simpan').hide();
+                        $('#tahunBtn').hide();
                         $('#perbaiki').show();
+                    } else if (tahun == '') {
+                        $('#btn_modal_close_footer').hide();
+                        $('#simpan').hide();
+                        $('#tahunBtn').show();
+                        $('#perbaiki').hide();
                     } else {
                         $('#simpan').show();
                         $('#perbaiki').hide();

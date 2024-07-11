@@ -164,7 +164,7 @@
 
 
         function getKecamatan(indikatorId) {
-            console.log('Indikator ID:', indikatorId); // Debugging
+            // console.log('Indikator ID:', indikatorId); // Debugging
             $.ajax({
                 url: "{{ route('get-kecamatan') }}",
                 type: 'GET',

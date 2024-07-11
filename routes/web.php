@@ -78,8 +78,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [BerandaController::class, 'index'])->name('index');
 Route::get('prediksi', [PrediksiController::class, 'index'])->name('prediksi');
-Route::get('pembanding', [PembandingController::class, 'index'])->name('pembanding');
-Route::get('pembanding/{id}', [PembandingController::class, 'show'])->name('pembanding');
+Route::get('/pembanding', [PembandingController::class, 'index']);
+Route::get('/pembanding/indikators/{tujuanId}', [PembandingController::class, 'getIndikators']);
+Route::get('/pembanding/pencapaian/{tujuanId}/{kecamatanId}', [PembandingController::class, 'getPencapaian']);
+Route::get('/pembanding/kecamatans', [PembandingController::class, 'getKecamatans']);
 Route::get('geospasial', [GeospasialController::class, 'index'])->name('geospasial');
 Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar');
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');

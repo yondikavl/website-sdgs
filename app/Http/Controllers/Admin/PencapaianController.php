@@ -140,7 +140,7 @@ class PencapaianController extends Controller
         $kecamatans = Kecamatan::where('city_code', 1871)->get();
         $indikators = Indikator::all();
         $tujuans = Tujuan::all();
-        $pencapaian = Pencapaian::where('id', $id)->firstOrFail();
+        $pencapaian = Pencapaian::where('id', $id)->with('Kecamatan')->firstOrFail();
         return view('admin.pencapaian.edit', compact('kecamatans', 'pencapaian', 'tujuans', 'indikators'));
     }
 
@@ -150,30 +150,33 @@ class PencapaianController extends Controller
         'tahun' => 'required',
         'tipe' => 'required',
         'persentase' => 'required',
-        'kecamatan_id' => 'required|array',
-        'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+        // 'kecamatan_id' => 'required|array',
         'tingkatan' => 'required|max:255',
+        'keterangan' => 'nullable|max:255',
     ], [
         'tahun.required' => 'Tahun harus diisi!',
         'tipe.required' => 'Tipe harus diisi!',
         'persentase.required' => 'Persentase harus diisi!',
-        'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
+        // 'kecamatan_id.required' => 'Kecamatan harus diisi!',
+        'tingkatan.required' => 'Tingkatan tidak boleh kosong!',
+        'tingkatan.max' => 'Tingkatan melebihi batas!',
+        'keterangan.max' => 'Keterangan melebihi batas!'
     ]);
 
-    // Update the Pencapaian record
     Pencapaian::where('id', $id)->update([
         'tahun' => $request->tahun,
         'tipe' => $request->tipe,
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
-        'tingkatan' => $request->tingkatan
+        'tingkatan' => $request->tingkatan,
+        'keterangan' => $request->keterangan
     ]);
 
     // Retrieve the updated Pencapaian instance
     $pencapaian = Pencapaian::find($id);
 
     // Attach kecamatan_id
-    $pencapaian->Kecamatan()->attach($request->kecamatan_id);
+    $pencapaian->Kecamatan()->sync($request->kecamatan_id);
 
     // Redirect based on user role
     if (auth()->user()->roles_id == 1) {

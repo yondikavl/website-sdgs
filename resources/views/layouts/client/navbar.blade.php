@@ -16,7 +16,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/prediksi">Prediksi</a>
-                    <a class="dropdown-item" href="/pembanding/1">Analisis Pembanding</a>
+                    <a class="dropdown-item" href="/pembanding">Analisis Pembanding</a>
                     <a class="dropdown-item" href="/geospasial">Peta Geospasial</a>
                 </div>
             </li>

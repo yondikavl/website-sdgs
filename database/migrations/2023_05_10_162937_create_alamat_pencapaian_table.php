@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pencapaian_id')->nullable();
             $table->foreignId('kecamatan_id')->nullable();
-            $table->integer('tinggi')->default(100);
-            $table->integer('sedang')->default(75);
-            $table->integer('rendah')->default(50);
             $table->timestamps();
         });
     }

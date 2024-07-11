@@ -454,23 +454,23 @@
                 tahunSet.add(item.tahun);
                 indikatorSet.add(item.indikator_id);
 
-                const value = item.persentase;
-                let newColor;
-
-                if (value > 80) {
-                    newColor = 'green';
-                } else if (value > 60) {
-                    newColor = 'yellow';
-                } else if (value > 1) {
-                    newColor = 'red';
-                } else {
-                    newColor = 'grey';
-                }
+                if (item && item.indikator && item.indikator.nama_indikator) {
+                    console.log(item.indikator.nama_indikator);
+                    const value = item.persentase;
+                    let newColor;
+    
+                    if (value <= item.indikator.rendah) {
+                        newColor = 'red';
+                    } else if (value > item.indikator.rendah || value <= item.indikator.sedang) {
+                        newColor = 'yellow';
+                    } else if (value > item.indikator.sedang || value > item.indikator.tinggi) {
+                        newColor = 'green';
+                    } else {
+                        newColor = 'grey';
+                    }
 
                 item.kecamatan.forEach(kecamatan => {
                     const pathElement = document.querySelector(`#a${kecamatan.code}`);
-                    console.log(item.persentase)
-
 
                     pathElement.setAttribute('fill', newColor);
 
@@ -478,6 +478,7 @@
                         pathElement.addEventListener("click", handleClick);
                     }
                 });
+            }
             });
 
             tahunSet.forEach(tahun => {
@@ -491,7 +492,6 @@
             $('#tahun, #indikator_id').on('change', function() {
                 const selectedTahun = $('#tahun').val();
                 const selectedIndikator = $('#indikator_id').val();
-                console.log('Filters changed:', selectedTahun, selectedIndikator);
             });
         });
 
