@@ -88,18 +88,6 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
-                            <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
-                                <option value="%">Persen (%)</option>
-                                <option value="orang">Orang</option>
-                            </select>
-                            @error('tipe')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
                             <div class="input-group" id="persentase">
                                 <input type="number" class="form-control @error('persentase') is-invalid @enderror"
@@ -324,12 +312,11 @@
                     const headers = sheetData[1];
                     const kodeIndex = 0;
                     const namaIndex = 1;
-                    const satuanIndex = 2;
-                    const nilaiIndex = 3;
-                    const sumberIndex = 4;
-                    const kecamatanIndex = 5;
-                    const tingkatanIndex = 6;
-                    const keteranganIndex = 7;
+                    const nilaiIndex = 2;
+                    const sumberIndex = 3;
+                    const kecamatanIndex = 4;
+                    const tingkatanIndex = 5;
+                    const keteranganIndex = 6;
 
 
                     if (kodeIndex === -1 || namaIndex === -1) {
@@ -340,13 +327,12 @@
                     }
 
                     let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
-                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Satuan</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
+                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
 
                     for (let i = 2; i < sheetData.length; i++) {
                         const row = sheetData[i];
                         const kode = row[kodeIndex] ?? 'Kode Indikator tidak ada';
                         const nama = row[namaIndex] ?? 'Nama Indikator tidak ada';
-                        const satuan = row[satuanIndex] ?? 'Satuan tidak ada';
                         const nilai = row[nilaiIndex] ?? 'Nilai tidak ada';
                         const sumber = row[sumberIndex] ?? 'Sumber data tidak ada';
                         const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
@@ -355,7 +341,6 @@
 
                         const kodeClass = kode === 'Kode Indikator tidak ada' ? 'bg-danger' : '';
                         const namaClass = nama === 'Nama Indikator tidak ada' ? 'bg-danger' : '';
-                        const satuanClass = satuan === 'Satuan tidak ada' ? 'bg-danger' : '';
                         const nilaiClass = nilai === 'Nilai tidak ada' ? 'bg-danger' : '';
                         const sumberClass = sumber === 'Sumber data tidak ada' ? 'bg-danger' : '';
                         const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
@@ -365,7 +350,6 @@
                         tableHtml += `<tr>
                             <td class="${kodeClass}">${kode}</td>
                             <td class="${namaClass}">${nama}</td>
-                            <td class="${satuanClass}">${satuan}</td>
                             <td class="${nilaiClass}">${nilai}</td>
                             <td class="${sumberClass}">${sumber}</td>
                             <td class="${kecamatanClass}">${kecamatan}</td>
@@ -373,7 +357,7 @@
                             <td class="${keteranganClass}">${keterangan}</td>
                         </tr>`;
 
-                        if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || satuan === 'Satuan tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {
+                        if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {
                             hasNullData = true;
                         }
                     }

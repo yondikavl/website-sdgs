@@ -83,7 +83,6 @@ class PencapaianController extends Controller
         [
             'indikator_id' => 'required',
             'tahun' => 'required',
-            'tipe' => 'required',
             'persentase' => 'required',
             'sumber_data' => 'required',
             'kecamatan_id' => 'required|array',
@@ -92,7 +91,6 @@ class PencapaianController extends Controller
         [
             'indikator_id.required' => 'Indikator tidak boleh kosong!',
             'tahun.required' => 'Tahun tidak boleh kosong!',
-            'tipe.required' => 'Tipe tidak boleh kosong!',
             'persentase.required' => 'Persentase tidak boleh kosong!',
             'sumber_data.required' => 'Sumber data tidak boleh kosong!',
             'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
@@ -105,7 +103,6 @@ class PencapaianController extends Controller
     $pencapaian = Pencapaian::create([
         'indikator_id' => $request->indikator_id,
         'tahun' => $request->tahun,
-        'tipe' => $request->tipe,
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
         'tingkatan' => $request->tingkatan,
@@ -148,14 +145,12 @@ class PencapaianController extends Controller
 {
     $request->validate([
         'tahun' => 'required',
-        'tipe' => 'required',
         'persentase' => 'required',
         // 'kecamatan_id' => 'required|array',
         'tingkatan' => 'required|max:255',
         'keterangan' => 'nullable|max:255',
     ], [
         'tahun.required' => 'Tahun harus diisi!',
-        'tipe.required' => 'Tipe harus diisi!',
         'persentase.required' => 'Persentase harus diisi!',
         // 'kecamatan_id.required' => 'Kecamatan harus diisi!',
         'tingkatan.required' => 'Tingkatan tidak boleh kosong!',
@@ -165,7 +160,6 @@ class PencapaianController extends Controller
 
     Pencapaian::where('id', $id)->update([
         'tahun' => $request->tahun,
-        'tipe' => $request->tipe,
         'persentase' => $request->persentase,
         'sumber_data' => $request->sumber_data,
         'tingkatan' => $request->tingkatan,

@@ -12,7 +12,6 @@ class Pencapaian extends Model
     protected $fillable = [
         'indikator_id',
         'tahun',
-        'tipe',
         'persentase',
         'sumber_data',
         'tingkatan',

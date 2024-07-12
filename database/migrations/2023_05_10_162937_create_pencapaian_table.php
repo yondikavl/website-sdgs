@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('indikator_id')->nullable();
             $table->text('tahun');
-            $table->text('tipe');
             $table->integer('persentase');
             $table->text('sumber_data')->nullable();
             $table->text('tingkatan')->nullable();

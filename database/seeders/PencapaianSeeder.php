@@ -17,7 +17,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2023',
-                'tipe' => '%',
                 'persentase' => 35,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SD',
@@ -26,7 +25,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2024',
-                'tipe' => '%',
                 'persentase' => 55,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SD',
@@ -35,7 +33,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2023',
-                'tipe' => '%',
                 'persentase' => 25,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SMP',
@@ -44,7 +41,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2024',
-                'tipe' => '%',
                 'persentase' => 45,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SMP',
@@ -53,7 +49,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.2.1',
                 'tahun' => '2022',
-                'tipe' => '%',
                 'persentase' => 35,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SD',
@@ -62,7 +57,6 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.2.1',
                 'tahun' => '2022',
-                'tipe' => '%',
                 'persentase' => 57,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SMP',

@@ -25,7 +25,6 @@
                     <th>Kode Indikator</th>
                     <th>Nama Indikator</th>
                     <th>Tahun</th>
-                    <th>Satuan</th>
                     <th>Nilai</th>
                     <th>Sumber Data</th>
                     <th>Nama Kecamatan</th>
@@ -44,7 +43,6 @@
                     <td>{{$pencapaian->indikator_id}}</td>
                     <td>{{$pencapaian->Indikator->nama_indikator ?? '-'}}</td>
                     <td>{{$pencapaian->tahun}}</td>
-                    <td>{{$pencapaian->tipe}}</td>
                     <td>{{$pencapaian->persentase}}</td>
                     <td>{{$pencapaian->sumber_data}}</td>
                     @php
@@ -124,25 +122,25 @@
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
+                        columns: ':not(:first-child):not(:last-child)'
                     }
                 },
                 {
                     extend: 'excel',
                     exportOptions: {
-                        columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
+                        columns: ':not(:first-child):not(:last-child)'
                     }
                 },
                 {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
+                        columns: ':not(:first-child):not(:last-child)'
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: ':not(:first-child):not(:nth-child(4)):not(:last-child)'
+                        columns: ':not(:first-child):not(:last-child)'
                     }
                 }
             ]

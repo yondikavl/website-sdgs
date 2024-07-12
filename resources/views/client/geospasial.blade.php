@@ -441,41 +441,42 @@
 
         const kecamatanData = @json($kecamatans);
 
-        function handleClick(event) {
-            const pathElement = event.target;
-            const kecamatanCode = pathElement.id.substring(1);
+function handleClick(event) {
+    const pathElement = event.target;
+    const kecamatanCode = pathElement.id.substring(1);
 
-            const selectedTahun = $('#tahun').val();
-            const selectedIndikator = $('#indikator_id').val();
+    const selectedTahun = $('#tahun').val();
+    const selectedIndikator = $('#indikator_id').val();
 
-            const pencapaian = kecamatanData.filter(item =>
-                item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
-                item.kecamatan.some(k => k.code === kecamatanCode)
-            );
+    const pencapaian = kecamatanData.filter(item =>
+        item.tahun === selectedTahun && item.indikator_id === selectedIndikator &&
+        item.kecamatan.some(k => k.code === kecamatanCode)
+    );
 
-            const kecamatan = pencapaian.map(item => item.kecamatan.find(k => k.code === kecamatanCode));
+    const kecamatan = pencapaian.map(item => item.kecamatan.find(k => k.code === kecamatanCode));
 
-            updateTable(kecamatan[0], pencapaian);
-        }
+    updateTable(kecamatan[0], pencapaian);
+}
 
-        function updateTable(kecamatan, pencapaianList) {
-            const tableBody = document.getElementById('data-table-body');
-            const kecamatanName = document.getElementById('kecamatan-name');
-            tableBody.innerHTML = ''; // Clear previous data
-            kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
-            pencapaianList.forEach((pencapaian) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                <td>${pencapaian.tahun}</td>
-                <td>${pencapaian.tipe}</td>
-                <td>${pencapaian.persentase}</td>
-                <td>${pencapaian.sumber_data}</td>
-                <td>${pencapaian.tingkatan}</td>
-                <td>${pencapaian.keterangan}</td>
-            `;
-                tableBody.appendChild(row);
-            });
-        }
+function updateTable(kecamatan, pencapaianList) {
+    const tableBody = document.getElementById('data-table-body');
+    const kecamatanName = document.getElementById('kecamatan-name');
+    tableBody.innerHTML = ''; // Clear previous data
+    kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
+    pencapaianList.forEach((pencapaian) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${pencapaian.tahun}</td>
+            <td>${pencapaian.indikator.tipe}</td> <!-- Menggunakan data tipe dari Indikator -->
+            <td>${pencapaian.persentase}</td>
+            <td>${pencapaian.sumber_data}</td>
+            <td>${pencapaian.tingkatan}</td>
+            <td>${pencapaian.keterangan}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
 
 
         document.addEventListener("DOMContentLoaded", function() {
