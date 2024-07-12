@@ -15,21 +15,59 @@ class PencapaianSeeder extends Seeder
     {
         $pencapaian = [
             [
-                // 'id' => 1,
-                'indikator_id' => '1.1.1',
-                'tahun' => '2022',
-                'tipe' => '%',
-                'persentase' => 100,
-                'sumber_data' => 'Dinas Sosial',
-            ],
-            [
-                // 'id' => 2,
                 'indikator_id' => '1.1.1',
                 'tahun' => '2023',
                 'tipe' => '%',
-                'persentase' => 100,
+                'persentase' => 35,
                 'sumber_data' => 'Dinas Sosial',
-            ]
+                'tingkatan' => 'SD',
+                'keterangan' => '-'
+            ],
+            [
+                'indikator_id' => '1.1.1',
+                'tahun' => '2024',
+                'tipe' => '%',
+                'persentase' => 55,
+                'sumber_data' => 'Dinas Sosial',
+                'tingkatan' => 'SD',
+                'keterangan' => '-'
+            ],
+            [
+                'indikator_id' => '1.1.1',
+                'tahun' => '2023',
+                'tipe' => '%',
+                'persentase' => 25,
+                'sumber_data' => 'Dinas Sosial',
+                'tingkatan' => 'SMP',
+                'keterangan' => '-'
+            ],
+            [
+                'indikator_id' => '1.1.1',
+                'tahun' => '2024',
+                'tipe' => '%',
+                'persentase' => 45,
+                'sumber_data' => 'Dinas Sosial',
+                'tingkatan' => 'SMP',
+                'keterangan' => '-'
+            ],
+            [
+                'indikator_id' => '1.2.1',
+                'tahun' => '2022',
+                'tipe' => '%',
+                'persentase' => 35,
+                'sumber_data' => 'Dinas Sosial',
+                'tingkatan' => 'SD',
+                'keterangan' => '-'
+            ],
+            [
+                'indikator_id' => '1.2.1',
+                'tahun' => '2022',
+                'tipe' => '%',
+                'persentase' => 57,
+                'sumber_data' => 'Dinas Sosial',
+                'tingkatan' => 'SMP',
+                'keterangan' => '-'
+            ],
         ];
         Pencapaian::query()->insert($pencapaian);
     }
