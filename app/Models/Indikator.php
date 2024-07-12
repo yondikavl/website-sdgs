@@ -17,6 +17,7 @@ class Indikator extends Model
         'tujuan_id',
         'kode_indikator',
         'nama_indikator',
+        'tipe',
         'tinggi',
         'sedang',
         'rendah'

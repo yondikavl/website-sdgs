@@ -18,7 +18,7 @@
     @endif
         @csrf
         @method('PUT')
-      <div class="card-body">
+      <div class="card-body my-2">
         <div class="form-group">
           <label for="indikator_id">{{ __('ID Indikator Sekarang') }}</label>
           <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id" required>
@@ -61,6 +61,20 @@
                 </span>
             @enderror
         </div>
+        <div class="form-group">
+          <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
+          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
+              <option selected value="{{ $indikator->tipe }}">{{ $indikator->tipe }}</option>
+              <option value="%">Persen (%)</option>
+              <option value="Orang">Orang</option>
+              <option value="Jumlah">Jumlah</option>
+          </select>
+          @error('tipe')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
+      </div>
         <div class="">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>

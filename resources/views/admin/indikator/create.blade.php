@@ -50,6 +50,19 @@
                 </span>
             @enderror
         </div>
+        <div class="form-group">
+          <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
+          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
+              <option value="%">Persen (%)</option>
+              <option value="orang">Orang</option>
+              <option value="jumlah">Jumlah</option>
+          </select>
+          @error('tipe')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
+      </div>
         <div class="">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>

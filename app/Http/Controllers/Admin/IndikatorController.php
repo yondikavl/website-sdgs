@@ -48,7 +48,8 @@ class IndikatorController extends Controller
         $indikator = Indikator::create([
             'tujuan_id' => $request->tujuan_id,
             'kode_indikator' => $request->kode_indikator,
-            'nama_indikator' => $request->nama_indikator
+            'nama_indikator' => $request->nama_indikator,
+            'tipe' => $request->tipe,
         ]);
 
         if (auth()->user()->roles_id == 1) {
@@ -79,12 +80,13 @@ class IndikatorController extends Controller
 
 public function update(IndikatorStoreRequest $request, $id)
 {
-    $indikator = Indikator::findOrFail($id);
+    $indikator = Indikator::find($id);
 
-    $indikator->update([
+    Indikator::where('id', $id)->update([
         'tujuan_id' => $request->tujuan_id,
         'kode_indikator' => $request->kode_indikator,
-        'nama_indikator' => $request->nama_indikator
+        'nama_indikator' => $request->nama_indikator,
+        'tipe' => $request->tipe,
     ]);
 
     if (auth()->user()->roles_id == 1) {

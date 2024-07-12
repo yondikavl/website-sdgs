@@ -47,6 +47,15 @@
                 </span>
             @enderror
         </div>
+        <div class="form-group col-4">
+          <label for="tipe">{{ __('Jenis') }}</label>
+          <input type="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" value="{{$indikator->tipe}}" name="tipe" disabled autocomplete="tipe" autofocus>
+            @error('tipe')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="">
           @if (auth()->user()->roles_id == 1)
             <a class="btn btn-success" href="/super/indikator/">{{ __('Kembali') }}</a>

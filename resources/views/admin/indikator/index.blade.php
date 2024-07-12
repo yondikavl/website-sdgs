@@ -16,6 +16,7 @@
                     <th>No</th>
                     <th>ID Indikator</th>
                     <th>Nama Indikator</th>
+                    <th>Tipe</th>
                     <th>More</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $indikator->kode_indikator }}</td>
                     <td>{{ $indikator->nama_indikator }}</td>
+                    <td>{{ $indikator->tipe }}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                         <a href="{{ route('super.indikator.show', $indikator->id) }}" class="show-button">

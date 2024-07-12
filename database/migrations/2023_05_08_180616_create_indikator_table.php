@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('tujuan_id')->nullable();
             $table->string('kode_indikator')->nullable();
             $table->text('nama_indikator');
+            $table->text('tipe')->default('%');
             $table->integer('tinggi')->default(100);
             $table->integer('sedang')->default(75);
             $table->integer('rendah')->default(50);

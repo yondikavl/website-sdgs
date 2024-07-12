@@ -24,7 +24,8 @@ class IndikatorStoreRequest extends FormRequest
         return [
             'tujuan_id' => 'required',
             'nama_indikator' => 'required|max:255',
-            'kode_indikator' => 'required|max:255'
+            'kode_indikator' => 'required|max:255',
+            'tipe' => 'required'
         ];
     }
 
@@ -35,7 +36,8 @@ class IndikatorStoreRequest extends FormRequest
             'nama_indikator.required' => 'Nama indikator tidak boleh kosong',
             'nama_indikator.max' => 'Nama indikator tidak boleh lebih dari 255 karakter',
             'kode_indikator.required' => 'Kode indikator tidak boleh kosong',
-            'kode_indikator.max' => 'Kode indikator tidak boleh lebih dari 255 karakter'
+            'kode_indikator.max' => 'Kode indikator tidak boleh lebih dari 255 karakter',
+            'tipe.required' => 'Tipe tidak boleh kosong'
         ];
     }
 }

@@ -320,7 +320,7 @@
                         <tr>
                             <th>Tahun</th>
                             <th>Tipe</th>
-                            <th>Persentase</th>
+                            <th>Persentase Keberhasilan</th>
                             <th>Sumber Data</th>
                             <th>Tingkatan</th>
                             <th>Keterangan</th>

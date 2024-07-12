@@ -20,6 +20,19 @@
         <div class="card-body">
           <div class="d-flex col-12 flex-row">
             <div class="form-group col-6">
+              <label for="tujuan_id">{{ __('ID Tujuan') }}</label>
+              <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id" disabled>
+                @foreach ($tujuans as $tujuan)
+                <option value="{{$tujuan->id}}">{{$tujuan->id}}. {{$tujuan->nama_tujuan}}</option>
+                @endforeach
+              </select>
+                @error('tujuan_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group col-6">
               <label for="indikator_id">{{ __('ID Indikator') }}</label>
               <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" disabled>
                 @foreach ($indikators as $indikator)
@@ -27,19 +40,6 @@
                 @endforeach
               </select>
                 @error('indikator_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="form-group col-6">
-              <label for="subindikator_id">{{ __('ID Sub') }}</label>
-              <select class="form-control col-form-label rounded-2" name="subindikator_id" id="subindikator_id" disabled>
-                @foreach ($subindikators as $subindikator)
-                <option value="{{$subindikator->id}}">{{$subindikator->id}}. {{$subindikator->nama_sub}}</option>
-                @endforeach
-              </select>
-                @error('subindikator_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
