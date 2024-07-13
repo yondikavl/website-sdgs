@@ -57,8 +57,7 @@
         }
 
         .form-group label {
-            min-width: 100px;
-            max-width: 100px;
+            min-width: 120px;
         }
     </style>
 @endsection
@@ -91,7 +90,7 @@
             <div class="form-container">
                 <!-- Kecamatan 1 -->
                 <div class="form-group">
-                    <label for="kecamatan_id_1" class="mx-2">{{ __('Kecamatan 1') }}</label>
+                    <label for="kecamatan_id_1" class="mr-2">{{ __('Kecamatan 1') }}</label>
                     <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1"
                         onchange="updateTable1()">
                         <option value="">Pilih Kecamatan 1</option>
@@ -115,7 +114,7 @@
             <div class="form-container">
                 <!-- Kecamatan 2 -->
                 <div class="form-group">
-                    <label for="kecamatan_id_2" class="mx-2">{{ __('Kecamatan 2') }}</label>
+                    <label for="kecamatan_id_2" class="mr-2">{{ __('Kecamatan 2') }}</label>
                     <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2"
                         onchange="updateTable2()">
                         <option value="">Pilih Kecamatan 2</option>
