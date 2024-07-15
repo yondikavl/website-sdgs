@@ -25,16 +25,16 @@
         <div class="card-body">
             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="manual" data-toggle="pill" href="#custom-tabs-four-home" role="tab"
-                        aria-controls="custom-tabs-four-home" aria-selected="true">Manual</a>
+                    <a class="nav-link active" id="manual" data-toggle="pill" href="#custom-tabs-four-manual" role="tab"
+                        aria-controls="custom-tabs-four-manual" aria-selected="true">Manual</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="upload" data-toggle="pill" href="#custom-tabs-four-profile" role="tab"
-                        aria-controls="custom-tabs-four-profile" aria-selected="false">Upload</a>
+                    <a class="nav-link" id="upload" data-toggle="pill" href="#custom-tabs-four-upload" role="tab"
+                        aria-controls="custom-tabs-four-upload" aria-selected="false">Upload</a>
                 </li>
             </ul>
             <div class="tab-content" id="custom-tabs-four-tabContent">
-                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="manual">
+                <div class="tab-pane fade show active" id="custom-tabs-four-manual" role="tabpanel" aria-labelledby="manual">
                     <!-- form start -->
 
                     <div class="card-body">
@@ -161,8 +161,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="upload">
-                    <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
+                <div class="tab-pane fade" id="custom-tabs-four-upload" role="tabpanel" aria-labelledby="upload">
+                    <div class="tab-pane fade show active" id="custom-tabs-four-manual" role="tabpanel"
                         aria-labelledby="upload">
                         <!-- form start -->
                         <div class="card-body">
@@ -250,20 +250,25 @@
             $('#btn_modal_close').on('click', function() {
                 $('#filePreviewModal').modal('hide');
             });
-
+    
             $('#btn_modal_close_footer').on('click', function() {
                 $('#filePreviewModal').modal('hide');
             });
-
+    
             $('#tahunBtn').on('click', function() {
-                $('#files').val('');
-                $('#file-content').empty();
-                $('#btn_modal_close_footer').hide();
-                $('#perbaiki').hide();
-                $('#simpan').show();
-                $('#filePreviewModal').modal('hide');
+                const tahun = $('#tahun').val().trim();
+                if (tahun === '') {
+                location.reload();
+                } else {
+                    $('#files').val('');
+                    $('#file-content').empty();
+                    $('#btn_modal_close_footer').hide();
+                    $('#perbaiki').hide();
+                    $('#simpan').show();
+                    $('#filePreviewModal').modal('hide');
+                }
             });
-
+    
             $('#perbaiki').on('click', function() {
                 $('#files').val('');
                 $('#file-content').empty();
@@ -273,7 +278,7 @@
                 $('#filePreviewModal').modal('hide');
             });
         });
-
+    
         function getIndikator(id) {
             $('#indikator_id').empty();
             $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
@@ -289,15 +294,15 @@
                 }
             });
         }
-
+    
         function previewFiles() {
             const content = document.getElementById('file-content');
             const files = document.getElementById('files').files;
             const tahun = document.getElementById('tahun').value.trim();
-
+    
             content.innerHTML = '';
             let hasNullData = false;
-
+    
             for (const file of files) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -308,7 +313,7 @@
                     const firstSheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[firstSheetName];
                     const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
+    
                     const headers = sheetData[1];
                     const kodeIndex = 0;
                     const namaIndex = 1;
@@ -317,18 +322,17 @@
                     const kecamatanIndex = 4;
                     const tingkatanIndex = 5;
                     const keteranganIndex = 6;
-
-
+    
                     if (kodeIndex === -1 || namaIndex === -1) {
                         content.innerHTML += 'Kolom Kode dan/atau Nama tidak ditemukan.';
                         $('#simpan').hide();
                         $('#perbaiki').show();
                         return;
                     }
-
+    
                     let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
                     tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
-
+    
                     for (let i = 2; i < sheetData.length; i++) {
                         const row = sheetData[i];
                         const kode = row[kodeIndex] ?? 'Kode Indikator tidak ada';
@@ -338,7 +342,7 @@
                         const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
                         const tingkatan = row[tingkatanIndex] ?? 'Tingkatan data tidak ada';
                         const keterangan = row[keteranganIndex] ?? 'Keterangan data tidak ada';
-
+    
                         const kodeClass = kode === 'Kode Indikator tidak ada' ? 'bg-danger' : '';
                         const namaClass = nama === 'Nama Indikator tidak ada' ? 'bg-danger' : '';
                         const nilaiClass = nilai === 'Nilai tidak ada' ? 'bg-danger' : '';
@@ -346,7 +350,7 @@
                         const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
                         const tingkatanClass = tingkatan === 'Tingkatan data tidak ada' ? 'bg-danger' : '';
                         const keteranganClass = keterangan === 'Keterangan data tidak ada' ? 'bg-danger' : '';
-
+    
                         tableHtml += `<tr>
                             <td class="${kodeClass}">${kode}</td>
                             <td class="${namaClass}">${nama}</td>
@@ -356,15 +360,15 @@
                             <td class="${tingkatanClass}">${tingkatan}</td>
                             <td class="${keteranganClass}">${keterangan}</td>
                         </tr>`;
-
+    
                         if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {
                             hasNullData = true;
                         }
                     }
-
+    
                     tableHtml += '</tbody></table>';
                     content.innerHTML += tableHtml;
-
+    
                     if (hasNullData) {
                         $('#btn_modal_close_footer').hide();
                         $('#simpan').hide();
@@ -382,8 +386,9 @@
                 };
                 reader.readAsArrayBuffer(file);
             }
-
+    
             $('#filePreviewModal').modal('show');
         }
     </script>
+    
 @endsection

@@ -25,7 +25,7 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2024',
-                'persentase' => 55,
+                'persentase' => 47,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SD',
                 'keterangan' => '-'
@@ -33,7 +33,7 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2023',
-                'persentase' => 25,
+                'persentase' => 22,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SMP',
                 'keterangan' => '-'
@@ -41,27 +41,27 @@ class PencapaianSeeder extends Seeder
             [
                 'indikator_id' => '1.1.1',
                 'tahun' => '2024',
-                'persentase' => 45,
+                'persentase' => 34,
                 'sumber_data' => 'Dinas Sosial',
                 'tingkatan' => 'SMP',
                 'keterangan' => '-'
             ],
-            [
-                'indikator_id' => '1.2.1',
-                'tahun' => '2022',
-                'persentase' => 35,
-                'sumber_data' => 'Dinas Sosial',
-                'tingkatan' => 'SD',
-                'keterangan' => '-'
-            ],
-            [
-                'indikator_id' => '1.2.1',
-                'tahun' => '2022',
-                'persentase' => 57,
-                'sumber_data' => 'Dinas Sosial',
-                'tingkatan' => 'SMP',
-                'keterangan' => '-'
-            ],
+            // [
+            //     'indikator_id' => '1.2.1',
+            //     'tahun' => '2022',
+            //     'persentase' => 35,
+            //     'sumber_data' => 'Dinas Sosial',
+            //     'tingkatan' => 'SD',
+            //     'keterangan' => '-'
+            // ],
+            // [
+            //     'indikator_id' => '1.2.1',
+            //     'tahun' => '2022',
+            //     'persentase' => 57,
+            //     'sumber_data' => 'Dinas Sosial',
+            //     'tingkatan' => 'SMP',
+            //     'keterangan' => '-'
+            // ],
         ];
         Pencapaian::query()->insert($pencapaian);
     }

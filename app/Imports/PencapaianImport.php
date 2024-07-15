@@ -22,15 +22,14 @@ class PencapaianImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        $kode_indikator = $row[0] ?? null;
-        $tipe = $row[2];
+        $kode_indikator = $row[0];
         $persentase = $row[2];
         $sumber_data = $row[3];
-        $tingkatan = $row[5];
-        $keterangan = $row[6];
+        $tingkatan = $row[5] ?? null;
+        $keterangan = $row[6] ?? null;
 
         // Validate the input data
-        if (!$kode_indikator || !$persentase || !$sumber_data || !$tingkatan) {
+        if (!$kode_indikator || !$persentase || !$sumber_data) {
             return null; // Skip this row if any required field is missing
         }
 
