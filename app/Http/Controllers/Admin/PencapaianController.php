@@ -15,19 +15,18 @@ class PencapaianController extends Controller
 {
     public function index()
 {
-    if (auth()->user()->roles_id == 3) {
-        // if user permission is not empty
-        if(auth()->user()->permissions != null){
-            // get pencapaian where indikator id is in user permission
-            $pencapaians = Pencapaian::whereIn('indikator_id', auth()->user()->permissions)->get();
-            
+    $user = auth()->user();
+
+    if ($user->roles_id == 3) {
+        if ($user->permissions != null) {
+            // Get pencapaian where indikator id is in user permissions
+            $pencapaians = Pencapaian::all();
         } else {
-            // get pencapaian where indikator id is null
+            // Get pencapaian where indikator id is null
             $pencapaians = Pencapaian::where('indikator_id', null)->get();
         }
     } else {
         $pencapaians = Pencapaian::all();
-        // dd($pencapaians);
     }
 
     // Sort the years in descending order
@@ -35,6 +34,7 @@ class PencapaianController extends Controller
 
     return view('admin.pencapaian.index', compact('pencapaians', 'years'));
 }
+
 
     public function create()
     {
@@ -86,7 +86,7 @@ class PencapaianController extends Controller
             'persentase' => 'required',
             'sumber_data' => 'required',
             'kecamatan_id' => 'required|array',
-            'tingkatan' => 'required|max:255',
+            // 'tingkatan' => 'required|max:255',
         ],
         [
             'indikator_id.required' => 'Indikator tidak boleh kosong!',
@@ -94,7 +94,7 @@ class PencapaianController extends Controller
             'persentase.required' => 'Persentase tidak boleh kosong!',
             'sumber_data.required' => 'Sumber data tidak boleh kosong!',
             'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
-            'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
+            // 'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
         ]
     );
 
@@ -133,13 +133,22 @@ class PencapaianController extends Controller
     }
 
     public function edit($id)
-    {
-        $kecamatans = Kecamatan::where('city_code', 1871)->get();
-        $indikators = Indikator::all();
-        $tujuans = Tujuan::all();
-        $pencapaian = Pencapaian::where('id', $id)->with('Kecamatan')->firstOrFail();
-        return view('admin.pencapaian.edit', compact('kecamatans', 'pencapaian', 'tujuans', 'indikators'));
+{
+    $user = auth()->user();
+    $pencapaian = Pencapaian::where('id', $id)->with('Kecamatan')->firstOrFail();
+
+    // Check if user has permission to edit this pencapaian
+    if ($user->roles_id == 3 && !in_array($pencapaian->indikator_id, $user->permissions)) {
+        return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengedit data ini.');
     }
+
+    $kecamatans = Kecamatan::where('city_code', 1871)->get();
+    $indikators = Indikator::all();
+    $tujuans = Tujuan::all();
+    
+    return view('admin.pencapaian.edit', compact('kecamatans', 'pencapaian', 'tujuans', 'indikators'));
+}
+
 
     public function update(Request $request, $id)
 {
