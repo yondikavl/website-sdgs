@@ -72,7 +72,7 @@
 
 @section('content')
     <div class="">
-        <div class="hero position-relative w-100 bg-success mb-5">
+        <div class="hero position-relative w-100 bg-success mt-4 mb-5">
             <svg class="hero-left" width="625" height="507" viewBox="0 0 625 507" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <circle opacity="0.2" cx="-39.3984" cy="7.5" r="488.5" stroke="url(#paint0_linear_1102_85)"
