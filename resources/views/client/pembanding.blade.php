@@ -139,66 +139,75 @@
 @endsection
 
 @section('script')
-    <script>
-        function getIndikators(tujuanId) {
-            if (!tujuanId) return;
+<script>
+    function getIndikators(tujuanId) {
+        if (!tujuanId) return;
 
-            fetch(`/pembanding/indikators/${tujuanId}`)
-                .then(response => response.json())
-                .then(data => {
-                    updateKecamatanOptions();
-                });
+        fetch(`/pembanding/indikators/${tujuanId}`)
+            .then(response => response.json())
+            .then(data => {
+                updateKecamatanOptions();
+            });
+    }
+
+    function updateTable(tujuanId, kecamatanId, tableId) {
+        if (!tujuanId || !kecamatanId) {
+            clearTable(tableId);
+            return;
         }
 
-        function updateTable(tujuanId, kecamatanId, tableId) {
-            if (!tujuanId || !kecamatanId) return;
+        fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
+            .then(response => response.json())
+            .then(data => {
+                const tahuns = @json($tahuns);
+                let tableBody = document.querySelector(`#${tableId} tbody`);
+                tableBody.innerHTML = '';
 
-            fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const tahuns = @json($tahuns);
-                    let tableBody = document.querySelector(`#${tableId} tbody`);
-                    tableBody.innerHTML = '';
-
-                    for (let indikator in data) {
-                        let row = `<tr>
-                                   <td>${indikator}</td>`;
-                        tahuns.forEach(tahun => {
-                            row += `<td>${data[indikator][tahun] || '-'}</td>`;
-                        });
-                        row += `</tr>`;
-                        tableBody.innerHTML += row;
-                    }
-                });
-        }
-
-        function updateKecamatanOptions() {
-            fetch(`/pembanding/kecamatans`)
-                .then(response => response.json())
-                .then(data => {
-                    let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
-                    let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
-                    kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
-                    kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
-
-                    data.forEach(kecamatan => {
-                        let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
-                        kecamatanSelect1.innerHTML += option;
-                        kecamatanSelect2.innerHTML += option;
+                for (let indikator in data) {
+                    let row = `<tr>
+                            <td>${indikator}</td>`;
+                    tahuns.forEach(tahun => {
+                        row += `<td>${data[indikator][tahun] || '-'}</td>`;
                     });
+                    row += `</tr>`;
+                    tableBody.innerHTML += row;
+                }
+            });
+    }
+
+    function clearTable(tableId) {
+        let tableBody = document.querySelector(`#${tableId} tbody`);
+        tableBody.innerHTML = '';
+    }
+
+    function updateKecamatanOptions() {
+        fetch(`/pembanding/kecamatans`)
+            .then(response => response.json())
+            .then(data => {
+                let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
+                let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
+                kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
+                kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
+
+                data.forEach(kecamatan => {
+                    let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
+                    kecamatanSelect1.innerHTML += option;
+                    kecamatanSelect2.innerHTML += option;
                 });
-        }
+            });
+    }
 
-        function updateTable1() {
-            let tujuanId = document.getElementById('tujuan_id').value;
-            let kecamatanId = document.getElementById('kecamatan_id_1').value;
-            updateTable(tujuanId, kecamatanId, 'table1');
-        }
+    function updateTable1() {
+        let tujuanId = document.getElementById('tujuan_id').value;
+        let kecamatanId = document.getElementById('kecamatan_id_1').value;
+        updateTable(tujuanId, kecamatanId, 'table1');
+    }
 
-        function updateTable2() {
-            let tujuanId = document.getElementById('tujuan_id').value;
-            let kecamatanId = document.getElementById('kecamatan_id_2').value;
-            updateTable(tujuanId, kecamatanId, 'table2');
-        }
-    </script>
+    function updateTable2() {
+        let tujuanId = document.getElementById('tujuan_id').value;
+        let kecamatanId = document.getElementById('kecamatan_id_2').value;
+        updateTable(tujuanId, kecamatanId, 'table2');
+    }
+</script>
+
 @endsection

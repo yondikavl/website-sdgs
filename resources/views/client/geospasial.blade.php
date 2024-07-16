@@ -404,6 +404,11 @@
 
     <script>
         function getTahun(indikatorId) {
+            if (!indikatorId) {
+                resetFiltersAndTable();
+                return;
+            }
+
             $.ajax({
                 url: '{{ route('client.getTahun') }}',
                 type: 'GET',
@@ -434,8 +439,13 @@
         }
 
         function getIndikator(tujuanId) {
+            if (!tujuanId) {
+                resetFiltersAndTable();
+                return;
+            }
+
             $('#indikator_id').empty();
-            $('#indikator_id').append(`<option value="">Pilih Indikator</option>`);
+            $('#indikator_id').append('<option value="">Pilih Indikator</option>');
             $.ajax({
                 type: 'GET',
                 url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
@@ -474,6 +484,15 @@
                 $('#indikator_value').text(combinedText);
                 $('#tahun_value').text('');
             }
+        }
+
+        function resetFiltersAndTable() {
+            $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
+            $('#tahun').empty().append('<option value="">Pilih Tahun</option>');
+            $('#data-table-body').empty().append('<tr><td colspan="6">Tidak ada data pada indikator ini.</td></tr>');
+            $('#kecamatan-name').text('');
+            $('#indikator_value').text('');
+            $('#tahun_value').text('');
         }
 
         $(document).ready(function() {
@@ -580,23 +599,34 @@
         }
 
         function updateTable(kecamatan, pencapaianList) {
-            const tableBody = document.getElementById('data-table-body');
-            const kecamatanName = document.getElementById('kecamatan-name');
-            tableBody.innerHTML = ''; // Clear previous data
-            kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
-            pencapaianList.forEach((pencapaian) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                <td>${pencapaian.tahun}</td>
-                <td>${pencapaian.indikator.tipe}</td> <!-- Menggunakan data tipe dari Indikator -->
-                <td>${pencapaian.persentase}</td>
-                <td>${pencapaian.sumber_data}</td>
-                <td>${pencapaian.tingkatan}</td>
-                <td>${pencapaian.keterangan}</td>
+        const tableBody = document.getElementById('data-table-body');
+        const kecamatanName = document.getElementById('kecamatan-name');
+        tableBody.innerHTML = ''; // Clear previous data
+        kecamatanName.innerHTML = `<strong>${kecamatan.name}</strong>`;
+
+        if (pencapaianList.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td colspan="6">Tidak ada data pada indikator ini.</td>
             `;
-                tableBody.appendChild(row);
-            });
+            tableBody.appendChild(row);
+            return;
         }
+
+        pencapaianList.forEach((pencapaian) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${pencapaian.tahun || '-'}</td>
+                <td>${pencapaian.indikator.tipe || '-'}</td>
+                <td>${pencapaian.persentase || '-'}</td>
+                <td>${pencapaian.sumber_data || '-'}</td>
+                <td>${pencapaian.tingkatan ? pencapaian.tingkatan : '-'}
+                <td>${pencapaian.keterangan ? pencapaian.keterangan : '-'}
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
 
         function updateColors() {
             const selectedTahun = $('#tahun').val();

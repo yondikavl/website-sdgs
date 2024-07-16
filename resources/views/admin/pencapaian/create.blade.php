@@ -50,7 +50,7 @@
                         @endif
                         @csrf
                         <div class="form-group">
-                            <label for="tujuan_id">{{ __('ID Tujuan') }}</label>
+                            <label for="tujuan_id">{{ __('ID Tujuan') }}<span style="color:red"> * </span></label>
                             <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id"
                                 onchange="getIndikator(this.value)" required>
                                 <option value="">Pilih Tujuan</option>
@@ -66,7 +66,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="indikator_id">{{ __('ID Indikator') }}</label>
+                            <label for="indikator_id">{{ __('ID Indikator') }}<span style="color:red"> * </span></label>
                             <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id"
                                 required>
                                 <option value="">Pilih Indikator</option>
@@ -78,7 +78,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tahun">{{ __('Tahun') }}</label>
+                            <label for="tahun">{{ __('Tahun') }}<span style="color:red"> * </span></label>
                             <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahunManual"
                                 placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
                             @error('tahun')
@@ -88,7 +88,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="persentase">{{ __('Persentase Keberhasilan') }}</label>
+                            <label for="persentase">{{ __('Persentase Keberhasilan') }}<span style="color:red"> * </span></label>
                             <div class="input-group" id="persentase">
                                 <input type="number" class="form-control @error('persentase') is-invalid @enderror"
                                     id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase"
@@ -101,7 +101,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="sumber_data">{{ __('Sumber Data') }}</label>
+                            <label for="sumber_data">{{ __('Sumber Data') }}<span style="color:red"> * </span></label>
                             <div class="input-group">
                                 <input type="text" class="form-control @error('sumber_data') is-invalid @enderror"
                                     placeholder="Masukkan sumber data" name="sumber_data" required
@@ -114,7 +114,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="Kecamatan">{{ __('Kecamatan') }}</label>
+                            <label for="Kecamatan">{{ __('Kecamatan') }}<span style="color:red"> * </span></label>
                             <select class="form-control col-form-label rounded-2" name="kecamatan_id[]" id="Kecamatan"
                                 required>
                                 <option value="">Pilih Kecamatan</option>
@@ -129,11 +129,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tingkatan">{{ __('Tingkatan') }}</label>
+                            <label for="tingkatan">{{ __('Tingkatan') }}<span style="color:red"> (Jika ada tingkatan tiap indikator) </span></label>
                             <div class="input-group">
                                 <input type="text" class="form-control @error('tingkatan') is-invalid @enderror"
-                                    placeholder="Masukkan Tingkatan" name="tingkatan" required
-                                    autocomplete="current-tingkatan">
+                                    placeholder="Masukkan Tingkatan" name="tingkatan">
                             </div>
                             @error('tingkatan')
                                 <span class="invalid-feedback" role="alert">
@@ -142,11 +141,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="keterangan">{{ __('Keterangan') }}</label>
+                            <label for="keterangan">{{ __('Keterangan') }}<span style="color:red"> (Optional) </span></label>
                             <div class="input-group">
                                 <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
-                                    placeholder="Masukkan Keterangan" name="keterangan" required
-                                    autocomplete="current-keterangan">
+                                    placeholder="Masukkan Keterangan" name="keterangan" >
                             </div>
                             @error('keterangan')
                                 <span class="invalid-feedback" role="alert">
