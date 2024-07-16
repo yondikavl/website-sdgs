@@ -2,12 +2,109 @@
 
 @section('title', 'Beranda')
 
+@section('style')
+    <style>
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            background-color: #28a745;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            width: 80%;
+        }
+
+        .hero-text p {
+            width: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+            }
+
+            .hero-text {
+                font-size: 12px;
+            }
+
+            .hero-text h1 {
+                font-size: 24px;
+                width: 90%;
+            }
+
+            .hero-text p {
+                width: 90%;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
-    <div class="col-12">
+    <div class="">
+        <div class="hero position-relative w-100 bg-success mb-5">
+            <svg class="hero-left" width="625" height="507" viewBox="0 0 625 507" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle opacity="0.2" cx="-39.3984" cy="7.5" r="488.5" stroke="url(#paint0_linear_1102_85)"
+                    stroke-width="350" />
+                <rect width="418.137" height="885.778" rx="50"
+                    transform="matrix(-0.973116 0.230315 0.230315 0.973116 215.438 339.555)" fill="#0093DD" />
+                <defs>
+                    <linearGradient id="paint0_linear_1102_85" x1="665.954" y1="-170.101" x2="-527.898" y2="530.199"
+                        gradientUnits="userSpaceOnUse">
+                        <stop stop-color="white" stop-opacity="0.4" />
+                        <stop offset="1" stop-color="white" stop-opacity="0.25" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <svg class="hero-right" width="262" height="495" viewBox="0 0 262 495" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect x="192.341" y="-10.9653" width="418.137" height="885.778" rx="50"
+                    transform="rotate(13.3156 192.341 -10.9653)" fill="#F8C300" />
+            </svg>
+            <div class="hero-text position-absolute text-center w-100">
+                <h1 class="font-weight-bold mx-auto">Sustainable Development Goals
+                    (SDGs)</h1>
+                <h1 class="font-weight-bold mx-auto">Kota Bandar Lampung</h1>
+                <p class="mt-5 mx-auto">Bandar Lampung Sehat, Cerdas, Beriman, Berbudaya, Nyaman,
+                    Unggul, dan
+                    Berdaya Saing
+                    Berbasis Ekonomi untuk Kemakmuran Rakyat</p>
+            </div>
+        </div>
         <div class="container mb-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mb-5">SDGs Kota Bandar Lampung</h1>
                     <h5 class="font-weight-light text-justify text-md">
                         Kota Bandar Lampung telah berkomitmen untuk mencapai Sustainable Development Goals (SDGs) atau
                         Tujuan Pembangunan Berkelanjutan (TPB) yang ditunjukkan dengan telah disusun dan ditetapkannya

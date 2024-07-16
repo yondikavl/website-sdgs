@@ -64,7 +64,7 @@
         {{-- style="background-size: 900px; background-repeat: no-repeat; background-position: top center; background-image: url('https://static.vecteezy.com/system/resources/previews/015/633/164/original/siger-lampung-a-typical-icon-of-the-lampung-region-regions-in-indonesia-free-vector.jpg')" --}}
         <main>
             <div class="d-flex justify-content-center">
-                <div class="col-lg-11">
+                <div class="w-100">
                     @include('layouts.client.navbar')
                     <div class="py-5">
                         @yield('content')
