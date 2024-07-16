@@ -64,7 +64,7 @@
 
 @section('content')
     <div class="container">
-        <div class="container mb-5">
+        <div class="container my-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <h1 class="text-center font-weight-bold mb-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
