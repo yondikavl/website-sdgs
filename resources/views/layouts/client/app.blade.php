@@ -32,7 +32,7 @@
 
     <style>
         body {
-            font-family: 'Rubik', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
     </style>
 
