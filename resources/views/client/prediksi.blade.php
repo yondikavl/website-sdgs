@@ -6,26 +6,45 @@
     <style>
         .container {
             width: 90%;
-            margin: 15px auto;
+        }
+
+        .svg-atas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .svg-bawah {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            margin-bottom: 100px;
         }
 
         h2 {
             text-align: center;
+            font-size: 20px;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
+        .form-inline {
+            background-color: #ffffff;
+            border-radius: 12px;
+        }
 
-            #myChart {
-                width: 100%;
-                height: 400px;
-            }
+        label {
+            min-width: 100px;
+            max-width: 100px;
+        }
 
-            select {
-                width: 100%;
-            }
+        select {
+            min-width: 200px;
+            max-width: 200px;
+        }
+
+        select option {
+            font-size: 12px;
         }
 
         table {
@@ -57,26 +76,54 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            #myChart {
+                width: 100%;
+                height: 400px;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
     </style>
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="container my-5">
+    <div class="col-lg-12">
+        <svg class="svg-atas" width="506" height="490" viewBox="0 0 506 490" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle opacity="0.2" cx="31.1897" cy="15.0955" r="374.775" stroke="url(#paint0_linear_1106_91)"
+                stroke-width="200" />
+            <defs>
+                <linearGradient id="paint0_linear_1106_91" x1="572.332" y1="-121.159" x2="-343.585" y2="416.107"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="green" stop-opacity="0.4" />
+                    <stop offset="1" stop-color="green" stop-opacity="0.4" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+
+        <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mb-5">Prediksi SDGs Kota Bandar Lampung</h1>
+                    <h1 class="text-center font-weight-bold mt-5">Prediksi SDGs Kota Bandar Lampung</h1>
                 </div>
             </div>
         </div>
 
-        <div class="container my-5">
+        <div class="container mb-5 py-4" style="background-color: #f2f4f8; border-radius: 12px;">
             <div class="d-flex align-items-center justify-content-center">
-                <form class="form-inline">
+                <form class="form-inline w-100 d-flex justify-content-around mx-3">
                     <!-- Tujuan -->
                     <div class="form-group m-2">
-                        <label for="tujuan_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Tujuan') }}</label>
+                        <label for="tujuan_id" class="mr-2 d-flex">{{ __('Tujuan') }}</label>
                         <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
                             onchange="getIndikator(this.value)" required>
                             <option value="">Pilih Peta Tujuan</option>
@@ -89,8 +136,7 @@
 
                     <!-- Indikator -->
                     <div class="form-group m-2">
-                        <label for="indikator_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Indikator') }}</label>
+                        <label for="indikator_id" class="mr-2 d-flex">{{ __('Indikator') }}</label>
                         <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
                             onchange="getKecamatan(this.value)">
                             <option value="">Pilih Indikator</option>
@@ -99,8 +145,7 @@
 
                     <!-- Kecamatan -->
                     <div class="form-group m-2">
-                        <label for="kecamatan_id" class="mr-2 d-flex"
-                            style="min-width: 100px; max-width: 100px;">{{ __('Kecamatan') }}</label>
+                        <label for="kecamatan_id" class="mr-2 d-flex">{{ __('Kecamatan') }}</label>
                         <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
                             onchange="updateChartAndTable()">
                             <option value="">Pilih Kecamatan</option>
@@ -108,38 +153,53 @@
                     </div>
                 </form>
             </div>
+
+            <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+                <h3 class="mt-3">
+                    <p class="text-sm">Prediksi data indikator yang dipilih: <span id="indikator_value"></span></p>
+                </h3>
+            </div>
+
+            <div class="container mb-5">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
-            <h3 class="mt-3">
-                <p>Prediksi data indikator yang dipilih: <span id="indikator_value"></span></p>
-            </h3>
-        </div>
-
-        <div class="container mb-5">
-            <canvas id="myChart"></canvas>
-        </div>
-
-        <h2 class="text-center">Table Data Prediksi</h2>
-        <div class="container mb-5 table-responsive">
-            <table id="dataTable" style="border: 0;">
-                <thead>
-                    <tr>
-                        <th>Tahun</th>
-                        <th>SD/Sederajat</th>
-                        <th>SMP/Sederajat</th>
-                        <th>SMA/Sederajat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be dynamically added here -->
-                </tbody>
-            </table>
+        <div class="container p-4" style="background-color: #f2f4f8; border-radius: 12px;">
+            <h2 class="text-center mb-3">Table Data Prediksi</h2>
+            <div class="mb-5 table-responsive mx-auto">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Tahun</th>
+                            <th>SD/Sederajat</th>
+                            <th>SMP/Sederajat</th>
+                            <th>SMA/Sederajat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-statistics"></script>
     </div>
+
+    <svg class="svg-bawah" width="476" height="476" viewBox="0 0 476 476" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.2" cx="475.274" cy="475.408" r="374.775" stroke="url(#paint0_linear_1106_91)"
+            stroke-width="200" />
+        <defs>
+            <linearGradient id="paint0_linear_1106_91" x1="1016.42" y1="339.154" x2="100.5" y2="876.42"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="white" stop-opacity="0.4" />
+                <stop offset="1" stop-color="white" stop-opacity="0.25" />
+            </linearGradient>
+        </defs>
+    </svg>
 @endsection
 
 @section('script')

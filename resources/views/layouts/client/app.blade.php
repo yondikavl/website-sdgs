@@ -66,7 +66,7 @@
             <div class="d-flex justify-content-center">
                 <div class="w-100">
                     @include('layouts.client.navbar')
-                    <div class="py-5">
+                    <div class="py-5 overflow-hidden">
                         @yield('content')
                     </div>
                     @include('layouts.client.footer')

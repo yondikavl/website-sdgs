@@ -106,8 +106,10 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <h5 class="font-weight-light text-justify text-md">
-                        Kota Bandar Lampung telah berkomitmen untuk mencapai Sustainable Development Goals (SDGs) atau
-                        Tujuan Pembangunan Berkelanjutan (TPB) yang ditunjukkan dengan telah disusun dan ditetapkannya
+                        <span class="font-weight-bold">Kota Bandar Lampung</span> telah berkomitmen untuk mencapai
+                        <span class="font-weight-bold">Sustainable Development Goals (SDGs)</span> atau
+                        <span class="font-weight-bold">Tujuan Pembangunan Berkelanjutan (TPB)</span> yang ditunjukkan dengan
+                        telah disusun dan ditetapkannya
                         dokumen Rencana Aksi Daerah (RAD) SDGs/TPB Kota Bandar Lampung 2020-2024.
                     </h5>
                     <h5 class="font-weight-light text-justify text-md">

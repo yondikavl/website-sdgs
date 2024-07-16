@@ -4,6 +4,40 @@
 
 @section('style')
     <style>
+        .svg-atas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .svg-bawah {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            margin-bottom: 100px;
+        }
+
+        .form-inline {
+            background-color: #ffffff;
+            border-radius: 12px;
+        }
+
+        label {
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        select {
+            min-width: 200px;
+            max-width: 200px;
+        }
+
+        select option {
+            font-size: 12px;
+        }
+
         .popup-table {
             border-collapse: collapse;
             width: 100%;
@@ -134,17 +168,31 @@
 
 @section('content')
     <div class="col-12">
+        <svg class="svg-atas" width="506" height="490" viewBox="0 0 506 490" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle opacity="0.2" cx="31.1897" cy="15.0955" r="374.775" stroke="url(#paint0_linear_1106_91)"
+                stroke-width="200" />
+            <defs>
+                <linearGradient id="paint0_linear_1106_91" x1="572.332" y1="-121.159" x2="-343.585" y2="416.107"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="green" stop-opacity="0.4" />
+                    <stop offset="1" stop-color="green" stop-opacity="0.4" />
+                </linearGradient>
+            </defs>
+        </svg>
+
         <div class="container">
-            <div class="container my-5">
+            <div class="container py-5">
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
-                        <h1 class="text-center font-weight-bold mb-5">Geospasial SDGs Kota Bandar Lampung</h1>
+                        <h1 class="text-center font-weight-bold pt-5">Geospasial SDGs Kota Bandar Lampung</h1>
                     </div>
                 </div>
             </div>
-            <div class="row h-100 d-flex justify-content-center align-items-center">
+            <div
+                class="row h-100 d-flex justify-content-center align-items-center border border-width-3 p-lg-3 p-sm-1 rounded-lg">
                 <div class="col-lg-12">
-                    <form class="form-inline justify-content-center">
+                    <form class="form-inline d-flex justify-content-around">
                         <!-- Tujuan -->
                         <div class="form-group m-2">
                             <label for="tujuan_id" class="mr-2"
@@ -179,12 +227,12 @@
                         </div>
                     </form>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
-                <h3 class="mt-3">
-                    <p id="indikator_value"></p>
-                    <p id="tahun_value"></p>
-                </h3>
+                <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+                    <div class="mt-3">
+                        <p id="indikator_value"></p>
+                        <p id="tahun_value"></p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -336,6 +384,19 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
     </div>
+
+    <svg class="svg-bawah" width="476" height="476" viewBox="0 0 476 476" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.2" cx="475.274" cy="475.408" r="374.775" stroke="url(#paint0_linear_1106_91)"
+            stroke-width="200" />
+        <defs>
+            <linearGradient id="paint0_linear_1106_91" x1="1016.42" y1="339.154" x2="100.5" y2="876.42"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="white" stop-opacity="0.4" />
+                <stop offset="1" stop-color="white" stop-opacity="0.25" />
+            </linearGradient>
+        </defs>
+    </svg>
 @endsection
 
 @section('script')
