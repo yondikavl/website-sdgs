@@ -14,7 +14,7 @@
 @endsection
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-lg-5">
-    <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/logo.png') }}" width="50" alt="Logo"></a>
+    <a class="navbar-brand" href="/"><img src="{{ asset('assets/img/logo.png') }}" width="50" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
