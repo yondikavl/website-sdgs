@@ -19,7 +19,7 @@
 @section('content')
 
     <div class="container py-5">
-        <h1 class="text-center pt-5 font-weight-bold text-xl">17 Tujuan SDGs</h1>
+        <h1 class="text-center py-5 font-weight-bold text-xl">17 Tujuan SDGs</h1>
         <div class="text-center">
             <div class="row d-none d-md-flex">
                 @foreach ($tujuans as $tujuan)

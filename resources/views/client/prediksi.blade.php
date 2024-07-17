@@ -62,6 +62,7 @@
         td {
             padding: 8px;
             text-align: center;
+            font-size: 12px;
         }
 
         th {
@@ -118,8 +119,8 @@
             </div>
         </div>
 
-        <div class="container mb-5 py-4" style="background-color: #f2f4f8; border-radius: 12px;">
-            <div class="d-flex align-items-center justify-content-center">
+        <div class="card container mb-5 py-4 bg-light" style=" border-radius: 12px;">
+            <div class="card mx-3 d-flex align-items-center justify-content-center">
                 <form class="form-inline w-100 d-flex justify-content-around mx-3">
                     <!-- Tujuan -->
                     <div class="form-group m-2">
@@ -165,7 +166,7 @@
             </div>
         </div>
 
-        <div class="container p-4" style="background-color: #f2f4f8; border-radius: 12px;">
+        <div class="card container p-4 bg-light" style=" border-radius: 12px;">
             <h2 class="text-center mb-3">Table Data Prediksi</h2>
             <div class="mb-5 table-responsive mx-auto">
                 <table id="dataTable">
