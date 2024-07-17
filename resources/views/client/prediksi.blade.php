@@ -156,8 +156,8 @@
             </div>
 
             <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
-                <h3 class="mt-3">
-                    <p class="text-sm">Prediksi data indikator yang dipilih: <span id="indikator_value"></span></p>
+                <h3 class="mx-5 mt-3" id="indikator_name">
+                    <p class="text-sm">Prediksi data indikator: <span id="indikator_value"></span></p>
                 </h3>
             </div>
 
@@ -210,7 +210,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        function getIndikator(tujuanId) {
+            function getIndikator(tujuanId) {
             $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
             $.ajax({
                 type: 'GET',
@@ -226,15 +226,18 @@
                         );
                     });
                     if (response.length > 0) {
-                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                        const firstIndikator = response[0];
+                        $('#indikator_id').val(firstIndikator.kode_indikator).trigger('change');
+                        $('#indikator_value').text(firstIndikator.nama_indikator);
                     }
                 }
             });
         }
 
-
         function getKecamatan(indikatorId) {
-            // console.log('Indikator ID:', indikatorId); // Debugging
+            var selectedIndikatorText = $('#indikator_id option:selected').text();
+            $('#indikator_value').text(selectedIndikatorText);
+
             $.ajax({
                 url: "{{ route('get-kecamatan') }}",
                 type: 'GET',
@@ -245,8 +248,7 @@
                     var kecamatanSelect = $('#kecamatan_id');
                     kecamatanSelect.empty().append('<option value="">Pilih Kecamatan</option>');
                     response.kecamatans.forEach(kecamatan => {
-                        kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan
-                            .name + '</option>');
+                        kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan.name + '</option>');
                     });
                 },
                 error: function(xhr) {
@@ -347,6 +349,7 @@
                 }
             });
         }
+
 
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
