@@ -4,43 +4,30 @@
 
 @section('style')
     <style>
+        .container {
+            width: 90%;
+        }
+
+        .svg-atas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .svg-bawah {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            margin-bottom: 100px;
+        }
+
         .table-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             margin: 20px;
-        }
-
-        table {
-            width: 45%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            border: 1px solid green;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #28a745;
-            color: white;
-        }
-
-        tr:nth-child(odd) {
-            background-color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        @media (max-width: 768px) {
-            table {
-                width: 100%;
-            }
         }
 
         .form-container {
@@ -59,15 +46,114 @@
         .form-group label {
             min-width: 120px;
         }
+
+        label {
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        select {
+            min-width: 300px;
+            max-width: 300px;
+        }
+
+        select option {
+            font-size: 12px;
+        }
+
+        table {
+            width: 500px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid green;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        th.indikator,
+        td.indikator {
+            width: 200px;
+            /* Fixed width for indikator column */
+        }
+
+        th.tahun,
+        td.tahun {
+            width: 80px;
+            /* Smaller width for tahun columns */
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            th,
+            td {
+                width: auto;
+                /* Adjust width for smaller screens */
+            }
+        }
+
+        @media (max-width: 560px) {
+            svg {
+                visibility: hidden;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .table-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: 20px;
+            }
+
+            table {
+                width: 500px;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 @endsection
 
 @section('content')
+
+    <svg class="svg-atas" width="506" height="490" viewBox="0 0 506 490" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.2" cx="31.1897" cy="15.0955" r="374.775" stroke="url(#paint0_linear_1106_91)"
+            stroke-width="200" />
+        <defs>
+            <linearGradient id="paint0_linear_1106_91" x1="572.332" y1="-121.159" x2="-343.585" y2="416.107"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="green" stop-opacity="0.4" />
+                <stop offset="1" stop-color="green" stop-opacity="0.4" />
+            </linearGradient>
+        </defs>
+    </svg>
+
     <div class="container">
-        <div class="container my-5">
+        <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mb-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
+                    <h1 class="text-center font-weight-bold pt-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
                 </div>
             </div>
         </div>
@@ -99,9 +185,9 @@
                 <table id="table1" class="overflow-auto">
                     <thead>
                         <tr>
-                            <th>Indikator</th>
+                            <th class="indikator">Indikator</th>
                             @foreach ($tahuns as $item)
-                                <th>{{ $item }}</th>
+                                <th class="tahun">{{ $item }}</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -123,9 +209,9 @@
                 <table id="table2" class="overflow-auto">
                     <thead>
                         <tr>
-                            <th>Indikator</th>
+                            <th class="indikator">Indikator</th>
                             @foreach ($tahuns as $item)
-                                <th>{{ $item }}</th>
+                                <th class="tahun">{{ $item }}</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -136,78 +222,80 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @section('script')
-<script>
-    function getIndikators(tujuanId) {
-        if (!tujuanId) return;
+    <script>
+        function getIndikators(tujuanId) {
+            if (!tujuanId) return;
 
-        fetch(`/pembanding/indikators/${tujuanId}`)
-            .then(response => response.json())
-            .then(data => {
-                updateKecamatanOptions();
-            });
-    }
-
-    function updateTable(tujuanId, kecamatanId, tableId) {
-        if (!tujuanId || !kecamatanId) {
-            clearTable(tableId);
-            return;
+            fetch(`/pembanding/indikators/${tujuanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateKecamatanOptions();
+                });
         }
 
-        fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
-            .then(response => response.json())
-            .then(data => {
-                const tahuns = @json($tahuns);
-                let tableBody = document.querySelector(`#${tableId} tbody`);
-                tableBody.innerHTML = '';
+        function updateTable(tujuanId, kecamatanId, tableId) {
+            if (!tujuanId || !kecamatanId) {
+                clearTable(tableId);
+                return;
+            }
 
-                for (let indikator in data) {
-                    let row = `<tr>
-                            <td>${indikator}</td>`;
-                    tahuns.forEach(tahun => {
-                        row += `<td>${data[indikator][tahun] || '-'}</td>`;
-                    });
-                    row += `</tr>`;
-                    tableBody.innerHTML += row;
-                }
-            });
-    }
+            fetch(`/pembanding/pencapaian/${tujuanId}/${kecamatanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tahuns = @json($tahuns);
+                    let tableBody = document.querySelector(`#${tableId} tbody`);
+                    tableBody.innerHTML = '';
 
-    function clearTable(tableId) {
-        let tableBody = document.querySelector(`#${tableId} tbody`);
-        tableBody.innerHTML = '';
-    }
-
-    function updateKecamatanOptions() {
-        fetch(`/pembanding/kecamatans`)
-            .then(response => response.json())
-            .then(data => {
-                let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
-                let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
-                kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
-                kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
-
-                data.forEach(kecamatan => {
-                    let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
-                    kecamatanSelect1.innerHTML += option;
-                    kecamatanSelect2.innerHTML += option;
+                    for (let indikator in data) {
+                        let row = `<tr>
+                            <td class="indikator">${indikator}</td>`;
+                        tahuns.forEach(tahun => {
+                            row += `<td class="tahun">${data[indikator][tahun] || '-'}</td>`;
+                        });
+                        row += `</tr>`;
+                        tableBody.innerHTML += row;
+                    }
                 });
-            });
-    }
+        }
 
-    function updateTable1() {
-        let tujuanId = document.getElementById('tujuan_id').value;
-        let kecamatanId = document.getElementById('kecamatan_id_1').value;
-        updateTable(tujuanId, kecamatanId, 'table1');
-    }
+        function clearTable(tableId) {
+            let tableBody = document.querySelector(`#${tableId} tbody`);
+            tableBody.innerHTML = '';
+        }
 
-    function updateTable2() {
-        let tujuanId = document.getElementById('tujuan_id').value;
-        let kecamatanId = document.getElementById('kecamatan_id_2').value;
-        updateTable(tujuanId, kecamatanId, 'table2');
-    }
-</script>
+        function updateKecamatanOptions() {
+            fetch(`/pembanding/kecamatans`)
+                .then(response => response.json())
+                .then(data => {
+                    let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
+                    let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
+                    kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
+                    kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
+
+                    data.forEach(kecamatan => {
+                        let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
+                        kecamatanSelect1.innerHTML += option;
+                        kecamatanSelect2.innerHTML += option;
+                    });
+                });
+        }
+
+        function updateTable1() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_1').value;
+            updateTable(tujuanId, kecamatanId, 'table1');
+        }
+
+        function updateTable2() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_2').value;
+            updateTable(tujuanId, kecamatanId, 'table2');
+        }
+    </script>
 
 @endsection

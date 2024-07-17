@@ -42,39 +42,41 @@
 
     @include('layouts.client.sdgs')
 
-    <div class="card text-center">
-        <div class="card-body">
-            <h2>{{ $tujuan->nama_tujuan }}</h2>
-            <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
-            <p>{{ $tujuan->deskripsi_tujuan }}</p>
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2>{{ $tujuan->nama_tujuan }}</h2>
+                <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
+                <p>{{ $tujuan->deskripsi_tujuan }}</p>
+            </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Kode</th>
-                        <th>Jenis Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($indikators as $indikator)
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <td>{{ $indikator->kode_indikator }}</td>
-                            <td>{{ $indikator->nama_indikator }}</td>
+                            <th>Kode</th>
+                            <th>Jenis Data</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($indikators as $indikator)
+                            <tr>
+                                <td>{{ $indikator->kode_indikator }}</td>
+                                <td>{{ $indikator->nama_indikator }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
     </div>
 @endsection
 

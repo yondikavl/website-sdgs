@@ -50,6 +50,11 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
             .hero {
                 height: 60vh;
             }
