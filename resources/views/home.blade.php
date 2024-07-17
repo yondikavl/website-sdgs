@@ -56,7 +56,7 @@
             }
 
             .hero {
-                height: 60vh;
+                height: 50vh;
             }
 
             .hero-text {

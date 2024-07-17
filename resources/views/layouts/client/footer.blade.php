@@ -8,7 +8,7 @@
 
 <footer style="background-color: #f7f7f7;">
     <div class="container py-5">
-        <div class="row">
+        <div class="row px-3">
             <div style="display: flex; align-items: center;">
                 <a class="navbar-brand" href="/login"><img src="{{ asset('assets/img/logo-sdgs.png') }}" width="50"
                         alt=""></a>

@@ -102,19 +102,23 @@
 
         @media (max-width: 768px) {
             table {
-                width: 100%;
+                width: 300px;
             }
 
-            th,
-            td {
-                width: auto;
-                /* Adjust width for smaller screens */
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 
         @media (max-width: 560px) {
             svg {
                 visibility: hidden;
+            }
+
+            table {
+                width: 300px;
+                margin-bottom: 20px;
             }
         }
 
@@ -127,7 +131,7 @@
             }
 
             table {
-                width: 500px;
+                width: 300px;
                 border-collapse: collapse;
                 margin-bottom: 20px;
             }
@@ -137,92 +141,94 @@
 
 @section('content')
 
-    <svg class="svg-atas" width="506" height="490" viewBox="0 0 506 490" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle opacity="0.2" cx="31.1897" cy="15.0955" r="374.775" stroke="url(#paint0_linear_1106_91)"
-            stroke-width="200" />
-        <defs>
-            <linearGradient id="paint0_linear_1106_91" x1="572.332" y1="-121.159" x2="-343.585" y2="416.107"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="green" stop-opacity="0.4" />
-                <stop offset="1" stop-color="green" stop-opacity="0.4" />
-            </linearGradient>
-        </defs>
-    </svg>
+    <div class="col-12">
+        <svg class="svg-atas" width="506" height="490" viewBox="0 0 506 490" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle opacity="0.2" cx="31.1897" cy="15.0955" r="374.775" stroke="url(#paint0_linear_1106_91)"
+                stroke-width="200" />
+            <defs>
+                <linearGradient id="paint0_linear_1106_91" x1="572.332" y1="-121.159" x2="-343.585" y2="416.107"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="green" stop-opacity="0.4" />
+                    <stop offset="1" stop-color="green" stop-opacity="0.4" />
+                </linearGradient>
+            </defs>
+        </svg>
 
-    <div class="container">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold pt-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
+        <div class="container">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <h1 class="text-center font-weight-bold pt-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-container">
-            <!-- Tujuan -->
-            <div class="form-group">
-                <label for="tujuan_id" class="">{{ __('Tujuan') }}</label>
-                <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id" onchange="getIndikators(this.value)"
-                    required>
-                    <option value="">Pilih Peta Tujuan</option>
-                    @foreach ($tujuans as $tujuan)
-                        <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <div class="form-container">
-                <!-- Kecamatan 1 -->
-                <div class="form-group">
-                    <label for="kecamatan_id_1" class="mr-2">{{ __('Kecamatan 1') }}</label>
-                    <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1"
-                        onchange="updateTable1()">
-                        <option value="">Pilih Kecamatan 1</option>
-                    </select>
-                </div>
-                <table id="table1" class="overflow-auto">
-                    <thead>
-                        <tr>
-                            <th class="indikator">Indikator</th>
-                            @foreach ($tahuns as $item)
-                                <th class="tahun">{{ $item }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Table data will be populated dynamically -->
-                    </tbody>
-                </table>
             </div>
 
             <div class="form-container">
-                <!-- Kecamatan 2 -->
+                <!-- Tujuan -->
                 <div class="form-group">
-                    <label for="kecamatan_id_2" class="mr-2">{{ __('Kecamatan 2') }}</label>
-                    <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2"
-                        onchange="updateTable2()">
-                        <option value="">Pilih Kecamatan 2</option>
+                    <label for="tujuan_id" class="">{{ __('Tujuan') }}</label>
+                    <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
+                        onchange="getIndikators(this.value)" required>
+                        <option value="">Pilih Peta Tujuan</option>
+                        @foreach ($tujuans as $tujuan)
+                            <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <table id="table2" class="overflow-auto">
-                    <thead>
-                        <tr>
-                            <th class="indikator">Indikator</th>
-                            @foreach ($tahuns as $item)
-                                <th class="tahun">{{ $item }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Table data will be populated dynamically -->
-                    </tbody>
-                </table>
+            </div>
+
+            <div class="table-container">
+                <div class="form-container">
+                    <!-- Kecamatan 1 -->
+                    <div class="form-group">
+                        <label for="kecamatan_id_1" class="mr-2">{{ __('Kecamatan 1') }}</label>
+                        <select class="form-control rounded-2" id="kecamatan_id_1" name="kecamatan_id_1"
+                            onchange="updateTable1()">
+                            <option value="">Pilih Kecamatan 1</option>
+                        </select>
+                    </div>
+                    <table id="table1" class="overflow-auto">
+                        <thead>
+                            <tr>
+                                <th class="indikator">Indikator</th>
+                                @foreach ($tahuns as $item)
+                                    <th class="tahun">{{ $item }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <!-- Kecamatan 2 -->
+                    <div class="form-group">
+                        <label for="kecamatan_id_2" class="mr-2">{{ __('Kecamatan 2') }}</label>
+                        <select class="form-control rounded-2" id="kecamatan_id_2" name="kecamatan_id_2"
+                            onchange="updateTable2()">
+                            <option value="">Pilih Kecamatan 2</option>
+                        </select>
+                    </div>
+                    <table id="table2" class="overflow-auto">
+                        <thead>
+                            <tr>
+                                <th class="indikator">Indikator</th>
+                                @foreach ($tahuns as $item)
+                                    <th class="tahun">{{ $item }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
 
 @endsection
 

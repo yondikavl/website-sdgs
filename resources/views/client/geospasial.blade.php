@@ -24,8 +24,10 @@
         }
 
         label {
-            min-width: 100px;
-            max-width: 100px;
+            min-width: 200px;
+            max-width: 200px;
+            text-align: left;
+            margin-bottom: 4px;
         }
 
         select {
@@ -94,6 +96,11 @@
             padding: 12px
         }
 
+        .form-group {
+            min-width: 200px;
+            max-width: 200px;
+        }
+
         h2 {
             text-align: center;
         }
@@ -151,6 +158,16 @@
                 padding: 0;
             }
 
+            .form-group {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            select {
+                min-width: 98%;
+                max-width: 98%;
+            }
+
             #my-svg {
                 width: 100%;
                 margin-bottom: 12px;
@@ -193,8 +210,7 @@
                     <form class="form-inline d-flex justify-content-around">
                         <!-- Tujuan -->
                         <div class="form-group m-2">
-                            <label for="tujuan_id" class="mr-2"
-                                style="min-width: 100px; max-width: 100px;">{{ __('Tujuan') }}</label>
+                            <label for="tujuan_id" class="mr-2">{{ __('Tujuan') }}</label>
                             <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
                                 onchange="getIndikator(this.value)" required>
                                 <option value="">Pilih Peta Tujuan</option>
@@ -207,8 +223,7 @@
 
                         <!-- Indikator -->
                         <div class="form-group m-2">
-                            <label for="indikator_id" class="mr-2"
-                                style="min-width: 100px; max-width: 100px;">{{ __('Indikator') }}</label>
+                            <label for="indikator_id" class="mr-2">{{ __('Indikator') }}</label>
                             <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
                                 onchange="getTahun(this.value)">
                                 <option value="">Pilih Indikator</option>
@@ -217,15 +232,14 @@
 
                         <!-- Tahun -->
                         <div class="form-group m-2">
-                            <label for="tahun" class="mr-2"
-                                style="min-width: 100px; max-width: 100px;">{{ __('Tahun') }}</label>
+                            <label for="tahun" class="mr-2">{{ __('Tahun') }}</label>
                             <select class="form-control rounded-2" id="tahun" name="tahun">
                                 <option value="">Pilih Tahun</option>
                             </select>
                         </div>
                     </form>
                 </div>
-                <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+                <div class="d-flex justify-content-center align-items-center mx-auto mt-3 px-3">
                     <div class="mt-3">
                         <p id="indikator_value"></p>
                         <p id="tahun_value"></p>
