@@ -170,7 +170,7 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer fixed-bottom">
-            <strong>Copyright &copy; 2023 <a href="#">SDGs Kota bandar Lampung</a>.</strong>
+            <strong>Copyright &copy; 2024 <a href="#">SDGs Kota bandar Lampung</a>.</strong>
             All rights reserved.
         </footer>
 

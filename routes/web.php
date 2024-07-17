@@ -50,7 +50,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
-        Route::resource('kecamatan', KecamatanController::class);
     });
 
     // CMS ADMIN

@@ -44,14 +44,15 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
       <div class="card-body">
+        
         <div class="form-group">
           <label for="email">{{ __('Alamat Email') }}</label>
           <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" name="email" required autocomplete="email" autofocus>
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+          @if ($errors->has('email'))
+          <div class="my-2 alert alert-danger">
+              {{ __('Email atau Password yang anda masukkan tidak sesuai') }}
+          </div>
+      @endif
         </div>
         <div class="form-group">
           <label for="password">{{ __('Kata Sandi') }}</label>
@@ -63,7 +64,7 @@
             @enderror
         </div>
         <div class="text-center items-center">
-            <button type="submit" class="btn btn-success">{{ __('Masuk') }}</</button>
+            <button type="submit" class="btn btn-success">{{ __('Masuk') }}</button>
           </div>
       </div>
       <!-- /.card-body -->      
@@ -106,4 +107,3 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 </body>
 </html>
-

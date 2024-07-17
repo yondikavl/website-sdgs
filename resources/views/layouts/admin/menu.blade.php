@@ -134,29 +134,6 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white">
-                    <i class="nav-icon fa-solid fa-location-dot"></i>
-                    <p>
-                        Kecamatan
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="/super/kecamatan/" class="nav-link text-white">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Kecamatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/super/kecamatan/create/" class="nav-link text-white">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p><small>Tambah Data Kecamatan</small></p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                     @csrf
                 </form>
