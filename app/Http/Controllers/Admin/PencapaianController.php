@@ -16,24 +16,21 @@ class PencapaianController extends Controller
     public function index()
 {
     $user = auth()->user();
-
     if ($user->roles_id == 3) {
-        if ($user->permissions != null) {
-            // Get pencapaian where indikator id is in user permissions
-            $pencapaians = Pencapaian::all();
+        if (!empty($user->permissions)) {
+            $pencapaians = Pencapaian::where('user_id', $user->id)->get();
         } else {
-            // Get pencapaian where indikator id is null
-            $pencapaians = Pencapaian::where('indikator_id', null)->get();
+            $pencapaians = Pencapaian::whereNull('indikator_id')->get();
         }
     } else {
         $pencapaians = Pencapaian::all();
     }
-
     // Sort the years in descending order
     $years = $pencapaians->pluck('tahun')->unique()->sortDesc();
 
     return view('admin.pencapaian.index', compact('pencapaians', 'years'));
 }
+
 
 
     public function create()
