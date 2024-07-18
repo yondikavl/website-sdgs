@@ -13,7 +13,7 @@ class GeospasialController extends Controller
     {
         $kecamatans = Pencapaian::with(['Kecamatan', 'Indikator'])->get();
         $pencapaian = Pencapaian::with('Indikator.Tujuan')->get();
-        $tujuans = $pencapaian->pluck('Indikator.Tujuan')->flatten()->unique('id')->values();
+        $tujuans = $pencapaian->pluck('Indikator.Tujuan')->flatten()->unique('id')->sortBy('id')->values();
         $indikators = Indikator::all();
         // dd($kecamatans);
         return view('client.geospasial', compact('indikators', 'kecamatans', 'tujuans'));

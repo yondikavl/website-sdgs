@@ -469,33 +469,37 @@
         }
 
         function getIndikator(tujuanId) {
-            if (!tujuanId) {
-                resetFiltersAndTable();
-                return;
-            }
-
-            $('#indikator_id').empty();
-            $('#indikator_id').append('<option value="">Pilih Indikator</option>');
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
-                success: function(response) {
-                    response.forEach(element => {
-                        // Potong teks indikator
-                        let truncatedText = truncateText(
-                            `${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
-                        $('#indikator_id').append(
-                            `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
-                        );
-                    });
-
-                    // Select the first available indicator by default
-                    if (response.length > 0) {
-                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
-                    }
-                }
-            });
+        if (!tujuanId) {
+            resetFiltersAndTable();
+            return;
         }
+
+        $('#indikator_id').empty();
+        $('#indikator_id').append('<option value="">Pilih Indikator</option>');
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
+            success: function(response) {
+                // Urutkan response berdasarkan kode_indikator dari rendah ke tinggi
+                response.sort((a, b) => a.kode_indikator - b.kode_indikator);
+
+                response.forEach(element => {
+                    // Potong teks indikator
+                    let truncatedText = truncateText(
+                        `${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
+                    $('#indikator_id').append(
+                        `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
+                    );
+                });
+
+                // Select the first available indicator by default
+                if (response.length > 0) {
+                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                }
+            }
+        });
+    }
+
 
         function truncateText(text, wordLimit) {
             var words = text.split(' ');
@@ -564,10 +568,10 @@
                     let newColor;
 
                     if (value <= item.indikator.rendah) {
-                        newColor = '#97051d';
-                    } else if (value > item.indikator.rendah || value <= item.indikator.sedang) {
+                    newColor = '#97051d';
+                    } else if (value <= item.indikator.sedang) {
                         newColor = '#f8b324';
-                    } else if (value > item.indikator.sedang || value > item.indikator.tinggi) {
+                    } else if (value > item.indikator.sedang) {
                         newColor = '#0c6b37';
                     } else {
                         newColor = 'grey';
@@ -667,16 +671,16 @@
                     let newColor;
 
                     if (value <= item.indikator.rendah) {
-                        newColor = '#97051d';
-                    } else if (value > item.indikator.rendah || value <= item.indikator.sedang) {
+                    newColor = '#97051d';
+                    } else if (value <= item.indikator.sedang) {
                         newColor = '#f8b324';
-                    } else if (value > item.indikator.sedang || value > item.indikator.tinggi) {
+                    } else if (value > item.indikator.sedang) {
                         newColor = '#0c6b37';
                     } else {
                         newColor = 'grey';
                     }
 
-
+                    
                     item.kecamatan.forEach(kecamatan => {
                         const pathElement = document.querySelector(`#a${kecamatan.code}`);
 
