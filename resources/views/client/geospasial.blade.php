@@ -251,7 +251,7 @@
             <div class="legend pb-3" style="display: flex; align-items: center;">
                 <div style="display: flex; align-items: center; margin-right: 20px;">
                     <div style="width: 20px; height: 20px; background-color: #97051d; margin-right: 5px;"></div>
-                    <span>Buruk</span>
+                    <span>Rendah</span>
                 </div>
                 <div style="display: flex; align-items: center; margin-right: 20px;">
                     <div style="width: 20px; height: 20px; background-color: #f8b324; margin-right: 5px;"></div>
@@ -259,7 +259,7 @@
                 </div>
                 <div style="display: flex; align-items: center;">
                     <div style="width: 20px; height: 20px; background-color: #0c6b37; margin-right: 5px;"></div>
-                    <span>Baik</span>
+                    <span>Tinggi</span>
                 </div>
             </div>
 
