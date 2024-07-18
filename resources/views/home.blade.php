@@ -43,10 +43,16 @@
 
         .hero-text h1 {
             width: 80%;
+            font-size: 48px;
         }
 
         .hero-text p {
             width: 50%;
+            font-size: 16px;
+        }
+
+        #carousel:hover {
+            filter: brightness(0.8);
         }
 
         @media (max-width: 768px) {
@@ -56,7 +62,7 @@
             }
 
             .hero {
-                height: 50vh;
+                height: 70vh;
             }
 
             .hero-text {
@@ -229,7 +235,7 @@
         <div class="container d-none d-md-block">
             <div class="text-center">
                 @foreach ($tujuans as $tujuan)
-                    <a href="/tujuan/{{ $tujuan->id }}">
+                    <a href="/tujuan/{{ $tujuan->id }}" id="carousel">
                         <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="184"
                             class="rounded-lg my-1" alt="{{ $tujuan->nama_tujuan }}">
                     </a>

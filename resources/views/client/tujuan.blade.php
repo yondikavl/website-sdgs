@@ -4,6 +4,10 @@
 
 @section('style')
     <style>
+        #carousel:hover {
+            filter: brightness(0.8);
+        }
+
         @media (min-width: 768px) {
             .d-md-flex {
                 display: flex !important;
@@ -44,7 +48,7 @@
                                 <div class="carousel-item @if ($loop->first) active @endif">
                                     <div class="row">
                                         @foreach ($chunk as $tujuan)
-                                            <div class="col-md-3 mb-4">
+                                            <div class="col-md-3 mb-4" id="carousel">
                                                 <a href="/tujuan/{{ $tujuan->id }}">
                                                     <div class="card bg-white p-3"
                                                         style="min-height: 200px; max-height: 200px">
