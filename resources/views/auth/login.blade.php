@@ -56,12 +56,19 @@
         </div>
         <div class="form-group">
           <label for="password">{{ __('Kata Sandi') }}</label>
-          <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Masukkan kata sandi" name="password" required autocomplete="current-password">
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+          <div class="input-group">
+            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Masukkan kata sandi" name="password" required autocomplete="current-password">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                <i class="fas fa-eye" id="toggleIcon"></i>
+              </button>
+            </div>
+          </div>
+          @error('password')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
         </div>
         <div class="text-center items-center">
             <button type="submit" class="btn btn-success">{{ __('Masuk') }}</button>
@@ -105,5 +112,21 @@
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function (e) {
+    const passwordInput = document.getElementById('password');
+    const passwordIcon = document.getElementById('toggleIcon');
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      passwordIcon.classList.remove('fa-eye');
+      passwordIcon.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      passwordIcon.classList.remove('fa-eye-slash');
+      passwordIcon.classList.add('fa-eye');
+    }
+  });
+</script>
 </body>
 </html>
