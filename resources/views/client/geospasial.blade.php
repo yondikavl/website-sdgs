@@ -469,36 +469,36 @@
         }
 
         function getIndikator(tujuanId) {
-        if (!tujuanId) {
-            resetFiltersAndTable();
-            return;
-        }
-
-        $('#indikator_id').empty();
-        $('#indikator_id').append('<option value="">Pilih Indikator</option>');
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
-            success: function(response) {
-                // Urutkan response berdasarkan kode_indikator dari rendah ke tinggi
-                response.sort((a, b) => a.kode_indikator - b.kode_indikator);
-
-                response.forEach(element => {
-                    // Potong teks indikator
-                    let truncatedText = truncateText(
-                        `${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
-                    $('#indikator_id').append(
-                        `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
-                    );
-                });
-
-                // Select the first available indicator by default
-                if (response.length > 0) {
-                    $('#indikator_id').val(response[0].kode_indikator).trigger('change');
-                }
+            if (!tujuanId) {
+                resetFiltersAndTable();
+                return;
             }
-        });
-    }
+
+            $('#indikator_id').empty();
+            $('#indikator_id').append('<option value="">Pilih Indikator</option>');
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get-peta-indikator', '') }}" + '/' + tujuanId,
+                success: function(response) {
+                    // Urutkan response berdasarkan kode_indikator dari rendah ke tinggi
+                    response.sort((a, b) => a.kode_indikator - b.kode_indikator);
+
+                    response.forEach(element => {
+                        // Potong teks indikator
+                        let truncatedText = truncateText(
+                            `${element['kode_indikator']}. ${element['nama_indikator']}`, 5);
+                        $('#indikator_id').append(
+                            `<option value="${element['kode_indikator']}" data-full-text="${element['kode_indikator']}. ${element['nama_indikator']}">${truncatedText}</option>`
+                        );
+                    });
+
+                    // Select the first available indicator by default
+                    if (response.length > 0) {
+                        $('#indikator_id').val(response[0].kode_indikator).trigger('change');
+                    }
+                }
+            });
+        }
 
 
         function truncateText(text, wordLimit) {
@@ -568,7 +568,7 @@
                     let newColor;
 
                     if (value <= item.indikator.rendah) {
-                    newColor = '#97051d';
+                        newColor = '#97051d';
                     } else if (value <= item.indikator.sedang) {
                         newColor = '#f8b324';
                     } else if (value > item.indikator.sedang) {
@@ -640,8 +640,8 @@
             if (pencapaianList.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td colspan="6">Tidak ada data pada indikator ini.</td>
-            `;
+        <td colspan="6">Tidak ada data pada indikator ini.</td>
+    `;
                 tableBody.appendChild(row);
                 return;
             }
@@ -649,16 +649,17 @@
             pencapaianList.forEach((pencapaian) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${pencapaian.tahun || '-'}</td>
-                <td>${pencapaian.indikator.tipe || '-'}</td>
-                <td>${pencapaian.persentase || '-'}</td>
-                <td>${pencapaian.sumber_data || '-'}</td>
-                <td>${pencapaian.tingkatan ? pencapaian.tingkatan : '-'}
-                <td>${pencapaian.keterangan ? pencapaian.keterangan : '-'}
-            `;
+        <td>${pencapaian.tahun || '-'}</td>
+        <td>${pencapaian.indikator.tipe || '-'}</td>
+        <td>${pencapaian.persentase ? pencapaian.persentase + '%' : '-'}</td>
+        <td>${pencapaian.sumber_data || '-'}</td>
+        <td>${pencapaian.tingkatan ? pencapaian.tingkatan : '-'}</td>
+        <td>${pencapaian.keterangan ? pencapaian.keterangan : '-'}</td>
+    `;
                 tableBody.appendChild(row);
             });
         }
+
 
 
         function updateColors() {
@@ -671,7 +672,7 @@
                     let newColor;
 
                     if (value <= item.indikator.rendah) {
-                    newColor = '#97051d';
+                        newColor = '#97051d';
                     } else if (value <= item.indikator.sedang) {
                         newColor = '#f8b324';
                     } else if (value > item.indikator.sedang) {
@@ -680,7 +681,7 @@
                         newColor = 'grey';
                     }
 
-                    
+
                     item.kecamatan.forEach(kecamatan => {
                         const pathElement = document.querySelector(`#a${kecamatan.code}`);
 
