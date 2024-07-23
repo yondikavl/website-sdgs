@@ -7,6 +7,24 @@
             align-items: center;
         }
 
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
+            /* Sesuaikan jarak antara logo dan teks */
+        }
+
+        .navbar-brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            /* Pastikan teks rata kiri */
+        }
+
         .nav-link {
             font-weight: normal;
         }
@@ -17,10 +35,15 @@
     </style>
 @endsection
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-lg-5">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-lg-5 shadow">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src="{{ asset('assets/img/logo.png') }}" width="50"
-                alt="Logo"></a>
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{{ asset('assets/img/logo.png') }}" width="50" alt="Logo">
+            <div class="navbar-brand-text ml-2">
+                <div class="text-sm">SDGs</div>
+                <div class="text-sm">Bandar Lampung</div>
+            </div>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
