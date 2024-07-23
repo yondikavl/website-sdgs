@@ -37,7 +37,7 @@
         </div>
     @endif
     <div class="text-center">
-        @foreach ($tujuans->where('pilar_id', $pilar->id) as $tujuan)
+        @foreach ($tujuans as $tujuan)
             <a href="/tujuan/{{ $tujuan->id }}">
                 <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="185" alt="">
             </a>

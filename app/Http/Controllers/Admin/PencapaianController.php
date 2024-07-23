@@ -23,9 +23,9 @@ class PencapaianController extends Controller
             $pencapaians = Pencapaian::whereNull('indikator_id')->get();
         }
     } else {
-        $pencapaians = Pencapaian::all();
+        $pencapaians = Pencapaian::paginate(100);
     }
-    // Sort the years in descending order
+    // dd($pencapaians);
     $years = $pencapaians->pluck('tahun')->unique()->sortDesc();
 
     return view('admin.pencapaian.index', compact('pencapaians', 'years'));

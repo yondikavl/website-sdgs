@@ -20,6 +20,7 @@ use App\Http\Controllers\Client\PembandingController;
 use App\Http\Controllers\Client\PrediksiController;
 use App\Http\Controllers\Client\TargetController;
 use App\Http\Controllers\Client\TujuansController;
+use App\Http\Controllers\Client\DokumenController;
 use App\Models\Geospasial;
 
 /*
@@ -86,6 +87,7 @@ Route::get('pilar/{id}', [BerandaController::class, 'show'])->name('detail-pilar
 Route::get('tujuan', [TujuansController::class, 'index'])->name('tujuan');
 Route::get('tujuan/{id}', [TujuansController::class, 'show'])->name('tujuan');
 Route::get('target', [TargetController::class, 'index'])->name('target');
+Route::get('dokumen', [DokumenController::class, 'index'])->name('dokumen');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
 Route::get('pencapaian/{id}', [PencapaianController::class, 'show'])->name('detail-pencapaian');

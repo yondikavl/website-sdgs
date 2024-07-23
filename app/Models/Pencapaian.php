@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pencapaian extends Model
 {
     use HasFactory;
+    protected $timestamp = false;
     protected $table = 'pencapaian';
     protected $fillable = [
         'indikator_id',

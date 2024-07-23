@@ -71,6 +71,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">Kontak</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">Dokumen</a>
+                </li>
             </ul>
         </div>
     </div>
