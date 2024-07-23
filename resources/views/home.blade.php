@@ -78,6 +78,11 @@
                 width: 90%;
             }
         }
+
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 @endsection
 
@@ -132,6 +137,13 @@
                     </h5>
                 </div>
             </div>
+        </div>
+        <div class="container mb-5 iframe-container">
+            <iframe style="border-radius: 12px;" width="560" height="315"
+                src="https://www.youtube.com/embed/gs_KHznjD6o?si=wxFMTClCSiNf9RKz" title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
         <div class="container mb-3" style="border-radius: 12px">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-radius: 12px">
@@ -245,7 +257,6 @@
         </div>
 
     </div>
-
 @endsection
 
 @section('script')
