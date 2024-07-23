@@ -110,7 +110,6 @@
             </defs>
         </svg>
 
-
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
@@ -210,7 +209,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-            function getIndikator(tujuanId) {
+        function getIndikator(tujuanId) {
             $('#indikator_id').empty().append('<option value="">Pilih Indikator</option>');
             $.ajax({
                 type: 'GET',
@@ -248,7 +247,8 @@
                     var kecamatanSelect = $('#kecamatan_id');
                     kecamatanSelect.empty().append('<option value="">Pilih Kecamatan</option>');
                     response.kecamatans.forEach(kecamatan => {
-                        kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan.name + '</option>');
+                        kecamatanSelect.append('<option value="' + kecamatan.id + '">' + kecamatan
+                            .name + '</option>');
                     });
                 },
                 error: function(xhr) {
@@ -308,16 +308,6 @@
                     headerRow += '</tr>';
                     tableHead.append(headerRow);
 
-                    // Add historical data to table
-                    labels.forEach((year, index) => {
-                        var row = `<tr><td>${year}</td>`;
-                        tingkatans.forEach(tingkatan => {
-                            row += `<td>${historicalData[tingkatan][index].toFixed(2)}%</td>`;
-                        });
-                        row += '</tr>';
-                        tableBody.append(row);
-                    });
-
                     tingkatans.forEach(tingkatan => {
                         var historicalDataForTingkatan = historicalData[tingkatan].map(parseFloat);
                         var predictedData = predictData(historicalDataForTingkatan, startYear, endYear);
@@ -350,7 +340,6 @@
             });
         }
 
-
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
             var color = '#';
@@ -359,7 +348,6 @@
             }
             return color;
         }
-
 
         $(document).ready(function() {
             var ctx = document.getElementById('myChart').getContext('2d');
