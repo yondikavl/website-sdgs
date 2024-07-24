@@ -3,7 +3,7 @@
 @section('title', 'Hubungi Kami')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-lg-12 mt-5">
                 <div class="card">
