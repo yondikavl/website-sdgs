@@ -33,8 +33,8 @@
                             <tr>
                                 <td>Manual Book Kota Bandar Lampung Tahun 2024</td>
                                 <td><a class="fa fa-download" target="_blank"
-                                        href="{{ asset('assets/template/Admin-Template-Pencapaian.xlsx') }}"
-                                        download="Admin-Template-Pencapaian">
+                                        href="{{ asset('assets/template/Manual-Book-Dashboard-SDGs-Kota Bandar-Lampung-2024.pdf') }}"
+                                        download="Manual-Book-Dashboard-SDGs-Kota Bandar-Lampung-2024">
                                     </a></i></a></td>
                             </tr>
                             <tr>

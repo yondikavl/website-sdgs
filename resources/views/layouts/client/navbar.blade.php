@@ -69,10 +69,10 @@
                     <a class="nav-link {{ request()->is('tujuan') ? 'active' : '' }}" href="/tujuan">Tujuan SDGs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">Kontak</a>
+                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">Dokumen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">Dokumen</a>
+                    <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">Kontak</a>
                 </li>
             </ul>
         </div>

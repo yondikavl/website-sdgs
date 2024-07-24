@@ -640,8 +640,8 @@
             if (pencapaianList.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-        <td colspan="6">Tidak ada data pada indikator ini.</td>
-    `;
+                <td colspan="6">Tidak ada data pada indikator ini.</td>
+                `;
                 tableBody.appendChild(row);
                 return;
             }
@@ -649,18 +649,16 @@
             pencapaianList.forEach((pencapaian) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-        <td>${pencapaian.tahun || '-'}</td>
-        <td>${pencapaian.indikator.tipe || '-'}</td>
-        <td>${pencapaian.persentase ? pencapaian.persentase + '%' : '-'}</td>
-        <td>${pencapaian.sumber_data || '-'}</td>
-        <td>${pencapaian.tingkatan ? pencapaian.tingkatan : '-'}</td>
-        <td>${pencapaian.keterangan ? pencapaian.keterangan : '-'}</td>
-    `;
+                <td>${pencapaian.tahun || '-'}</td>
+                <td>${pencapaian.indikator.tipe || '-'}</td>
+                <td>${pencapaian.persentase ? pencapaian.persentase + '%' : '-'}</td>
+                <td>${pencapaian.sumber_data || '-'}</td>
+                <td>${pencapaian.tingkatan ? pencapaian.tingkatan : '-'}</td>
+                <td>${pencapaian.keterangan ? pencapaian.keterangan : '-'}</td>
+            `;
                 tableBody.appendChild(row);
             });
         }
-
-
 
         function updateColors() {
             const selectedTahun = $('#tahun').val();

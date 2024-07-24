@@ -2,6 +2,15 @@
 
 @section('title', 'Kelola pencapaian')
 
+@section('style')
+    <style>
+        .dataTables_wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+    </style>
+@endsection
+
 @section('content')
 <div class="card">
     <div id="notification" class="alert alert-info">
@@ -30,6 +39,8 @@
                     <th>Nama Kecamatan</th>
                     <th>Tingkatan</th>
                     <th>Keterangan</th>
+                    <th>Dibuat tanggal</th>
+                    <th>Diperbaharui tanggal</th>
                     <th>More</th>
                 </tr>
             </thead>
@@ -56,6 +67,8 @@
                     @endforeach
                     <td>{{$pencapaian->tingkatan}}</td>
                     <td>{{$pencapaian->keterangan}}</td>
+                    <td>{{$pencapaian->created_at}}</td>
+                    <td>{{$pencapaian->updated_at}}</td>
                     <td class="manage-row">
                         @if(auth()->user()->roles_id == 1)
                         <a href="{{ route('super.pencapaian.show',$pencapaian->id) }}" class="show-button">
