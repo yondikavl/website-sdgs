@@ -55,7 +55,21 @@
             filter: brightness(0.8);
         }
 
+        @media (min-width: 1024px) {
+            .video-container {
+                max-width: 60%;
+            }
+        }
+
         @media (max-width: 768px) {
+            .video-container {
+                max-width: 75%;
+            }
+
+            .video-container h2 {
+                font-size: 2rem;
+            }
+
             .container {
                 padding-left: 16px;
                 padding-right: 16px;
@@ -82,6 +96,32 @@
         .iframe-container {
             display: flex;
             justify-content: center;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .video-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .video-container video {
+            border-radius: 12px;
+            width: 100%;
+            height: auto;
         }
     </style>
 @endsection
@@ -138,12 +178,14 @@
                 </div>
             </div>
         </div>
-        <div class="container mb-5 iframe-container">
-            <iframe style="border-radius: 12px;" width="560" height="315"
-                src="https://www.youtube.com/embed/gs_KHznjD6o?si=wxFMTClCSiNf9RKz" title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="container mb-5">
+            <div class="video-container">
+                <h2 class="font-weight-bold mx-auto">Tutorial Dashboard SDGs Kota Bandar Lampung</h2>
+                <video controls>
+                    <source src="{{ asset('assets/video/Video-SDGs-Kota-Bandar-Lampung.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
         <div class="container mb-3" style="border-radius: 12px">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-radius: 12px">
