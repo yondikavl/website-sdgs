@@ -18,7 +18,8 @@
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 30%;
+            width: 80%;
+            max-width: 800px;
         }
 
         .close {
@@ -34,8 +35,34 @@
             text-decoration: none;
             cursor: pointer;
         }
-    </style>
 
+        .table-container {
+            overflow-x: scroll;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .table thead th {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2;
+            z-index: 1;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -57,23 +84,30 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Jenis Data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($indikators as $indikator)
+                <div class="table-container">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $indikator->kode_indikator }}</td>
-                                <td>{{ $indikator->nama_indikator }}</td>
+                                <th>Kode</th>
+                                <th>Jenis Data</th>
+                                @for ($year = 2018; $year <= 2030; $year++)
+                                    <th>{{ $year }}</th>
+                                @endfor
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            @foreach ($indikators as $indikator)
+                                <tr>
+                                    <td>{{ $indikator->kode_indikator }}</td>
+                                    <td>{{ $indikator->nama_indikator }}</td>
+                                    @for ($year = 2018; $year <= 2030; $year++)
+                                        <td>-</td>
+                                    @endfor
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
@@ -81,66 +115,6 @@
 @endsection
 
 @section('script')
-    <script>
-        var data = {!! json_encode($pencapaians) !!};
-
-        function showGrafik(sub_id) {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-
-            // Mencari data indikator yang dipilih
-            var dataindikator = data.find(function(item) {
-                return item[sub_id];
-            });
-
-            var dataTahun = [];
-            var dataPencapaian = [];
-
-            // Mencari data pencapaian dari indikator tersebut
-            for (var i = 0; i < dataindikator[sub_id].length; i++) {
-                dataTahun.push(dataindikator[sub_id][i].tahun);
-                dataPencapaian.push(dataindikator[sub_id][i].persentase);
-            }
-
-            // Membuat grafik dimiulai dari 0 sampai nilai tertinggi
-            var max = Math.max(...dataPencapaian);
-            var min = Math.min(...dataPencapaian);
-            var ctx = document.getElementById('grafik').getContext('2d');
-            var grafik = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: dataTahun,
-                    datasets: [{
-                        label: 'Pencapaian',
-                        data: dataPencapaian,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            min: 0,
-                            max: max + 10
-                        }
-                    }
-                }
-            });
-
-        }
-    </script>
-    <script>
-        var modal = document.getElementById("myModal");
-        var closeButton = document.getElementsByClassName("close")[0];
-
-
-        closeButton.onclick = function() {
-            modal.style.display = "none";
-        };
-    </script>
     <script>
         $(function() {
             $("#example1").DataTable({
