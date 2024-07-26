@@ -82,7 +82,7 @@ class PencapaianController extends Controller
             'tahun' => 'required',
             'persentase' => 'required',
             'sumber_data' => 'required',
-            'kecamatan_id' => 'required|array',
+            // 'kecamatan_id' => 'required|array',
             // 'tingkatan' => 'required|max:255',
         ],
         [
@@ -90,7 +90,7 @@ class PencapaianController extends Controller
             'tahun.required' => 'Tahun tidak boleh kosong!',
             'persentase.required' => 'Persentase tidak boleh kosong!',
             'sumber_data.required' => 'Sumber data tidak boleh kosong!',
-            'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
+            // 'kecamatan_id.required' => 'Kecamatan tidak boleh kosong!',
             // 'tingkatan.required' => 'Tingkatan tidak boleh kosong!'
         ]
     );

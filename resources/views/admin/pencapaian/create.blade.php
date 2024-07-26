@@ -88,9 +88,9 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="persentase">{{ __('Persentase Keberhasilan') }}<span style="color:red"> * </span></label>
+                            <label for="persentase">{{ __('Persentase Keberhasilan') }}<span style="color:red"> (Gunakan titik untuk bilangan koma contoh (1.23))*</span></label>
                             <div class="input-group" id="persentase">
-                                <input type="number" class="form-control @error('persentase') is-invalid @enderror"
+                                <input type="text" class="form-control @error('persentase') is-invalid @enderror"
                                     id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase"
                                     required autocomplete="current-persentase">
                             </div>
@@ -114,9 +114,9 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="Kecamatan">{{ __('Kecamatan') }}<span style="color:red"> * </span></label>
+                            <label for="Kecamatan">{{ __('Kecamatan') }}<span style="color:red"> (Lewati jika tidak ada data kecamatan) </span></label>
                             <select class="form-control col-form-label rounded-2" name="kecamatan_id[]" id="Kecamatan"
-                                required>
+                                >
                                 <option value="">Pilih Kecamatan</option>
                                 @foreach($kecamatans as $kecamatan)
                                     <option value="{{$kecamatan->id}}">{{$kecamatan->name}}</option>

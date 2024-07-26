@@ -20,18 +20,20 @@ class TujuansController extends Controller
     {
         $tujuans = Tujuan::all();
         $tujuan = Tujuan::where('id', $id)->first();
-        $indikators = Indikator::with('pencapaian')->where('tujuan_id', $id)->get();
-        $pencapaians = [];
+        $indikators = Indikator::with(['pencapaian' => function ($query) {
+            $query->whereBetween('tahun', [2018, 2030]);
+        }])->where('tujuan_id', $id)->get();
 
+        $pencapaians = [];
         foreach ($indikators as $indikator) {
-            // get pencapaian berdasarkan indikator_id tahun dan persentase
-            $pencapaian = Pencapaian::select('tahun', 'persentase')->where('indikator_id', $indikator->id)->get();
-            $data = [
-                $indikator->id => $pencapaian
-            ];
-            array_push($pencapaians, $data);
+            $years = [];
+            foreach (range(2018, 2030) as $year) {
+                $pencapaian = $indikator->pencapaian->firstWhere('tahun', $year);
+                $years[$year] = $pencapaian ? "{$pencapaian->persentase} ({$indikator->tipe})" : "- ({$indikator->tipe})";
+            }
+            $pencapaians[$indikator->id] = $years;
         }
-        // return $pencapaians;
+
         return view('client.detail-tujuan', compact('tujuans', 'tujuan', 'indikators', 'pencapaians'));
     }
 }

@@ -88,7 +88,6 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('Tabel Data Indikator') }}</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <div class="table-container">
                     <table id="example1" class="table table-bordered table-striped">
@@ -107,7 +106,7 @@
                                     <td>{{ $indikator->kode_indikator }}</td>
                                     <td>{{ $indikator->nama_indikator }}</td>
                                     @for ($year = 2018; $year <= 2030; $year++)
-                                        <td>-</td>
+                                        <td>{{ $pencapaians[$indikator->id][$year] }}</td>
                                     @endfor
                                 </tr>
                             @endforeach
@@ -115,7 +114,6 @@
                     </table>
                 </div>
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
 @endsection

@@ -684,7 +684,7 @@ class IndikatorSeeder extends Seeder
                 'tujuan_id' => 11, 'kode_indikator' => '11.6.2.(b)',  "nama_indikator" => "partikulat halus PM 10. Indeks kualitas udara", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
-                'tujuan_id' => 11, 'kode_indikator' => '1.1.7.1',  "nama_indikator" => "Proporsi ruang terbuka perkotaan untuk semua, menurut kelompok usia, jenis kelamin dan penyandang disabilitas.", 'created_at'=> now(), 'updated_at'=> now()
+                'tujuan_id' => 11, 'kode_indikator' => '11.7.1',  "nama_indikator" => "Proporsi ruang terbuka perkotaan untuk semua, menurut kelompok usia, jenis kelamin dan penyandang disabilitas.", 'created_at'=> now(), 'updated_at'=> now()
             ],
             [
                 'tujuan_id' => 11, 'kode_indikator' => '11.7.1.(a)',  "nama_indikator" => "Proporsi ruang terbuka perkotaan untuk semua", 'created_at'=> now(), 'updated_at'=> now()

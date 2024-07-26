@@ -56,14 +56,42 @@
                                 <td>Booklet Kota Bandar Lampung Tahun 2024</td>
                                 <td>
                                     <a class="btn btn-primary"
-                                        href="{{ asset('assets/template/Admin-Template-Pencapaian.xlsx') }}" target="_blank"
-                                        download="Admin-Template-Pencapaian">
+                                        href="{{ asset('assets/template/DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024.pdf') }}" target="_blank"
+                                        download="DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024">
                                         <i class="fa fa-download"></i> Download
                                     </a>
                                 </td>
                                 <td><button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#previewModal"
-                                        data-file="{{ asset('assets/template/Admin-Template-Pencapaian.xlsx') }}"><i
+                                        data-file="{{ asset('assets/template/DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024.pdf') }}"><i
+                                            class="fa fa-eye"></i> Preview</button></td>
+                            </tr>
+                            <tr>
+                                <td>Metadata Pilar Ekonomi Edisi II</td>
+                                <td>
+                                    <a class="btn btn-primary"
+                                        href="{{ asset('assets/template/Metadata-Pilar-Ekonomi-Edisi-II.pdf') }}" target="_blank"
+                                        download="Metadata-Pilar-Ekonomi-Edisi-II">
+                                        <i class="fa fa-download"></i> Download
+                                    </a>
+                                </td>
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#previewModal"
+                                        data-file="{{ asset('assets/template/Metadata-Pilar-Ekonomi-Edisi-II.pdf') }}"><i
+                                            class="fa fa-eye"></i> Preview</button></td>
+                            </tr>
+                            <tr>
+                                <td>Metadata Pilar Sosial Edisi II</td>
+                                <td>
+                                    <a class="btn btn-primary"
+                                        href="{{ asset('assets/template/Metadata-Pilar-Sosial-Edisi-II.pdf') }}" target="_blank"
+                                        download="Metadata-Pilar-Sosial-Edisi-II">
+                                        <i class="fa fa-download"></i> Download
+                                    </a>
+                                </td>
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#previewModal"
+                                        data-file="{{ asset('assets/template/Metadata-Pilar-Sosial-Edisi-II.pdf') }}"><i
                                             class="fa fa-eye"></i> Preview</button></td>
                             </tr>
                         </tbody>

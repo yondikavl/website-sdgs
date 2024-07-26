@@ -20,11 +20,13 @@
         @method('PUT')
       <div class="card-body my-2">
         <div class="form-group">
-          <label for="indikator_id">{{ __('ID Indikator Sekarang') }}</label>
+          <label for="tujuan_id">{{ __('Tujuan') }}</label>
           <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id" required>
-            <option value="{{$indikator->tujuan_id}}">{{$indikator->tujuan_id}}</option>
+            @foreach ($tujuans as $tujuan)
+            <option value="{{$tujuan->id}}" {{ $tujuan->id == $indikator->tujuan_id ? 'selected' : '' }}>{{$tujuan->id}}. {{$tujuan->nama_tujuan}}</option>
+            @endforeach
           </select>
-            @error('indikator_id')
+            @error('tujuan_id')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -49,22 +51,9 @@
             @enderror
         </div>
         <div class="form-group">
-          <label for="indikator_id">{{ __('ID Indikator Baru (jika ingin diganti)') }}</label>
-          <select class="form-control col-form-label rounded-2" name="indikator_id" id="indikator_id" required>
-            @foreach ($indikators as $indikator)
-            <option value="{{$indikator->id}}">{{$indikator->id}}. {{$indikator->nama_indikator}}</option>
-            @endforeach
-          </select>
-            @error('indikator_id')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="form-group">
           <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
           <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
-              <option selected value="{{ $indikator->tipe }}">{{ $indikator->tipe }}</option>
+              <option selected disabled value="">Pilih Jenis</option>
               <option value="%">Persen (%)</option>
               <option value="Orang">Orang</option>
               <option value="Jumlah">Jumlah</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Indikator;
+use App\Models\Tujuan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndikatorStoreRequest;
 use Illuminate\Http\Request;
@@ -72,9 +73,10 @@ class IndikatorController extends Controller
 {
     $user = auth()->user();
     $indikator = Indikator::where('id', $id)->firstOrFail();
+    $tujuans = Tujuan::all();
     $indikators = Indikator::all();
 
-    return view('admin.indikator.edit', compact('indikator', 'indikators'));
+    return view('admin.indikator.edit', compact('indikator', 'tujuans', 'indikators'));
 }
 
 
