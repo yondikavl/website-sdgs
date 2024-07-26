@@ -75,6 +75,7 @@
                     <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">Kontak</a>
                 </li>
             </ul>
+            <a href="/login" class="btn btn-success py-2 px-3 ml-lg-2 mt-2 mt-md-0">Login</a>
         </div>
     </div>
 </nav>
