@@ -163,6 +163,15 @@
             <div class="container mb-5">
                 <canvas id="myChart"></canvas>
             </div>
+
+            <div class="container mb-3 d-flex align-items-center p-2 rounded-lg" style="background-color: #ece2bf">
+                <i class="fas fa-info-circle mr-2" style="color: black;"></i>
+                <div class="text-muted" style="font-size: 12px; color: black;">
+                    Prediksi yang ditampilkan adalah hasil analisis data historis dan hanya bersifat sebagai perkiraan.
+                    Hasil
+                    sebenarnya dapat bervariasi.
+                </div>
+            </div>
         </div>
 
         <div class="card container p-4 bg-light" style=" border-radius: 12px;">
