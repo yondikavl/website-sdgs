@@ -25,8 +25,13 @@ class PencapaianImport implements ToModel, WithStartRow
         $kode_indikator = $row[0];
         $persentase = $row[2];
         $sumber_data = $row[3];
-        $tingkatan = $row[5] ?? null;
-        $keterangan = $row[6] ?? null;
+        $nama_kecamatan = $row[4] ?? '';
+        $nama_kegiatan = $row[5] ?? '';
+        $anggaran = $row[6] ?? '';
+        $sumber_pendanaan = $row[7] ?? '';
+        $lokasi = $row[8] ?? '';
+        $tingkatan = $row[9] ?? '';
+        $keterangan = $row[10] ?? '';
 
         // Validate the input data
         if (!$kode_indikator || !$persentase || !$sumber_data) {
@@ -39,13 +44,17 @@ class PencapaianImport implements ToModel, WithStartRow
             'tahun' => $this->tahun,
             'persentase' => $persentase,
             'sumber_data' => $sumber_data,
+            'nama_kegiatan' => $nama_kegiatan,
+            'anggaran' => $anggaran,
+            'sumber_pendanaan' => $sumber_pendanaan,
+            'lokasi' => $lokasi,
             'tingkatan' => $tingkatan,
             'keterangan' => $keterangan,
             'user_id' => $this->userId,
         ]);
 
-        if (!empty($row[4])) {
-            $kecamatanNames = explode(',', $row[4]);
+        if (!empty($nama_kecamatan)) {
+            $kecamatanNames = explode(',', $nama_kecamatan);
             $kecamatanIds = [];
 
             foreach ($kecamatanNames as $kecamatanName) {

@@ -78,6 +78,19 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="nama_kegiatan">{{ __('Nama Pencapaian/Kegiatan') }}<span style="color:red"> (Masukkan nama pencapaian/kegiatan jika ada di indikator tersebut)</span></label>
+                            <div class="input-group" id="nama_kegiatan">
+                                <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                    id="nama_kegiatan" placeholder="Masukkan nama pencapaian/kegiatan" name="nama_kegiatan"
+                                    required autocomplete="current-nama_kegiatan">
+                            </div>
+                            @error('nama_kegiatan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="tahun">{{ __('Tahun') }}<span style="color:red"> * </span></label>
                             <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahunManual"
                                 placeholder="2020" name="tahun" required autocomplete="tahun" autofocus>
@@ -129,12 +142,52 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tingkatan">{{ __('Tingkatan') }}<span style="color:red"> (Jika ada tingkatan tiap indikator) </span></label>
+                            <label for="tingkatan">{{ __('Tingkatan') }}<span style="color:red"> (Lewati jika tidak ada data tingkatan tiap indikator) </span></label>
                             <div class="input-group">
                                 <input type="text" class="form-control @error('tingkatan') is-invalid @enderror"
                                     placeholder="Masukkan Tingkatan" name="tingkatan">
                             </div>
                             @error('tingkatan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="anggaran">{{ __('Alokasi Anggaran') }}<span style="color:red"> (Rp Juta)
+                            </span></label>
+                            <div class="input-group" id="anggaran">
+                                <input type="text" class="form-control @error('anggaran') is-invalid @enderror"
+                                    id="anggaran" placeholder="Masukkan angka anggaran" name="anggaran"
+                                    autocomplete="current-anggaran">
+                            </div>
+                            @error('anggaran')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="sumber_pendanaan">{{ __('Sumber Pendanaan') }}<span style="color:red"> (Optional)</span></label>
+                            <div class="input-group" id="sumber_pendanaan">
+                                <input type="text" class="form-control @error('sumber_pendanaan') is-invalid @enderror"
+                                    id="sumber_pendanaan" placeholder="Masukkan sumber pendanaan" name="sumber_pendanaan"
+                                    autocomplete="current-sumber_pendanaan">
+                            </div>
+                            @error('sumber_pendanaan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="lokasi">{{ __('Lokasi Pelaksanaan') }}<span style="color:red"> (Optional)</span></label>
+                            <div class="input-group" id="lokasi">
+                                <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
+                                    id="lokasi" placeholder="Masukkan lokasi pelaksanaan" name="lokasi"
+                                    autocomplete="current-lokasi">
+                            </div>
+                            @error('lokasi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -318,8 +371,12 @@
                     const nilaiIndex = 2;
                     const sumberIndex = 3;
                     const kecamatanIndex = 4;
-                    const tingkatanIndex = 5;
-                    const keteranganIndex = 6;
+                    const namaKegiatanIndex = 5;
+                    const anggaranIndex = 6;
+                    const sumberPendanaanIndex = 7;
+                    const lokasiIndex = 8
+                    const tingkatanIndex = 9;
+                    const keteranganIndex = 10;
     
                     if (kodeIndex === -1 || namaIndex === -1) {
                         content.innerHTML += 'Kolom Kode dan/atau Nama tidak ditemukan.';
@@ -329,7 +386,7 @@
                     }
     
                     let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
-                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
+                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Nama Pencapaian/Kegiatan</th><th>Alokasi Anggaran</th><th>Sumber Pendanaan</th><th>Lokasi Pendanaan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
     
                     for (let i = 2; i < sheetData.length; i++) {
                         const row = sheetData[i];
@@ -338,31 +395,43 @@
                         const nilai = row[nilaiIndex] ?? 'Nilai tidak ada';
                         const sumber = row[sumberIndex] ?? 'Sumber data tidak ada';
                         const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
-                        const tingkatan = row[tingkatanIndex] ?? 'Tingkatan data tidak ada';
-                        const keterangan = row[keteranganIndex] ?? 'Keterangan data tidak ada';
+                        const namaKegiatan = row[namaKegiatanIndex] ?? '-';
+                        const anggaran = row[anggaranIndex] ?? '-';
+                        const sumberPendanaan = row[sumberPendanaanIndex] ?? '-';
+                        const lokasi = row[lokasiIndex] ?? '-';
+                        const tingkatan = row[tingkatanIndex] ?? '-';
+                        const keterangan = row[keteranganIndex] ?? '-';
     
                         const kodeClass = kode === 'Kode Indikator tidak ada' ? 'bg-danger' : '';
                         const namaClass = nama === 'Nama Indikator tidak ada' ? 'bg-danger' : '';
                         const nilaiClass = nilai === 'Nilai tidak ada' ? 'bg-danger' : '';
                         const sumberClass = sumber === 'Sumber data tidak ada' ? 'bg-danger' : '';
-                        const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
-                        const tingkatanClass = tingkatan === 'Tingkatan data tidak ada' ? 'bg-danger' : '';
-                        const keteranganClass = keterangan === 'Keterangan data tidak ada' ? 'bg-danger' : '';
+                        // const kecamatanClass = kecamatan === 'Kecamatan data tidak ada' ? 'bg-danger' : '';
+                        // const namaKegiatanClass = namaKegiatan === 'Nama Pencapaian/Kegiatan data tidak ada' ? 'bg-danger' : '';
+                        // const anggaranClass = anggaran === 'Anggaran data tidak ada' ? 'bg-danger' : '';
+                        // const sumberPendanaanClass = sumberPendanaan === 'Sumber Pendanaan data tidak ada' ? 'bg-danger' : '';
+                        // const lokasiClass = lokasi === 'Lokasi data tidak ada' ? 'bg-danger' : '';
+                        // const tingkatanClass = tingkatan === 'Tingkatan data tidak ada' ? 'bg-danger' : '';
+                        // const keteranganClass = keterangan === 'Keterangan data tidak ada' ? 'bg-danger' : '';
     
-                        tableHtml += `<tr>
-                            <td class="${kodeClass}">${kode}</td>
-                            <td class="${namaClass}">${nama}</td>
-                            <td class="${nilaiClass}">${nilai}</td>
-                            <td class="${sumberClass}">${sumber}</td>
-                            <td class="${kecamatanClass}">${kecamatan}</td>
-                            <td class="${tingkatanClass}">${tingkatan}</td>
-                            <td class="${keteranganClass}">${keterangan}</td>
-                        </tr>`;
+                    tableHtml += `<tr>
+                        <td class="${kodeClass}">${kode}</td>
+                        <td class="${namaClass}">${nama}</td>
+                        <td class="${nilaiClass}">${nilai}</td>
+                        <td class="${sumberClass}">${sumber}</td>
+                        <td>${kecamatan}</td>
+                        <td>${namaKegiatan}</td>
+                        <td>${anggaran}</td>
+                        <td>${sumberPendanaan}</td>
+                        <td>${lokasi}</td>
+                        <td>${tingkatan}</td>
+                        <td>${keterangan}</td>
+                    </tr>`;
     
                         if (kode === 'Kode Indikator tidak ada' || nama === 'Nama Indikator tidak ada' || nilai === 'Nilai tidak ada' || sumber === 'Sumber data tidak ada' || kecamatan === 'Kecamatan data tidak ada') {
-                            hasNullData = true;
-                        }
+                        hasNullData = true;
                     }
+                }
     
                     tableHtml += '</tbody></table>';
                     content.innerHTML += tableHtml;

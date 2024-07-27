@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="persentase">{{ __('Persentase') }}</label>
-                    <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{ $pencapaian->persentase }}" name="persentase" required autocomplete="persentase" autofocus>
+                    <input type="text" class="form-control @error('persentase') is-invalid @enderror" id="persentase" value="{{ $pencapaian->persentase }}" name="persentase" required autocomplete="persentase" autofocus>
                     @error('persentase')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -63,18 +63,54 @@
                     </span>
                 @enderror
             </div>
-                <div class="col-md-4">
-                    <label for="tingkatan">{{ __('Tingkatan') }}</label>
-                    <input type="text" class="form-control @error('Tingkatan') is-invalid @enderror" id="tingkatan" value="{{ $pencapaian->tingkatan }}" name="tingkatan" required autocomplete="tingkatan">
-                    @error('tingkatan')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+            <div class="col-md-4">
+                <label for="nama_kegiatan">{{ __('Nama Pencapaian/Kegiatan') }}</label>
+                <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" id="nama_kegiatan" value="{{ $pencapaian->nama_kegiatan }}" name="nama_kegiatan" autocomplete="nama_kegiatan">
+                @error('nama_kegiatan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="col-md-4">
+                <label for="anggaran">{{ __('Anggaran') }}</label>
+                <input type="text" class="form-control @error('anggaran') is-invalid @enderror" id="anggaran" value="{{ $pencapaian->anggaran }}" name="anggaran" autocomplete="anggaran">
+                @error('anggaran')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="col-md-4">
+                <label for="sumber_pendanaan">{{ __('Sumber Pendanaan') }}</label>
+                <input type="text" class="form-control @error('sumber_pendanaan') is-invalid @enderror" id="sumber_pendanaan" value="{{ $pencapaian->sumber_pendanaan }}" name="sumber_pendanaan" autocomplete="sumber_pendanaan">
+                @error('sumber_pendanaan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="col-md-4">
+                <label for="lokasi">{{ __('Lokasi Pelaksanaan') }}</label>
+                <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" value="{{ $pencapaian->lokasi }}" name="lokasi" autocomplete="lokasi">
+                @error('lokasi')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="col-md-4">
+                <label for="tingkatan">{{ __('Tingkatan') }}</label>
+                <input type="text" class="form-control @error('Tingkatan') is-invalid @enderror" id="tingkatan" value="{{ $pencapaian->tingkatan ?? '-'}}" name="tingkatan" autocomplete="tingkatan">
+                @error('tingkatan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
             <div class="col-md-4">
                 <label for="keterangan">{{ __('Keterangan') }}</label>
-                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" value="{{ $pencapaian->keterangan }}" name="keterangan" required autocomplete="keterangan">
+                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" value="{{ $pencapaian->keterangan ?? '-'}}" name="keterangan" autocomplete="keterangan">
                 @error('keterangan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

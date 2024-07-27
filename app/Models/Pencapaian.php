@@ -12,10 +12,14 @@ class Pencapaian extends Model
     protected $table = 'pencapaian';
     protected $fillable = [
         'indikator_id',
+        'nama_kegiatan',
         'tahun',
         'persentase',
         'sumber_data',
         'tingkatan',
+        'anggaran',
+        'sumber_pendanaan',
+        'lokasi',
         'keterangan',
         'user_id',
     ];

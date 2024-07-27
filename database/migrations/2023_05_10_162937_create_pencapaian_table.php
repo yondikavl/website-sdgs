@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('pencapaian', function (Blueprint $table) {
             $table->id();
             $table->string('indikator_id')->nullable();
+            $table->text('nama_kegiatan')->nullable();
             $table->text('tahun');
             $table->decimal('persentase', 8, 2);
             $table->text('sumber_data')->nullable();
             $table->text('tingkatan')->nullable();
+            $table->text('anggaran')->nullable();
+            $table->text('sumber_pendanaan')->nullable();
+            $table->text('lokasi')->nullable();
             $table->text('keterangan')->nullable();
             $table->text('user_id')->nullable();
             $table->timestamps();
