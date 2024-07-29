@@ -137,21 +137,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Tujuan 1</td>
+                            <td rowspan="3">Tujuan 1</td>
                             <td>Kode 1</td>
                             <td>Indikator 1</td>
                             <td>Rumus 1</td>
                             <td>Keterangan 1</td>
                         </tr>
                         <tr>
-                            <td>Tujuan 2</td>
                             <td>Kode 2</td>
                             <td>Indikator 2</td>
                             <td>Rumus 2</td>
                             <td>Keterangan 2</td>
                         </tr>
                         <tr>
-                            <td>Tujuan 3</td>
                             <td>Kode 3</td>
                             <td>Indikator 3</td>
                             <td>Rumus 3</td>
