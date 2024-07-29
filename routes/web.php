@@ -108,3 +108,4 @@ Route::get('get-prediksi-data/{indikatorId}/{kecamatanId}', [PrediksiController:
 Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');
 Route::get('get-tujuan', [TujuanController::class, 'getAllTujuan'])->name('get-tujuan');
 Route::get('admin/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('admin.get-indikator');
+Route::get('/api/check-indikator/{kodeIndikator}', [IndikatorController::class, 'checkIndikatorExists']);

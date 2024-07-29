@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('kode_indikator')->nullable();
             $table->text('nama_indikator');
             $table->text('tipe')->default('%');
+            $table->text('rumus')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->integer('tinggi')->default(100);
             $table->integer('sedang')->default(75);
             $table->integer('rendah')->default(50);

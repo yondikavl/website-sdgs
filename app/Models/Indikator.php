@@ -18,6 +18,8 @@ class Indikator extends Model
         'kode_indikator',
         'nama_indikator',
         'tipe',
+        'rumus',
+        'deskripsi',
         'tinggi',
         'sedang',
         'rendah'

@@ -12,16 +12,19 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7); /* Adjusted opacity */
+            overflow: auto; /* Enable scrolling if needed */
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 60%;
             position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Added shadow */
+            border-radius: 10px; /* Added rounded corners */
         }
 
         .close {
@@ -81,9 +84,6 @@
                 <h2>{{ $tujuan->nama_tujuan }}</h2>
                 <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="" class="py-3">
                 <p>{{ $tujuan->deskripsi_tujuan }}</p>
-                <button id="rumusBtn" class="btn btn-primary">
-                    <i class="fas fa-calculator"></i> Rumus Perhitungan
-                </button>
             </div>
         </div>
 
@@ -96,6 +96,7 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th>Rumus</th>
                                 <th>Kode</th>
                                 <th>Jenis Data</th>
                                 @for ($year = 2018; $year <= 2030; $year++)
@@ -106,6 +107,21 @@
                         <tbody>
                             @foreach ($indikators as $indikator)
                                 <tr>
+                                    <td>
+                                        <button data-bs-toggle="modal"
+                                                data-bs-target="#rumusModal{{ $indikator->id }}" class="btn btn-primary">
+                                            <i class="fas fa-calculator"></i> Rumus
+                                        </button>
+                                        <!-- Modal -->
+                                        <div id="rumusModal{{ $indikator->id }}" class="modal">
+                                            <div class="modal-content">
+                                                <span class="close" data-modal-id="rumusModal{{ $indikator->id }}">&times;</span>
+                                                <div class="table-container">
+                                                    <img src="{{ asset('assets/img/' . $indikator->rumus) }}" alt="Rumus" style="max-width: 100%;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{ $indikator->kode_indikator }}</td>
                                     <td>{{ $indikator->nama_indikator }}</td>
                                     @for ($year = 2018; $year <= 2030; $year++)
@@ -116,47 +132,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="rumusModal" class="modal">
-        <div class="container modal-content col-12">
-            <span class="close mb-4">&times;</span>
-            <div class="table-container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Tujuan</th>
-                            <th>Kode Indikator</th>
-                            <th>Indikator</th>
-                            <th>Rumus</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td rowspan="3">Tujuan 1</td>
-                            <td>Kode 1</td>
-                            <td>Indikator 1</td>
-                            <td>Rumus 1</td>
-                            <td>Keterangan 1</td>
-                        </tr>
-                        <tr>
-                            <td>Kode 2</td>
-                            <td>Indikator 2</td>
-                            <td>Rumus 2</td>
-                            <td>Keterangan 2</td>
-                        </tr>
-                        <tr>
-                            <td>Kode 3</td>
-                            <td>Indikator 3</td>
-                            <td>Rumus 3</td>
-                            <td>Keterangan 3</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
@@ -171,35 +146,31 @@
                 "autoWidth": false,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+        });
+
+        // Modal script
+        document.querySelectorAll('.modal .close').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var modalId = btn.getAttribute('data-modal-id');
+                document.getElementById(modalId).style.display = 'none';
             });
         });
 
-        // Modal functionality
-        var modal = document.getElementById("rumusModal");
-        var btn = document.getElementById("rumusBtn");
-        var span = document.getElementsByClassName("close")[0];
+        document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var target = document.querySelector(btn.getAttribute('data-bs-target'));
+                if (target) {
+                    target.style.display = 'block';
+                }
+            });
+        });
 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
+        // Close modal when clicking outside of it
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
-        }
+        };
     </script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>

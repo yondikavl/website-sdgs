@@ -38,9 +38,15 @@ class PencapaianImport implements ToModel, WithStartRow
             return null; // Skip this row if any required field is missing
         }
 
+        // Check if kode_indikator exists in the database
+        $indikator = Indikator::where('kode_indikator', $kode_indikator)->first();
+        if (!$indikator) {
+            return null; // Skip this row if kode_indikator does not exist
+        }
+
         // Fetch or create the Pencapaian record
         $pencapaian = Pencapaian::create([
-            'indikator_id' => $kode_indikator,
+            'indikator_id' => $indikator->id,
             'tahun' => $this->tahun,
             'persentase' => $persentase,
             'sumber_data' => $sumber_data,

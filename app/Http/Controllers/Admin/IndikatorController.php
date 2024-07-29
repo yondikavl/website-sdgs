@@ -32,26 +32,36 @@ class IndikatorController extends Controller
         $user = auth()->user();
 
         if ($user->roles_id == 1 || $user->roles_id == 2) {
-            $indikators = Indikator::all();
+            $tujuans = Tujuan::all();
         } else if ($user->roles_id == 3) {
             if ($user->permissions != null) {
-                $indikators = Indikator::whereIn('id', $user->permissions)->get();
+                $tujuans = Tujuan::whereIn('id', $user->permissions)->get();
             } else {
-                $indikators = Indikator::where('id', null)->get();
+                $tujuans = Tujuan::where('id', null)->get();
             }
         }
 
-        return view('admin.indikator.create', compact('indikators'));
+        return view('admin.indikator.create', compact('tujuans'));
     }
 
-    public function store(IndikatorStoreRequest $request)
+    public function store(Request $request)
     {
+        // dd($request->all());
         $indikator = Indikator::create([
             'tujuan_id' => $request->tujuan_id,
             'kode_indikator' => $request->kode_indikator,
             'nama_indikator' => $request->nama_indikator,
             'tipe' => $request->tipe,
+            'deskripsi' => $request->deskripsi
         ]);
+
+        if ($request->hasFile('rumus')) {
+            $rumus = $request->rumus;
+            $file_name = time() . '.' . $rumus->getClientOriginalExtension();
+            $indikator->rumus = $file_name;
+            $indikator->update();
+            $rumus->move('../public/assets/img/', $file_name);
+        }
 
         if (auth()->user()->roles_id == 1) {
             return redirect('super/indikator')->with('sukses', 'Berhasil Tambah Data!');
@@ -71,25 +81,53 @@ class IndikatorController extends Controller
 
     public function edit($id)
 {
+    $tipes = [
+        [
+            'id' => '%',
+        ],
+        [
+            'id' => 'Orang',
+        ],
+        [
+            'id' => 'Jumlah',
+        ]
+    ];
+
     $user = auth()->user();
     $indikator = Indikator::where('id', $id)->firstOrFail();
     $tujuans = Tujuan::all();
-    $indikators = Indikator::all();
 
-    return view('admin.indikator.edit', compact('indikator', 'tujuans', 'indikators'));
+    return view('admin.indikator.edit', compact('indikator', 'tujuans', 'tipes'));
 }
 
 
 public function update(IndikatorStoreRequest $request, $id)
 {
     $indikator = Indikator::find($id);
-
-    Indikator::where('id', $id)->update([
+    
+    if (!$indikator) {
+        return redirect()->back()->with('error', 'Indikator not found!');
+    }
+    // Update the basic fields
+    $indikator->update([
         'tujuan_id' => $request->tujuan_id,
         'kode_indikator' => $request->kode_indikator,
         'nama_indikator' => $request->nama_indikator,
         'tipe' => $request->tipe,
+        'deskripsi' => $request->deskripsi
     ]);
+
+    // Handle the file upload
+    if ($request->hasFile('rumus')) {
+        $rumus = $request->file('rumus');
+        $file_name = time() . '.' . $rumus->getClientOriginalExtension();
+        
+        // Move the file to the desired location
+        $rumus->move(public_path('assets/img/'), $file_name);
+
+        // Update the 'rumus' field in the database
+        $indikator->update(['rumus' => $file_name]);
+    }
 
     if (auth()->user()->roles_id == 1) {
         return redirect('super/indikator')->with('sukses', 'Berhasil Update Data!');
@@ -116,5 +154,11 @@ public function update(IndikatorStoreRequest $request, $id)
     {
         $indikators = Indikator::where('tujuan_id', $id)->get();
         return response()->json($indikators);
+    }
+
+    public function checkIndikatorExists($kodeIndikator)
+    {
+        $exists = Indikator::where('kode_indikator', $kodeIndikator)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }

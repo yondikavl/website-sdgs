@@ -226,6 +226,54 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="form-container">
+                    <!-- Kecamatan 3 -->
+                    <div class="form-group">
+                        <label for="kecamatan_id_3" class="mr-2">{{ __('Kecamatan 3') }}</label>
+                        <select class="form-control rounded-2" id="kecamatan_id_3" name="kecamatan_id_3"
+                            onchange="updateTable3()">
+                            <option value="">Pilih Kecamatan 3</option>
+                        </select>
+                    </div>
+                    <table id="table3" class="overflow-auto">
+                        <thead>
+                            <tr>
+                                <th class="indikator">Indikator</th>
+                                @foreach ($tahuns as $item)
+                                    <th class="tahun">{{ $item }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <!-- Kecamatan 4 -->
+                    <div class="form-group">
+                        <label for="kecamatan_id_4" class="mr-2">{{ __('Kecamatan 4') }}</label>
+                        <select class="form-control rounded-2" id="kecamatan_id_4" name="kecamatan_id_4"
+                            onchange="updateTable4()">
+                            <option value="">Pilih Kecamatan 4</option>
+                        </select>
+                    </div>
+                    <table id="table4" class="overflow-auto">
+                        <thead>
+                            <tr>
+                                <th class="indikator">Indikator</th>
+                                @foreach ($tahuns as $item)
+                                    <th class="tahun">{{ $item }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -280,13 +328,19 @@
                 .then(data => {
                     let kecamatanSelect1 = document.getElementById('kecamatan_id_1');
                     let kecamatanSelect2 = document.getElementById('kecamatan_id_2');
+                    let kecamatanSelect3 = document.getElementById('kecamatan_id_3');
+                    let kecamatanSelect4 = document.getElementById('kecamatan_id_4');
                     kecamatanSelect1.innerHTML = '<option value="">Pilih Kecamatan 1</option>';
                     kecamatanSelect2.innerHTML = '<option value="">Pilih Kecamatan 2</option>';
+                    kecamatanSelect3.innerHTML = '<option value="">Pilih Kecamatan 3</option>';
+                    kecamatanSelect4.innerHTML = '<option value="">Pilih Kecamatan 4</option>';
 
                     data.forEach(kecamatan => {
                         let option = `<option value="${kecamatan.id}">${kecamatan.name}</option>`;
                         kecamatanSelect1.innerHTML += option;
                         kecamatanSelect2.innerHTML += option;
+                        kecamatanSelect3.innerHTML += option;
+                        kecamatanSelect4.innerHTML += option;
                     });
                 });
         }
@@ -301,6 +355,18 @@
             let tujuanId = document.getElementById('tujuan_id').value;
             let kecamatanId = document.getElementById('kecamatan_id_2').value;
             updateTable(tujuanId, kecamatanId, 'table2');
+        }
+
+        function updateTable3() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_3').value;
+            updateTable(tujuanId, kecamatanId, 'table3');
+        }
+
+        function updateTable4() {
+            let tujuanId = document.getElementById('tujuan_id').value;
+            let kecamatanId = document.getElementById('kecamatan_id_4').value;
+            updateTable(tujuanId, kecamatanId, 'table4');
         }
     </script>
 

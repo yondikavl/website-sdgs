@@ -22,7 +22,7 @@ class TujuansController extends Controller
         $tujuan = Tujuan::where('id', $id)->first();
         $indikators = Indikator::with(['pencapaian' => function ($query) {
             $query->whereBetween('tahun', [2018, 2030]);
-        }])->where('tujuan_id', $id)->get();
+        }])->where('tujuan_id', $id)->orderBy('id')->get();
 
         $pencapaians = [];
         foreach ($indikators as $indikator) {

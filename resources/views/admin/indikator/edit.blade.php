@@ -18,7 +18,7 @@
     @endif
         @csrf
         @method('PUT')
-      <div class="card-body my-2">
+      <div class="card-body my-3">
         <div class="form-group">
           <label for="tujuan_id">{{ __('Tujuan') }}</label>
           <select class="form-control col-form-label rounded-2" name="tujuan_id" id="tujuan_id" required>
@@ -51,12 +51,32 @@
             @enderror
         </div>
         <div class="form-group">
+          <label class="form-label">{{ __('Rumus') }}</label>
+          <input accept="image/*" type="file" class="form-control @error('rumus') is-invalid @enderror" name="rumus" id="rumus-input">
+          @error('rumus')
+              <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+          <img id="rumus-preview" src="{{ asset('assets/img/' . $indikator->rumus) }}" alt="Rumus Preview" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+        </div>
+        <div class="form-group">
+          <label for="deskripsi">{{ __('Deksripsi') }}</label>
+          <input type="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" value="{{$indikator->deskripsi}}" name="deskripsi" autocomplete="deskripsi" autofocus>
+            @error('deskripsi')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
           <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
-          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
-              <option selected disabled value="">Pilih Jenis</option>
-              <option value="%">Persen (%)</option>
-              <option value="Orang">Orang</option>
-              <option value="Jumlah">Jumlah</option>
+          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" >
+              <option selected value="%">Pilih Jenis</option>
+              @foreach ($tipes as $tipe)
+              <option value="{{ old('tipe', $tipe['id']) }}"
+                  {{ $tipe['id'] == $indikator->tipe ? 'selected' : '' }}>
+                  {{ $tipe['id'] }}
+              </option>
+          @endforeach
           </select>
           @error('tipe')
               <span class="invalid-feedback" role="alert">
@@ -65,10 +85,33 @@
           @enderror
       </div>
         <div class="">
-            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
+            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
           </div>
       </div>
       <!-- /.card-body -->
     </form>
   </div>
+@endsection
+
+@section('script')
+<!-- Preview Script -->
+<script>
+  function previewImage() {
+      var input = document.getElementById('rumus-input');
+      var preview = document.getElementById('rumus-preview');
+
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+              preview.src = e.target.result;
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  document.getElementById('rumus-input').addEventListener('change', previewImage);
+  window.addEventListener('load', previewImage);
+</script>
 @endsection
