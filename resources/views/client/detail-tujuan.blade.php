@@ -123,7 +123,7 @@
     <!-- Modal -->
     <div id="rumusModal" class="modal">
         <div class="container modal-content col-12">
-            <span class="close">&times;</span>
+            <span class="close mb-4">&times;</span>
             <div class="table-container">
                 <table class="table">
                     <thead>
