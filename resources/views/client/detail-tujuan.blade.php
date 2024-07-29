@@ -10,16 +10,18 @@
             z-index: 99;
             left: 0;
             top: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
-            max-width: 800px;
+            width: 60%;
+            position: relative;
         }
 
         .close {
@@ -37,7 +39,7 @@
         }
 
         .table-container {
-            overflow-x: scroll;
+            overflow-x: auto;
         }
 
         .table {
@@ -55,17 +57,15 @@
             background-color: #f2f2f2;
         }
 
-        .table thead th {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            background-color: #f2f2f2;
-            z-index: 1;
+        @media(max-width: 1024px) {
+            .modal-content {
+                width: 80%;
+            }
         }
 
         @media(max-width: 768px) {
-            .table th {
-                max-width: 200px;
+            .modal-content {
+                width: 90%;
             }
         }
     </style>
@@ -81,7 +81,7 @@
                 <h2>{{ $tujuan->nama_tujuan }}</h2>
                 <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="" class="py-3">
                 <p>{{ $tujuan->deskripsi_tujuan }}</p>
-                <button class="btn btn-primary">Rumus Perhitungan</button>
+                <button id="rumusBtn" class="btn btn-primary">Rumus Perhitungan</button>
             </div>
         </div>
 
@@ -117,6 +117,49 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="rumusModal" class="modal">
+        <div class="container modal-content col-12">
+            <span class="close">&times;</span>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tujuan</th>
+                            <th>Kode Indikator</th>
+                            <th>Indikator</th>
+                            <th>Rumus</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tujuan 1</td>
+                            <td>Kode 1</td>
+                            <td>Indikator 1</td>
+                            <td>Rumus 1</td>
+                            <td>Keterangan 1</td>
+                        </tr>
+                        <tr>
+                            <td>Tujuan 2</td>
+                            <td>Kode 2</td>
+                            <td>Indikator 2</td>
+                            <td>Rumus 2</td>
+                            <td>Keterangan 2</td>
+                        </tr>
+                        <tr>
+                            <td>Tujuan 3</td>
+                            <td>Kode 3</td>
+                            <td>Indikator 3</td>
+                            <td>Rumus 3</td>
+                            <td>Keterangan 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -138,6 +181,25 @@
                 "responsive": true,
             });
         });
+
+        // Modal functionality
+        var modal = document.getElementById("rumusModal");
+        var btn = document.getElementById("rumusBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
