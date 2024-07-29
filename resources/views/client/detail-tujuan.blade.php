@@ -79,8 +79,9 @@
         <div class="card text-center">
             <div class="card-body">
                 <h2>{{ $tujuan->nama_tujuan }}</h2>
-                <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="">
+                <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="" class="py-3">
                 <p>{{ $tujuan->deskripsi_tujuan }}</p>
+                <button class="btn btn-primary">Rumus Perhitungan</button>
             </div>
         </div>
 
