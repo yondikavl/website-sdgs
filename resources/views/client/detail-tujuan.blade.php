@@ -81,7 +81,9 @@
                 <h2>{{ $tujuan->nama_tujuan }}</h2>
                 <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="100" alt="" class="py-3">
                 <p>{{ $tujuan->deskripsi_tujuan }}</p>
-                <button id="rumusBtn" class="btn btn-primary">Rumus Perhitungan</button>
+                <button id="rumusBtn" class="btn btn-primary">
+                    <i class="fas fa-calculator"></i> Rumus Perhitungan
+                </button>
             </div>
         </div>
 
