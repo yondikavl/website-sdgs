@@ -74,7 +74,10 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="rumusModalLabel{{ $indikator->id }}">
-                                                            Rumus</h5>
+                                                            <div class="font-weight-bold">Rumus</div>
+                                                            <div class="text-sm">{{ $indikator->kode_indikator }} -
+                                                                {{ $indikator->nama_indikator }}</div>
+                                                        </h5>
                                                         <button type="button" class="btn-close border-0"
                                                             data-bs-dismiss="modal" aria-label="Close">❌</button>
                                                     </div>
