@@ -28,7 +28,22 @@
         .table th {
             background-color: #f2f2f2;
         }
+
+        .modal-dialog {
+            max-width: 600px;
+        }
+
+        .modal-content {
+            height: 400px;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
     </style>
+
 @endsection
 
 @section('content')
