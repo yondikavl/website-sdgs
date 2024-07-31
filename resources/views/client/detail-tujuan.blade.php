@@ -4,52 +4,14 @@
 
 @section('style')
     <style>
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 99;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4); /* Adjusted opacity */
-        overflow: auto; /* Enable scrolling if needed */
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 60%;
-        position: relative;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Added shadow */
-        border-radius: 10px; /* Added rounded corners */
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .table-container img {
-        max-width: 100%;
-        display: block;
-        margin: 0 auto;
-    }
-
-
         .table-container {
             overflow-x: auto;
+        }
+
+        .table-container img {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
         }
 
         .table {
@@ -66,23 +28,10 @@
         .table th {
             background-color: #f2f2f2;
         }
-
-        @media(max-width: 1024px) {
-            .modal-content {
-                width: 80%;
-            }
-        }
-
-        @media(max-width: 768px) {
-            .modal-content {
-                width: 90%;
-            }
-        }
     </style>
 @endsection
 
 @section('content')
-
     @include('layouts.client.sdgs')
 
     <div class="container">
@@ -115,19 +64,30 @@
                             @foreach ($indikators as $indikator)
                                 <tr>
                                     <td>
-                                        <button data-bs-toggle="modal" data-bs-target="#rumusModal{{ $indikator->id }}" class="btn btn-primary">
+                                        <button data-bs-toggle="modal" data-bs-target="#rumusModal{{ $indikator->id }}"
+                                            class="btn btn-primary">
                                             <i class="fas fa-calculator"></i> Rumus
                                         </button>
-                                        <!-- Modal -->
-                                        <div id="rumusModal{{ $indikator->id }}" class="modal">
-                                            <div class="modal-content">
-                                                <span class="close" data-modal-id="rumusModal{{ $indikator->id }}">&times;</span>
-                                                <div class="table-container">
-                                                    <img src="{{ asset('assets/img/' . $indikator->rumus) }}" alt="Rumus" style="max-width: 100%;">
+                                        <div id="rumusModal{{ $indikator->id }}" class="modal fade" tabindex="-1"
+                                            aria-labelledby="rumusModalLabel{{ $indikator->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="rumusModalLabel{{ $indikator->id }}">
+                                                            Rumus</h5>
+                                                        <button type="button" class="btn-close border-0"
+                                                            data-bs-dismiss="modal" aria-label="Close">❌</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="table-container">
+                                                            <img src="{{ asset('assets/img/' . $indikator->rumus) }}"
+                                                                alt="Rumus">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>                                    
+                                    </td>
                                     <td>{{ $indikator->kode_indikator }}</td>
                                     <td>{{ $indikator->nama_indikator }}</td>
                                     @for ($year = 2018; $year <= 2030; $year++)
@@ -153,33 +113,9 @@
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
-
-        document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.modal .close').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var modalId = btn.getAttribute('data-modal-id');
-                document.getElementById(modalId).style.display = 'none';
-            });
-        });
-
-        document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var target = document.querySelector(btn.getAttribute('data-bs-target'));
-                if (target) {
-                    target.style.display = 'block';
-                }
-            });
-        });
-
-        window.onclick = function (event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        };
-    });
-
     </script>
-    <!-- DataTables  & Plugins -->
+
+    <!-- DataTables & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
