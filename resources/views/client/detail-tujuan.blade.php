@@ -4,42 +4,49 @@
 
 @section('style')
     <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 99;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Adjusted opacity */
-            overflow: auto; /* Enable scrolling if needed */
-        }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 99;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Adjusted opacity */
+        overflow: auto; /* Enable scrolling if needed */
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 60%;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Added shadow */
-            border-radius: 10px; /* Added rounded corners */
-        }
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Added shadow */
+        border-radius: 10px; /* Added rounded corners */
+    }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .table-container img {
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+
 
         .table-container {
             overflow-x: auto;
@@ -108,8 +115,7 @@
                             @foreach ($indikators as $indikator)
                                 <tr>
                                     <td>
-                                        <button data-bs-toggle="modal"
-                                                data-bs-target="#rumusModal{{ $indikator->id }}" class="btn btn-primary">
+                                        <button data-bs-toggle="modal" data-bs-target="#rumusModal{{ $indikator->id }}" class="btn btn-primary">
                                             <i class="fas fa-calculator"></i> Rumus
                                         </button>
                                         <!-- Modal -->
@@ -121,7 +127,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>                                    
                                     <td>{{ $indikator->kode_indikator }}</td>
                                     <td>{{ $indikator->nama_indikator }}</td>
                                     @for ($year = 2018; $year <= 2030; $year++)
@@ -148,16 +154,16 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 
-        // Modal script
-        document.querySelectorAll('.modal .close').forEach(function(btn) {
-            btn.addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.modal .close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
                 var modalId = btn.getAttribute('data-modal-id');
                 document.getElementById(modalId).style.display = 'none';
             });
         });
 
-        document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(function(btn) {
-            btn.addEventListener('click', function() {
+        document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
                 var target = document.querySelector(btn.getAttribute('data-bs-target'));
                 if (target) {
                     target.style.display = 'block';
@@ -165,12 +171,13 @@
             });
         });
 
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
         };
+    });
+
     </script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>

@@ -94,7 +94,7 @@ class IndikatorController extends Controller
     ];
 
     $user = auth()->user();
-    $indikator = Indikator::where('id', $id)->firstOrFail();
+    $indikator = Indikator::where('id', $id)->first();
     $tujuans = Tujuan::all();
 
     return view('admin.indikator.edit', compact('indikator', 'tujuans', 'tipes'));
@@ -103,11 +103,12 @@ class IndikatorController extends Controller
 
 public function update(IndikatorStoreRequest $request, $id)
 {
-    $indikator = Indikator::find($id);
+    $indikator = Indikator::where('id', $id)->first();
     
     if (!$indikator) {
         return redirect()->back()->with('error', 'Indikator not found!');
     }
+
     // Update the basic fields
     $indikator->update([
         'tujuan_id' => $request->tujuan_id,
@@ -117,16 +118,24 @@ public function update(IndikatorStoreRequest $request, $id)
         'deskripsi' => $request->deskripsi
     ]);
 
-    // Handle the file upload
+    // Update the rumus file if a new one is uploaded
     if ($request->hasFile('rumus')) {
-        $rumus = $request->file('rumus');
-        $file_name = time() . '.' . $rumus->getClientOriginalExtension();
-        
-        // Move the file to the desired location
-        $rumus->move(public_path('assets/img/'), $file_name);
+        // Delete old file if it exists
+        if ($indikator->rumus) {
+            $oldFilePath = public_path('assets/img/' . $indikator->rumus);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
 
-        // Update the 'rumus' field in the database
-        $indikator->update(['rumus' => $file_name]);
+        // Save new file
+        $rumus = $request->file('rumus');
+        $fileName = time() . '.' . $rumus->getClientOriginalExtension();
+        $rumus->move(public_path('assets/img/'), $fileName);
+
+        // Update the model with the new file name
+        $indikator->rumus = $fileName;
+        $indikator->update();
     }
 
     if (auth()->user()->roles_id == 1) {
@@ -137,7 +146,6 @@ public function update(IndikatorStoreRequest $request, $id)
         return redirect('opd/indikator')->with('sukses', 'Berhasil Update Data!');
     }
 }
-
 
     public function destroy($id)
     {

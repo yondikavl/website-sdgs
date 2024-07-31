@@ -51,13 +51,21 @@
             @enderror
         </div>
         <div class="form-group">
-          <label class="form-label">{{ __('Rumus') }}</label>
-          <input accept="image/*" type="file" class="form-control @error('rumus') is-invalid @enderror" name="rumus" id="rumus-input">
+          <label for="rumus">{{ __('Rumus (File Gambar)') }}</label>
+          <input type="file" class="form-control @error('rumus') is-invalid @enderror" id="rumus-input" name="rumus" accept="image/*">
           @error('rumus')
-              <div class="invalid-feedback">{{ $message }}</div>
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
           @enderror
-          <img id="rumus-preview" src="{{ asset('assets/img/' . $indikator->rumus) }}" alt="Rumus Preview" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
-        </div>
+
+          @if ($indikator->rumus)
+              <div class="mt-3">
+                  <label>{{ __('Pratinjau Rumus') }}</label><br>
+                  <img id="rumus-preview" src="{{ asset('assets/img/' . $indikator->rumus) }}" alt="Pratinjau Rumus" style="max-width: 200px;">
+              </div>
+          @endif
+      </div>
         <div class="form-group">
           <label for="deskripsi">{{ __('Deksripsi') }}</label>
           <input type="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" value="{{$indikator->deskripsi}}" name="deskripsi" autocomplete="deskripsi" autofocus>
