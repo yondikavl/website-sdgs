@@ -101,25 +101,20 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="persentase">{{ __('Persentase Keberhasilan') }}<span style="color:red"> (Gunakan titik untuk bilangan koma contoh (1.23))*</span></label>
-                            <div class="input-group" id="persentase">
-                                <input type="text" class="form-control @error('persentase') is-invalid @enderror"
-                                    id="persentase" placeholder="Masukkan persentase keberhasilan" name="persentase"
-                                    required autocomplete="current-persentase">
-                            </div>
+                            <label for="persentase">{{ __('Persentase Keberhasilan') }}<span style="color:red"> (Gunakan titik untuk bilangan koma)*</span></label>
+                            <input type="text" class="form-control @error('persentase') is-invalid @enderror" id="persentaseManual" placeholder="5.72" name="persentase" required autocomplete="persentase" autofocus>
                             @error('persentase')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
+                        
                         <div class="form-group">
                             <label for="sumber_data">{{ __('Sumber Data') }}<span style="color:red"> * </span></label>
-                            <div class="input-group">
                                 <input type="text" class="form-control @error('sumber_data') is-invalid @enderror"
-                                    placeholder="Masukkan sumber data" name="sumber_data" required
+                                    placeholder="Dinas Sosial" name="sumber_data" required
                                     autocomplete="current-sumber_data">
-                            </div>
                             @error('sumber_data')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -158,7 +153,7 @@
                             </span></label>
                             <div class="input-group" id="anggaran">
                                 <input type="text" class="form-control @error('anggaran') is-invalid @enderror"
-                                    id="anggaran" placeholder="Masukkan angka anggaran" name="anggaran"
+                                    id="anggaran" placeholder="Rp.5.000.000" name="anggaran"
                                     autocomplete="current-anggaran">
                             </div>
                             @error('anggaran')
@@ -171,7 +166,7 @@
                             <label for="sumber_pendanaan">{{ __('Sumber Pendanaan') }}<span style="color:red"> (Optional)</span></label>
                             <div class="input-group" id="sumber_pendanaan">
                                 <input type="text" class="form-control @error('sumber_pendanaan') is-invalid @enderror"
-                                    id="sumber_pendanaan" placeholder="Masukkan sumber pendanaan" name="sumber_pendanaan"
+                                    id="sumber_pendanaan" placeholder="Bank Lampung" name="sumber_pendanaan"
                                     autocomplete="current-sumber_pendanaan">
                             </div>
                             @error('sumber_pendanaan')

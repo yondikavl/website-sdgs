@@ -22,6 +22,7 @@ class Pencapaian extends Model
         'lokasi',
         'keterangan',
         'user_id',
+        'is_read'
     ];
 
     public function Indikator()

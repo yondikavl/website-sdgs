@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware([SuperAdmin::class])->name('super.')->prefix('super')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
         Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
+        Route::post('/pencapaian/mark-all-read', [DashboardController::class, 'markAllAsRead'])->name('pencapaian.markAllRead');
         Route::resource('user', UserController::class);
         Route::get('/get-indikator/{roles_id}', [UserController::class, 'getIndikator'])->name('get-indikator');
         Route::resource('pilar', PilarController::class);
@@ -56,17 +57,18 @@ Route::middleware(['auth'])->group(function () {
     // CMS ADMIN
     Route::middleware([Admin::class])->name('admin.')->prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
-        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
     });
 
     // CMS OPD
     Route::middleware([OPD::class])->name('opd.')->prefix('opd')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::post('/pencapaian/import', [PencapaianController::class, 'import'])->name('pencapaian.import');
         Route::resource('user', UserController::class);
         Route::resource('pilar', PilarController::class);
         Route::resource('tujuan', TujuanController::class);
@@ -102,7 +104,6 @@ Route::get('/client/get-tahun', [GeospasialController::class, 'getTahun'])->name
 Route::get('get-peta-indikator/{id}', [GeospasialController::class, 'getAllIndikator'])->name('get-peta-indikator');
 Route::get('get-prediksi-indikator/{id}', [PrediksiController::class, 'getAllIndikator'])->name('get-prediksi-indikator');
 Route::get('get-kecamatan', [PrediksiController::class, 'getKecamatan'])->name('get-kecamatan');
-// Route::get('get-prediksi-data/{indikatorId}/{kecamatanId}', [PrediksiController::class, 'getPrediksiData']);
 
 Route::get('get-prediksi-data/{indikatorId}/{kecamatanId}', [PrediksiController::class, 'getPrediksiData'])->name('get-prediksi-data');
 Route::get('get-indikator/{id}', [IndikatorController::class, 'getAllIndikator'])->name('get-indikator');

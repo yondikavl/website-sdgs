@@ -76,20 +76,21 @@ class PencapaianController extends Controller
 
     public function store(Request $request)
 {
-    $request->validate(
-        [
-            'indikator_id' => 'required',
-            'tahun' => 'required',
-            'persentase' => 'required',
-            'sumber_data' => 'required',
-        ],
-        [
-            'indikator_id.required' => 'Indikator tidak boleh kosong!',
-            'tahun.required' => 'Tahun tidak boleh kosong!',
-            'persentase.required' => 'Persentase tidak boleh kosong!',
-            'sumber_data.required' => 'Sumber data tidak boleh kosong!',
-        ]
-    );
+    $request->validate([
+        'indikator_id' => 'required',
+        'tahun' => 'required|numeric|digits:4',
+        'persentase' => 'required|numeric|between:0,100',
+        'sumber_data' => 'required',
+    ], [
+        'indikator_id.required' => 'Indikator tidak boleh kosong!',
+        'tahun.required' => 'Tahun tidak boleh kosong!',
+        'tahun.numeric' => 'Tahun harus berupa angka!',
+        'tahun.digits' => 'Tahun harus terdiri dari 4 digit!',
+        'persentase.required' => 'Persentase tidak boleh kosong!',
+        'persentase.numeric' => 'Persentase harus berupa angka!',
+        'persentase.between' => 'Persentase harus berada di antara 0 dan 100!',
+        'sumber_data.required' => 'Sumber data tidak boleh kosong!',
+    ]);
 
     $currentUser = auth()->user();
 
@@ -119,8 +120,6 @@ class PencapaianController extends Controller
     }
 }
 
-
-
     public function show($id)
     {
         $indikators = Indikator::all();
@@ -147,18 +146,20 @@ class PencapaianController extends Controller
 }
 
 
-    public function update(Request $request, $id)
+public function update(Request $request, $id)
 {
     $request->validate([
-        'tahun' => 'required',
-        'persentase' => 'required',
-        // 'kecamatan_id' => 'required|array',
+        'tahun' => 'required|numeric|digits:4',
+        'persentase' => 'required|numeric|between:0,100',
         'tingkatan' => 'required|max:255',
         'keterangan' => 'nullable|max:255',
     ], [
-        'tahun.required' => 'Tahun harus diisi!',
+        'tahun.required' => 'Tahun tidak boleh kosong!',
+        'tahun.numeric' => 'Tahun harus berupa angka!',
+        'tahun.digits' => 'Tahun harus terdiri dari 4 digit!',
         'persentase.required' => 'Persentase harus diisi!',
-        // 'kecamatan_id.required' => 'Kecamatan harus diisi!',
+        'persentase.numeric' => 'Persentase harus berupa angka!',
+        'persentase.between' => 'Persentase harus berada di antara 0 dan 100!',
         'tingkatan.required' => 'Tingkatan tidak boleh kosong!',
         'tingkatan.max' => 'Tingkatan melebihi batas!',
         'keterangan.max' => 'Keterangan melebihi batas!'
