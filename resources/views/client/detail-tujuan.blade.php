@@ -38,8 +38,8 @@
         }
 
         .modal-body img {
-            max-width: 100%;
-            max-height: 100%;
+            height: 280px;
+            overflow: scroll;
             object-fit: contain;
         }
     </style>
