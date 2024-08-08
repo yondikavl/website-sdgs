@@ -255,14 +255,14 @@
         <div class="container mb-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h5 class="font-weight-light text-justify text-md">
+                    <h5 class="font-weight-light text-justify">
                         <span class="font-weight-bold">Kota Bandar Lampung</span> telah berkomitmen untuk mencapai
                         <span class="font-weight-bold">Sustainable Development Goals (SDGs)</span> atau
                         <span class="font-weight-bold">Tujuan Pembangunan Berkelanjutan (TPB)</span> yang ditunjukkan dengan
                         telah disusun dan ditetapkannya
                         dokumen Rencana Aksi Daerah (RAD) SDGs/TPB Kota Bandar Lampung 2020-2024.
                     </h5>
-                    <h5 class="font-weight-light text-justify text-md">
+                    <h5 class="font-weight-light text-justify">
                         Ini selaras dengan dokumen RAD SDGs/TPB Provinsi Lampung yang telah ditetapkan oleh Pemerintah
                         Provinsi Lampung. Komitmen dalam perencanaan pembangunan Kota Bandar Lampung pun ditunjukkan dengan
                         telah diselaraskannya dokumen Rencana Pembangunan Jangka Menengah Daerah (RPJMD) Kota Bandar Lampung
@@ -388,7 +388,8 @@
                             class="rounded-lg my-1" alt="{{ $tujuan->nama_tujuan }}">
                     </a>
                 @endforeach
-                <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="184" alt="Logo SDGs">
+                <img src="{{ asset('assets/img/logo-sdgs.png') }}" width="184" alt="Logo SDGs"
+                    class="scroll-animation">
             </div>
         </div>
 
