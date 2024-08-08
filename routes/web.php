@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PencapaianController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
+use App\Http\Controllers\Admin\DokumenSDGsController;
 use App\Http\Controllers\Client\BerandaController;
 use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\GeospasialController;
@@ -52,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tujuan', TujuanController::class);
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
+        Route::resource('dokumen', DokumenSDGsController::class);
     });
 
     // CMS ADMIN
