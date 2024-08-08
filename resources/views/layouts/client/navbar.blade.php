@@ -1,40 +1,3 @@
-@section('style')
-    <style>
-        .navbar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-brand img {
-            margin-right: 10px;
-            /* Sesuaikan jarak antara logo dan teks */
-        }
-
-        .navbar-brand-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            /* Pastikan teks rata kiri */
-        }
-
-        .nav-link {
-            font-weight: normal;
-        }
-
-        .nav-link.active {
-            font-weight: bolder;
-        }
-    </style>
-@endsection
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-lg-5 shadow">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
@@ -51,31 +14,42 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Beranda</a>
+                    <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">
+                        <i class="fas fa-home mr-1"></i> Beranda
+                    </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('dashboard*') ? 'active' : '' }}"
                         id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        Dashboard
+                        <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/pembanding">Analisis Pembanding</a>
-                        <a class="dropdown-item" href="/geospasial">Peta Geospasial</a>
-                        <a class="dropdown-item" href="/prediksi">Prediksi</a>
+                        <a class="dropdown-item" href="/pembanding"><i class="fas fa-chart-bar mr-1"></i> Analisis
+                            Pembanding</a>
+                        <a class="dropdown-item" href="/geospasial"><i class="fas fa-map mr-1"></i> Peta Geospasial</a>
+                        <a class="dropdown-item" href="/prediksi"><i class="fas fa-chart-line mr-1"></i> Prediksi</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('tujuan') ? 'active' : '' }}" href="/tujuan">Tujuan SDGs</a>
+                    <a class="nav-link {{ request()->is('tujuan') ? 'active' : '' }}" href="/tujuan">
+                        <i class="fas fa-bullseye mr-1"></i> Tujuan SDGs
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">Dokumen</a>
+                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">
+                        <i class="fas fa-file-alt mr-1"></i> Dokumen
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">Kontak</a>
+                    <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">
+                        <i class="fas fa-envelope mr-1"></i> Kontak
+                    </a>
                 </li>
             </ul>
-            <a href="/login" class="btn btn-success py-2 px-3 ml-lg-2 mt-2 mt-md-0">Login</a>
+            <a href="/login" class="btn btn-success py-2 px-3 ml-lg-2 mt-2 mt-md-0">
+                <i class="fas fa-sign-in-alt mr-1"></i> Login
+            </a>
         </div>
     </div>
 </nav>
