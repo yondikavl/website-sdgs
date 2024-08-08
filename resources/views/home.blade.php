@@ -51,13 +51,109 @@
             font-size: 16px;
         }
 
+        @keyframes slideInUp {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sigeh-img {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            height: auto;
+            z-index: 3;
+            animation: slideInUp 1s ease-in-out;
+        }
+
+        .patung-img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: auto;
+            z-index: 3;
+            animation: slideInUp 1s ease-in-out;
+        }
+
+        .kota-img {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: auto;
+            z-index: 2;
+            animation: slideInUp 1.5s ease-in-out;
+        }
+
         #carousel:hover {
             filter: brightness(0.8);
+        }
+
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .video-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .video-container video {
+            border-radius: 12px;
+            width: 100%;
+            height: auto;
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        .scroll-animation.show {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 2s ease-in-out forwards;
         }
 
         @media (min-width: 1024px) {
             .video-container {
                 max-width: 60%;
+            }
+
+            .sigeh-img {
+                width: 200px;
+            }
+
+            .patung-img {
+                width: 200px;
+            }
+
+            .kota-img {
+                width: 100%;
             }
         }
 
@@ -91,37 +187,32 @@
             .hero-text p {
                 width: 90%;
             }
+
+            .sigeh-img {
+                width: 100px;
+            }
+
+            .patung-img {
+                width: 100px;
+            }
+
+            .kota-img {
+                width: 100%;
+            }
         }
 
-        .iframe-container {
-            display: flex;
-            justify-content: center;
-        }
+        @media (max-width: 374px) {
+            .sigeh-img {
+                width: 60px;
+            }
 
-        .video-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            background-color: #fff;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 100%;
-            width: 100%;
-            box-sizing: border-box;
-        }
+            .patung-img {
+                width: 60px;
+            }
 
-        .video-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .video-container video {
-            border-radius: 12px;
-            width: 100%;
-            height: auto;
+            .kota-img {
+                width: 100%;
+            }
         }
     </style>
 @endsection
@@ -129,6 +220,9 @@
 @section('content')
     <div class="">
         <div class="hero position-relative w-100 bg-success mt-4 mb-5">
+            <img src="./assets/img/sigeh.png" alt="" class="sigeh-img">
+            <img src="./assets/img/patung.png" alt="" class="patung-img">
+            <img src="./assets/img/kota.png" alt="" class="kota-img">
             <svg class="hero-left" width="625" height="507" viewBox="0 0 625 507" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <circle opacity="0.2" cx="-39.3984" cy="7.5" r="488.5" stroke="url(#paint0_linear_1102_85)"
@@ -178,7 +272,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mb-5">
+        <div class="container mb-5 scroll-animation">
             <div class="video-container">
                 <h2 class="font-weight-bold mx-auto">Dashboard SDGs Kota Bandar Lampung</h2>
                 <video controls>
@@ -187,7 +281,7 @@
                 </video>
             </div>
         </div>
-        <div class="container mb-3" style="border-radius: 12px">
+        <div class="container mb-3 scroll-animation" style="border-radius: 12px">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-radius: 12px">
                 <div class="carousel-inner" style="border-radius: 12px">
                     @foreach ($pilars as $index => $pilar)
@@ -252,7 +346,7 @@
                 </a>
             </div>
         </div>
-        <div class="container d-md-none">
+        <div class="container d-md-none scroll-animation">
             <div id="carouseltujuan" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     @foreach ($tujuans as $index => $tujuan)
@@ -289,7 +383,7 @@
         <div class="container d-none d-md-block">
             <div class="text-center">
                 @foreach ($tujuans as $tujuan)
-                    <a href="/tujuan/{{ $tujuan->id }}" id="carousel">
+                    <a href="/tujuan/{{ $tujuan->id }}" id="carousel" class="scroll-animation">
                         <img src="{{ asset('assets/ikon/' . $tujuan->ikon_tujuan) }}" width="184"
                             class="rounded-lg my-1" alt="{{ $tujuan->nama_tujuan }}">
                     </a>
@@ -302,6 +396,42 @@
 @endsection
 
 @section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollElements = document.querySelectorAll('.scroll-animation');
+
+            const elementInView = (el, offset = 0) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= ((window.innerHeight || document.documentElement.clientHeight) - offset)
+                );
+            };
+
+            const displayScrollElement = (element) => {
+                element.classList.add('show');
+            };
+
+            const hideScrollElement = (element) => {
+                element.classList.remove('show');
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 100)) {
+                        displayScrollElement(el);
+                    } else {
+                        hideScrollElement(el);
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation();
+            });
+
+            handleScrollAnimation();
+        });
+    </script>
     <script>
         $('.carousel[data-type="multi"] .item').each(function() {
             var next = $(this).next();
