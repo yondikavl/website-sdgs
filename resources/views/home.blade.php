@@ -44,11 +44,13 @@
         .hero-text h1 {
             width: 80%;
             font-size: 48px;
+            animation: slideInUp 1.5s ease-in-out;
         }
 
         .hero-text p {
             width: 50%;
             font-size: 16px;
+            animation: slideInUp 2s ease-in-out;
         }
 
         @keyframes slideInUp {
@@ -252,6 +254,7 @@
                     Berbasis Ekonomi untuk Kemakmuran Rakyat</p>
             </div>
         </div>
+
         <div class="container mb-5">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
