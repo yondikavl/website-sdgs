@@ -180,7 +180,7 @@
         </div>
         <div class="container mb-5">
             <div class="video-container">
-                <h2 class="font-weight-bold mx-auto">Tutorial Dashboard SDGs Kota Bandar Lampung</h2>
+                <h2 class="font-weight-bold mx-auto">Dashboard SDGs Kota Bandar Lampung</h2>
                 <video controls>
                     <source src="{{ asset('assets/video/Video-SDGs-Kota-Bandar-Lampung.mp4') }}" type="video/mp4">
                     Your browser does not support the video tag.
