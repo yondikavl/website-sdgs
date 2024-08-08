@@ -1,20 +1,14 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Edit Dokumen')
+@section('title', 'Tambah Dokumen')
 
 @section('content')
-    @if (auth()->user()->roles_id == 1)
-    <form action="{{ route('super.dokumen.update', $dokumen->id) }}" method="POST" enctype="multipart/form-data">
-    @elseif (auth()->user()->roles_id == 2)
-    <form action="{{ route('admin.dokumen.update', $dokumen->id) }}" method="POST" enctype="multipart/form-data">
-    @elseif (auth()->user()->roles_id == 3)
-    <form action="{{ route('opd.dokumen.update', $dokumen->id) }}" method="POST" enctype="multipart/form-data">
-    @endif
+
+<form action="{{ route('super.dokumen.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
     <div class="form-group">
         <label for="judul">Judul</label>
-        <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $dokumen->judul) }}" required>
+        <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror" required>
         @error('judul')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -39,6 +33,7 @@
             </span>
         @enderror
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-success">Simpan</button>
 </form>
+
 @endsection

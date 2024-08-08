@@ -18,17 +18,36 @@ class DokumenSDGsController extends Controller
     // Show the form for creating a new document
     public function create()
     {
-        return view('admin.dokumen.create');
+        $user = auth()->user();
+
+        if ($user->roles_id == 1 || $user->roles_id == 2) {
+            $dokumen = Dokumen::all();
+        } else if ($user->roles_id == 3) {
+            if ($user->permissions != null) {
+                $dokumen = Dokumen::whereIn('id', $user->permissions)->get();
+            } else {
+                $dokumen = Dokumen::where('id', null)->get();
+            }
+        }
+        return view('admin.dokumen.create', compact('dokumen'));
     }
 
     // Store a newly created document in the database
     public function store(Request $request)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'gambar' => 'nullable|mimes:jpg,bmp,png,svg,jpeg|max:2048',
-            'file' => 'nullable|mimes:pdf|max:5120', // 5MB max for PDF
-        ]);
+{
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'gambar' => 'nullable|mimes:jpg,bmp,png,svg,jpeg|max:2048',
+        'file' => 'nullable|mimes:pdf|max:5120',
+    ], [
+        'judul.required' => 'Judul harus diisi.',
+        'judul.string' => 'Judul harus berupa teks.',
+        'judul.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+        'gambar.mimes' => 'Gambar harus berupa file dengan format: jpg, bmp, png, svg, jpeg.',
+        'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+        'file.mimes' => 'File harus berupa PDF.',
+        'file.max' => 'Ukuran file PDF tidak boleh lebih dari 5MB.',
+    ]);
 
         $dokumen = new Dokumen();
         $dokumen->judul = $request->judul;
@@ -64,14 +83,22 @@ class DokumenSDGsController extends Controller
         $dokumen = Dokumen::where('id', $id)->firstOrFail();
         return view('admin.dokumen.edit', compact('dokumen'));
     }
-    
-public function update(Request $request, $id)
+
+    public function update(Request $request, $id)
 {
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'gambar' => 'nullable|mimes:jpg,bmp,png,svg,jpeg|max:2048',
-        'file' => 'nullable|mimes:pdf|max:5120', // 5MB max for PDF
-    ]);
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|mimes:jpg,bmp,png,svg,jpeg|max:2048',
+            'file' => 'nullable|mimes:pdf|max:5120',
+        ], [
+            'judul.required' => 'Judul harus diisi.',
+            'judul.string' => 'Judul harus berupa teks.',
+            'judul.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+            'gambar.mimes' => 'Gambar harus berupa file dengan format: jpg, bmp, png, svg, jpeg.',
+            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'file.mimes' => 'File harus berupa PDF.',
+            'file.max' => 'Ukuran file PDF tidak boleh lebih dari 5MB.',
+        ]);
 
     $dokumen = Dokumen::findOrFail($id);
     $dokumen->judul = $request->judul;
