@@ -139,7 +139,7 @@
             animation: fadeInUp 2s ease-in-out forwards;
         }
 
-        @media (min-width: 1024px) {
+        @media (max-width: 1024px) {
             .video-container {
                 max-width: 60%;
             }
