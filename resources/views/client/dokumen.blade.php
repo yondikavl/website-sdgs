@@ -13,110 +13,28 @@
             </div>
         </div>
         <div class="row mt-4">
+            @foreach($dokumens as $dokumen)
             <div class="col-md-3 mb-4">
                 <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/vlr.png') }}" alt="VLR Kota Bandar Lampung 2024">
+                    <img class="card-img-top" src="{{ asset('assets/img/' . $dokumen->gambar) }}" alt="VLR Kota Bandar Lampung 2024">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Voluntary Local Review (VLR) Kota Bandar Lampung Tahun 2024</h5>
+                        <h5 class="card-title">{{$dokumen->judul}}</h5>
                         <div class="mt-auto">
                             <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/DRAFT-BUKU-VLR-BANDAR-LAMPUNG-2024.pdf') }}" target="_blank"
-                                download="DRAFT-BUKU-VLR-BANDAR-LAMPUNG-2024">
+                                href="{{ asset('assets/template/'. $dokumen->file) }}" target="_blank"
+                                download="{{ $dokumen->judul }}">
                                 <i class="fa fa-download"></i> Download
                             </a>
                             <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
                                 data-target="#previewModal"
-                                data-file="{{ asset('assets/template/DRAFT-BUKU-VLR-BANDAR-LAMPUNG-2024.pdf') }}">
+                                data-file="{{ asset('assets/template/'. $dokumen->file) }}">
                                 <i class="fa fa-eye"></i> Preview
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/manual-book.png') }}"
-                        alt="Manual Book Kota Bandar Lampung 2024">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Manual Book Kota Bandar Lampung Tahun 2024</h5>
-                        <div class="mt-auto">
-                            <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/Manual-Book-Dashboard-SDGs-Kota Bandar-Lampung-2024.pdf') }}"
-                                target="_blank" download="Manual-Book-Dashboard-SDGs-Kota Bandar-Lampung-2024">
-                                <i class="fa fa-download"></i> Download
-                            </a>
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#previewModal"
-                                data-file="{{ asset('assets/template/Manual-Book-Dashboard-SDGs-Kota Bandar-Lampung-2024.pdf') }}">
-                                <i class="fa fa-eye"></i> Preview
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/booklet.png') }}"
-                        alt="Booklet Kota Bandar Lampung 2024">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Booklet Kota Bandar Lampung Tahun 2024</h5>
-                        <div class="mt-auto">
-                            <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024.pdf') }}"
-                                target="_blank" download="DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024">
-                                <i class="fa fa-download"></i> Download
-                            </a>
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#previewModal"
-                                data-file="{{ asset('assets/template/DRAFT-BOOKLET-VLR-BANDAR-LAMPUNG-2024.pdf') }}">
-                                <i class="fa fa-eye"></i> Preview
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/meta-ekonomi.png') }}"
-                        alt="Metadata Pilar Ekonomi Edisi II">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Metadata Pilar Ekonomi Edisi II</h5>
-                        <div class="mt-auto">
-                            <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/Metadata-Pilar-Ekonomi-Edisi-II.pdf') }}" target="_blank"
-                                download="Metadata-Pilar-Ekonomi-Edisi-II">
-                                <i class="fa fa-download"></i> Download
-                            </a>
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#previewModal"
-                                data-file="{{ asset('assets/template/Metadata-Pilar-Ekonomi-Edisi-II.pdf') }}">
-                                <i class="fa fa-eye"></i> Preview
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/meta-sosial.png') }}"
-                        alt="Metadata Pilar Sosial Edisi II">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Metadata Pilar Sosial Edisi II</h5>
-                        <div class="mt-auto">
-                            <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/Metadata-Pilar-Sosial-Edisi-II.pdf') }}" target="_blank"
-                                download="Metadata-Pilar-Sosial-Edisi-II">
-                                <i class="fa fa-download"></i> Download
-                            </a>
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#previewModal"
-                                data-file="{{ asset('assets/template/Metadata-Pilar-Sosial-Edisi-II.pdf') }}">
-                                <i class="fa fa-eye"></i> Preview
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
