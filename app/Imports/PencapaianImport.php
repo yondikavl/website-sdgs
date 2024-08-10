@@ -26,34 +26,29 @@ class PencapaianImport implements ToModel, WithStartRow
         $persentase = $row[2];
         $sumber_data = $row[3];
         $nama_kecamatan = $row[4] ?? '';
-        $nama_kegiatan = $row[5] ?? '';
-        $anggaran = $row[6] ?? '';
-        $sumber_pendanaan = $row[7] ?? '';
-        $lokasi = $row[8] ?? '';
-        $tingkatan = $row[9] ?? '';
-        $keterangan = $row[10] ?? '';
+        // $nama_kegiatan = $row[5] ?? '';
+        // $anggaran = $row[6] ?? '';
+        // $sumber_pendanaan = $row[7] ?? '';
+        // $lokasi = $row[8] ?? '';
+        $tingkatan = $row[5] ?? '';
+        $keterangan = $row[6] ?? '';
 
         // Validate the input data
         if (!$kode_indikator || !$persentase || !$sumber_data) {
             return null; // Skip this row if any required field is missing
         }
 
-        // Check if kode_indikator exists in the database
-        $indikator = Indikator::where('kode_indikator', $kode_indikator)->first();
-        if (!$indikator) {
-            return null; // Skip this row if kode_indikator does not exist
-        }
 
         // Fetch or create the Pencapaian record
         $pencapaian = Pencapaian::create([
-            'indikator_id' => $indikator->id,
+            'indikator_id' => $kode_indikator,
             'tahun' => $this->tahun,
             'persentase' => $persentase,
             'sumber_data' => $sumber_data,
-            'nama_kegiatan' => $nama_kegiatan,
-            'anggaran' => $anggaran,
-            'sumber_pendanaan' => $sumber_pendanaan,
-            'lokasi' => $lokasi,
+            // 'nama_kegiatan' => $nama_kegiatan,
+            // 'anggaran' => $anggaran,
+            // 'sumber_pendanaan' => $sumber_pendanaan,
+            // 'lokasi' => $lokasi,
             'tingkatan' => $tingkatan,
             'keterangan' => $keterangan,
             'user_id' => $this->userId,

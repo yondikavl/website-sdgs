@@ -63,7 +63,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <label for="nama_kegiatan">{{ __('Nama Pencapaian/Kegiatan') }}</label>
                 <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" id="nama_kegiatan" value="{{ $pencapaian->nama_kegiatan }}" name="nama_kegiatan" autocomplete="nama_kegiatan">
                 @error('nama_kegiatan')
@@ -98,7 +98,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-            </div>
+            </div> --}}
             <div class="col-md-4">
                 <label for="tingkatan">{{ __('Tingkatan') }}</label>
                 <input type="text" class="form-control @error('Tingkatan') is-invalid @enderror" id="tingkatan" value="{{ $pencapaian->tingkatan ?? '-'}}" name="tingkatan" autocomplete="tingkatan">

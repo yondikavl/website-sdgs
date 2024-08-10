@@ -52,7 +52,7 @@
         </div>
         <div class="form-group">
           <label for="rumus">{{ __('Gambar Rumus') }}</label>
-          <input type="file" class="form-control @error('rumus') is-invalid @enderror" id="rumus" placeholder="Masukkan ikon tujuan" value="{{ old('rumus') }}" name="rumus" required autocomplete="rumus" autofocus>
+          <input type="file" class="form-control @error('rumus') is-invalid @enderror" id="rumus" placeholder="Masukkan ikon tujuan" value="{{ old('rumus') }}" name="rumus" autocomplete="rumus" autofocus>
             @error('ikon_tujuan')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -70,17 +70,13 @@
         </div>
         <div class="form-group">
           <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
-          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" required>
-              <option value="%">Persen (%)</option>
-              <option value="orang">Orang</option>
-              <option value="jumlah">Jumlah</option>
-          </select>
-          @error('tipe')
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-          @enderror
-      </div>
+          <input type="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" placeholder="Masukkan jenis pencapaian" value="{{ old('tipe') }}" name="tipe" required autocomplete="tipe" autofocus>
+            @error('tipe')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</</button>
           </div>

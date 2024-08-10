@@ -77,7 +77,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="nama_kegiatan">{{ __('Nama Pencapaian/Kegiatan') }}<span style="color:red"> (Masukkan nama pencapaian/kegiatan jika ada di indikator tersebut)</span></label>
                             <div class="input-group" id="nama_kegiatan">
                                 <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror"
@@ -89,7 +89,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="tahun">{{ __('Tahun') }}<span style="color:red"> * </span></label>
                             <input type="tahun" class="form-control @error('tahun') is-invalid @enderror" id="tahunManual"
@@ -148,7 +148,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="anggaran">{{ __('Alokasi Anggaran') }}<span style="color:red"> (Rp Juta)
                             </span></label>
                             <div class="input-group" id="anggaran">
@@ -187,7 +187,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="keterangan">{{ __('Keterangan') }}<span style="color:red"> (Optional) </span></label>
                             <div class="input-group">
@@ -366,12 +366,12 @@
                     const nilaiIndex = 2;
                     const sumberIndex = 3;
                     const kecamatanIndex = 4;
-                    const namaKegiatanIndex = 5;
-                    const anggaranIndex = 6;
-                    const sumberPendanaanIndex = 7;
-                    const lokasiIndex = 8
-                    const tingkatanIndex = 9;
-                    const keteranganIndex = 10;
+                    // const namaKegiatanIndex = 5;
+                    // const anggaranIndex = 6;
+                    // const sumberPendanaanIndex = 7;
+                    // const lokasiIndex = 8;
+                    const tingkatanIndex = 5;
+                    const keteranganIndex = 6;
     
                     if (kodeIndex === -1 || namaIndex === -1) {
                         content.innerHTML += 'Kolom Kode dan/atau Nama tidak ditemukan.';
@@ -381,7 +381,7 @@
                     }
     
                     let tableHtml = '<table class="table table-striped table-header-green table-cell-padding">';
-                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Nama Pencapaian/Kegiatan</th><th>Alokasi Anggaran</th><th>Sumber Pendanaan</th><th>Lokasi Pendanaan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
+                    tableHtml += '<thead class="bg-success"><tr class="bg-success"><th>Kode Indikator</th><th>Nama Indikator</th><th>Nilai</th><th>Sumber Data</th><th>Nama Kecamatan</th><th>Tingkatan</th><th>Keterangan</th></tr></thead><tbody>';
     
                     for (let i = 2; i < sheetData.length; i++) {
                         const row = sheetData[i];
@@ -390,10 +390,10 @@
                         const nilai = row[nilaiIndex] ?? 'Nilai tidak ada';
                         const sumber = row[sumberIndex] ?? 'Sumber data tidak ada';
                         const kecamatan = row[kecamatanIndex] ?? 'Nama Kecamatan data tidak ada';
-                        const namaKegiatan = row[namaKegiatanIndex] ?? '-';
-                        const anggaran = row[anggaranIndex] ?? '-';
-                        const sumberPendanaan = row[sumberPendanaanIndex] ?? '-';
-                        const lokasi = row[lokasiIndex] ?? '-';
+                        // const namaKegiatan = row[namaKegiatanIndex] ?? '-';
+                        // const anggaran = row[anggaranIndex] ?? '-';
+                        // const sumberPendanaan = row[sumberPendanaanIndex] ?? '-';
+                        // const lokasi = row[lokasiIndex] ?? '-';
                         const tingkatan = row[tingkatanIndex] ?? '-';
                         const keterangan = row[keteranganIndex] ?? '-';
     
@@ -410,15 +410,11 @@
                         // const keteranganClass = keterangan === 'Keterangan data tidak ada' ? 'bg-danger' : '';
     
                     tableHtml += `<tr>
-                        <td class="${kodeClass}">${kode}</td>
-                        <td class="${namaClass}">${nama}</td>
-                        <td class="${nilaiClass}">${nilai}</td>
-                        <td class="${sumberClass}">${sumber}</td>
+                        <td>${kode}</td>
+                        <td>${nama}</td>
+                        <td>${nilai}</td>
+                        <td>${sumber}</td>
                         <td>${kecamatan}</td>
-                        <td>${namaKegiatan}</td>
-                        <td>${anggaran}</td>
-                        <td>${sumberPendanaan}</td>
-                        <td>${lokasi}</td>
                         <td>${tingkatan}</td>
                         <td>${keterangan}</td>
                     </tr>`;

@@ -77,21 +77,13 @@
         </div>
         <div class="form-group">
           <label for="tipe">{{ __('Jenis Pencapaian') }}</label>
-          <select class="form-control col-form-label rounded-2" name="tipe" id="tipe" >
-              <option selected value="%">Pilih Jenis</option>
-              @foreach ($tipes as $tipe)
-              <option value="{{ old('tipe', $tipe['id']) }}"
-                  {{ $tipe['id'] == $indikator->tipe ? 'selected' : '' }}>
-                  {{ $tipe['id'] }}
-              </option>
-          @endforeach
-          </select>
-          @error('tipe')
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-          @enderror
-      </div>
+          <input type="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" value="{{$indikator->tipe}}" name="tipe" autocomplete="tipe" autofocus>
+            @error('deskripsi')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="">
             <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
           </div>

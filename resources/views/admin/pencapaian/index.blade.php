@@ -37,10 +37,10 @@
                     <th>Nilai</th>
                     <th>Sumber Data</th>
                     <th>Nama Kecamatan</th>
-                    <th>Nama Pencapaian/Kegiatan</th>
-                    <th>Alokasi Anggaran</th>
+                    {{-- <th>Nama Pencapaian/Kegiatan</th> --}}
+                    {{-- <th>Alokasi Anggaran</th>
                     <th>Sumber Pendanaan</th>
-                    <th>Lokasi Pendanaan</th>
+                    <th>Lokasi Pendanaan</th> --}}
                     <th>Tingkatan</th>
                     <th>Keterangan</th>
                     <th>Dibuat tanggal</th>
@@ -69,10 +69,10 @@
                     @foreach ($decodedkecamatans as $kecamatan)
                         <td>{{ $kecamatan }}</td>
                     @endforeach
-                    <td>{{$pencapaian->nama_kegiatan ?? '-'}}</td>
+                    {{-- <td>{{$pencapaian->nama_kegiatan ?? '-'}}</td>
                     <td>{{$pencapaian->anggaran ?? '-'}}</td>
                     <td>{{$pencapaian->sumber_pendanaan ?? '-'}}</td>
-                    <td>{{$pencapaian->lokasi ?? '-'}}</td>
+                    <td>{{$pencapaian->lokasi ?? '-'}}</td> --}}
                     <td>{{$pencapaian->tingkatan ?? '-'}}</td>
                     <td>{{$pencapaian->keterangan ?? '-'}}</td>
                     <td>{{$pencapaian->created_at}}</td>
