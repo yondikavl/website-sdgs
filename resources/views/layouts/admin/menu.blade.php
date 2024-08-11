@@ -276,6 +276,29 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white">
+                    <i class="nav-icon fas fa-globe"></i>
+                    <p>
+                        Berita
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/berita/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Berita</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/berita/create/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p><small>Tambah Data Berita</small></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                 @csrf
             </form>
@@ -351,6 +374,29 @@
                         <a href="/opd/pencapaian/create/" class="nav-link text-white">
                             <i class="far fa-circle nav-icon"></i>
                             <p><small>Tambah Data Pencapaian</small></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white">
+                    <i class="nav-icon fas fa-globe"></i>
+                    <p>
+                        Berita
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/opd/berita/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Berita</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/opd/berita/create/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p><small>Tambah Data Berita</small></p>
                         </a>
                     </li>
                 </ul>
