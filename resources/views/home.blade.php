@@ -215,6 +215,10 @@
             .kota-img {
                 width: 100%;
             }
+
+            .video-container {
+                max-width: 100%;
+            }
         }
     </style>
 @endsection
@@ -275,6 +279,77 @@
                 </div>
             </div>
         </div>
+
+        <div class="container mb-5 scroll-animation">
+            <div class="d-md-flex justify-content-between align-items-center mb-3">
+                <h3 class="text-base font-weight-bold">
+                    <i class="fas fa-info-circle mr-2" style="color: rgb(85, 85, 235)"></i> Informasi terbaru
+                </h3>
+                <a href="/berita" class="text-primary">Lihat informasi lainnya</a>
+            </div>
+            <div class="row">
+                <a href="/detail-berita" class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
+                            <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 1"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Judul Berita 1</h5>
+                            <p class="card-text text-truncate"
+                                style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                Konten berita 1 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
+                                terlalu panjang.
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Diposting pada 11:11 WIB - 11/08/2024 oleh Author 1</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/detail-berita" class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
+                            <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 2"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Judul Berita 2</h5>
+                            <p class="card-text text-truncate"
+                                style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                Konten berita 2 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
+                                terlalu panjang.
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Diposting pada 11:11 WIB - 10/08/2024 oleh Author 2</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/detail-berita" class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
+                            <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 3"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Judul Berita 3</h5>
+                            <p class="card-text text-truncate"
+                                style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                Konten berita 3 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
+                                terlalu panjang.
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Diposting pada 11:11 WIB - 09/08/2024 oleh Author 3</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
         <div class="container mb-5 scroll-animation">
             <div class="video-container">
                 <h2 class="font-weight-bold mx-auto">Dashboard SDGs Kota Bandar Lampung</h2>

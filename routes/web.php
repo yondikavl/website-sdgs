@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Admin\DokumenSDGsController;
 use App\Http\Controllers\Client\BerandaController;
+use App\Http\Controllers\Client\BeritaController;
 use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\GeospasialController;
 use App\Http\Controllers\Client\PembandingController;
@@ -95,6 +96,8 @@ Route::get('dokumen', [DokumenController::class, 'index'])->name('dokumen');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
 Route::get('pencapaian/{id}', [PencapaianController::class, 'show'])->name('detail-pencapaian');
+Route::get('berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('detail-berita', [BeritaController::class, 'index2'])->name('detail-berita');
 
 Route::get('/kontak', function () {
     return view('client.kontak');

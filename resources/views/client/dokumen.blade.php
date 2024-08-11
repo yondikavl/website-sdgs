@@ -13,27 +13,28 @@
             </div>
         </div>
         <div class="row mt-4">
-            @foreach($dokumens as $dokumen)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow">
-                    <img class="card-img-top" src="{{ asset('assets/img/' . $dokumen->gambar) }}" alt="VLR Kota Bandar Lampung 2024">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{$dokumen->judul}}</h5>
-                        <div class="mt-auto">
-                            <a class="btn btn-primary btn-block mb-2"
-                                href="{{ asset('assets/template/'. $dokumen->file) }}" target="_blank"
-                                download="{{ $dokumen->judul }}">
-                                <i class="fa fa-download"></i> Download
-                            </a>
-                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#previewModal"
-                                data-file="{{ asset('assets/template/'. $dokumen->file) }}">
-                                <i class="fa fa-eye"></i> Preview
-                            </button>
+            @foreach ($dokumens as $dokumen)
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow">
+                        <img class="card-img-top" src="{{ asset('assets/img/' . $dokumen->gambar) }}"
+                            alt="VLR Kota Bandar Lampung 2024">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $dokumen->judul }}</h5>
+                            <div class="mt-auto">
+                                <a class="btn btn-primary btn-block mb-2"
+                                    href="{{ asset('assets/template/' . $dokumen->file) }}" target="_blank"
+                                    download="{{ $dokumen->judul }}">
+                                    <i class="fa fa-download"></i> Download
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
+                                    data-target="#previewModal"
+                                    data-file="{{ asset('assets/template/' . $dokumen->file) }}">
+                                    <i class="fa fa-eye"></i> Preview
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
@@ -50,8 +51,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe id="previewFrame" src="" frameborder="0"
-                        style="width: 100%; height: 500px;"></iframe>
+                    <iframe id="previewFrame" src="" frameborder="0" style="width: 100%; height: 500px;"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

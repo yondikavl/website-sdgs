@@ -1,3 +1,13 @@
+<style>
+    .active {
+        font-weight: bold;
+    }
+
+    .active i {
+        color: green;
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-lg-5 shadow">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
@@ -36,10 +46,16 @@
                         <i class="fas fa-bullseye mr-1"></i> Tujuan SDGs
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('dokumen') ? 'active' : '' }}" href="/dokumen">
-                        <i class="fas fa-file-alt mr-1"></i> Dokumen
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('informasi*') ? 'active' : '' }}"
+                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fas fa-info-circle mr-1"></i> Informasi
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/berita"><i class="fas fa-globe mr-1"></i> Berita</a>
+                        <a class="dropdown-item" href="/dokumen"><i class="fas fa-file-alt mr-1"></i> Dokumen</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">
