@@ -157,6 +157,29 @@
                 </ul>
             </li>
             <li class="nav-item">
+                <a href="#" class="nav-link text-white">
+                    <i class="nav-icon fas fa-globe"></i>
+                    <p>
+                        Berita
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/super/berita/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Berita</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/super/berita/create/" class="nav-link text-white">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p><small>Tambah Data Berita</small></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                     @csrf
                 </form>
@@ -172,7 +195,8 @@
     </nav>
 @elseif (auth()->user()->roles_id == 2)
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+            data-accordion="false">
             <li class="nav-item">
                 <a href="/admin/dashboard/" class="nav-link text-white">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -252,16 +276,16 @@
                     </li>
                 </ul>
             </li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
-                    @csrf
-                </form>
-                <a href="#" class="nav-link text-white"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fas fa-sign-out"></i>
-                    <p>
-                        Logout
-                    </p>
-                </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                @csrf
+            </form>
+            <a href="#" class="nav-link text-white"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="nav-icon fas fa-sign-out"></i>
+                <p>
+                    Logout
+                </p>
+            </a>
             </li>
         </ul>
     </nav>
