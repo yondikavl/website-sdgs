@@ -94,6 +94,55 @@
             animation: slideInUp 1.5s ease-in-out;
         }
 
+        .cloud-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 700px;
+            height: auto;
+            z-index: 4;
+            animation: slideInUp 1s ease-in-out;
+        }
+
+        .cloud-left {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 700px;
+            height: auto;
+            z-index: 4;
+            animation: slideInUp 1s ease-in-out;
+        }
+
+        @keyframes moveCloudsLeft {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes moveCloudsRight {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .cloud-left {
+            animation: moveCloudsLeft 60s linear infinite;
+        }
+
+        .cloud-right {
+            animation: moveCloudsRight 60s linear infinite;
+        }
+
+
         #carousel:hover {
             filter: brightness(0.8);
         }
@@ -156,6 +205,14 @@
 
             .kota-img {
                 width: 100%;
+            }
+
+            .cloud-right {
+                width: 650px;
+            }
+
+            .cloud-left {
+                width: 650px;
             }
         }
 
@@ -226,9 +283,9 @@
 @section('content')
     <div class="">
         <div class="hero position-relative w-100 bg-success mt-4 mb-5">
-            <img src="./assets/img/sigeh.png" alt="" class="sigeh-img">
-            <img src="./assets/img/patung.png" alt="" class="patung-img">
-            <img src="./assets/img/kota.png" alt="" class="kota-img">
+            <img src="./assets/img/sigeh.png" alt="siger" class="sigeh-img">
+            <img src="./assets/img/patung.png" alt="patung" class="patung-img">
+            <img src="./assets/img/kota.png" alt="perkotaan" class="kota-img">
             <svg class="hero-left" width="625" height="507" viewBox="0 0 625 507" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <circle opacity="0.2" cx="-39.3984" cy="7.5" r="488.5" stroke="url(#paint0_linear_1102_85)"
@@ -257,6 +314,8 @@
                     Berdaya Saing
                     Berbasis Ekonomi untuk Kemakmuran Rakyat</p>
             </div>
+            <img src="./assets/img/cloud.png" alt="cloud" class="cloud-left">
+            <img src="./assets/img/cloud.png" alt="cloud" class="cloud-right">
         </div>
 
         <div class="container mb-5">
@@ -283,9 +342,9 @@
         <div class="container mb-5 scroll-animation">
             <div class="d-md-flex justify-content-between align-items-center mb-3">
                 <h3 class="text-base font-weight-bold">
-                    <i class="fas fa-info-circle mr-2" style="color: rgb(85, 85, 235)"></i> Informasi terbaru
+                    <i class="fas fa-info-circle mr-2" style="color: rgb(85, 85, 235)"></i> Kabar terbaru
                 </h3>
-                <a href="/berita" class="text-primary">Lihat informasi lainnya</a>
+                <a href="/berita" class="text-primary">Lihat berita lainnya</a>
             </div>
             <div class="row">
                 <a href="/detail-berita" class="col-md-4">
