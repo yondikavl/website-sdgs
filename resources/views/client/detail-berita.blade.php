@@ -40,12 +40,12 @@
                 <div id="blogCarousel" class="carousel slide my-5" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://via.placeholder.com/600x800" class="d-block w-100 rounded-lg" alt="Slide 1"
-                                style="max-height: 500px; object-fit: cover;">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="Slide 1"
+                                style="max-height: 500px; object-fit: cover; border-radius: 12px;">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://via.placeholder.com/600x800" class="d-block w-100 rounded-lg" alt="Slide 2"
-                                style="max-height: 500px; object-fit: cover;">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="Slide 2"
+                                style="max-height: 500px; object-fit: cover; border-radius: 12px;">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#blogCarousel"
@@ -60,7 +60,7 @@
                     </button>
                 </div>
 
-                <div class="card shadow-sm p-4">
+                <div class="card shadow-sm p-4" style="border-radius: 12px;">
                     <h1 class="my-3 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim vitae
                         laboriosam
                         quidem. Blanditiis excepturi, quia ratione qui nostrum explicabo similique ipsam neque dolor! Unde

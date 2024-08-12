@@ -35,8 +35,10 @@
         </defs>
     </svg>
 
-    <div class="container mt-5">
-        <h1 class="py-5 text-center">Berita SDGs Kota Bandar Lampung</h1>
+    <div class="container pt-5">
+        <div class="bg-primary my-5" style=" border-radius: 12px;">
+            <h1 class="text-center py-5 font-weight-bold text-xl">Berita SDGs Kota Bandar Lampung</h1>
+        </div>
         <div class="d-flex flex-wrap">
             <a href="/detail-berita" class="col-md-4">
                 <div class="card mb-4">

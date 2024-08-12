@@ -351,7 +351,7 @@
         </div>
 
         <div class="container mb-5 scroll-animation">
-            <div class="video-container">
+            <div class="video-container shadow-md">
                 <h2 class="font-weight-bold mx-auto">Dashboard SDGs Kota Bandar Lampung</h2>
                 <video controls>
                     <source src="{{ asset('assets/video/Video-SDGs-Kota-Bandar-Lampung.mp4') }}" type="video/mp4">

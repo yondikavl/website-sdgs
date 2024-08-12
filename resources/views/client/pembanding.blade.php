@@ -155,13 +155,9 @@
             </defs>
         </svg>
 
-        <div class="container">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-lg-12 mx-auto">
-                        <h1 class="text-center font-weight-bold pt-5">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
-                    </div>
-                </div>
+        <div class="container pt-5">
+            <div class="bg-primary my-5" style=" border-radius: 12px;">
+                <h1 class="text-center py-5 font-weight-bold text-xl">Analisis Pembanding SDGs Kota Bandar Lampung</h1>
             </div>
 
             <div class="form-container">

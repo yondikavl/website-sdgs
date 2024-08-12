@@ -110,86 +110,84 @@
             </defs>
         </svg>
 
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                    <h1 class="text-center font-weight-bold mt-5">Prediksi SDGs Kota Bandar Lampung</h1>
+        <div class="container pt-5">
+            <div class="bg-primary my-5" style="border-radius: 12px;">
+                <h1 class="text-center py-5 font-weight-bold text-xl">Prediksi SDGs Kota Bandar Lampung</h1>
+            </div>
+
+            <div class="card mb-5 py-4 bg-light" style=" border-radius: 12px;">
+                <div class="card mx-3 d-flex align-items-center justify-content-center">
+                    <form class="form-inline w-100 d-flex justify-content-around mx-3">
+                        <!-- Tujuan -->
+                        <div class="form-group m-2">
+                            <label for="tujuan_id" class="mr-2 d-flex">{{ __('Tujuan') }}</label>
+                            <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
+                                onchange="getIndikator(this.value)" required>
+                                <option value="">Pilih Peta Tujuan</option>
+                                @foreach ($tujuans as $tujuan)
+                                    <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Indikator -->
+                        <div class="form-group m-2">
+                            <label for="indikator_id" class="mr-2 d-flex">{{ __('Indikator') }}</label>
+                            <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
+                                onchange="getKecamatan(this.value)">
+                                <option value="">Pilih Indikator</option>
+                            </select>
+                        </div>
+
+                        <!-- Kecamatan -->
+                        <div class="form-group m-2">
+                            <label for="kecamatan_id" class="mr-2 d-flex">{{ __('Kecamatan') }}</label>
+                            <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
+                                onchange="updateChartAndTable()">
+                                <option value="">Pilih Kecamatan</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
+                    <h3 class="mx-5 mt-3" id="indikator_name">
+                        <p class="text-sm">Prediksi data indikator: <span id="indikator_value"></span></p>
+                    </h3>
+                </div>
+
+                <div class="container mb-5">
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <div class="container mb-3 d-flex align-items-center p-2 rounded-lg" style="background-color: #ece2bf">
+                    <i class="fas fa-info-circle mr-2" style="color: black;"></i>
+                    <div class="text-muted" style="font-size: 12px; color: black;">
+                        Prediksi yang ditampilkan adalah hasil analisis data historis dan hanya bersifat sebagai perkiraan.
+                        Hasil
+                        sebenarnya dapat bervariasi.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card container mb-5 py-4 bg-light" style=" border-radius: 12px;">
-            <div class="card mx-3 d-flex align-items-center justify-content-center">
-                <form class="form-inline w-100 d-flex justify-content-around mx-3">
-                    <!-- Tujuan -->
-                    <div class="form-group m-2">
-                        <label for="tujuan_id" class="mr-2 d-flex">{{ __('Tujuan') }}</label>
-                        <select class="form-control rounded-2" name="tujuan_id" id="tujuan_id"
-                            onchange="getIndikator(this.value)" required>
-                            <option value="">Pilih Peta Tujuan</option>
-                            @foreach ($tujuans as $tujuan)
-                                <option value="{{ $tujuan->id }}">{{ $tujuan->id }}. {{ $tujuan->nama_tujuan }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Indikator -->
-                    <div class="form-group m-2">
-                        <label for="indikator_id" class="mr-2 d-flex">{{ __('Indikator') }}</label>
-                        <select class="form-control rounded-2" id="indikator_id" name="indikator_id"
-                            onchange="getKecamatan(this.value)">
-                            <option value="">Pilih Indikator</option>
-                        </select>
-                    </div>
-
-                    <!-- Kecamatan -->
-                    <div class="form-group m-2">
-                        <label for="kecamatan_id" class="mr-2 d-flex">{{ __('Kecamatan') }}</label>
-                        <select class="form-control rounded-2" id="kecamatan_id" name="kecamatan_id"
-                            onchange="updateChartAndTable()">
-                            <option value="">Pilih Kecamatan</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-
-            <div class="d-flex justify-content-center align-items-center mx-auto mt-3">
-                <h3 class="mx-5 mt-3" id="indikator_name">
-                    <p class="text-sm">Prediksi data indikator: <span id="indikator_value"></span></p>
-                </h3>
-            </div>
-
-            <div class="container mb-5">
-                <canvas id="myChart"></canvas>
-            </div>
-
-            <div class="container mb-3 d-flex align-items-center p-2 rounded-lg" style="background-color: #ece2bf">
-                <i class="fas fa-info-circle mr-2" style="color: black;"></i>
-                <div class="text-muted" style="font-size: 12px; color: black;">
-                    Prediksi yang ditampilkan adalah hasil analisis data historis dan hanya bersifat sebagai perkiraan.
-                    Hasil
-                    sebenarnya dapat bervariasi.
+            <div class="card p-4 bg-light" style=" border-radius: 12px;">
+                <h2 class="text-center mb-3">Table Data Prediksi</h2>
+                <div class="mb-5 table-responsive mx-auto">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Tahun</th>
+                                <th>SD/Sederajat</th>
+                                <th>SMP/Sederajat</th>
+                                <th>SMA/Sederajat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be dynamically added here -->
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="card container p-4 bg-light" style=" border-radius: 12px;">
-            <h2 class="text-center mb-3">Table Data Prediksi</h2>
-            <div class="mb-5 table-responsive mx-auto">
-                <table id="dataTable">
-                    <thead>
-                        <tr>
-                            <th>Tahun</th>
-                            <th>SD/Sederajat</th>
-                            <th>SMP/Sederajat</th>
-                            <th>SMA/Sederajat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Rows will be dynamically added here -->
-                    </tbody>
-                </table>
             </div>
         </div>
 

@@ -33,12 +33,13 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f0f0f9;
         }
 
         main {
-            background-color: #f0f0f9;
+            background-color: #f0f0f900;
             opacity: 1;
-            background-image: radial-gradient(#99a9e3 0.8px, transparent 0.8px), radial-gradient(#99a9e3 0.8px, #f0f0f9 0.8px);
+            background-image: radial-gradient(#99a9e3 0.8px, transparent 0.8px), radial-gradient(#99a9e3 0.8px, #f0f0f900 0.8px);
             background-size: 32px 32px;
             background-position: 0 0, 16px 16px;
         }

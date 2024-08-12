@@ -21,14 +21,14 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+        <div class="collapse navbar-collapse p-2 p-md-2" id="navbarNav">
+            <ul class="navbar-nav ml-auto py-3 py-md-0">
+                <li class="nav-item py-2 py-md-0">
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">
                         <i class="fas fa-home mr-1"></i> Beranda
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown py-2 py-md-0">
                     <a class="nav-link dropdown-toggle {{ request()->is('dashboard*') ? 'active' : '' }}"
                         id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -41,12 +41,12 @@
                         <a class="dropdown-item" href="/prediksi"><i class="fas fa-chart-line mr-1"></i> Prediksi</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item py-2 py-md-0">
                     <a class="nav-link {{ request()->is('tujuan') ? 'active' : '' }}" href="/tujuan">
                         <i class="fas fa-bullseye mr-1"></i> Tujuan SDGs
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown py-2 py-md-0">
                     <a class="nav-link dropdown-toggle {{ request()->is('informasi*') ? 'active' : '' }}"
                         id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -57,7 +57,7 @@
                         <a class="dropdown-item" href="/dokumen"><i class="fas fa-file-alt mr-1"></i> Dokumen</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item py-2 py-md-0">
                     <a class="nav-link {{ request()->is('kontak') ? 'active' : '' }}" href="/kontak">
                         <i class="fas fa-envelope mr-1"></i> Kontak
                     </a>
