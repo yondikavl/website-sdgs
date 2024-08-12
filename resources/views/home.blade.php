@@ -289,7 +289,7 @@
             </div>
             <div class="row">
                 <a href="/detail-berita" class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="border-radius: 12px;">
                         <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
                             <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 1"
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
@@ -309,7 +309,7 @@
                 </a>
 
                 <a href="/detail-berita" class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="border-radius: 12px;">
                         <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
                             <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 2"
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
@@ -329,7 +329,7 @@
                 </a>
 
                 <a href="/detail-berita" class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="border-radius: 12px;">
                         <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
                             <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 3"
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
