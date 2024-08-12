@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PilarController;
 use App\Http\Controllers\Admin\PencapaianController;
@@ -15,7 +16,7 @@ use App\Http\Controllers\Admin\TujuanController;
 use App\Http\Controllers\Admin\IndikatorController;
 use App\Http\Controllers\Admin\DokumenSDGsController;
 use App\Http\Controllers\Client\BerandaController;
-use App\Http\Controllers\Client\BeritaController;
+use App\Http\Controllers\Client\ClientBeritaController;
 use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\GeospasialController;
 use App\Http\Controllers\Client\PembandingController;
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('indikator', IndikatorController::class);
         Route::resource('pencapaian', PencapaianController::class);
         Route::resource('dokumen', DokumenSDGsController::class);
+        Route::resource('berita', BeritaController::class);
     });
 
     // CMS ADMIN
@@ -96,8 +98,9 @@ Route::get('dokumen', [DokumenController::class, 'index'])->name('dokumen');
 Route::get('semua-target', [TargetController::class, 'index2'])->name('semua-target');
 Route::get('subindikator/{id}', [TargetController::class, 'show'])->name('detail-subindikator');
 Route::get('pencapaian/{id}', [PencapaianController::class, 'show'])->name('detail-pencapaian');
-Route::get('berita', [BeritaController::class, 'index'])->name('berita');
-Route::get('detail-berita', [BeritaController::class, 'index2'])->name('detail-berita');
+Route::get('/berita', [ClientBeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/{slug}', [ClientBeritaController::class, 'show'])->name('berita.show');
+
 
 Route::get('/kontak', function () {
     return view('client.kontak');

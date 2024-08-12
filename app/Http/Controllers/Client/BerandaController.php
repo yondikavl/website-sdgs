@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Models\Pilar;
 use App\Models\Tujuan;
+use App\Models\Berita;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class BerandaController extends Controller
     {
         $pilars = Pilar::all();
         $tujuans = Tujuan::all();
-        return view('home', compact('tujuans', 'pilars'));
+        $beritas = Berita::where('waktu_berita', '<=', date('d/m/Y'))->orderByDesc('waktu_berita')->limit(3)->get();
+        return view('home', compact('tujuans', 'pilars', 'beritas'));
     }
 
     public function show($id)

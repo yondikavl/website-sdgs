@@ -40,85 +40,26 @@
             <h1 class="text-center py-5 font-weight-bold text-xl">Berita SDGs Kota Bandar Lampung</h1>
         </div>
         <div class="d-flex flex-wrap">
-            <a href="/detail-berita" class="col-md-4">
-                <div class="card mb-4" style="border-radius: 12px;">
-                    <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
-                        <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 1"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            @foreach ($beritas as $berita)
+                <a href="{{ route('berita.show', $berita->slug_berita) }}" class="col-md-4">
+                    <div class="card mb-4" style="border-radius: 12px;">
+                        <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
+                            <img src="{{ asset('assets/img/' . $berita->gambar_berita) }}" class="card-img-top p-2" alt="{{ $berita->judul_berita }}"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">{!! Str::limit($berita->judul_berita, 50) !!}</h5>
+                                <p class="card-text text-truncate"
+                                    style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    {!! Str::limit($berita->konten_berita, 50) !!}
+                                </p>
+                            <p class="card-text">
+                                <small class="text-muted">Diposting pada {{ $berita->created_at->format('H:i') }} WIB - {{ $berita->created_at->format('d/m/Y') }} oleh Admin</small>
+                            </p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Judul Berita 1</h5>
-                        <p class="card-text text-truncate"
-                            style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                            Konten berita 1 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
-                            terlalu panjang.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">Diposting pada 11:11 WIB - 11/08/2024 oleh Author 1</small>
-                        </p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/detail-berita" class="col-md-4">
-                <div class="card mb-4" style="border-radius: 12px;">
-                    <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
-                        <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 2"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Judul Berita 2</h5>
-                        <p class="card-text text-truncate"
-                            style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                            Konten berita 2 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
-                            terlalu panjang.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">Diposting pada 11:11 WIB - 10/08/2024 oleh Author 2</small>
-                        </p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/detail-berita" class="col-md-4">
-                <div class="card mb-4" style="border-radius: 12px;">
-                    <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
-                        <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 3"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Judul Berita 3</h5>
-                        <p class="card-text text-truncate"
-                            style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                            Konten berita 3 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
-                            terlalu panjang.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">Diposting pada 11:11 WIB - 09/08/2024 oleh Author 3</small>
-                        </p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/detail-berita" class="col-md-4">
-                <div class="card mb-4" style="border-radius: 12px;">
-                    <div class="card-img-top-container" style="position: relative; width: 100%; padding-bottom: 75%;">
-                        <img src="./assets/img/booklet.png" class="card-img-top p-2" alt="Blog Image 3"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Judul Berita 3</h5>
-                        <p class="card-text text-truncate"
-                            style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                            Konten berita 3 ini hanya contoh untuk menampilkan bagaimana tampilan jika konten ini
-                            terlalu panjang.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">Diposting pada 11:11 WIB - 09/08/2024 oleh Author 3</small>
-                        </p>
-                    </div>
-                </div>
-            </a>
+                </a>
+            @endforeach
         </div>
     </div>
 
