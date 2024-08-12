@@ -34,6 +34,14 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
+        main {
+            background-color: #f0f0f9;
+            opacity: 1;
+            background-image: radial-gradient(#99a9e3 0.8px, transparent 0.8px), radial-gradient(#99a9e3 0.8px, #f0f0f9 0.8px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
     </style>
 
     @yield('style')

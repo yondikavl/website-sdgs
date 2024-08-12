@@ -60,28 +60,38 @@
                     </button>
                 </div>
 
-                <h1 class="my-5">Judul Berita</h1>
+                <div class="card shadow-sm p-4">
+                    <h1 class="my-3 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim vitae
+                        laboriosam
+                        quidem. Blanditiis excepturi, quia ratione qui nostrum explicabo similique ipsam neque dolor! Unde
+                        quae, saepe voluptates accusantium fugiat quia!</h1>
 
-                <div class="mb-3">
-                    <span class="text-muted">Diposting pada 11:11 WIB - 11/08/2024 oleh Author 1</span>
-                </div>
+                    <div class="mb-5">
+                        <span class="text-muted">Diposting pada 11:11 WIB - 11/08/2024 oleh Author 1</span>
+                    </div>
 
-                <div class="content mb-3 text-justify">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque erat et nisi volutpat, a
-                        congue eros facilisis. Ut at aliquam felis, nec venenatis lorem. Praesent vitae nibh ac velit
-                        commodo malesuada. Sed luctus posuere magna, in laoreet enim tristique a. Suspendisse et urna in
-                        purus viverra posuere. Vivamus id lacinia orci. Integer auctor, eros nec ultricies pellentesque,
-                        elit mi venenatis nulla, at pellentesque eros velit non ligula.</p>
+                    <div class="content mb-3 text-justify">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque erat et nisi
+                            volutpat, a
+                            congue eros facilisis. Ut at aliquam felis, nec venenatis lorem. Praesent vitae nibh ac velit
+                            commodo malesuada. Sed luctus posuere magna, in laoreet enim tristique a. Suspendisse et urna in
+                            purus viverra posuere. Vivamus id lacinia orci. Integer auctor, eros nec ultricies pellentesque,
+                            elit mi venenatis nulla, at pellentesque eros velit non ligula.</p>
 
-                    <p>Curabitur vestibulum felis in risus pretium, vel vehicula dui sollicitudin. Sed nec nunc non nisl
-                        aliquet venenatis. Morbi vel turpis mi. Ut suscipit convallis tincidunt. Curabitur ut nunc ac tortor
-                        volutpat convallis. Aliquam gravida metus quis nisl vehicula, ac lacinia metus volutpat. Vestibulum
-                        fermentum nisi nec tellus dapibus, vitae consequat quam lacinia.</p>
+                        <p>Curabitur vestibulum felis in risus pretium, vel vehicula dui sollicitudin. Sed nec nunc non nisl
+                            aliquet venenatis. Morbi vel turpis mi. Ut suscipit convallis tincidunt. Curabitur ut nunc ac
+                            tortor
+                            volutpat convallis. Aliquam gravida metus quis nisl vehicula, ac lacinia metus volutpat.
+                            Vestibulum
+                            fermentum nisi nec tellus dapibus, vitae consequat quam lacinia.</p>
 
-                    <p>Sed ut felis at urna efficitur aliquam. Proin ut mi nec augue malesuada vestibulum vel non erat.
-                        Fusce sagittis neque vel turpis gravida, sit amet dapibus eros convallis. Nulla facilisi. Integer et
-                        felis et libero vestibulum dignissim vel at odio. Pellentesque habitant morbi tristique senectus et
-                        netus et malesuada fames ac turpis egestas.</p>
+                        <p>Sed ut felis at urna efficitur aliquam. Proin ut mi nec augue malesuada vestibulum vel non erat.
+                            Fusce sagittis neque vel turpis gravida, sit amet dapibus eros convallis. Nulla facilisi.
+                            Integer et
+                            felis et libero vestibulum dignissim vel at odio. Pellentesque habitant morbi tristique senectus
+                            et
+                            netus et malesuada fames ac turpis egestas.</p>
+                    </div>
                 </div>
 
             </div>
